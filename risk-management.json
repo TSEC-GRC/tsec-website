@@ -1,0 +1,57 @@
+{
+  "category": "Risk Management",
+  "title": "Cybersecurity Risk Management",
+  "description": "Tools and frameworks for identifying, assessing, and managing cybersecurity and operational risks",
+  "resources": [
+    {
+      "id": "risk-001",
+      "title": "Cyber Risk Quantification Guide",
+      "type": "Guide",
+      "tier": "free",
+      "description": "Introduction to cyber risk quantification methodologies including FAIR (Factor Analysis of Information Risk) with worked examples.",
+      "topics": ["FAIR", "Risk Quantification", "Financial Impact", "Probability Modeling"],
+      "lastUpdated": "2024-06-15",
+      "downloadPath": "/docs/free/cyber-risk-quantification-guide.pdf"
+    },
+    {
+      "id": "risk-002",
+      "title": "Third-Party / Vendor Risk Management Playbook",
+      "type": "Playbook",
+      "tier": "free",
+      "description": "End-to-end vendor risk management playbook from initial onboarding due diligence through ongoing monitoring and offboarding procedures.",
+      "topics": ["TPRM", "Vendor Onboarding", "Due Diligence", "Continuous Monitoring"],
+      "lastUpdated": "2024-09-01",
+      "downloadPath": "/docs/free/vendor-risk-playbook.pdf"
+    },
+    {
+      "id": "risk-003",
+      "title": "Enterprise Risk Register Template",
+      "type": "Template",
+      "tier": "pro",
+      "description": "Excel-based enterprise risk register with built-in risk scoring matrix, heat map visualization, and board-level reporting dashboard.",
+      "topics": ["Risk Register", "Heat Map", "Risk Scoring", "Executive Reporting"],
+      "lastUpdated": "2024-10-15",
+      "downloadPath": "/docs/pro/enterprise-risk-register.xlsx"
+    },
+    {
+      "id": "risk-004",
+      "title": "Business Continuity & Disaster Recovery Framework",
+      "type": "Framework",
+      "tier": "pro",
+      "description": "BC/DR framework aligned with ISO 22301, including BIA template, recovery strategy development, and exercise planning guide.",
+      "topics": ["BC/DR", "ISO 22301", "BIA", "Recovery Objectives", "Tabletop Exercises"],
+      "lastUpdated": "2024-11-10",
+      "downloadPath": "/docs/pro/bcdr-framework.zip"
+    },
+    {
+      "id": "risk-005",
+      "title": "Executive Cyber Risk Dashboard & Reporting Kit",
+      "type": "Toolkit",
+      "tier": "enterprise",
+      "description": "Board and C-suite ready cyber risk reporting kit with KRI/KPI definitions, scorecard templates, and narrative reporting guidance.",
+      "topics": ["Board Reporting", "KRIs", "Risk Appetite", "Risk Tolerance", "Executive Dashboard"],
+      "lastUpdated": "2024-12-08",
+      "downloadPath": "/docs/enterprise/exec-cyber-risk-kit.zip"
+    }
+  ]
+}

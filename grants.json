@@ -1,0 +1,67 @@
+{
+  "category": "Grants",
+  "title": "Grants & Funding Opportunities",
+  "description": "Federal, state, and private funding sources available for cybersecurity improvement initiatives",
+  "resources": [
+    {
+      "id": "grant-001",
+      "title": "CISA Cybersecurity Grant Program Guide",
+      "type": "Guide",
+      "tier": "free",
+      "description": "Overview of CISA's State and Local Cybersecurity Grant Program (SLCGP) including eligibility, application process, and allowable uses of funds.",
+      "topics": ["SLCGP", "State & Local", "CISA Grants", "Application Process"],
+      "lastUpdated": "2024-07-01",
+      "deadline": "Rolling",
+      "funding": "Up to $1B (FY2022-2025)",
+      "downloadPath": "/docs/free/cisa-grant-guide.pdf"
+    },
+    {
+      "id": "grant-002",
+      "title": "SBA Cybersecurity Assistance Programs",
+      "type": "Guide",
+      "tier": "free",
+      "description": "Summary of Small Business Administration resources for small business cybersecurity improvement including free tools, training, and financial assistance programs.",
+      "topics": ["Small Business", "SBA", "Free Tools", "Financial Assistance"],
+      "lastUpdated": "2024-09-10",
+      "deadline": "Ongoing",
+      "funding": "Varies",
+      "downloadPath": "/docs/free/sba-cybersecurity-programs.pdf"
+    },
+    {
+      "id": "grant-003",
+      "title": "Healthcare Cybersecurity Funding Opportunities",
+      "type": "Report",
+      "tier": "pro",
+      "description": "Curated list of HHS, state health department, and private foundation funding opportunities for healthcare cybersecurity improvements, updated quarterly.",
+      "topics": ["Healthcare", "HHS Grants", "HIPAA Compliance Funding", "Health IT Security"],
+      "lastUpdated": "2024-12-01",
+      "deadline": "Multiple",
+      "funding": "Various",
+      "downloadPath": "/docs/pro/healthcare-cyber-funding.pdf"
+    },
+    {
+      "id": "grant-004",
+      "title": "Financial Services Cybersecurity Investment Justification Template",
+      "type": "Template",
+      "tier": "pro",
+      "description": "Business case template for justifying cybersecurity investments to board and C-suite, including ROI calculation models and regulatory penalty cost analysis.",
+      "topics": ["Business Case", "ROI", "Investment Justification", "Board Presentation"],
+      "lastUpdated": "2024-10-20",
+      "deadline": "N/A",
+      "funding": "Internal",
+      "downloadPath": "/docs/pro/cyber-investment-justification.xlsx"
+    },
+    {
+      "id": "grant-005",
+      "title": "Enterprise Grant Pursuit Strategy",
+      "type": "Strategy Guide",
+      "tier": "enterprise",
+      "description": "Strategic guide for enterprises seeking cybersecurity grants and funding, including grant writing best practices, compliance requirements, and reporting templates.",
+      "topics": ["Grant Strategy", "Grant Writing", "Federal Compliance", "Reporting"],
+      "lastUpdated": "2024-11-15",
+      "deadline": "Ongoing",
+      "funding": "Multiple sources",
+      "downloadPath": "/docs/enterprise/enterprise-grant-strategy.pdf"
+    }
+  ]
+}

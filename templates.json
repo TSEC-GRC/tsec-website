@@ -1,0 +1,73 @@
+{
+  "category": "Templates",
+  "title": "Policy & Documentation Templates",
+  "description": "Ready-to-use policy templates, procedures, and documentation to accelerate your GRC program",
+  "resources": [
+    {
+      "id": "tmpl-001",
+      "title": "Information Security Policy Suite (Core 10)",
+      "type": "Policy Templates",
+      "tier": "free",
+      "description": "The 10 foundational information security policies every organization needs: Acceptable Use, Access Control, Incident Response, Change Management, and more.",
+      "topics": ["Information Security Policy", "Acceptable Use", "Access Control", "Incident Response"],
+      "lastUpdated": "2024-08-15",
+      "format": "Word / PDF",
+      "downloadPath": "/docs/free/core-10-security-policies.zip"
+    },
+    {
+      "id": "tmpl-002",
+      "title": "Incident Response Plan Template",
+      "type": "Plan Template",
+      "tier": "free",
+      "description": "Comprehensive incident response plan template aligned with NIST SP 800-61r2, covering preparation, detection, containment, eradication, and recovery phases.",
+      "topics": ["Incident Response", "NIST 800-61", "Playbooks", "Communication Plan"],
+      "lastUpdated": "2024-09-20",
+      "format": "Word / PDF",
+      "downloadPath": "/docs/free/incident-response-plan.docx"
+    },
+    {
+      "id": "tmpl-003",
+      "title": "NIST CSF Gap Assessment Workbook",
+      "type": "Workbook",
+      "tier": "pro",
+      "description": "Excel workbook for conducting a structured gap assessment against NIST CSF 2.0 with automated scoring, heat maps, and remediation roadmap builder.",
+      "topics": ["NIST CSF 2.0", "Gap Analysis", "Maturity Scoring", "Roadmap"],
+      "lastUpdated": "2024-11-30",
+      "format": "Excel",
+      "downloadPath": "/docs/pro/nist-csf-gap-workbook.xlsx"
+    },
+    {
+      "id": "tmpl-004",
+      "title": "Vendor Security Assessment Questionnaire (VSAQ)",
+      "type": "Questionnaire",
+      "tier": "pro",
+      "description": "150-question vendor security assessment questionnaire covering cloud security, data handling, access controls, incident response, and compliance certifications.",
+      "topics": ["TPRM", "Vendor Questionnaire", "Cloud Security", "Due Diligence"],
+      "lastUpdated": "2024-10-10",
+      "format": "Excel / Word",
+      "downloadPath": "/docs/pro/vendor-security-questionnaire.zip"
+    },
+    {
+      "id": "tmpl-005",
+      "title": "Board Cybersecurity Reporting Package",
+      "type": "Reporting Templates",
+      "tier": "enterprise",
+      "description": "Complete board reporting package including quarterly cybersecurity scorecard, risk dashboard, incident summary template, and narrative guidance for the CISO.",
+      "topics": ["Board Reporting", "CISO Report", "Risk Dashboard", "Scorecard"],
+      "lastUpdated": "2024-12-05",
+      "format": "PowerPoint / Excel",
+      "downloadPath": "/docs/enterprise/board-cyber-reporting.zip"
+    },
+    {
+      "id": "tmpl-006",
+      "title": "Data Privacy & GDPR Policy Pack",
+      "type": "Policy Pack",
+      "tier": "enterprise",
+      "description": "Comprehensive data privacy policy pack covering GDPR, CCPA, and emerging US state privacy laws with data mapping template and DPIA methodology.",
+      "topics": ["GDPR", "CCPA", "Privacy Policy", "DPIA", "Data Mapping"],
+      "lastUpdated": "2024-11-20",
+      "format": "Word / PDF",
+      "downloadPath": "/docs/enterprise/data-privacy-policy-pack.zip"
+    }
+  ]
+}

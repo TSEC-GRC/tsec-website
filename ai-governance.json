@@ -1,0 +1,57 @@
+{
+  "category": "AI Governance",
+  "title": "AI Governance & Risk Management",
+  "description": "Resources for managing artificial intelligence risks, governance frameworks, and emerging AI regulations",
+  "resources": [
+    {
+      "id": "ai-001",
+      "title": "NIST AI Risk Management Framework (AI RMF) Overview",
+      "type": "Guide",
+      "tier": "free",
+      "description": "Plain-language overview of the NIST AI RMF 1.0 — Govern, Map, Measure, and Manage functions — with practical application examples.",
+      "topics": ["NIST AI RMF", "AI Risk", "Trustworthy AI", "AI Lifecycle"],
+      "lastUpdated": "2024-07-10",
+      "downloadPath": "/docs/free/nist-ai-rmf-overview.pdf"
+    },
+    {
+      "id": "ai-002",
+      "title": "EU AI Act Readiness Checklist",
+      "type": "Checklist",
+      "tier": "free",
+      "description": "Structured checklist to assess your organization's readiness for the EU Artificial Intelligence Act, covering high-risk AI system requirements.",
+      "topics": ["EU AI Act", "High-Risk AI", "Conformity Assessment", "GDPR Intersection"],
+      "lastUpdated": "2024-10-05",
+      "downloadPath": "/docs/free/eu-ai-act-checklist.pdf"
+    },
+    {
+      "id": "ai-003",
+      "title": "AI Model Risk Management Policy Template",
+      "type": "Template",
+      "tier": "pro",
+      "description": "Board-ready AI model risk management policy aligned with SR 11-7 guidance, covering validation, monitoring, and governance requirements.",
+      "topics": ["Model Risk", "SR 11-7", "Model Validation", "Model Inventory"],
+      "lastUpdated": "2024-11-20",
+      "downloadPath": "/docs/pro/ai-model-risk-policy.docx"
+    },
+    {
+      "id": "ai-004",
+      "title": "Generative AI Third-Party Risk Assessment",
+      "type": "Assessment",
+      "tier": "pro",
+      "description": "Vendor due diligence questionnaire and risk assessment framework tailored to generative AI tools and large language model (LLM) providers.",
+      "topics": ["GenAI", "LLM Risk", "Third-Party Risk", "Data Privacy"],
+      "lastUpdated": "2024-12-05",
+      "downloadPath": "/docs/pro/genai-third-party-assessment.pdf"
+    },
+    {
+      "id": "ai-005",
+      "title": "Enterprise AI Governance Program",
+      "type": "Framework",
+      "tier": "enterprise",
+      "description": "Comprehensive enterprise AI governance program covering AI ethics board charter, use-case review process, bias testing protocols, and incident response.",
+      "topics": ["AI Ethics", "Governance Board", "Bias Testing", "AI Incident Response"],
+      "lastUpdated": "2024-12-10",
+      "downloadPath": "/docs/enterprise/enterprise-ai-governance.zip"
+    }
+  ]
+}
