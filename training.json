@@ -1,0 +1,57 @@
+{
+  "category": "Training",
+  "title": "Security Awareness & Professional Training",
+  "description": "Training materials and programs to build a security-aware culture and develop GRC professional skills",
+  "resources": [
+    {
+      "id": "train-001",
+      "title": "Phishing Awareness Training Module",
+      "type": "Training Module",
+      "tier": "free",
+      "description": "Ready-to-deploy phishing awareness training module covering identification techniques, reporting procedures, and simulated phishing scenarios.",
+      "topics": ["Phishing", "Social Engineering", "Security Awareness", "Reporting"],
+      "lastUpdated": "2024-08-20",
+      "downloadPath": "/docs/free/phishing-awareness-training.pdf"
+    },
+    {
+      "id": "train-002",
+      "title": "NIST CSF 2.0 Practitioner Course Materials",
+      "type": "Course Materials",
+      "tier": "free",
+      "description": "Comprehensive course materials for NIST Cybersecurity Framework 2.0 covering the new Govern function and updated subcategories.",
+      "topics": ["NIST CSF 2.0", "Govern", "Identify", "Protect", "Detect", "Respond", "Recover"],
+      "lastUpdated": "2024-05-30",
+      "downloadPath": "/docs/free/nist-csf-2-course.pdf"
+    },
+    {
+      "id": "train-003",
+      "title": "GRC Analyst Certification Prep Kit",
+      "type": "Study Kit",
+      "tier": "pro",
+      "description": "Study materials and practice exams for major GRC certifications including CISA, CRISC, CGEIT, and ISO 27001 Lead Implementer.",
+      "topics": ["CISA", "CRISC", "CGEIT", "ISO 27001 Lead Implementer", "Practice Exams"],
+      "lastUpdated": "2024-11-25",
+      "downloadPath": "/docs/pro/grc-cert-prep-kit.zip"
+    },
+    {
+      "id": "train-004",
+      "title": "Board Cybersecurity Literacy Workshop",
+      "type": "Workshop Kit",
+      "tier": "pro",
+      "description": "Facilitation guide and presentation deck for delivering a board-level cybersecurity literacy workshop covering governance roles, risk oversight, and incident response.",
+      "topics": ["Board Education", "Governance", "Cyber Oversight", "Director Responsibilities"],
+      "lastUpdated": "2024-10-01",
+      "downloadPath": "/docs/pro/board-cyber-workshop.zip"
+    },
+    {
+      "id": "train-005",
+      "title": "Enterprise Security Culture Program",
+      "type": "Program",
+      "tier": "enterprise",
+      "description": "Annual security awareness program framework including role-based training tracks, metrics and measurement, gamification strategies, and executive reporting.",
+      "topics": ["Security Culture", "Role-Based Training", "Metrics", "Gamification", "Annual Program"],
+      "lastUpdated": "2024-12-01",
+      "downloadPath": "/docs/enterprise/security-culture-program.zip"
+    }
+  ]
+}

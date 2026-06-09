@@ -1,0 +1,57 @@
+{
+  "category": "Compliance",
+  "title": "Compliance Frameworks & Standards",
+  "description": "Resources to help your organization achieve and maintain compliance with key regulatory frameworks",
+  "resources": [
+    {
+      "id": "comp-001",
+      "title": "ISO 27001 Implementation Guide",
+      "type": "Guide",
+      "tier": "free",
+      "description": "Step-by-step guide to implementing an Information Security Management System (ISMS) aligned with ISO 27001:2022.",
+      "topics": ["ISMS", "Risk Assessment", "Controls", "Certification"],
+      "lastUpdated": "2024-11-01",
+      "downloadPath": "/docs/free/iso27001-implementation-guide.pdf"
+    },
+    {
+      "id": "comp-002",
+      "title": "NYDFS Part 500 Compliance Checklist",
+      "type": "Checklist",
+      "tier": "free",
+      "description": "Comprehensive checklist covering all requirements of the NYDFS Cybersecurity Regulation (23 NYCRR 500) including the 2023 amendments.",
+      "topics": ["NYDFS", "Cybersecurity Program", "MFA", "CISO", "Penetration Testing"],
+      "lastUpdated": "2024-09-15",
+      "downloadPath": "/docs/free/nydfs-part500-checklist.pdf"
+    },
+    {
+      "id": "comp-003",
+      "title": "SOC 2 Readiness Assessment",
+      "type": "Assessment",
+      "tier": "pro",
+      "description": "Detailed readiness assessment template to evaluate your organization's alignment with SOC 2 Trust Services Criteria before engaging an auditor.",
+      "topics": ["Trust Services Criteria", "Security", "Availability", "Confidentiality"],
+      "lastUpdated": "2024-10-20",
+      "downloadPath": "/docs/pro/soc2-readiness-assessment.pdf"
+    },
+    {
+      "id": "comp-004",
+      "title": "HIPAA Security Rule Compliance Toolkit",
+      "type": "Toolkit",
+      "tier": "pro",
+      "description": "Complete HIPAA Security Rule toolkit including policies, procedures, risk analysis template, and workforce training materials.",
+      "topics": ["PHI", "Administrative Safeguards", "Physical Safeguards", "Technical Safeguards"],
+      "lastUpdated": "2024-08-30",
+      "downloadPath": "/docs/pro/hipaa-security-toolkit.zip"
+    },
+    {
+      "id": "comp-005",
+      "title": "Enterprise Compliance Program Framework",
+      "type": "Framework",
+      "tier": "enterprise",
+      "description": "Enterprise-grade compliance program framework covering multi-framework alignment (ISO 27001, SOC 2, NYDFS, HIPAA) with governance model.",
+      "topics": ["Multi-Framework", "Governance", "Board Reporting", "Audit Management"],
+      "lastUpdated": "2024-12-01",
+      "downloadPath": "/docs/enterprise/enterprise-compliance-framework.pdf"
+    }
+  ]
+}
