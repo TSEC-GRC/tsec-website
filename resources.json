@@ -1,1 +1,71 @@
+{
+  "free": {
+    "compliance-frameworks": [
+      {
+        "name": "SOC 2 Readiness Checklist",
+        "file": "free/compliance-frameworks/SOC2_Readiness_Checklist.pdf"
+      },
+      {
+        "name": "NYDFS Cybersecurity Mapping",
+        "file": "free/compliance-frameworks/NYDFS_Cybersecurity_Framework_Mapping.pdf"
+      },
+      {
+        "name": "NYDFS Readiness Checklist",
+        "file": "free/compliance-frameworks/NYDFS_Readiness_Checklist.pdf"
+      },
+      {
+        "name": "AML Compliance Checklist",
+        "file": "free/compliance-frameworks/AML_Compliance_Checklist.pdf"
+      },
+      {
+        "name": "HIPAA Security Checklist",
+        "file": "free/compliance-frameworks/HIPAA_Security_Checklist.pdf"
+      },
+      {
+        "name": "NIST CSF Implementation Guide (TSEC)",
+        "file": "free/compliance-frameworks/NIST_CSF_Implementation_Guide_TSEC.pdf"
+      }
+    ],
+    "risk-management": [
+      {
+        "name": "Vendor Risk Questionnaire (Lite)",
+        "file": "free/risk-management/Vendor_Risk_Questionnaire_Lite.pdf"
+      },
+      {
+        "name": "Security Awareness Checklist",
+        "file": "free/risk-management/Security_Awareness_Checklist.pdf"
+      }
+    ],
+    "ai-governance": [
+      {
+        "name": "AI Governance Basics (SMBs)",
+        "file": "free/ai-governance/AI_Governance_Basics_for_SMBs.pdf"
+      },
+      {
+        "name": "AI Risk Checklist",
+        "file": "free/ai-governance/AI_Risk_Checklist.pdf"
+      },
+      {
+        "name": "Responsible AI Principles",
+        "file": "free/ai-governance/Responsible_AI_Principles.pdf"
+      }
+    ]
+  },
 
+  "premium": {
+    "compliance-frameworks": {
+      "iso27001": [],
+      "soc2": [],
+      "nydfs": [],
+      "hipaa": []
+    },
+    "risk-management": [],
+    "ai-governance": []
+  },
+
+  "enterprise": {
+    "compliance-frameworks": [],
+    "risk-management": [],
+    "ai-governance": []
+  }
+}
