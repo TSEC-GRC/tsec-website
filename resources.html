@@ -223,7 +223,7 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
           <li>Introductory guides</li>
           <li>Training module samples</li>
         </ul>
-        <a href="mailto:Info@tsecgrc.com" class="tier-cta">Access Free Resources →</a>
+        <a href="#resources-section" class="tier-cta">Browse Free Resources →</a>
       </div>
       <div class="tier-card pro">
         <div class="tier-card-icon">
@@ -237,7 +237,7 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
           <li>Vendor assessment questionnaires</li>
           <li>Certification prep materials</li>
         </ul>
-        <a href="mailto:Info@tsecgrc.com" class="tier-cta">Request Pro Access →</a>
+        <a href="contact.html?tier=pro" class="tier-cta">Request Pro Access →</a>
       </div>
       <div class="tier-card enterprise">
         <div class="tier-card-icon">
@@ -251,7 +251,7 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
           <li>Custom policy development</li>
           <li>TSEC advisor consultation</li>
         </ul>
-        <a href="mailto:Info@tsecgrc.com" class="tier-cta">Contact Enterprise Team →</a>
+        <a href="contact.html?tier=enterprise" class="tier-cta">Contact Enterprise Team →</a>
       </div>
     </div>
   </div>
@@ -370,10 +370,28 @@ function renderCard(item) {
       </div>
       <div class="rc-footer">
         <span class="rc-date">Updated ${new Date(item.updated).toLocaleDateString('en-US', {month:'short',year:'numeric'})}</span>
-        <a href="mailto:Info@tsecgrc.com?subject=Resource Request: ${encodeURIComponent(item.title)}" class="rc-download">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          ${item.tier === 'free' ? 'Download' : 'Request Access'}
-        </a>
+        ${item.tier === 'free'
+  ? `
+    <a href="${item.downloadPath}" class="rc-download" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download
+    </a>
+  `
+  : `
+    <a href="mailto:Info@tsecgrc.com?subject=Resource Request: ${encodeURIComponent(item.title)}" class="rc-download">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Request Access
+    </a>
+  `
+}
       </div>
     </article>`;
 }
