@@ -11,7 +11,7 @@
 "description": "Foundational checklist to assess readiness against SOC 2 Trust Services Criteria.",
 "topics": ["SOC 2", "Security", "Readiness", "Compliance"],
 "lastUpdated": "2026-06-14",
-"downloadPath": "/tsec-resources/free/compliance-frameworks/SOC2_Readiness_Checklist.pdf"
+"downloadPath": "https://raw.githubusercontent.com/TSEC-GRC/tsec-resources/free/compliance-frameworks/SOC2_Readiness_Checklist.pdf"
 },
 {
 "id": "comp-002",
