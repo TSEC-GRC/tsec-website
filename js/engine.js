@@ -64,11 +64,18 @@ const TSECEngine = {
     // Lead Modal
     // ===============================
 
-    openLeadModal() {
+   openLeadModal() {
 
-        console.log("Opening Lead Capture Modal...");
+    const modal = document.getElementById("tsecLeadModal");
 
-    },
+    if (!modal) {
+        console.error("TSEC Lead Modal not found");
+        return;
+    }
+
+    modal.style.display = "flex";
+
+},
 
     closeLeadModal() {
 
