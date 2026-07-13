@@ -674,6 +674,180 @@ applyFilters();
   color: #ffffff;
 }
 </style>
+
+<!-- =====================================================
+     TSEC LEAD CAPTURE MODAL
+===================================================== -->
+
+<div id="tsecLeadModal" class="tsec-modal">
+
+    <div class="tsec-modal-content">
+
+        <button 
+        class="tsec-modal-close"
+        onclick="TSECEngine.closeLeadModal()">
+        ×
+        </button>
+
+
+        <h2>
+        Access TSEC Resources
+        </h2>
+
+
+        <p>
+        Complete your information to access cybersecurity and compliance resources.
+        </p>
+
+
+        <form id="tsecLeadForm">
+
+
+            <input 
+            type="text"
+            id="leadFirstName"
+            placeholder="First Name"
+            required>
+
+
+            <input 
+            type="text"
+            id="leadLastName"
+            placeholder="Last Name"
+            required>
+
+
+            <input 
+            type="text"
+            id="leadCompany"
+            placeholder="Company"
+            required>
+
+
+            <input 
+            type="text"
+            id="leadRole"
+            placeholder="Role">
+
+
+            <input 
+            type="email"
+            id="leadEmail"
+            placeholder="Business Email"
+            required>
+
+
+            <label>
+            <input 
+            type="checkbox"
+            required>
+            I agree to receive TSEC updates and resources.
+            </label>
+
+
+            <button type="submit">
+            Continue
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+<style>
+
+.tsec-modal {
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:9999;
+
+}
+
+
+.tsec-modal-content {
+
+    background:#0f172a;
+
+    color:white;
+
+    width:420px;
+
+    max-width:90%;
+
+    padding:30px;
+
+    border-radius:14px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+
+}
+
+
+.tsec-modal-content input {
+
+    width:100%;
+
+    margin:8px 0;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:1px solid #334155;
+
+}
+
+
+.tsec-modal-content button {
+
+    margin-top:15px;
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    background:#4fc3f7;
+
+    border:none;
+
+    font-weight:600;
+
+}
+
+
+.tsec-modal-close {
+
+    float:right;
+
+    width:auto!important;
+
+    background:none!important;
+
+    color:white;
+
+    font-size:24px;
+
+}
+
+</style>
+
   
 </body>
 </html>
