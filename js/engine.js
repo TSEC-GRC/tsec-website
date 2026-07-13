@@ -79,9 +79,13 @@ const TSECEngine = {
 
     closeLeadModal() {
 
-        console.log("Closing Modal");
+    const modal = document.getElementById("tsecLeadModal");
 
-    },
+    if(modal){
+        modal.style.display="none";
+    }
+
+},
 
     // ===============================
     // Email Validation
