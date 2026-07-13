@@ -1,57 +1,128 @@
 {
   "category": "AI Governance",
   "title": "AI Governance & Risk Management",
-  "description": "Resources for managing artificial intelligence risks, governance frameworks, and emerging AI regulations",
+  "description": "Free resources for managing artificial intelligence risks, governance frameworks, security practices, and emerging AI regulations.",
+
   "resources": [
+
     {
       "id": "ai-001",
-      "title": "NIST AI Risk Management Framework (AI RMF) Overview",
-      "type": "Guide",
-      "tier": "free",
-      "description": "Plain-language overview of the NIST AI RMF 1.0 — Govern, Map, Measure, and Manage functions — with practical application examples.",
-      "topics": ["NIST AI RMF", "AI Risk", "Trustworthy AI", "AI Lifecycle"],
-      "lastUpdated": "2024-07-10",
-      "downloadPath": "/docs/free/nist-ai-rmf-overview.pdf"
-    },
-    {
-      "id": "ai-002",
-      "title": "EU AI Act Readiness Checklist",
+      "title": "AI Governance Readiness Checklist",
       "type": "Checklist",
       "tier": "free",
-      "description": "Structured checklist to assess your organization's readiness for the EU Artificial Intelligence Act, covering high-risk AI system requirements.",
-      "topics": ["EU AI Act", "High-Risk AI", "Conformity Assessment", "GDPR Intersection"],
-      "lastUpdated": "2024-10-05",
-      "downloadPath": "/docs/free/eu-ai-act-checklist.pdf"
+      "description": "Assess your organization's readiness to establish an AI governance program aligned with recognized risk management practices.",
+      "topics": [
+        "AI Governance",
+        "AI Risk Management",
+        "NIST AI RMF",
+        "Responsible AI"
+      ],
+      "lastUpdated": "2026-07-13",
+      "downloadPath": "downloads/free/ai-governance/AI_Governance_Readiness_Checklist.pdf",
+      "price": 0,
+      "action": "download",
+      "relatedProduct": "AI Governance Assessment Toolkit"
     },
+
+
+    {
+      "id": "ai-002",
+      "title": "AI Risk Assessment Checklist",
+      "type": "Checklist",
+      "tier": "free",
+      "description": "Identify, evaluate, and document artificial intelligence risks across business processes, models, data, and third-party AI services.",
+      "topics": [
+        "AI Risk",
+        "Risk Assessment",
+        "AI Controls",
+        "Governance"
+      ],
+      "lastUpdated": "2026-07-13",
+      "downloadPath": "downloads/free/ai-governance/AI_Risk_Assessment_Checklist.pdf",
+      "price": 0,
+      "action": "download",
+      "relatedProduct": "AI Risk Register + Scoring Workbook"
+    },
+
+
     {
       "id": "ai-003",
-      "title": "AI Model Risk Management Policy Template",
-      "type": "Template",
-      "tier": "pro",
-      "description": "Board-ready AI model risk management policy aligned with SR 11-7 guidance, covering validation, monitoring, and governance requirements.",
-      "topics": ["Model Risk", "SR 11-7", "Model Validation", "Model Inventory"],
-      "lastUpdated": "2024-11-20",
-      "downloadPath": "/docs/pro/ai-model-risk-policy.docx"
+      "title": "Generative AI Security Best Practices",
+      "type": "Guide",
+      "tier": "free",
+      "description": "Security guidance for organizations adopting generative AI tools, including data protection, access control, and usage risks.",
+      "topics": [
+        "Generative AI",
+        "AI Security",
+        "Data Protection",
+        "LLM Security"
+      ],
+      "lastUpdated": "2026-07-13",
+      "downloadPath": "downloads/free/ai-governance/Generative_AI_Security_Best_Practices.pdf",
+      "price": 0,
+      "action": "download",
+      "relatedProduct": "GenAI Security Policy Pack"
     },
+
+
     {
       "id": "ai-004",
-      "title": "Generative AI Third-Party Risk Assessment",
-      "type": "Assessment",
-      "tier": "pro",
-      "description": "Vendor due diligence questionnaire and risk assessment framework tailored to generative AI tools and large language model (LLM) providers.",
-      "topics": ["GenAI", "LLM Risk", "Third-Party Risk", "Data Privacy"],
-      "lastUpdated": "2024-12-05",
-      "downloadPath": "/docs/pro/genai-third-party-assessment.pdf"
+      "title": "AI Vendor Due Diligence Checklist",
+      "type": "Checklist",
+      "tier": "free",
+      "description": "Evaluate AI vendors and third-party AI providers through security, privacy, compliance, and risk management criteria.",
+      "topics": [
+        "Third-Party Risk",
+        "Vendor Management",
+        "AI Security",
+        "Privacy"
+      ],
+      "lastUpdated": "2026-07-13",
+      "downloadPath": "downloads/free/ai-governance/AI_Vendor_Due_Diligence_Checklist.pdf",
+      "price": 0,
+      "action": "download",
+      "relatedProduct": "AI Third-Party Risk Toolkit"
     },
+
+
     {
       "id": "ai-005",
-      "title": "Enterprise AI Governance Program",
-      "type": "Framework",
-      "tier": "enterprise",
-      "description": "Comprehensive enterprise AI governance program covering AI ethics board charter, use-case review process, bias testing protocols, and incident response.",
-      "topics": ["AI Ethics", "Governance Board", "Bias Testing", "AI Incident Response"],
-      "lastUpdated": "2024-12-10",
-      "downloadPath": "/docs/enterprise/enterprise-ai-governance.zip"
+      "title": "AI Governance Roadmap",
+      "type": "Roadmap",
+      "tier": "free",
+      "description": "Practical roadmap to design and implement an AI governance program including policies, roles, processes, and controls.",
+      "topics": [
+        "AI Strategy",
+        "Governance Framework",
+        "AI Controls",
+        "Implementation"
+      ],
+      "lastUpdated": "2026-07-13",
+      "downloadPath": "downloads/free/ai-governance/AI_Governance_Roadmap.pdf",
+      "price": 0,
+      "action": "download",
+      "relatedProduct": "AI Governance Implementation Kit"
+    },
+
+
+    {
+      "id": "ai-006",
+      "title": "AI Prompt Security Guide",
+      "type": "Guide",
+      "tier": "free",
+      "description": "Security guidance for protecting organizations from prompt-related risks, data leakage, and unsafe generative AI usage.",
+      "topics": [
+        "Prompt Security",
+        "Generative AI",
+        "AI Usage",
+        "Security Awareness"
+      ],
+      "lastUpdated": "2026-07-13",
+      "downloadPath": "downloads/free/ai-governance/AI_Prompt_Security_Guide.pdf",
+      "price": 0,
+      "action": "download",
+      "relatedProduct": "AI Acceptable Use & Prompt Security Pack"
     }
+
   ]
 }
