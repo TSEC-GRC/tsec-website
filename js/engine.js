@@ -227,9 +227,12 @@ submitLead() {
 
     downloadFree() {
 
-        console.log("Downloading Free Resource");
+       console.log(
+           "Downloading Free Resource:",
+           this.currentResource
+       );
 
-    },
+   },
 
     // ===============================
     // PRO
@@ -237,9 +240,12 @@ submitLead() {
 
     checkout() {
 
-        console.log("Redirecting to Checkout");
+    console.log(
+        "PRO CHECKOUT REQUEST:",
+        this.currentResource
+    );
 
-    },
+},
 
     // ===============================
     // ENTERPRISE
@@ -247,11 +253,12 @@ submitLead() {
 
     requestAccess() {
 
-        console.log("Opening Enterprise Request");
+    console.log(
+        "ENTERPRISE REQUEST:",
+        this.currentResource
+    );
 
-    }
-
-};
+},
 
 // ======================================
 // Start Engine
