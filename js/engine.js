@@ -128,6 +128,70 @@ const TSECEngine = {
 
 },
 
+submitLead() {
+
+
+    const lead = {
+
+
+        firstName:
+        document.getElementById("leadFirstName").value,
+
+
+        lastName:
+        document.getElementById("leadLastName").value,
+
+
+        company:
+        document.getElementById("leadCompany").value,
+
+
+        role:
+        document.getElementById("leadRole").value,
+
+
+        email:
+        document.getElementById("leadEmail").value,
+
+
+        resource:
+        this.currentResource.title,
+
+
+        tier:
+        this.currentResource.tier,
+
+
+        date:
+        new Date().toISOString()
+
+
+    };
+
+
+    if(!this.validateBusinessEmail(lead.email)){
+
+        alert(
+        "Please use a corporate email address."
+        );
+
+        return;
+
+    }
+
+
+    this.saveLead(lead);
+
+
+    this.closeLeadModal();
+
+
+    this.processTier();
+
+
+},
+
+ 
     // ===============================
     // Tier Controller
     // ===============================
