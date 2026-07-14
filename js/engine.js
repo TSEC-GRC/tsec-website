@@ -248,17 +248,20 @@ submitLead() {
 },
 
     // ===============================
-    // ENTERPRISE
-    // ===============================
+// ENTERPRISE
+// ===============================
 
-    requestAccess() {
+requestAccess() {
 
     console.log(
         "ENTERPRISE REQUEST:",
         this.currentResource
     );
 
-},
+}
+
+};   // <-- ESTE CIERRE FALTABA
+
 
 // ======================================
 // Start Engine
