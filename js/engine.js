@@ -105,9 +105,28 @@ const TSECEngine = {
 
     saveLead(leadData) {
 
-        console.log("Saving Lead...", leadData);
+    console.log("Saving Lead...", leadData);
 
-    },
+
+    let leads = JSON.parse(
+        localStorage.getItem("tsecLeads")
+    ) || [];
+
+
+    leads.push(leadData);
+
+
+    localStorage.setItem(
+        "tsecLeads",
+        JSON.stringify(leads)
+    );
+
+
+    console.log(
+        "Lead saved successfully"
+    );
+
+},
 
     // ===============================
     // Tier Controller
