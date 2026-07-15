@@ -231,12 +231,25 @@ submitLead() {
 
     downloadFree() {
 
-       console.log(
-           "Downloading Free Resource:",
-           this.currentResource
-       );
+    console.log(
+        "Downloading Free Resource:",
+        this.currentResource
+    );
 
-   },
+
+    const link = document.createElement("a");
+
+    link.href = this.currentResource.downloadPath;
+
+    link.download = "";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+},
 
     // ===============================
     // PRO
