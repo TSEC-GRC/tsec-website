@@ -93,9 +93,13 @@ const TSECEngine = {
 
     validateBusinessEmail(email) {
 
-        const domain = email.split("@")[1]?.toLowerCase();
+    const parts = email.split("@");
 
-        return !this.config.blockedDomains.includes(domain);
+    const domain = parts.length > 1
+        ? parts[1].toLowerCase()
+        : "";
+
+    return !this.config.blockedDomains.includes(domain);
 
     },
 
