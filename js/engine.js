@@ -258,9 +258,16 @@ submitLead() {
     checkout() {
 
     console.log(
-        "PRO CHECKOUT REQUEST:",
+        "PRO CHECKOUT:",
         this.currentResource
     );
+
+    const resourceId = encodeURIComponent(
+        this.currentResource.id
+    );
+
+    window.location.href =
+        "checkout.html?resource=" + resourceId;
 
 },
 
@@ -271,9 +278,25 @@ submitLead() {
 requestAccess() {
 
     console.log(
-        "ENTERPRISE REQUEST:",
+        "ENTERPRISE ROUTER:",
         this.currentResource
     );
+
+    const resourceId = encodeURIComponent(
+        this.currentResource.id
+    );
+
+    if (this.currentResource.salesType === "checkout") {
+
+        window.location.href =
+            "checkout.html?resource=" + resourceId;
+
+        return;
+
+    }
+
+    window.location.href =
+        "enterprise-request.html?resource=" + resourceId;
 
 }
 
