@@ -1,1 +1,145 @@
+*{
 
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:#07111f;
+
+    color:white;
+
+}
+
+.product-header{
+
+    background:#081524;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.header-container{
+
+    width:min(1200px,95%);
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 0;
+
+}
+
+.logo img{
+
+    height:58px;
+
+}
+
+nav{
+
+    display:flex;
+
+    gap:30px;
+
+}
+
+nav a{
+
+    color:white;
+
+    text-decoration:none;
+
+}
+
+.hero{
+
+    padding:80px 0;
+
+    text-align:center;
+
+}
+
+.hero h1{
+
+    font-size:52px;
+
+    margin:20px 0;
+
+}
+
+.collection{
+
+    color:#4fc3f7;
+
+    font-weight:700;
+
+}
+
+.hero-description{
+
+    width:min(700px,90%);
+
+    margin:30px auto;
+
+    line-height:1.8;
+
+    color:#cbd5e1;
+
+}
+
+.product-layout{
+
+    width:min(1300px,94%);
+
+    margin:80px auto;
+
+    display:grid;
+
+    grid-template-columns:300px 1fr 340px;
+
+    gap:50px;
+
+}
+
+.product-cover{
+
+    background:#122033;
+
+    border-radius:16px;
+
+    min-height:420px;
+
+}
+
+.product-info{
+
+    background:#122033;
+
+    border-radius:16px;
+
+    min-height:420px;
+
+}
+
+.purchase-card{
+
+    background:#122033;
+
+    border-radius:16px;
+
+    min-height:420px;
+
+}
