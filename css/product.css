@@ -467,3 +467,22 @@ body{
     line-height:1.6;
 
 }
+
+.purchase-title {
+
+    font-size:24px;
+    font-weight:700;
+    margin:20px 0 10px;
+
+}
+
+
+.purchase-description {
+
+    color:#64748b;
+    line-height:1.6;
+    font-size:15px;
+    margin-bottom:20px;
+
+}
+
