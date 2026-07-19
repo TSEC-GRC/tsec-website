@@ -1,1 +1,18 @@
-
+[
+  {
+    "id": "soc2-professional",
+    "title": "SOC 2 Readiness Package",
+    "tier": "PROFESSIONAL PACK™",
+    "price": 299,
+    "description": "Complete compliance package designed to help organizations prepare for SOC 2 readiness with practical templates, controls, and guidance.",
+    "features": [
+      "Instant Digital Delivery",
+      "Editable Word Templates",
+      "Excel Workbooks",
+      "PowerPoint Presentation",
+      "Commercial License",
+      "Free Future Updates"
+    ],
+    "payment": "One-Time Purchase"
+  }
+]
