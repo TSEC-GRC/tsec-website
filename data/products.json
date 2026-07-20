@@ -14,5 +14,37 @@
       "Free Future Updates"
     ],
     "payment": "One-Time Purchase"
+  },
+  {
+    "id": "iso27001-professional",
+    "title": "ISO 27001 Implementation Toolkit",
+    "tier": "PROFESSIONAL PACK™",
+    "price": 399,
+    "description": "Implementation toolkit with policies, templates, risk assessment and audit preparation documents.",
+    "features": [
+      "ISO Policies",
+      "Risk Assessment Workbook",
+      "Statement of Applicability",
+      "Implementation Roadmap",
+      "Commercial License",
+      "Free Updates"
+    ],
+    "payment": "One-Time Purchase"
+  },
+  {
+    "id": "nydfs-professional",
+    "title": "NYDFS Cybersecurity Toolkit",
+    "tier": "PROFESSIONAL PACK™",
+    "price": 349,
+    "description": "Toolkit aligned with NYDFS Part 500 requirements for financial institutions.",
+    "features": [
+      "NYDFS Checklist",
+      "Gap Assessment",
+      "Policy Templates",
+      "Evidence Workbook",
+      "Commercial License",
+      "Free Updates"
+    ],
+    "payment": "One-Time Purchase"
   }
 ]
