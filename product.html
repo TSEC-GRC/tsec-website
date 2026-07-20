@@ -290,7 +290,87 @@
   </div>
 </footer>
 
-    <script src="js/product.js"></script>
+<!-- ==========================
+     TSEC Lead Capture Modal
+========================== -->
+
+<div id="lead-modal" class="lead-modal">
+
+    <div class="lead-modal-content">
+
+        <button id="close-modal" class="close-modal">
+            ×
+        </button>
+
+        <h2>
+            Get Secure Access
+        </h2>
+
+        <p>
+            Complete your information to continue.
+        </p>
+
+
+        <form id="lead-form">
+
+            <input 
+                type="text" 
+                id="first-name"
+                placeholder="First Name"
+                required
+            >
+
+            <input 
+                type="text" 
+                id="last-name"
+                placeholder="Last Name"
+                required
+            >
+
+            <input 
+                type="text" 
+                id="company"
+                placeholder="Company"
+                required
+            >
+
+            <input 
+                type="text" 
+                id="role"
+                placeholder="Role (Optional)"
+            >
+
+            <input 
+                type="email" 
+                id="email"
+                placeholder="Corporate Email"
+                required
+            >
+
+
+            <label class="consent">
+                <input 
+                    type="checkbox"
+                    id="consent"
+                    required
+                >
+                I agree to receive TSEC resources and updates.
+            </label>
+
+
+            <button type="submit">
+                Continue →
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+    
+<script src="js/product.js"></script>
 
 </body>
 
