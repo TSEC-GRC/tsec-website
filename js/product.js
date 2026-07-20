@@ -94,7 +94,7 @@ function initLeadModal() {
 
     if (form) {
 
-    form.addEventListener("submit", function(event){
+    form.addEventListener("submit", async function(event){
 
         event.preventDefault();
 
@@ -116,10 +116,77 @@ function initLeadModal() {
         console.log("✅ Corporate email accepted:", email);
 
 
-        alert("Corporate email validated successfully");
+// ===============================
+// SAVE LEAD TO GOOGLE SHEETS
+// ===============================
+
+const leadData = {
+
+    firstName:
+        document.getElementById("first-name").value,
 
 
-    });
+    lastName:
+        document.getElementById("last-name").value,
+
+
+    company:
+        document.getElementById("company").value,
+
+
+    role:
+        document.getElementById("role").value,
+
+
+    email: email,
+
+
+    productId:
+        "SOC2-001",
+
+
+    productName:
+        document.getElementById("product-title").textContent,
+
+
+    tier:
+        document.getElementById("product-tier").textContent,
+
+
+    price:
+        document.getElementById("product-price").textContent,
+
+
+    source:
+        "product.html"
+
+};
+
+
+const saved = await saveLead(leadData);
+
+
+if (saved) {
+
+    console.log("✅ Lead saved successfully");
+
+
+    alert(
+        "Thank you! Your access request has been received."
+    );
+
+
+    modal.style.display = "none";
+
+    form.reset();
+
+
+} else {
+
+
+    alert(
+        "Unable to save your information. Please try again."
+    );
 
 }
 
