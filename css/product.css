@@ -486,3 +486,165 @@ body{
 
 }
 
+/* =====================================
+   TSEC Lead Capture Modal
+===================================== */
+
+.lead-modal {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.65);
+
+    z-index: 9999;
+
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+/* Modal Container */
+
+.lead-modal-content {
+
+    background: #ffffff;
+
+    width: 90%;
+    max-width: 480px;
+
+    padding: 35px;
+
+    border-radius: 14px;
+
+    position: relative;
+
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+
+}
+
+
+/* Close Button */
+
+.close-modal {
+
+    position: absolute;
+
+    top: 15px;
+    right: 18px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+}
+
+
+/* Title */
+
+.lead-modal-content h2 {
+
+    margin-top: 0;
+
+    font-size: 28px;
+
+}
+
+
+/* Description */
+
+.lead-modal-content p {
+
+    color: #666;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* Form */
+
+#lead-form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+}
+
+
+#lead-form input {
+
+    padding: 13px;
+
+    border-radius: 8px;
+
+    border: 1px solid #ccc;
+
+    font-size: 15px;
+
+}
+
+
+#lead-form input:focus {
+
+    outline: none;
+
+    border-color: #2563eb;
+
+}
+
+
+/* Consent */
+
+.consent {
+
+    display: flex;
+
+    gap: 8px;
+
+    align-items: flex-start;
+
+    font-size: 13px;
+
+    color: #555;
+
+}
+
+
+/* Submit Button */
+
+#lead-form button {
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border-radius: 8px;
+
+    border: none;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+}
+
+
+
