@@ -1,5 +1,7 @@
 console.log("TSEC Product Page Loaded");
 
+const LEAD_CAPTURE_URL = "https://script.google.com/macros/s/AKfycbwlMxvzxMbGQ9zc0mwuItWrwODcKpfAMHOh1vPsyNcdBkKWSnLZarZIkTqocU6Rs09u/exec";
+
 async function loadProduct() {
     try {
         const response = await fetch("data/products.json");
