@@ -80,7 +80,7 @@ function initLeadModal() {
     const modal = document.getElementById("lead-modal");
 
     const closeButton = document.getElementById("close-modal");
-
+    const form = document.getElementById("lead-form");
 
     if (!modal || !closeButton) {
 
@@ -90,6 +90,36 @@ function initLeadModal() {
 
     }
 
+    if (form) {
+
+    form.addEventListener("submit", function(event){
+
+        event.preventDefault();
+
+
+        const email = document.getElementById("email").value;
+
+
+        if (!isCorporateEmail(email)) {
+
+            alert(
+                "Please use your corporate email address. Personal email providers are not accepted."
+            );
+
+            return;
+
+        }
+
+
+        console.log("✅ Corporate email accepted:", email);
+
+
+        alert("Corporate email validated successfully");
+
+
+    });
+
+}
 
     closeButton.addEventListener("click", function () {
 
