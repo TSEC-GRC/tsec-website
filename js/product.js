@@ -110,6 +110,41 @@ function initLeadModal() {
 
 }
 
+// ===============================
+// Corporate Email Validation
+// ===============================
+
+function isCorporateEmail(email) {
+
+    const blockedDomains = [
+
+        "gmail.com",
+        "yahoo.com",
+        "hotmail.com",
+        "outlook.com",
+        "live.com",
+        "icloud.com",
+        "aol.com",
+        "msn.com",
+        "proton.me",
+        "protonmail.com"
+
+    ];
+
+
+    const domain = email.split("@")[1];
+
+
+    if (!domain) {
+
+        return false;
+
+    }
+
+
+    return !blockedDomains.includes(domain.toLowerCase());
+
+}
 
 // ===============================
 // START
