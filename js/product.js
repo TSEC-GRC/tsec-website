@@ -35,4 +35,45 @@ async function loadProduct() {
     }
 }
 
+// ===============================
+// TSEC Checkout Action v1
+// ===============================
+
+function initProductAction() {
+
+    const button = document.getElementById("product-action");
+
+    if (!button) {
+        console.warn("⚠ Checkout button not found");
+        return;
+    }
+
+    button.addEventListener("click", function () {
+
+        console.log("✅ Checkout button clicked");
+
+        alert("TSEC Secure Checkout Flow Started");
+
+    });
+
+}
+
+
+// ===============================
+// START
+// ===============================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    loadProduct();
+
+    initProductAction();
+
+});
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", loadProduct);
