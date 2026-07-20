@@ -52,7 +52,59 @@ function initProductAction() {
 
         console.log("✅ Checkout button clicked");
 
-        alert("TSEC Secure Checkout Flow Started");
+        const modal = document.getElementById("lead-modal");
+
+        if (modal) {
+
+            modal.style.display = "flex";
+
+            console.log("✅ Lead modal opened");
+
+        } else {
+
+            console.warn("⚠ Lead modal not found");
+
+        }
+
+    });
+
+}
+
+
+// ===============================
+// TSEC Lead Modal
+// ===============================
+
+function initLeadModal() {
+
+    const modal = document.getElementById("lead-modal");
+
+    const closeButton = document.getElementById("close-modal");
+
+
+    if (!modal || !closeButton) {
+
+        console.warn("⚠ Modal elements missing");
+
+        return;
+
+    }
+
+
+    closeButton.addEventListener("click", function () {
+
+        modal.style.display = "none";
+
+    });
+
+
+    window.addEventListener("click", function(event){
+
+        if (event.target === modal) {
+
+            modal.style.display = "none";
+
+        }
 
     });
 
@@ -69,11 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     initProductAction();
 
+    initLeadModal();
+
 });
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", loadProduct);
