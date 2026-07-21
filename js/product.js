@@ -12,8 +12,17 @@ async function loadProduct() {
 
         const products = await response.json();
 
-        // Por ahora cargamos el primer producto
-        const product = products[0];
+        const params = new URLSearchParams(window.location.search);
+
+        const productId = params.get("id");
+
+        const product = products.find(
+            p => p.id === productId
+        );
+
+        if (!product) {
+            throw new Error("Product not found");
+        }
 
         document.getElementById("product-tier").textContent = product.tier;
         document.getElementById("product-title").textContent = product.title;
