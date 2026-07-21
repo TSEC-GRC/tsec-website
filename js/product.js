@@ -91,7 +91,9 @@ function initLeadModal() {
     const modal = document.getElementById("lead-modal");
 
     const closeButton = document.getElementById("close-modal");
+
     const form = document.getElementById("lead-form");
+
 
     if (!modal || !closeButton) {
 
@@ -101,101 +103,143 @@ function initLeadModal() {
 
     }
 
-    if (form) {
 
-    form.addEventListener("submit", async function(event){
+    // CLOSE BUTTON
 
-        event.preventDefault();
+    closeButton.addEventListener("click", function () {
+
+        modal.style.display = "none";
+
+    });
 
 
-        const email = document.getElementById("email").value;
 
+    // CLICK OUTSIDE MODAL
 
-        if (!isCorporateEmail(email)) {
+    window.addEventListener("click", function(event){
 
-            alert(
-                "Please use your corporate email address. Personal email providers are not accepted."
-            );
+        if (event.target === modal) {
 
-            return;
+            modal.style.display = "none";
 
         }
 
-
-        console.log("✅ Corporate email accepted:", email);
-
-
-// ===============================
-// SAVE LEAD TO GOOGLE SHEETS
-// ===============================
-
-const leadData = {
-
-    firstName:
-        document.getElementById("first-name").value,
+    });
 
 
-    lastName:
-        document.getElementById("last-name").value,
+
+    // FORM SUBMIT
+
+    if (form) {
 
 
-    company:
-        document.getElementById("company").value,
+        form.addEventListener("submit", async function(event){
+
+            event.preventDefault();
 
 
-    role:
-        document.getElementById("role").value,
+
+            const email = document.getElementById("email").value;
 
 
-    email: email,
+
+            if (!isCorporateEmail(email)) {
+
+                alert(
+                    "Please use your corporate email address. Personal email providers are not accepted."
+                );
+
+                return;
+
+            }
 
 
-    productId:
-        "SOC2-001",
+
+            console.log("✅ Corporate email accepted:", email);
 
 
-    productName:
-        document.getElementById("product-title").textContent,
+
+            const leadData = {
+
+                firstName:
+                    document.getElementById("first-name").value,
 
 
-    tier:
-        document.getElementById("product-tier").textContent,
+                lastName:
+                    document.getElementById("last-name").value,
 
 
-    price:
-        document.getElementById("product-price").textContent,
+                company:
+                    document.getElementById("company").value,
 
 
-    source:
-        "product.html"
-
-};
+                role:
+                    document.getElementById("role").value,
 
 
-const saved = await saveLead(leadData);
+                email: email,
 
 
-if (saved) {
-
-    console.log("✅ Lead saved successfully");
-
-
-    alert(
-        "Thank you! Your access request has been received."
-    );
+                productId:
+                    "SOC2-001",
 
 
-    modal.style.display = "none";
-
-    form.reset();
-
-
-} else {
+                productName:
+                    document.getElementById("product-title").textContent,
 
 
-    alert(
-        "Unable to save your information. Please try again."
-    );
+                tier:
+                    document.getElementById("product-tier").textContent,
+
+
+                price:
+                    document.getElementById("product-price").textContent,
+
+
+                source:
+                    "product.html"
+
+            };
+
+
+
+            const saved = await saveLead(leadData);
+
+
+
+            if (saved) {
+
+
+                console.log("✅ Lead saved successfully");
+
+
+                alert(
+                    "Thank you! Your access request has been received."
+                );
+
+
+                modal.style.display = "none";
+
+
+                form.reset();
+
+
+
+            } else {
+
+
+                alert(
+                    "Unable to save your information. Please try again."
+                );
+
+
+            }
+
+
+        });
+
+
+    }
 
 }
 
