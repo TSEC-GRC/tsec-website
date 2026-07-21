@@ -862,5 +862,9 @@ body{
 
 }
 
-
+.footer-logo img{
+    width:120px;
+    height:auto;
+    display:block;
+}
 
