@@ -18,6 +18,100 @@ body{
 
 }
 
+/* =====================================
+   MAIN NAVIGATION
+===================================== */
+
+.main-nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 4%;
+    height:72px;
+
+    background:rgba(6,13,26,.92);
+    backdrop-filter:blur(14px);
+
+    border-bottom:1px solid rgba(79,195,247,.15);
+}
+
+.nav-logo img{
+    height:110px;
+    width:auto;
+    display:block;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:1.8rem;
+    list-style:none;
+}
+
+.nav-links a{
+
+    color:#a0aec0;
+
+    text-decoration:none;
+
+    font-size:.88rem;
+
+    font-weight:500;
+
+    letter-spacing:.03em;
+
+    transition:color .2s;
+}
+
+.nav-links a:hover{
+
+    color:#4fc3f7;
+
+}
+
+.nav-cta{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:.55rem 1.2rem;
+
+    border-radius:6px;
+
+    background:#1a56db;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:.88rem;
+
+    font-weight:600;
+
+    transition:all .2s;
+}
+
+.nav-cta:hover{
+
+    background:#2a7fff;
+
+    transform:translateY(-1px);
+
+}
+
+
+
+
 /* ================================
    PRODUCT HEADER
 ================================ */
@@ -71,6 +165,8 @@ body{
     width:min(1400px,94%);
 
     margin:auto;
+
+    padding-top:120px;
 
 }
 
