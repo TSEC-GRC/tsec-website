@@ -18,6 +18,46 @@ body{
 
 }
 
+/* ================================
+   PRODUCT HEADER
+================================ */
+
+.product-header {
+    width: 100%;
+    padding: 18px 40px;
+    background: #08111f;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo img {
+    width: 120px;
+    height: auto;
+    display: block;
+}
+
+.product-header nav {
+    display: flex;
+    gap: 25px;
+}
+
+.product-header nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+
+/* ================================
+   PRODUCT PAGE
+================================ */
+
 .product-page{
 
     width:min(1400px,94%);
