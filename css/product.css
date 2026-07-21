@@ -43,9 +43,11 @@ body{
 }
 
 .nav-logo img{
-    height:110px;
+
+    height:55px;
     width:auto;
     display:block;
+
 }
 
 .nav-links{
