@@ -863,7 +863,8 @@ body{
 }
 
 .footer-logo img{
-    width:120px;
+    width:90px;
+    max-width:90px;
     height:auto;
     display:block;
 }
