@@ -44,6 +44,7 @@ body{
 
 .product-header nav {
     display: flex;
+    align-items: center;
     gap: 25px;
 }
 
@@ -51,6 +52,13 @@ body{
     text-decoration: none;
     color: #ffffff;
     font-weight: 500;
+    font-size: 15px;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+}
+
+.product-header nav a:hover {
+    color: #38bdf8;
 }
 
 
