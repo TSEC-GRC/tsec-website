@@ -161,7 +161,7 @@ body{
 ===================================== */
 
 .product-hero{
-    padding-top:40px;
+    padding-top:80px;
     padding-bottom:80px;
 }
 
@@ -273,7 +273,7 @@ body{
 .subtitle{
 
     margin-top:20px;
-
+    margin-bottom:40px;
     font-size:20px;
 
     line-height:1.6;
