@@ -177,23 +177,19 @@ body{
 
     display:inline-block;
 
-    padding:8px 18px;
+    padding:8px 16px;
 
-    border-radius:30px;
+    border-radius:999px;
 
-    background:rgba(79,195,247,.10);
+    background:#0ea5e9;
 
-    border:1px solid rgba(79,195,247,.20);
+    color:#fff;
 
-    color:#4fc3f7;
+    font-size:12px;
 
-    font-size:.80rem;
-
-    font-weight:600;
+    font-weight:700;
 
     letter-spacing:.08em;
-
-    text-transform:uppercase;
 
     margin-bottom:20px;
 
@@ -328,7 +324,21 @@ body{
 
 .product-cover,
 
-.product-information,
+.product-information{
+
+    background:#0f172a;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    padding:35px;
+
+    color:#e2e8f0;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+}
 
 .purchase-card{
 
@@ -515,33 +525,36 @@ body{
 
 .product-information h2{
 
-    font-size:38px;
-
-    margin-bottom:18px;
+    font-size:36px;
 
     line-height:1.2;
+
+    color:#fff;
+
+    margin-bottom:12px;
 
 }
 
 .product-tagline{
 
-    color:#4fc3f7;
+    color:#38bdf8;
 
     font-size:20px;
 
+    margin-bottom:24px;
+
     font-weight:600;
 
-    margin-bottom:25px;
-
 }
-
 .product-description{
 
     color:#cbd5e1;
 
-    line-height:1.9;
+    line-height:1.8;
 
-    margin-bottom:35px;
+    font-size:17px;
+
+    margin-bottom:30px;
 
 }
 
@@ -557,19 +570,19 @@ body{
 
     list-style:none;
 
-    display:grid;
+    padding:0;
 
-    gap:16px;
+    margin:25px 0 0;
 
 }
 
 .benefits-list li{
 
-    color:#dbe4ee;
+    padding:12px 0;
 
-    padding-bottom:14px;
+    border-bottom:1px solid rgba(255,255,255,.08);
 
-    border-bottom:1px solid rgba(255,255,255,.06);
+    color:#e2e8f0;
 
 }
 
