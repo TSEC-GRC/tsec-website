@@ -302,13 +302,27 @@ body{
 
 .product-layout{
 
+    width:min(1300px,92%);
+
+    margin:50px auto;
+
     display:grid;
 
-    grid-template-columns:300px 1fr 340px;
+    grid-template-columns:1.6fr .9fr;
 
-    gap:45px;
+    gap:35px;
 
-    margin-bottom:100px;
+    align-items:start;
+
+}
+
+.product-main{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:30px;
 
 }
 
