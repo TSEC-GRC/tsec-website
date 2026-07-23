@@ -1101,3 +1101,238 @@ footer{
 
 }
 
+/* ================================
+   CHECKOUT PAGE
+================================ */
+
+
+/* Checkout Layout */
+
+.checkout-page{
+
+    width:min(1200px,94%);
+
+    margin:auto;
+
+}
+
+
+
+/* Checkout Progress */
+
+.checkout-progress{
+
+    max-width:900px;
+
+    margin:60px auto 40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+.progress-step{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    opacity:.45;
+
+}
+
+
+.progress-step.active{
+
+    opacity:1;
+
+}
+
+
+.step-number{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:#1e293b;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+
+.progress-step.active .step-number{
+
+    background:#2563eb;
+
+}
+
+
+.step-content h4{
+
+    margin:0;
+
+    font-size:16px;
+
+    color:white;
+
+}
+
+
+.step-content p{
+
+    margin:4px 0 0;
+
+    font-size:13px;
+
+    color:#94a3b8;
+
+}
+
+
+.progress-line{
+
+    width:80px;
+
+    height:1px;
+
+    background:#334155;
+
+    margin:0 25px;
+
+}
+
+
+
+/* Checkout Cards */
+
+.checkout-container{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:40px;
+
+    margin-bottom:80px;
+
+}
+
+
+.order-summary,
+.payment-box{
+
+    background:#111c2e;
+
+    border:1px solid #23324a;
+
+    border-radius:16px;
+
+    padding:30px;
+
+}
+
+
+
+.checkout-product{
+
+    display:flex;
+
+    gap:25px;
+
+    align-items:center;
+
+}
+
+
+.checkout-product img{
+
+    width:120px;
+
+    border-radius:10px;
+
+}
+
+
+.checkout-product span{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+
+
+.checkout-button{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:768px){
+
+
+    .checkout-container{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .checkout-progress{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
+
+    .progress-line{
+
+        width:1px;
+
+        height:40px;
+
+    }
+
+}
+
