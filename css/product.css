@@ -322,7 +322,19 @@ body{
 
 }
 
-.product-cover,
+.product-cover{
+
+    background:#0f172a;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    padding:35px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+}
 
 .product-information{
 
