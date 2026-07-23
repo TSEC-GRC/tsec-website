@@ -161,8 +161,8 @@ body{
 ===================================== */
 
 .product-hero{
-    padding-top:80px;
-    padding-bottom:80px;
+    padding-top:70px;
+    padding-bottom:40px;
 }
 
 .product-hero-inner{
@@ -760,6 +760,109 @@ body{
     line-height:1.7;
 
     margin-bottom:25px;
+
+}
+
+/* ================================
+   CHECKOUT PROGRESS
+================================ */
+
+.checkout-progress{
+
+    max-width:900px;
+
+    margin:60px auto 40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+.progress-step{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    opacity:.45;
+
+}
+
+
+.progress-step.active{
+
+    opacity:1;
+
+}
+
+
+.step-number{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:#1e293b;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+
+.progress-step.active .step-number{
+
+    background:#2563eb;
+
+}
+
+
+.step-content h4{
+
+    margin:0;
+
+    font-size:16px;
+
+    color:white;
+
+}
+
+
+.step-content p{
+
+    margin:4px 0 0;
+
+    font-size:13px;
+
+    color:#94a3b8;
+
+}
+
+
+.progress-line{
+
+    width:80px;
+
+    height:1px;
+
+    background:#334155;
+
+    margin:0 25px;
 
 }
 
