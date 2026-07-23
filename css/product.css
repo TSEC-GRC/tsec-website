@@ -354,15 +354,19 @@ body{
 
 .purchase-card{
 
+    position:sticky;
+
+    top:120px;
+
     background:#0f172a;
 
     border:1px solid rgba(255,255,255,.08);
 
-    border-radius:18px;
+    border-radius:20px;
 
-    min-height:500px;
+    padding:35px;
 
-    padding:30px;
+    box-shadow:0 18px 45px rgba(0,0,0,.35);
 
 }
 
@@ -612,51 +616,59 @@ body{
 
     top:120px;
 
+    background:#0f172a;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:35px;
+
+    box-shadow:0 18px 45px rgba(0,0,0,.35);
+
 }
 
 .purchase-badge{
 
     display:inline-block;
 
-    width:fit-content;
+    padding:8px 16px;
 
-    margin:auto;
+    border-radius:999px;
 
-    padding:8px 18px;
+    background:#1e293b;
 
-    border-radius:30px;
-
-    background:rgba(79,195,247,.12);
-
-    color:#4fc3f7;
+    color:#38bdf8;
 
     font-size:12px;
 
     font-weight:700;
 
-    letter-spacing:.8px;
+    letter-spacing:.08em;
+
+    margin-bottom:20px;
 
 }
 
 .purchase-price{
 
-    text-align:center;
-
-    font-size:58px;
+    font-size:52px;
 
     font-weight:700;
 
-    color:#4fc3f7;
+    color:#ffffff;
 
-    margin:30px 0 10px;
+    margin-top:15px;
+
+    margin-bottom:5px;
 
 }
 
 .purchase-subtitle{
 
-    text-align:center;
+    color:#38bdf8;
 
-    color:#94a3b8;
+    font-weight:600;
 
     margin-bottom:25px;
 
@@ -728,21 +740,26 @@ body{
 
 }
 
-.purchase-title {
+.purchase-title{
 
-    font-size:24px;
-    font-weight:700;
-    margin:20px 0 10px;
+    font-size:28px;
+
+    color:#ffffff;
+
+    line-height:1.25;
+
+    margin-bottom:15px;
 
 }
 
 
-.purchase-description {
+.purchase-description{
 
-    color:#64748b;
-    line-height:1.6;
-    font-size:15px;
-    margin-bottom:20px;
+    color:#94a3b8;
+
+    line-height:1.7;
+
+    margin-bottom:25px;
 
 }
 
