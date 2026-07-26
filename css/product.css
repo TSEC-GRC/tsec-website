@@ -240,8 +240,9 @@ body{
 
     align-items:center;
 
-    padding-top:10px;
-
+    padding-top:25px;
+    padding-bottom:20px;
+    
 }
 
 
@@ -250,7 +251,7 @@ body{
 
     width:100%;
 
-    max-width:360px;
+    max-width:430px;
 
     height:auto;
 
