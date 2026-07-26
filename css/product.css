@@ -9,9 +9,9 @@
 
 body{
 
-    background:#08111f;
+    background:#f8fafc;
 
-    color:#ffffff;
+    color:#0f172a;
 
     font-family:Inter,Arial,sans-serif;
 
@@ -167,7 +167,7 @@ body{
 
     margin:auto;
 
-    padding-top:90px;
+    padding-top:100px;
 
 }
 
@@ -217,15 +217,13 @@ body{
 
     grid-template-columns:
 
-    320px 1fr 360px;
+    330px minmax(400px,1fr) 360px;
 
-    gap:45px;
+    gap:50px;
 
-    align-items:start;
+    align-items:center;
 
-    text-align:left;
-
-    padding:20px 0 50px;
+    padding:40px 0 60px;
 
 }
 
@@ -252,11 +250,10 @@ body{
 
     width:100%;
 
-    max-width:300px;
+    max-width:340px;
 
-    height:auto;
-
-    filter:drop-shadow(0 25px 35px rgba(0,0,0,.45));
+    filter:
+    drop-shadow(0 30px 40px rgba(0,0,0,.18));
 
 }
 
