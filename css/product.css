@@ -558,7 +558,19 @@ body{
 
 }
 
+/* ===============================
+   PURCHASE CHECK ICON
+================================ */
 
+.check-green{
+
+    color:#16a34a;
+
+    font-weight:800;
+
+    font-size:16px;
+
+}
 
 .checkout-button{
 
