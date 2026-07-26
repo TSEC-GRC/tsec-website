@@ -1205,16 +1205,11 @@ footer{
 
     margin:80px auto;
 
-    display:grid;
+    display:flex;
 
-    grid-template-columns:1fr 1fr;
-
-    gap:60px;
-
-    align-items:center;
+    justify-content:center;
 
 }
-
 
 .product-information-image img{
 
