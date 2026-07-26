@@ -240,7 +240,7 @@ body{
 
     align-items:center;
 
-    padding-top:20px;
+    padding-top:10px;
 
 }
 
@@ -250,14 +250,14 @@ body{
 
     width:100%;
 
-    max-width:350px;
+    max-width:360px;
 
     height:auto;
 
     object-fit:contain;
 
     filter:
-    drop-shadow(0 25px 35px rgba(0,0,0,.20));
+    drop-shadow(0 35px 45px rgba(15,23,42,.22));
 
     transition:.3s ease;
 
@@ -267,7 +267,7 @@ body{
 
 .product-cover img:hover{
 
-    transform:translateY(-6px);
+    transform:translateY(-8px);
 
 }
 
@@ -312,17 +312,17 @@ body{
 
 .product-info h1{
 
-    font-size:54px;
+    font-size:58px;
 
-    line-height:1.08;
+    line-height:1.05;
 
     font-weight:800;
 
-    letter-spacing:-1.5px;
+    letter-spacing:-2px;
 
     color:#0f172a;
 
-    margin-bottom:18px;
+    margin-bottom:15px;
 
 }
 
@@ -330,7 +330,7 @@ body{
 
 .subtitle{
 
-    font-size:22px;
+    font-size:24px;
 
     font-weight:700;
 
@@ -344,13 +344,13 @@ body{
 
 .description{
 
+    max-width:620px;
+
     color:#475569;
 
     font-size:17px;
 
-    line-height:1.75;
-
-    max-width:620px;
+    line-height:1.8;
 
 }
 
@@ -395,9 +395,11 @@ body{
 
 .feature-icon{
 
-    width:30px;
+    width:32px;
 
-    height:30px;
+    height:32px;
+
+    min-width:32px;
 
     border-radius:50%;
 
@@ -407,15 +409,13 @@ body{
 
     justify-content:center;
 
-    background:#dcfce7;
+    background:#eff6ff;
 
-    color:#16a34a;
+    color:#2563eb;
 
-    font-weight:800;
+    font-size:15px;
 
-    font-size:14px;
-
-    flex-shrink:0;
+    font-weight:700;
 
 }
 
@@ -441,7 +441,7 @@ body{
     box-shadow:
     0 20px 45px rgba(15,23,42,.12);
 
-    min-height:520px;
+    min-height:540px;
 
 
 }
@@ -547,6 +547,12 @@ body{
 .purchase-features li{
 
     color:#334155;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
 
     font-size:14px;
 
