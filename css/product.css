@@ -1193,5 +1193,156 @@ footer{
 
     }
 
+
+/* ==================================
+ PRODUCT INFORMATION
+================================== */
+
+
+.product-information-section{
+
+    width:min(1200px,94%);
+
+    margin:80px auto;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:60px;
+
+    align-items:center;
+
 }
 
+
+.product-information-image img{
+
+    width:100%;
+
+    max-width:420px;
+
+}
+
+
+.meta-item{
+
+    padding:20px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+
+.meta-item strong{
+
+    display:block;
+
+    color:#4fc3f7;
+
+    margin-bottom:8px;
+
+}
+
+
+.meta-item span{
+
+    color:#cbd5e1;
+
+}
+
+
+
+/* ==================================
+ WHAT'S INCLUDED
+================================== */
+
+
+.included-section{
+
+    width:min(1200px,94%);
+
+    margin:80px auto;
+
+    text-align:center;
+
+ }
+
+
+.included-grid{
+
+    margin-top:40px;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
+ }
+
+
+.included-card{
+
+    background:#0f172a;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(79,195,247,.15);
+
+ }
+
+
+/* ==================================
+ FRAMEWORK COVERAGE
+================================== */
+
+
+.framework-section{
+
+    width:min(1200px,94%);
+
+    margin:80px auto;
+
+    text-align:center;
+
+ }
+
+
+.framework-grid{
+
+    margin-top:40px;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+ }
+
+
+.framework-card{
+
+    background:#0f172a;
+
+    padding:30px;
+
+    border-radius:18px;
+
+ }
+
+
+.framework-card img{
+
+    width:55px;
+
+    height:55px;
+
+    margin-bottom:20px;
+
+ }
+
+}
