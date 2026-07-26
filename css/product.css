@@ -598,7 +598,30 @@ body{
 
 }
 
+/* ===============================
+   SECURE CHECKOUT BADGE
+================================ */
 
+
+.secure-badge{
+
+    text-align:center;
+
+    margin-top:20px;
+
+    padding:8px 12px;
+
+    border-radius:8px;
+
+    background:#f1f5f9;
+
+    color:#475569;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
 
 .payment-icons{
 
