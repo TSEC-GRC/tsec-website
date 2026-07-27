@@ -335,7 +335,7 @@ body{
 
     font-weight:700;
 
-    color:#2563eb;
+    color:#38bdf8;
 
     margin-bottom:25px;
 
@@ -348,7 +348,7 @@ body{
     max-width:620px;
 
     color:#cbd5e1;
-    
+
     font-size:17px;
 
     line-height:1.8;
@@ -969,21 +969,12 @@ footer{
 
     width:min(1200px,94%);
 
-    margin:80px auto;
-
-    display:flex;
-
-    justify-content:center;
+    margin:90px auto;
 
 }
 
 
-
 .product-meta{
-
-    width:100%;
-
-    max-width:900px;
 
     display:grid;
 
@@ -994,26 +985,22 @@ footer{
 }
 
 
-
 .meta-item{
 
     background:#0f172a;
 
-    border:1px solid rgba(79,195,247,.15);
+    border:1px solid rgba(79,195,247,.18);
 
     border-radius:16px;
 
     padding:25px;
 
-    text-align:center;
+    min-height:150px;
 
 }
 
 
-
 .meta-item strong{
-
-    display:block;
 
     color:#38bdf8;
 
@@ -1023,22 +1010,22 @@ footer{
 
     letter-spacing:.08em;
 
-    margin-bottom:12px;
+    display:block;
+
+    margin-bottom:15px;
 
 }
 
 
-
 .meta-item span{
 
-    color:#cbd5e1;
+    color:#e2e8f0;
 
     font-size:15px;
 
     line-height:1.6;
 
 }
-
 
 /* ================================
    CHECKOUT PAGE
@@ -1337,16 +1324,35 @@ footer{
 
     width:min(1200px,94%);
 
-    margin:80px auto;
+    margin:100px auto;
 
     text-align:center;
 
- }
+}
+
+
+.included-section h2{
+
+    color:#ffffff;
+
+    font-size:38px;
+
+    margin-bottom:15px;
+
+}
+
+
+.included-section > p{
+
+    color:#94a3b8;
+
+    margin-bottom:45px;
+
+}
+
 
 
 .included-grid{
-
-    margin-top:40px;
 
     display:grid;
 
@@ -1354,21 +1360,43 @@ footer{
 
     gap:25px;
 
- }
+}
+
 
 
 .included-card{
 
     background:#0f172a;
 
-    padding:30px;
+    border:1px solid rgba(79,195,247,.15);
 
     border-radius:18px;
 
-    border:1px solid rgba(79,195,247,.15);
+    padding:30px;
 
- }
+    text-align:left;
 
+}
+
+
+.included-card h3{
+
+    color:white;
+
+    font-size:20px;
+
+    margin-bottom:12px;
+
+}
+
+
+.included-card p{
+
+    color:#94a3b8;
+
+    line-height:1.6;
+
+}
 
 /* ==================================
  FRAMEWORK COVERAGE
@@ -1403,11 +1431,16 @@ footer{
 
     background:#0f172a;
 
-    padding:30px;
+    border:1px solid rgba(79,195,247,.15);
 
     border-radius:18px;
 
- }
+    padding:35px;
+
+    text-align:center;
+
+}
+
 
 
 .framework-card img{
@@ -1418,7 +1451,27 @@ footer{
 
     margin-bottom:20px;
 
- }
+}
+
+
+
+.framework-card h3{
+
+    color:#ffffff;
+
+    margin-bottom:12px;
+
+}
+
+
+
+.framework-card p{
+
+    color:#94a3b8;
+
+    line-height:1.6;
+
+}
 
 /* ===============================
    PRODUCT DETAILS SECTION
