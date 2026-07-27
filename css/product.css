@@ -1564,5 +1564,24 @@ footer{
     line-height:1.7;
 
 }
+
+/* ==================================
+   PRODUCT HERO TITLE FIX
+================================== */
+
+.product-info h1,
+#product-title{
+
+    color:#0f172a !important;
+
+    font-size:58px;
+
+    line-height:1.05;
+
+    font-weight:800;
+
+    letter-spacing:-2px;
+
+}
     
 }
