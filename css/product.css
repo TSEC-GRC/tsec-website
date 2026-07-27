@@ -668,20 +668,21 @@ body{
 
     padding:45px 5%;
 
-    background:#08111f;
+    background:#ffffff;
 
     display:grid;
 
     grid-template-columns:repeat(6,1fr);
 
-    gap:20px;
+    gap:25px;
 
-    margin-top:60px;
+    margin-top:80px;
 
-    border-top:1px solid rgba(79,195,247,.08);
+    border-top:1px solid #e2e8f0;
+
+    border-bottom:1px solid #e2e8f0;
 
 }
-
 
 .product-stats div{
 
@@ -694,7 +695,7 @@ body{
 
     display:block;
 
-    color:#ffffff;
+    color:#0f172a;
 
     font-size:32px;
 
@@ -993,22 +994,20 @@ footer{
 
 .meta-item{
 
-    background:transparent;
+    background:#ffffff;
 
-    border:none;
+    border:1px solid #e2e8f0;
 
-    border-right:1px solid rgba(255,255,255,.12);
+    border-radius:16px;
 
-    border-radius:0;
-
-    padding:20px;
+    padding:25px;
 
 }
 
 
 .meta-item strong{
 
-    color:#38bdf8;
+    color:#2563eb;
 
     font-size:13px;
 
@@ -1025,7 +1024,7 @@ footer{
 
 .meta-item span{
 
-    color:#e2e8f0;
+    color:#475569;
 
     font-size:15px;
 
@@ -1323,9 +1322,9 @@ footer{
 
     padding:90px 5%;
 
-    margin:80px 0;
+    margin:0;
 
-    background:#08111f;
+    background:#ffffff;
 
     text-align:center;
 
@@ -1334,7 +1333,7 @@ footer{
 
 .included-section h2{
 
-    color:#ffffff;
+    color:#0f172a;
 
     font-size:42px;
 
@@ -1345,7 +1344,7 @@ footer{
 
 .included-section > p{
 
-    color:#94a3b8;
+    color:#64748b;
 
     margin-bottom:45px;
 
@@ -1367,20 +1366,24 @@ footer{
 
 .included-card{
 
-    background:transparent;
+    background:#ffffff;
 
-    border-left:1px solid rgba(79,195,247,.35);
+    border:1px solid #e2e8f0;
 
-    border-radius:0;
+    border-radius:16px;
 
-    padding:20px;
+    padding:25px;
+
+    text-align:left;
+
+    box-shadow:0 10px 25px rgba(15,23,42,.06);
 
 }
 
 
 .included-card h3{
 
-    color:white;
+    color:#0f172a;
 
     font-size:20px;
 
@@ -1391,7 +1394,7 @@ footer{
 
 .included-card p{
 
-    color:#94a3b8;
+    color:#64748b;
 
     line-height:1.6;
 
@@ -1404,20 +1407,20 @@ footer{
 
 .framework-section{
 
-    width:min(1200px,94%);
+    width:100%;
 
-    margin:100px auto;
+    padding:70px 5% 90px;
+
+    background:#ffffff;
 
     text-align:center;
-    
-    padding-bottom:100px;
-    
+
 }
 
 
 .framework-section h2{
 
-    color:#ffffff;
+    color:#0f172a;
 
     font-size:38px;
 
@@ -1450,13 +1453,13 @@ footer{
 
 .framework-card{
 
-    background:#0f172a;
+    background:#ffffff;
 
-    border:1px solid rgba(79,195,247,.12);
+    border:1px solid #e2e8f0;
 
-    border-radius:14px;
+    border-radius:16px;
 
-    padding:25px 20px;
+    padding:25px;
 
 }
 
@@ -1508,7 +1511,7 @@ footer{
 
 .framework-card h3{
 
-    color:#ffffff;
+    color:#0f172a;
 
     font-size:18px;
 
@@ -1520,7 +1523,7 @@ footer{
 
 .framework-card p{
 
-    color:#94a3b8;
+    color:#64748b;
 
     font-size:14px;
 
