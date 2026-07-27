@@ -338,20 +338,23 @@ body{
 
 }
 
+/* ===============================
+   PRODUCT DESCRIPTION
+================================ */
+
 .product-info .description{
 
-    max-width:620px;
+    max-width:560px;
 
-    color:#334155;
+    color:#475569;
 
-    font-size:17px;
+    font-size:16px;
 
-    line-height:1.8;
+    line-height:1.7;
 
-    margin-bottom:30px;
+    margin-top:20px;
 
 }
-
 
 
 /* ===============================
