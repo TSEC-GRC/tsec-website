@@ -970,12 +970,13 @@ footer{
 
     display:grid;
 
-    grid-template-columns:repeat(5,1fr);
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 
-    gap:15px;
+    gap:20px;
+
+    width:100%;
 
 }
-
 
 .meta-item{
 
@@ -987,22 +988,25 @@ footer{
 
     padding:25px;
 
+     min-height:140px;
 }
 
 
 .meta-item strong{
 
+    display:block;
+
     color:#2563eb;
 
     font-size:13px;
+
+    font-weight:700;
 
     text-transform:uppercase;
 
     letter-spacing:.08em;
 
-    display:block;
-
-    margin-bottom:15px;
+    margin-bottom:12px;
 
 }
 
