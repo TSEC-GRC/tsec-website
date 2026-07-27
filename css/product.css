@@ -661,73 +661,58 @@ body{
 
 }
 
-
-
-
-
-/* ===============================
-   PRODUCT STATS
-================================ */
-
+/* ==================================
+   PRODUCT STATISTICS
+================================== */
 
 .product-stats{
+
+    width:100%;
+
+    padding:60px 5%;
+
+    background:#08111f;
 
     display:grid;
 
     grid-template-columns:repeat(6,1fr);
 
-    background:#ffffff;
+    gap:25px;
 
-    color:#0f172a;
-
-    border-radius:18px;
-
-    padding:25px;
-
-    gap:20px;
-
-    margin-bottom:40px;
+    margin-top:80px;
 
 }
-
 
 
 .product-stats div{
 
     text-align:center;
 
-    border-right:1px solid #e2e8f0;
-
 }
-
-
-
-.product-stats div:last-child{
-
-    border:none;
-
-}
-
 
 
 .product-stats strong{
 
     display:block;
 
-    font-size:26px;
+    color:#ffffff;
+
+    font-size:32px;
+
+    font-weight:800;
+
+    margin-bottom:8px;
 
 }
-
 
 
 .product-stats span{
 
-    font-size:13px;
+    color:#94a3b8;
 
-    color:#64748b;
+    font-size:14px;
 
 }
-
 /* =====================================
    TSEC Lead Capture Modal
 ===================================== */
@@ -986,9 +971,13 @@ footer{
 
 .product-information-section{
 
-    width:min(1200px,94%);
+    width:100%;
 
-    margin:90px auto;
+    margin:0;
+
+    padding:90px 5%;
+
+    background:#08111f;
 
 }
 
@@ -1006,15 +995,15 @@ footer{
 
 .meta-item{
 
-    background:#0f172a;
+    background:transparent;
 
-    border:1px solid rgba(79,195,247,.18);
+    border:none;
 
-    border-radius:16px;
+    border-bottom:1px solid rgba(255,255,255,.08);
 
-    padding:25px;
+    border-radius:0;
 
-    min-height:150px;
+    padding:18px 0;
 
 }
 
