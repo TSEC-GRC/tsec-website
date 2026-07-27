@@ -251,14 +251,16 @@ body{
 
     width:100%;
 
-    max-width:430px;
+    max-width:520px;
 
     height:auto;
 
     object-fit:contain;
 
     filter:
-    drop-shadow(0 35px 45px rgba(15,23,42,.22));
+    drop-shadow(0 35px 45px rgba(15,23,42,.25));
+
+    cursor:pointer;
 
     transition:.3s ease;
 
@@ -268,7 +270,7 @@ body{
 
 .product-cover img:hover{
 
-    transform:translateY(-8px);
+    transform:scale(1.05);
 
 }
 
@@ -311,19 +313,18 @@ body{
 }
 
 
-.product-info h1{
+.product-info h1,
+#product-title{
 
-    font-size:58px;
+    color:#0f172a !important;
 
-    line-height:1.05;
+    font-size:46px;
+
+    line-height:1.15;
 
     font-weight:800;
 
-    letter-spacing:-2px;
-
-    color:#0f172a;
-
-    margin-bottom:15px;
+    letter-spacing:-1.5px;
 
 }
 
