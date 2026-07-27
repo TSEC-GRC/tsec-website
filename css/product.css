@@ -1270,14 +1270,6 @@ footer{
 
     margin:80px auto;
 
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:70px;
-
-    align-items:center;
-
     background:#f8fafc;
 
 }
@@ -1303,7 +1295,13 @@ footer{
 
 .meta-item span{
 
-    color:#cbd5e1;
+    color:#334155;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+    font-weight:500;
 
 }
 
