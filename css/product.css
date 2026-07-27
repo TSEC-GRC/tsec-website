@@ -1464,7 +1464,7 @@ footer{
 
     border-radius:18px;
 
-    padding:35px;
+    padding:40px 30px;
 
     text-align:center;
 
@@ -1476,11 +1476,11 @@ footer{
 
 .framework-icon{
 
-    width:70px;
+    width:120px;
 
-    height:70px;
+    height:120px;
 
-    margin:0 auto 20px;
+    margin:0 auto 25px;
 
     display:flex;
 
@@ -1491,17 +1491,15 @@ footer{
 }
 
 
-
 .framework-icon img{
 
-    width:60px;
+    width:110px;
 
-    height:60px;
+    height:110px;
 
     object-fit:contain;
 
 }
-
 
 
 .framework-card h3{
