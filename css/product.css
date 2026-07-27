@@ -215,15 +215,11 @@ body{
 
     display:grid;
 
-    grid-template-columns:
+    grid-template-columns:1fr 1.1fr 0.75fr;
 
-    330px minmax(400px,1fr) 360px;
-
-    gap:50px;
+    gap:40px;
 
     align-items:center;
-
-    padding:40px 0 60px;
 
 }
 
@@ -251,14 +247,14 @@ body{
 
     width:100%;
 
-    max-width:520px;
+    max-width:480px;
 
     height:auto;
 
     object-fit:contain;
 
     filter:
-    drop-shadow(0 35px 45px rgba(15,23,42,.25));
+    drop-shadow(0 40px 55px rgba(15,23,42,.28));
 
     cursor:pointer;
 
@@ -318,13 +314,13 @@ body{
 
     color:#0f172a !important;
 
-    font-size:46px;
+    font-size:44px;
 
     line-height:1.15;
 
     font-weight:800;
 
-    letter-spacing:-1.5px;
+    letter-spacing:-1px;
 
 }
 
@@ -332,17 +328,15 @@ body{
 
 .subtitle{
 
-    font-size:24px;
+    font-size:22px;
 
     font-weight:700;
 
-    color:#38bdf8;
+    color:#2563eb;
 
-    margin-bottom:25px;
+    margin-bottom:22px;
 
 }
-
-
 
 .product-info .description{
 
