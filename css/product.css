@@ -321,7 +321,7 @@ body{
 
     letter-spacing:-2px;
 
-    color:#ffffff;
+    color:#0f172a;
 
     margin-bottom:15px;
 
@@ -1581,6 +1581,38 @@ footer{
     font-weight:800;
 
     letter-spacing:-2px;
+
+}
+
+/* =================================
+   FOOTER COLOR PROTECTION
+================================= */
+
+
+footer{
+
+    color:#ffffff;
+
+}
+
+
+footer .footer-copy{
+
+    color:#94a3b8;
+
+}
+
+
+footer .footer-links a{
+
+    color:#94a3b8;
+
+}
+
+
+footer .footer-links a:hover{
+
+    color:#4fc3f7;
 
 }
     
