@@ -1332,9 +1332,13 @@ footer{
 
 .included-section{
 
-    width:min(1200px,94%);
+    width:100%;
 
-    margin:100px auto;
+    padding:90px 5%;
+
+    margin:80px 0;
+
+    background:#08111f;
 
     text-align:center;
 
@@ -1345,9 +1349,9 @@ footer{
 
     color:#ffffff;
 
-    font-size:38px;
+    font-size:42px;
 
-    margin-bottom:15px;
+    font-weight:800;
 
 }
 
@@ -1376,13 +1380,13 @@ footer{
 
 .included-card{
 
-    background:#0f172a;
+    background:transparent;
 
-    border:1px solid rgba(79,195,247,.15);
+    border:none;
 
-    border-radius:18px;
+    border-left:2px solid rgba(79,195,247,.35);
 
-    padding:30px;
+    padding:25px 30px;
 
     text-align:left;
 
@@ -1420,7 +1424,9 @@ footer{
     margin:100px auto;
 
     text-align:center;
-
+    
+    padding-bottom:100px;
+    
 }
 
 
@@ -1461,16 +1467,13 @@ footer{
 
     background:#0f172a;
 
-    border:1px solid rgba(79,195,247,.15);
+    border:1px solid rgba(79,195,247,.12);
 
-    border-radius:18px;
+    border-radius:14px;
 
-    padding:40px 30px;
-
-    text-align:center;
+    padding:25px 20px;
 
 }
-
 
 
 /* ICONOS DE FRAMEWORK */
@@ -1494,9 +1497,9 @@ footer{
 
 .framework-icon img{
 
-    width:110px;
+    width:130px;
 
-    height:110px;
+    height:130px;
 
     object-fit:contain;
 
@@ -1507,7 +1510,7 @@ footer{
 
     color:#ffffff;
 
-    font-size:20px;
+    font-size:18px;
 
     margin-bottom:12px;
 
@@ -1519,7 +1522,7 @@ footer{
 
     color:#94a3b8;
 
-    font-size:15px;
+    font-size:14px;
 
     line-height:1.6;
 
