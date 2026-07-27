@@ -892,13 +892,23 @@ body{
     display:block;
 }
 
-/* ── FOOTER ── */
+/* =================================
+   FOOTER
+================================= */
+
 
 footer{
+
     padding:2rem 4%;
-    border-top:1px solid var(--border);
-    background:rgba(6,13,26,0.98);
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    background:#060d1a;
+
+    color:#ffffff;
+
 }
+
 
 .footer-inner{
 
@@ -918,21 +928,26 @@ footer{
 
 }
 
+
 .footer-logo img{
 
     height:80px;
 
     width:auto;
 
+    display:block;
+
 }
+
 
 .footer-copy{
 
-    font-size:0.78rem;
+    font-size:.78rem;
 
-    color:var(--gray2);
+    color:#94a3b8;
 
 }
+
 
 .footer-links{
 
@@ -942,24 +957,25 @@ footer{
 
 }
 
+
 .footer-links a{
 
-    color:var(--gray2);
+    color:#94a3b8;
 
     text-decoration:none;
 
-    font-size:0.78rem;
+    font-size:.78rem;
 
-    transition:color .2s;
+    transition:.2s;
 
 }
+
 
 .footer-links a:hover{
 
-    color:var(--cyan);
+    color:#4fc3f7;
 
 }
-
 /* =================================
    PRODUCT DETAILS SECTION
 ================================= */
@@ -1260,6 +1276,7 @@ footer{
 
     }
 
+}
 
 /* ==================================
  PRODUCT INFORMATION
@@ -1583,37 +1600,5 @@ footer{
     letter-spacing:-2px;
 
 }
-
-/* =================================
-   FOOTER COLOR PROTECTION
-================================= */
-
-
-footer{
-
-    color:#ffffff;
-
-}
-
-
-footer .footer-copy{
-
-    color:#94a3b8;
-
-}
-
-
-footer .footer-links a{
-
-    color:#94a3b8;
-
-}
-
-
-footer .footer-links a:hover{
-
-    color:#4fc3f7;
-
-}
-    
+  
 }
