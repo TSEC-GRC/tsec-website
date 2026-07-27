@@ -343,15 +343,17 @@ body{
 
 
 
-.description{
+.product-info .description{
 
     max-width:620px;
 
-    color:#cbd5e1;
+    color:#334155;
 
     font-size:17px;
 
     line-height:1.8;
+
+    margin-bottom:30px;
 
 }
 
@@ -1406,7 +1408,7 @@ footer{
 }
 
 /* ==================================
- FRAMEWORK COVERAGE
+   FRAMEWORK COVERAGE
 ================================== */
 
 
@@ -1414,16 +1416,35 @@ footer{
 
     width:min(1200px,94%);
 
-    margin:80px auto;
+    margin:100px auto;
 
     text-align:center;
 
- }
+}
+
+
+.framework-section h2{
+
+    color:#ffffff;
+
+    font-size:38px;
+
+    margin-bottom:15px;
+
+}
+
+
+.framework-section > p{
+
+    color:#94a3b8;
+
+    margin-bottom:45px;
+
+}
+
 
 
 .framework-grid{
-
-    margin-top:40px;
 
     display:grid;
 
@@ -1431,7 +1452,8 @@ footer{
 
     gap:25px;
 
- }
+}
+
 
 
 .framework-card{
@@ -1450,13 +1472,33 @@ footer{
 
 
 
-.framework-card img{
+/* ICONOS DE FRAMEWORK */
 
-    width:55px;
+.framework-icon{
 
-    height:55px;
+    width:70px;
 
-    margin-bottom:20px;
+    height:70px;
+
+    margin:0 auto 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+
+.framework-icon img{
+
+    width:60px;
+
+    height:60px;
+
+    object-fit:contain;
 
 }
 
@@ -1465,6 +1507,8 @@ footer{
 .framework-card h3{
 
     color:#ffffff;
+
+    font-size:20px;
 
     margin-bottom:12px;
 
@@ -1475,6 +1519,8 @@ footer{
 .framework-card p{
 
     color:#94a3b8;
+
+    font-size:15px;
 
     line-height:1.6;
 
