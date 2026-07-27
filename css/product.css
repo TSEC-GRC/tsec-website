@@ -988,7 +988,7 @@ footer{
 
     border-radius:16px;
 
-    padding:22px;
+    padding:22px 18px;
 
      min-height:140px;
 }
@@ -1015,11 +1015,13 @@ footer{
 
 .meta-item span{
 
-    color:#334155;
+    color:#1e293b;
 
     font-size:15px;
 
     line-height:1.6;
+
+    font-weight:500;
 
 }
 
