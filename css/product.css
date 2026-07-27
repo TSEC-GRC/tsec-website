@@ -1269,9 +1269,8 @@ footer{
 }
 
 /* ==================================
- PRODUCT INFORMATION
+   PRODUCT INFORMATION SECTION
 ================================== */
-
 
 .product-information-section{
 
@@ -1279,9 +1278,15 @@ footer{
 
     margin:80px auto;
 
-    display:flex;
+    display:grid;
 
-    justify-content:center;
+    grid-template-columns:1fr 1fr;
+
+    gap:70px;
+
+    align-items:center;
+
+    background:#f8fafc;
 
 }
 
