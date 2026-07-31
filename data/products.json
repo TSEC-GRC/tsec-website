@@ -1,46 +1,48 @@
 [
   {
-"id": "soc2-professional",
+    "id": "soc2-professional",
+    "title": "SOC 2 Readiness Package",
+    "tier": "pro",
+    "type": "Professional Pack",
+    "category": "compliance",
+    "price": 299,
+    "currency": "USD",
+    "description": "Complete compliance package designed to help organizations prepare for SOC 2 readiness with practical templates, controls, and guidance.",
+    "image": "assets/products/soc2-cover.png",
+    "topics": [
+      "SOC 2",
+      "Compliance",
+      "Audit Readiness"
+    ],
+    "features": [
+      "Instant Digital Delivery",
+      "Editable Word Templates",
+      "Excel Workbooks",
+      "PowerPoint Presentation",
+      "Commercial License",
+      "Free Future Updates"
+    ],
+    "payment": "One-Time Purchase",
+    "updated": "2026-07-31",
+    "status": "active"
+  },
 
-"title": "SOC 2 Readiness Package",
 
-"tier": "pro",
-
-"type": "Professional Pack",
-
-"category": "compliance",
-
-"price": 299,
-
-"description": "Complete compliance package designed to help organizations prepare for SOC 2 readiness with practical templates, controls, and guidance.",
-
-"topics":[
- "SOC 2",
- "Compliance",
- "Audit Readiness"
-],
-
-"image":
-"assets/products/soc2-cover.png",
-
-"features":[
- "Instant Digital Delivery",
- "Editable Word Templates",
- "Excel Workbooks",
- "PowerPoint Presentation",
- "Commercial License",
- "Free Future Updates"
-],
-
-"payment":
-"One-Time Purchase"
-}
   {
     "id": "iso27001-professional",
     "title": "ISO 27001 Implementation Toolkit",
-    "tier": "PROFESSIONAL PACK™",
+    "tier": "pro",
+    "type": "Professional Pack",
+    "category": "compliance",
     "price": 399,
+    "currency": "USD",
     "description": "Implementation toolkit with policies, templates, risk assessment and audit preparation documents.",
+    "image": "assets/products/iso27001-cover.png",
+    "topics": [
+      "ISO 27001",
+      "ISMS",
+      "Risk Management"
+    ],
     "features": [
       "ISO Policies",
       "Risk Assessment Workbook",
@@ -49,14 +51,27 @@
       "Commercial License",
       "Free Updates"
     ],
-    "payment": "One-Time Purchase"
-    }
+    "payment": "One-Time Purchase",
+    "updated": "2026-07-31",
+    "status": "active"
+  },
+
+
   {
     "id": "nydfs-professional",
     "title": "NYDFS Cybersecurity Toolkit",
-    "tier": "PROFESSIONAL PACK™",
+    "tier": "pro",
+    "type": "Professional Pack",
+    "category": "financial-compliance",
     "price": 349,
+    "currency": "USD",
     "description": "Toolkit aligned with NYDFS Part 500 requirements for financial institutions.",
+    "image": "assets/products/nydfs-cover.png",
+    "topics": [
+      "NYDFS Part 500",
+      "Cybersecurity",
+      "Financial Compliance"
+    ],
     "features": [
       "NYDFS Checklist",
       "Gap Assessment",
@@ -65,6 +80,37 @@
       "Commercial License",
       "Free Updates"
     ],
-    "payment": "One-Time Purchase"
+    "payment": "One-Time Purchase",
+    "updated": "2026-07-31",
+    "status": "active"
+  },
+
+
+  {
+    "id": "ai-governance-professional",
+    "title": "AI Governance Professional Pack™",
+    "tier": "pro",
+    "type": "Professional Pack",
+    "category": "ai-governance",
+    "price": 299,
+    "currency": "USD",
+    "description": "A practical AI governance toolkit designed to help organizations implement responsible AI practices aligned with NIST AI RMF and ISO/IEC 42001 principles.",
+    "image": "assets/products/ai-governance-cover.png",
+    "topics": [
+      "NIST AI RMF",
+      "ISO/IEC 42001",
+      "AI Risk Management"
+    ],
+    "features": [
+      "AI Governance Checklist",
+      "AI Risk Assessment Template",
+      "AI Vendor Due Diligence",
+      "AI Policy Templates",
+      "Implementation Guidance",
+      "Commercial License"
+    ],
+    "payment": "One-Time Purchase",
+    "updated": "2026-07-31",
+    "status": "active"
   }
 ]
