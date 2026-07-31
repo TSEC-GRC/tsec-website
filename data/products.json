@@ -1,20 +1,40 @@
 [
   {
-    "id": "soc2-professional",
-    "title": "SOC 2 Readiness Package",
-    "tier": "PROFESSIONAL PACK™",
-    "price": 299,
-    "description": "Complete compliance package designed to help organizations prepare for SOC 2 readiness with practical templates, controls, and guidance.",
-    "features": [
-      "Instant Digital Delivery",
-      "Editable Word Templates",
-      "Excel Workbooks",
-      "PowerPoint Presentation",
-      "Commercial License",
-      "Free Future Updates"
-    ],
-    "payment": "One-Time Purchase"
-  },
+"id": "soc2-professional",
+
+"title": "SOC 2 Readiness Package",
+
+"tier": "pro",
+
+"type": "Professional Pack",
+
+"category": "compliance",
+
+"price": 299,
+
+"description": "Complete compliance package designed to help organizations prepare for SOC 2 readiness with practical templates, controls, and guidance.",
+
+"topics":[
+ "SOC 2",
+ "Compliance",
+ "Audit Readiness"
+],
+
+"image":
+"assets/products/soc2-cover.png",
+
+"features":[
+ "Instant Digital Delivery",
+ "Editable Word Templates",
+ "Excel Workbooks",
+ "PowerPoint Presentation",
+ "Commercial License",
+ "Free Future Updates"
+],
+
+"payment":
+"One-Time Purchase"
+}
   {
     "id": "iso27001-professional",
     "title": "ISO 27001 Implementation Toolkit",
@@ -30,7 +50,7 @@
       "Free Updates"
     ],
     "payment": "One-Time Purchase"
-    },
+    }
   {
     "id": "nydfs-professional",
     "title": "NYDFS Cybersecurity Toolkit",
