@@ -56,7 +56,7 @@ const TSEC_PRODUCTS = [
 
     {
         id: "nydfs-cybersecurity-pack",
-        category: "financial-compliance",
+        category: "compliance",
         title: "NYDFS Cybersecurity Regulation Pack™",
         description:
         "Support financial organizations with cybersecurity governance, regulatory readiness, and compliance documentation.",
@@ -68,7 +68,7 @@ const TSEC_PRODUCTS = [
 
     {
         id: "cobit-2019-governance-pack",
-        category: "it-governance",
+        category: "risk-management",
         title: "COBIT 2019 Governance Pack™",
         description:
         "Strengthen enterprise IT governance with governance objectives, assessments, and strategic alignment resources.",
@@ -80,7 +80,7 @@ const TSEC_PRODUCTS = [
 
     {
         id: "nist-csf-pack",
-        category: "cybersecurity",
+        category: "risk-management",
         title: "NIST Cybersecurity Framework Pack™",
         description:
         "Manage cybersecurity risk using the Identify, Protect, Detect, Respond, and Recover lifecycle.",
@@ -92,7 +92,7 @@ const TSEC_PRODUCTS = [
 
     {
         id: "pci-dss-v4-pack",
-        category: "payment-security",
+        category: "compliance",
         title: "PCI DSS v4.0 Compliance Pack™",
         description:
         "Secure payment environments with compliance guidance, controls, and assessment preparation resources.",
@@ -104,7 +104,7 @@ const TSEC_PRODUCTS = [
 
     {
         id: "hipaa-security-pack",
-        category: "healthcare-compliance",
+        category: "compliance",
         title: "HIPAA Security & Privacy Pack™",
         description:
         "Protect healthcare information with security controls, privacy practices, and compliance resources.",
@@ -116,7 +116,7 @@ const TSEC_PRODUCTS = [
 
     {
         id: "hitrust-csf-pack",
-        category: "healthcare-compliance",
+        category: "compliance",
         title: "HITRUST CSF Pack™",
         description:
         "Prepare for healthcare assurance requirements with structured compliance resources.",
@@ -140,7 +140,7 @@ const TSEC_PRODUCTS = [
 
     {
         id: "iso22301-business-continuity-pack",
-        category: "resilience",
+        category: "risk-management",
         title: "ISO 22301 Business Continuity Pack™",
         description:
         "Develop business continuity capabilities with structured planning and resilience resources.",
