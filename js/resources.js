@@ -38,7 +38,7 @@ const TSEC_PRODUCTS = [
         "Prepare your organization for SOC 2 compliance with readiness assessments, control mapping, evidence collection, and audit preparation resources.",
         tier: "pro",
         image:
-        "assets/products/soc2-cover.png"
+        "assets/products/soc2-box.webp"
     },
 
 
@@ -50,7 +50,7 @@ const TSEC_PRODUCTS = [
         "Implement an Information Security Management System with structured templates, controls, policies, and implementation guidance.",
         tier: "pro",
         image:
-        "assets/products/iso27001-cover.png"
+        "assets/products/iso27001-box.webp"
     },
 
 
@@ -62,7 +62,7 @@ const TSEC_PRODUCTS = [
         "Support financial organizations with cybersecurity governance, regulatory readiness, and compliance documentation.",
         tier: "pro",
         image:
-        "assets/products/nydfs-cover.png"
+        "assets/products/nydfs-box.webp"
     },
 
 
@@ -74,7 +74,7 @@ const TSEC_PRODUCTS = [
         "Strengthen enterprise IT governance with governance objectives, assessments, and strategic alignment resources.",
         tier: "pro",
         image:
-        "assets/products/cobit-cover.png"
+        "assets/products/cobit-box.webp"
     },
 
 
@@ -86,7 +86,7 @@ const TSEC_PRODUCTS = [
         "Manage cybersecurity risk using the Identify, Protect, Detect, Respond, and Recover lifecycle.",
         tier: "pro",
         image:
-        "assets/products/nist-csf-cover.png"
+        "assets/products/nist-csf-box.webp"
     },
 
 
@@ -98,7 +98,7 @@ const TSEC_PRODUCTS = [
         "Secure payment environments with compliance guidance, controls, and assessment preparation resources.",
         tier: "pro",
         image:
-        "assets/products/pci-cover.png"
+        "assets/products/pci-dss-box.webp"
     },
 
 
@@ -110,7 +110,7 @@ const TSEC_PRODUCTS = [
         "Protect healthcare information with security controls, privacy practices, and compliance resources.",
         tier: "pro",
         image:
-        "assets/products/hipaa-cover.png"
+        "assets/products/hipaa-box.webp"
     },
 
 
@@ -122,7 +122,7 @@ const TSEC_PRODUCTS = [
         "Prepare for healthcare assurance requirements with structured compliance resources.",
         tier: "pro",
         image:
-        "assets/products/hitrust-cover.png"
+        "assets/products/hitrust-box.webp"
     },
 
 
@@ -134,7 +134,7 @@ const TSEC_PRODUCTS = [
         "Build an Artificial Intelligence Management System aligned with emerging AI governance standards.",
         tier: "pro",
         image:
-        "assets/products/iso42001-cover.png"
+        "assets/products/iso42001-box.webp"
     },
 
 
@@ -146,7 +146,7 @@ const TSEC_PRODUCTS = [
         "Develop business continuity capabilities with structured planning and resilience resources.",
         tier: "pro",
         image:
-        "assets/products/iso22301-cover.png"
+        "assets/products/iso22301-box.webp"
     },
 
 
@@ -158,7 +158,7 @@ const TSEC_PRODUCTS = [
         "Implement security and privacy controls using a comprehensive control framework.",
         tier: "pro",
         image:
-        "assets/products/nist80053-cover.png"
+        "assets/products/nist80053-box.webp"
     }
 
 ];
