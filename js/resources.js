@@ -20,11 +20,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "ai-governance-professional",
-        category: "AI Governance",
+        category: "ai-governance",
         title: "AI Governance Professional Pack™",
         description:
         "Build, govern, and assure responsible AI systems with practical governance frameworks, assessments, and implementation resources.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/ai-governance-cover.png"
     },
@@ -32,11 +32,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "soc2-readiness-pack",
-        category: "Compliance",
+        category: "compliance",
         title: "SOC 2 Readiness Pack™",
         description:
         "Prepare your organization for SOC 2 compliance with readiness assessments, control mapping, evidence collection, and audit preparation resources.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/soc2-cover.png"
     },
@@ -44,11 +44,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "iso27001-implementation-pack",
-        category: "Compliance",
+        category: "compliance",
         title: "ISO 27001 Implementation Pack™",
         description:
         "Implement an Information Security Management System with structured templates, controls, policies, and implementation guidance.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/iso27001-cover.png"
     },
@@ -56,11 +56,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "nydfs-cybersecurity-pack",
-        category: "Financial Compliance",
+        category: "financial-compliance",
         title: "NYDFS Cybersecurity Regulation Pack™",
         description:
         "Support financial organizations with cybersecurity governance, regulatory readiness, and compliance documentation.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/nydfs-cover.png"
     },
@@ -68,11 +68,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "cobit-2019-governance-pack",
-        category: "IT Governance",
+        category: "it-governance",
         title: "COBIT 2019 Governance Pack™",
         description:
         "Strengthen enterprise IT governance with governance objectives, assessments, and strategic alignment resources.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/cobit-cover.png"
     },
@@ -80,11 +80,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "nist-csf-pack",
-        category: "Cybersecurity",
+        category: "cybersecurity",
         title: "NIST Cybersecurity Framework Pack™",
         description:
         "Manage cybersecurity risk using the Identify, Protect, Detect, Respond, and Recover lifecycle.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/nist-csf-cover.png"
     },
@@ -92,11 +92,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "pci-dss-v4-pack",
-        category: "Payment Security",
+        category: "payment-security",
         title: "PCI DSS v4.0 Compliance Pack™",
         description:
         "Secure payment environments with compliance guidance, controls, and assessment preparation resources.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/pci-cover.png"
     },
@@ -104,11 +104,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "hipaa-security-pack",
-        category: "Healthcare Compliance",
+        category: "healthcare-compliance",
         title: "HIPAA Security & Privacy Pack™",
         description:
         "Protect healthcare information with security controls, privacy practices, and compliance resources.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/hipaa-cover.png"
     },
@@ -116,11 +116,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "hitrust-csf-pack",
-        category: "Healthcare Compliance",
+        category: "healthcare-compliance",
         title: "HITRUST CSF Pack™",
         description:
         "Prepare for healthcare assurance requirements with structured compliance resources.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/hitrust-cover.png"
     },
@@ -128,11 +128,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "iso42001-ai-management-pack",
-        category: "AI Governance",
+        category: "ai-governance",
         title: "ISO/IEC 42001 AI Management Pack™",
         description:
         "Build an Artificial Intelligence Management System aligned with emerging AI governance standards.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/iso42001-cover.png"
     },
@@ -140,11 +140,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "iso22301-business-continuity-pack",
-        category: "Resilience",
+        category: "resilience",
         title: "ISO 22301 Business Continuity Pack™",
         description:
         "Develop business continuity capabilities with structured planning and resilience resources.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/iso22301-cover.png"
     },
@@ -152,11 +152,11 @@ const TSEC_PRODUCTS = [
 
     {
         id: "nist-80053-security-controls-pack",
-        category: "Security Controls",
+        category: "risk-management",
         title: "NIST SP 800-53 Security Controls Pack™",
         description:
         "Implement security and privacy controls using a comprehensive control framework.",
-        type: "Professional",
+        tier: "pro",
         image:
         "assets/products/nist80053-cover.png"
     }
