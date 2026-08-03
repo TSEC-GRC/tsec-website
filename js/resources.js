@@ -231,7 +231,7 @@ function loadResources(){
 
 
     const container =
-    document.getElementById("resources-container");
+    document.getElementById("resourcesContainer");
 
 
     if(!container){
