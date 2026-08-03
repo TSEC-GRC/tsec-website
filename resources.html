@@ -201,13 +201,24 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
 
 <!-- RESOURCE CONTENT -->
 <main class="resources-content">
-  document.getElementById("resourcesContainer")
+
+  <div class="resources-inner" id="resourcesContainer">
     <!-- Populated by JavaScript -->
   </div>
+
   <div class="no-results" id="noResults">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <p>No resources match your filters. Try adjusting your search or category selection.</p>
+
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+
+    <p>
+      No resources match your filters. Try adjusting your search or category selection.
+    </p>
+
   </div>
+
 </main>
 
 <!-- TIER EXPLAINER -->
