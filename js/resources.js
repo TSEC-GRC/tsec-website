@@ -117,6 +117,92 @@ function tierLabel(tier) {
 
 }
 
+// =========================================================
+// Render Products
+// =========================================================
+
+function renderProducts(products) {
+
+    const container = document.getElementById("resources-container");
+
+
+    if (!container) {
+
+        console.error(
+            "❌ Resources container not found"
+        );
+
+        return;
+
+    }
+
+
+    container.innerHTML = products
+        .map(product => renderCard(product))
+        .join("");
+
+}
+
+
+
+// =========================================================
+// Render Product Card
+// =========================================================
+
+function renderCard(product) {
+
+
+    return `
+
+    <article class="resource-card">
+
+
+        <div class="resource-image">
+
+            <img 
+            src="${product.image}"
+            alt="${product.title}">
+
+        </div>
+
+
+        <div class="resource-content">
+
+
+            <span class="resource-category">
+                ${categoryLabel(product.category)}
+            </span>
+            
+            ${tierLabel(product.tier)}
+
+            <h3>
+                ${product.title}
+            </h3>
+
+
+            <p>
+                ${product.description}
+            </p>
+
+
+            <a 
+            href="product.html?id=${product.id}"
+            class="btn-primary">
+
+                View Details
+
+            </a>
+
+
+        </div>
+
+
+    </article>
+
+    `;
+
+}
+
 
 // =========================================================
 // Render Card
