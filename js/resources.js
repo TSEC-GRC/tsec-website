@@ -31,8 +31,6 @@ fetch("data/products.json")
         TSEC_PRODUCTS
     );
 
-    renderProducts(TSEC_PRODUCTS);
-
 })
 
 .catch(error => {
@@ -40,35 +38,8 @@ fetch("data/products.json")
     console.error(
         "❌ Error loading products.json:",
         error
-    );
+    });
 
-});
-
-// =========================================================
-// Render Products
-// =========================================================
-
-function renderProducts(products) {
-
-    const container = document.getElementById("resourcesContainer");
-
-
-    if (!container) {
-
-        console.error(
-            "❌ Resources container not found"
-        );
-
-        return;
-
-    }
-
-
-    container.innerHTML = products
-        .map(product => renderCard(product))
-        .join("");
-
-}
 
 
 // =========================================================
