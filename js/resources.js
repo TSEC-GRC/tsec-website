@@ -12,9 +12,37 @@ console.log("✅ TSEC Resources Engine Loaded");
 
 // =========================================================
 // Product Database
-// Temporary local data
-// Later this can move to products.json
+// Loaded from data/products.json
 // =========================================================
+
+let TSEC_PRODUCTS = [];
+
+
+fetch("data/products.json")
+
+.then(response => response.json())
+
+.then(data => {
+
+    TSEC_PRODUCTS = data;
+
+    console.log(
+        "✅ Products loaded:",
+        TSEC_PRODUCTS
+    );
+
+    renderProducts(TSEC_PRODUCTS);
+
+})
+
+.catch(error => {
+
+    console.error(
+        "❌ Error loading products.json:",
+        error
+    );
+
+});
 
 // =========================================================
 // Category Label
