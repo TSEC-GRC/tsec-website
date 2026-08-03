@@ -26,7 +26,7 @@ const TSEC_PRODUCTS = [
         "Build, govern, and assure responsible AI systems with practical governance frameworks, assessments, and implementation resources.",
         tier: "pro",
         image:
-        "assets/products/ai-governance-cover.png"
+        "assets/products/ai-governance-box.webp"
     },
 
 
