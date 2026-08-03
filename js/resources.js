@@ -45,6 +45,33 @@ fetch("data/products.json")
 });
 
 // =========================================================
+// Render Products
+// =========================================================
+
+function renderProducts(products) {
+
+    const container = document.getElementById("resourcesContainer");
+
+
+    if (!container) {
+
+        console.error(
+            "❌ Resources container not found"
+        );
+
+        return;
+
+    }
+
+
+    container.innerHTML = products
+        .map(product => renderCard(product))
+        .join("");
+
+}
+
+
+// =========================================================
 // Category Label
 // Converts internal category IDs into display names
 // =========================================================
