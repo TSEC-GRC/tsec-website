@@ -17,7 +17,6 @@ console.log("✅ TSEC Resources Engine Loaded");
 
 let TSEC_PRODUCTS = [];
 
-
 fetch("data/products.json")
 
 .then(response => response.json())
@@ -31,16 +30,19 @@ fetch("data/products.json")
         TSEC_PRODUCTS
     );
 
-})
+    if (typeof applyFilters === "function") {
+        applyFilters();
+    }
 
+})
 .catch(error => {
 
     console.error(
         "❌ Error loading products.json:",
         error
-    });
+    );
 
-
+});
 
 // =========================================================
 // Category Label
