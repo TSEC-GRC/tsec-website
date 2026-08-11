@@ -5,7 +5,7 @@
    - Render product/resource cards
    - Connect resources.html → product.html
    ========================================================= */
-
+ 
 
 console.log("✅ TSEC Resources Engine Loaded");
 
