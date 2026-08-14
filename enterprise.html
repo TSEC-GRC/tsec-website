@@ -1,1 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TSEC Risk & Cyber Advisory | Enterprise</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =========================================================
+       RESET
+       ========================================================= */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    /* =========================================================
+       TSEC GLOBAL DESIGN SYSTEM
+       Preserved from resources.html
+       ========================================================= */
+
+    :root {
+      --navy: #060d1a;
+      --navy2: #0a1628;
+      --navy3: #0d1e38;
+
+      --blue: #1a56db;
+      --blue2: #2a7fff;
+
+      --cyan: #4fc3f7;
+      --cyan2: #00d4ff;
+
+      --orange: #ff6b2c;
+      --orange2: #e8521a;
+
+      --white: #fff;
+
+      --gray: #a0aec0;
+      --gray2: #718096;
+      --gray3: #4a5568;
+
+      --border: rgba(79, 195, 247, 0.15);
+      --border2: rgba(79, 195, 247, 0.25);
+
+      --font-head: 'Rajdhani', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+
+    a {
+      color: inherit;
+    }
+
+
+    /* =========================================================
+       NAVIGATION
+       FROZEN FROM RESOURCES.HTML
+       ========================================================= */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 4%;
+      height: 72px;
+
+      background: rgba(6, 13, 26, 0.92);
+      backdrop-filter: blur(14px);
+
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    .nav-logo img {
+      height: 110px;
+      width: auto;
+      display: block;
+    }
+
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+
+      transition: color 0.2s;
+    }
+
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--cyan);
+    }
+
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      background: var(--blue);
+      color: #fff;
+
+      border: none;
+      padding: 0.55rem 1.2rem;
+      border-radius: 6px;
+
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s,
+        transform 0.1s;
+
+      text-decoration: none;
+    }
+
+
+    .nav-cta:hover {
+      background: var(--blue2);
+      transform: translateY(-1px);
+    }
+
+
+    /* =========================================================
+       ENTERPRISE PAGE
+       ========================================================= */
+
+    #enterprise-main {
+      padding-top: 72px;
+      background: var(--navy);
+    }
+
+
+    /* =========================================================
+       ENTERPRISE HERO
+       ========================================================= */
+
+    .enterprise-hero {
+      position: relative;
+      overflow: hidden;
+
+      padding: 110px 4% 85px;
+
+      text-align: center;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(10, 22, 40, 0.98) 0%,
+          var(--navy) 100%
+        );
+
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    .enterprise-hero::before {
+      content: '';
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          ellipse 80% 60% at 50% 0%,
+          rgba(26, 86, 219, 0.15) 0%,
+          transparent 70%
+        );
+
+      pointer-events: none;
+    }
+
+
+    .enterprise-hero::after {
+      content: '';
+
+      position: absolute;
+
+      width: 500px;
+      height: 500px;
+
+      left: 50%;
+      top: -300px;
+
+      transform: translateX(-50%);
+
+      border-radius: 50%;
+
+      border: 1px solid rgba(79, 195, 247, 0.06);
+
+      box-shadow:
+        0 0 0 70px rgba(79, 195, 247, 0.02),
+        0 0 0 140px rgba(79, 195, 247, 0.015);
+
+      pointer-events: none;
+    }
+
+
+    .enterprise-hero-inner {
+      position: relative;
+      z-index: 2;
+
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+
+    .enterprise-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      background: rgba(255, 107, 44, 0.10);
+
+      border: 1px solid rgba(255, 107, 44, 0.25);
+
+      border-radius: 30px;
+
+      padding: 0.35rem 1rem;
+
+      margin-bottom: 1.4rem;
+
+      color: var(--orange);
+
+      font-size: 0.78rem;
+      font-weight: 600;
+
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+
+    .enterprise-hero h1 {
+      font-family: var(--font-head);
+
+      font-size: clamp(
+        2.5rem,
+        5vw,
+        4.2rem
+      );
+
+      font-weight: 700;
+
+      line-height: 1.08;
+
+      letter-spacing: 0.02em;
+
+      margin-bottom: 1.2rem;
+    }
+
+
+    .enterprise-hero h1 span {
+      display: block;
+      color: var(--cyan);
+    }
+
+
+    .enterprise-hero p {
+      max-width: 720px;
+
+      margin: 0 auto;
+
+      color: var(--gray);
+
+      font-size: 1.02rem;
+
+      line-height: 1.8;
+    }
+
+
+    /* =========================================================
+       SHARED ENTERPRISE CONTAINER
+       ========================================================= */
+
+    .enterprise-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+
+    .enterprise-section {
+      padding: 85px 4%;
+    }
+
+
+    .enterprise-section-heading {
+      max-width: 760px;
+      margin: 0 auto 3rem;
+
+      text-align: center;
+    }
+
+
+    .enterprise-eyebrow {
+      display: inline-block;
+
+      margin-bottom: 0.7rem;
+
+      color: var(--cyan);
+
+      font-size: 0.72rem;
+      font-weight: 700;
+
+      letter-spacing: 0.14em;
+
+      text-transform: uppercase;
+    }
+
+
+    .enterprise-section-heading h2 {
+      font-family: var(--font-head);
+
+      font-size: clamp(
+        1.8rem,
+        3vw,
+        2.5rem
+      );
+
+      font-weight: 700;
+
+      line-height: 1.15;
+
+      letter-spacing: 0.02em;
+
+      margin-bottom: 0.8rem;
+    }
+
+
+    .enterprise-section-heading p {
+      color: var(--gray);
+
+      font-size: 0.92rem;
+
+      line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       PROGRAMS
+       ========================================================= */
+
+    .enterprise-programs {
+      padding: 85px 4%;
+
+      background: var(--navy);
+    }
+
+
+    .enterprise-program-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 1.2rem;
+    }
+
+
+    .enterprise-program-card {
+      position: relative;
+
+      padding: 2rem;
+
+      background: var(--navy2);
+
+      border: 1px solid var(--border);
+
+      border-radius: 12px;
+
+      overflow: hidden;
+
+      transition:
+        border-color 0.2s,
+        transform 0.2s,
+        background 0.2s;
+    }
+
+
+    .enterprise-program-card::before {
+      content: '';
+
+      position: absolute;
+
+      top: 0;
+      left: 0;
+      right: 0;
+
+      height: 2px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--orange),
+          var(--cyan)
+        );
+
+      opacity: 0;
+
+      transition: opacity 0.2s;
+    }
+
+
+    .enterprise-program-card:hover {
+      border-color: var(--border2);
+
+      background: var(--navy3);
+
+      transform: translateY(-3px);
+    }
+
+
+    .enterprise-program-card:hover::before {
+      opacity: 1;
+    }
+
+
+    .enterprise-program-number {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      width: 42px;
+      height: 42px;
+
+      margin-bottom: 1.1rem;
+
+      border-radius: 9px;
+
+      background: rgba(255, 107, 44, 0.10);
+
+      border: 1px solid rgba(255, 107, 44, 0.2);
+
+      color: var(--orange);
+
+      font-family: var(--font-head);
+
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+
+    .enterprise-program-card h3 {
+      font-family: var(--font-head);
+
+      font-size: 1.35rem;
+
+      font-weight: 700;
+
+      line-height: 1.2;
+
+      margin-bottom: 0.7rem;
+    }
+
+
+    .enterprise-program-card p {
+      color: var(--gray);
+
+      font-size: 0.84rem;
+
+      line-height: 1.7;
+
+      min-height: 58px;
+    }
+
+
+    .enterprise-program-meta {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      margin-top: 1.5rem;
+
+      padding-top: 1rem;
+
+      border-top: 1px solid var(--border);
+    }
+
+
+    .enterprise-program-meta span:first-child {
+      color: var(--orange);
+
+      font-family: var(--font-head);
+
+      font-size: 1.15rem;
+
+      font-weight: 700;
+    }
+
+
+    .enterprise-program-meta span:last-child {
+      color: var(--gray2);
+
+      font-size: 0.76rem;
+
+      font-weight: 500;
+    }
+
+
+    /* =========================================================
+       COMPLEXITY
+       ========================================================= */
+
+    .enterprise-complexity {
+      padding: 85px 4%;
+
+      background: var(--navy2);
+
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    .complexity-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 1rem;
+    }
+
+
+    .complexity-card {
+      padding: 1.7rem 1.2rem;
+
+      text-align: center;
+
+      background: var(--navy3);
+
+      border: 1px solid var(--border);
+
+      border-radius: 10px;
+
+      transition:
+        border-color 0.2s,
+        transform 0.2s;
+    }
+
+
+    .complexity-card:hover {
+      border-color: var(--border2);
+
+      transform: translateY(-2px);
+    }
+
+
+    .complexity-card > span {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      width: 46px;
+      height: 46px;
+
+      margin-bottom: 0.8rem;
+
+      border-radius: 50%;
+
+      background: rgba(79, 195, 247, 0.10);
+
+      border: 1px solid rgba(79, 195, 247, 0.20);
+
+      color: var(--cyan);
+
+      font-family: var(--font-head);
+
+      font-size: 1rem;
+
+      font-weight: 700;
+    }
+
+
+    .complexity-card h3 {
+      font-family: var(--font-head);
+
+      font-size: 1rem;
+
+      margin-bottom: 0.35rem;
+    }
+
+
+    .complexity-card p {
+      color: var(--orange);
+
+      font-size: 0.85rem;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       IMPLEMENTATION
+       ========================================================= */
+
+    .enterprise-implementation {
+      padding: 85px 4%;
+
+      background: var(--navy);
+    }
+
+
+    .implementation-flow {
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, 1fr);
+
+      gap: 0;
+
+      max-width: 950px;
+
+      margin: 0 auto;
+    }
+
+
+    .implementation-flow div {
+      position: relative;
+
+      padding: 1.2rem 0.7rem;
+
+      text-align: center;
+
+      background: var(--navy2);
+
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+
+      color: var(--white);
+
+      font-family: var(--font-head);
+
+      font-size: 1rem;
+
+      font-weight: 600;
+    }
+
+
+    .implementation-flow div:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+
+
+    .implementation-flow div:last-child {
+      border-right: 1px solid var(--border);
+
+      border-radius: 0 8px 8px 0;
+    }
+
+
+    .implementation-flow div:not(:last-child)::after {
+      content: '→';
+
+      position: absolute;
+
+      right: -10px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      z-index: 2;
+
+      width: 20px;
+      height: 20px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      background: var(--navy3);
+
+      color: var(--cyan);
+
+      font-size: 0.7rem;
+    }
+
+
+    /* =========================================================
+       TIMELINE
+       ========================================================= */
+
+    .enterprise-timeline {
+      padding: 85px 4%;
+
+      background: var(--navy2);
+
+      border-top: 1px solid var(--border);
+    }
+
+
+    .timeline-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 1rem;
+
+      max-width: 950px;
+
+      margin: 0 auto;
+    }
+
+
+    .timeline-grid > div {
+      padding: 1.5rem;
+
+      text-align: center;
+
+      background: var(--navy3);
+
+      border: 1px solid var(--border);
+
+      border-radius: 10px;
+    }
+
+
+    .timeline-grid strong {
+      display: block;
+
+      margin-bottom: 0.35rem;
+
+      color: var(--cyan);
+
+      font-family: var(--font-head);
+
+      font-size: 1.4rem;
+    }
+
+
+    .timeline-grid span {
+      color: var(--gray);
+
+      font-size: 0.8rem;
+    }
+
+
+    /* =========================================================
+       DELIVERABLES
+       ========================================================= */
+
+    .enterprise-deliverables {
+      padding: 85px 4%;
+
+      background: var(--navy);
+    }
+
+
+    .deliverables-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, 1fr);
+
+      gap: 1rem;
+    }
+
+
+    .deliverables-grid > div {
+      padding: 1.5rem;
+
+      background: var(--navy2);
+
+      border: 1px solid var(--border);
+
+      border-radius: 10px;
+    }
+
+
+    .deliverables-grid h3 {
+      color: var(--white);
+
+      font-family: var(--font-head);
+
+      font-size: 1rem;
+
+      margin-bottom: 0.5rem;
+    }
+
+
+    .deliverables-grid p {
+      color: var(--gray);
+
+      font-size: 0.78rem;
+
+      line-height: 1.6;
+    }
+
+
+    /* =========================================================
+       CTA
+       ========================================================= */
+
+    .enterprise-cta {
+      padding: 95px 4%;
+
+      background:
+        linear-gradient(
+          180deg,
+          var(--navy2),
+          var(--navy)
+        );
+
+      border-top: 1px solid var(--border);
+    }
+
+
+    .enterprise-cta-inner {
+      max-width: 760px;
+
+      margin: 0 auto;
+
+      padding: 3.5rem 2rem;
+
+      text-align: center;
+
+      background:
+        radial-gradient(
+          ellipse at center top,
+          rgba(26, 86, 219, 0.12),
+          transparent 65%
+        );
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+    }
+
+
+    .enterprise-cta-inner h2 {
+      font-family: var(--font-head);
+
+      font-size: clamp(
+        1.8rem,
+        3vw,
+        2.5rem
+      );
+
+      margin-bottom: 0.7rem;
+    }
+
+
+    .enterprise-cta-inner p {
+      max-width: 600px;
+
+      margin: 0 auto 1.8rem;
+
+      color: var(--gray);
+
+      font-size: 0.9rem;
+    }
+
+
+    .enterprise-cta-button {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 0.75rem 1.5rem;
+
+      border-radius: 6px;
+
+      background: var(--orange);
+
+      color: #fff;
+
+      font-size: 0.86rem;
+
+      font-weight: 600;
+
+      text-decoration: none;
+
+      transition:
+        background 0.2s,
+        transform 0.1s;
+    }
+
+
+    .enterprise-cta-button:hover {
+      background: var(--orange2);
+
+      transform: translateY(-1px);
+    }
+
+
+    /* =========================================================
+       FOOTER
+       FROZEN FROM RESOURCES.HTML
+       ========================================================= */
+
+    footer {
+      padding: 2rem 4%;
+
+      border-top: 1px solid var(--border);
+
+      background: rgba(6, 13, 26, 0.98);
+    }
+
+
+    .footer-inner {
+      max-width: 1100px;
+
+      margin: 0 auto;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      flex-wrap: wrap;
+
+      gap: 1rem;
+    }
+
+
+    .footer-logo img {
+      height: 64px;
+    }
+
+
+    .footer-copy {
+      font-size: 0.78rem;
+
+      color: var(--gray2);
+    }
+
+
+    .footer-links {
+      display: flex;
+
+      gap: 1.5rem;
+    }
+
+
+    .footer-links a {
+      color: var(--gray2);
+
+      text-decoration: none;
+
+      font-size: 0.78rem;
+
+      transition: color 0.2s;
+    }
+
+
+    .footer-links a:hover {
+      color: var(--cyan);
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .enterprise-program-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .complexity-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .deliverables-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .implementation-flow {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .implementation-flow div {
+        border: 1px solid var(--border);
+
+        border-radius: 8px !important;
+      }
+
+      .implementation-flow div:not(:last-child)::after {
+        content: '↓';
+
+        right: 50%;
+        top: auto;
+        bottom: -15px;
+
+        transform: translateX(50%);
+      }
+
+      .timeline-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+    }
+
+
+    @media (max-width: 600px) {
+
+      nav {
+        padding: 0 4%;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-logo img {
+        height: 90px;
+      }
+
+      .enterprise-hero {
+        padding:
+          90px 5% 65px;
+      }
+
+      .enterprise-section,
+      .enterprise-programs,
+      .enterprise-complexity,
+      .enterprise-implementation,
+      .enterprise-timeline,
+      .enterprise-deliverables,
+      .enterprise-cta {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .complexity-grid,
+      .timeline-grid,
+      .deliverables-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .enterprise-program-card {
+        padding: 1.5rem;
+      }
+
+      .enterprise-program-meta {
+        align-items: flex-start;
+        gap: 0.5rem;
+        flex-direction: column;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+
+        text-align: center;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =======================================================
+       TSEC NAVIGATION
+       FROZEN MASTER
+       ======================================================= -->
+
+  <nav>
+
+    <div class="nav-logo">
+      <img
+        src="assets/tsec-logo.png"
+        alt="TSEC Risk & Cyber Advisory"
+      >
+    </div>
+
+
+    <ul class="nav-links">
+
+      <li>
+        <a href="index.html">
+          Home
+        </a>
+      </li>
+
+      <li>
+        <a href="resources.html">
+          Resources
+        </a>
+      </li>
+
+      <li>
+        <a href="index.html#about">
+          About
+        </a>
+      </li>
+
+      <li>
+        <a href="index.html#services">
+          Services
+        </a>
+      </li>
+
+    </ul>
+
+
+    <a
+      href="index.html#cta"
+      class="nav-cta"
+    >
+
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect
+          x="3"
+          y="4"
+          width="18"
+          height="18"
+          rx="2"
+        />
+
+        <line
+          x1="16"
+          y1="2"
+          x2="16"
+          y2="6"
+        />
+
+        <line
+          x1="8"
+          y1="2"
+          x2="8"
+          y2="6"
+        />
+
+        <line
+          x1="3"
+          y1="10"
+          x2="21"
+          y2="10"
+        />
+
+      </svg>
+
+      Book a Strategy Call
+
+    </a>
+
+  </nav>
+
+
+
+  <!-- =======================================================
+       ENTERPRISE MAIN
+       ======================================================= -->
+
+  <main id="enterprise-main">
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="enterprise-hero">
+
+      <div class="enterprise-hero-inner">
+
+        <div class="enterprise-hero-badge">
+          ENTERPRISE PROGRAMS
+        </div>
+
+
+        <h1>
+
+          Enterprise Cybersecurity,
+          <span>GRC &amp; Compliance</span>
+
+        </h1>
+
+
+        <p>
+
+          Enterprise-grade cybersecurity, governance, risk,
+          compliance and AI governance programs designed and
+          implemented around your organization's requirements.
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PROGRAMS
+         ===================================================== -->
+
+    <section class="enterprise-programs">
+
+      <div class="enterprise-container">
+
+        <div class="enterprise-section-heading">
+
+          <span class="enterprise-eyebrow">
+            ENTERPRISE PROGRAMS
+          </span>
+
+          <h2>
+            Strategic Programs Built for Enterprise Complexity
+          </h2>
+
+          <p>
+            TSEC Enterprise programs combine advisory,
+            implementation, governance and operationalization.
+          </p>
+
+        </div>
+
+
+        <div class="enterprise-program-grid">
+
+
+          <!-- E1 -->
+
+          <article class="enterprise-program-card">
+
+            <div class="enterprise-program-number">
+              E1
+            </div>
+
+            <h3>
+              Toolkit + Implementation Program™
+            </h3>
+
+            <p>
+              Enterprise implementation of a specific
+              cybersecurity, compliance or risk framework.
+            </p>
+
+            <div class="enterprise-program-meta">
+
+              <span>
+                $120K+
+              </span>
+
+              <span>
+                12–20 Weeks
+              </span>
+
+            </div>
+
+          </article>
+
+
+
+          <!-- E2 -->
+
+          <article class="enterprise-program-card">
+
+            <div class="enterprise-program-number">
+              E2
+            </div>
+
+            <h3>
+              Unified Compliance Foundation™
+            </h3>
+
+            <p>
+              A unified control and governance architecture
+              across multiple frameworks and regulations.
+            </p>
+
+            <div class="enterprise-program-meta">
+
+              <span>
+                $175K+
+              </span>
+
+              <span>
+                16–28 Weeks
+              </span>
+
+            </div>
+
+          </article>
+
+
+
+          <!-- E3 -->
+
+          <article class="enterprise-program-card">
+
+            <div class="enterprise-program-number">
+              E3
+            </div>
+
+            <h3>
+              AI Governance Program™
+            </h3>
+
+            <p>
+              Enterprise AI governance, AI risk management,
+              security and regulatory alignment.
+            </p>
+
+            <div class="enterprise-program-meta">
+
+              <span>
+                $150K+
+              </span>
+
+              <span>
+                16–28 Weeks
+              </span>
+
+            </div>
+
+          </article>
+
+
+
+          <!-- E4 -->
+
+          <article class="enterprise-program-card">
+
+            <div class="enterprise-program-number">
+              E4
+            </div>
+
+            <h3>
+              Board Cybersecurity Governance Program™
+            </h3>
+
+            <p>
+              Executive and board-level cybersecurity governance,
+              risk oversight and reporting.
+            </p>
+
+            <div class="enterprise-program-meta">
+
+              <span>
+                $125K+
+              </span>
+
+              <span>
+                12–20 Weeks
+              </span>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         COMPLEXITY MODEL
+         ===================================================== -->
+
+    <section class="enterprise-complexity">
+
+      <div class="enterprise-container">
+
+        <div class="enterprise-section-heading">
+
+          <span class="enterprise-eyebrow">
+            COMPLEXITY MODEL
+          </span>
+
+          <h2>
+            Designed Around Your Organization
+          </h2>
+
+          <p>
+            Enterprise scope and investment are determined by
+            organizational, technology, regulatory and
+            implementation complexity.
+          </p>
+
+        </div>
+
+
+        <div class="complexity-grid">
+
+
+          <div class="complexity-card">
+
+            <span>
+              C1
+            </span>
+
+            <h3>
+              Standard Enterprise
+            </h3>
+
+            <p>
+              1.00×
+            </p>
+
+          </div>
+
+
+          <div class="complexity-card">
+
+            <span>
+              C2
+            </span>
+
+            <h3>
+              Complex
+            </h3>
+
+            <p>
+              1.25×
+            </p>
+
+          </div>
+
+
+          <div class="complexity-card">
+
+            <span>
+              C3
+            </span>
+
+            <h3>
+              High Complexity
+            </h3>
+
+            <p>
+              1.60×
+            </p>
+
+          </div>
+
+
+          <div class="complexity-card">
+
+            <span>
+              C4
+            </span>
+
+            <h3>
+              Strategic Enterprise
+            </h3>
+
+            <p>
+              2.00×+
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         IMPLEMENTATION
+         ===================================================== -->
+
+    <section class="enterprise-implementation">
+
+      <div class="enterprise-container">
+
+        <div class="enterprise-section-heading">
+
+          <span class="enterprise-eyebrow">
+            IMPLEMENTATION
+          </span>
+
+          <h2>
+            From Strategy to Operational Capability
+          </h2>
+
+          <p>
+            Every Enterprise engagement includes implementation.
+            The depth and scale vary according to program scope
+            and organizational complexity.
+          </p>
+
+        </div>
+
+
+        <div class="implementation-flow">
+
+          <div>
+            Strategy
+          </div>
+
+          <div>
+            Governance
+          </div>
+
+          <div>
+            Controls
+          </div>
+
+          <div>
+            Evidence
+          </div>
+
+          <div>
+            Operations
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TIMELINE
+         ===================================================== -->
+
+    <section class="enterprise-timeline">
+
+      <div class="enterprise-container">
+
+        <div class="enterprise-section-heading">
+
+          <span class="enterprise-eyebrow">
+            IMPLEMENTATION TIMELINE
+          </span>
+
+          <h2>
+            Structured Enterprise Delivery
+          </h2>
+
+          <p>
+            Program duration scales with organizational and
+            implementation complexity.
+          </p>
+
+        </div>
+
+
+        <div class="timeline-grid">
+
+
+          <div>
+
+            <strong>
+              C1
+            </strong>
+
+            <span>
+              12–16 weeks
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              C2
+            </strong>
+
+            <span>
+              16–20 weeks
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              C3
+            </strong>
+
+            <span>
+              20–28 weeks
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              C4
+            </strong>
+
+            <span>
+              28–40+ weeks
+            </span>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DELIVERABLES
+         ===================================================== -->
+
+    <section class="enterprise-deliverables">
+
+      <div class="enterprise-container">
+
+        <div class="enterprise-section-heading">
+
+          <span class="enterprise-eyebrow">
+            ENTERPRISE DELIVERABLES
+          </span>
+
+          <h2>
+            A Complete Program Architecture
+          </h2>
+
+          <p>
+            Enterprise engagements move beyond documentation
+            into operational cybersecurity and GRC capability.
+          </p>
+
+        </div>
+
+
+        <div class="deliverables-grid">
+
+
+          <div>
+
+            <h3>
+              Strategy
+            </h3>
+
+            <p>
+              Assessment, target-state architecture
+              and implementation roadmap.
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <h3>
+              Governance
+            </h3>
+
+            <p>
+              Roles, policies, accountability,
+              committees and oversight.
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <h3>
+              Controls
+            </h3>
+
+            <p>
+              Control design, mapping, ownership
+              and implementation.
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <h3>
+              Evidence
+            </h3>
+
+            <p>
+              Evidence architecture, collection
+              processes and readiness.
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <h3>
+              Operations
+            </h3>
+
+            <p>
+              Metrics, reporting, monitoring and
+              continuous improvement.
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ENTERPRISE CTA
+         ===================================================== -->
+
+    <section class="enterprise-cta">
+
+      <div class="enterprise-container">
+
+        <div class="enterprise-cta-inner">
+
+          <span class="enterprise-eyebrow">
+            ENTERPRISE ENGAGEMENT
+          </span>
+
+          <h2>
+            Build Your Enterprise Program
+          </h2>
+
+          <p>
+            Tell us about your organization's requirements,
+            frameworks and implementation objectives.
+          </p>
+
+          <a
+            href="index.html#cta"
+            class="enterprise-cta-button"
+          >
+            Request an Enterprise Consultation
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =======================================================
+       TSEC FOOTER
+       FROZEN MASTER
+       ======================================================= -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+
+      <div class="footer-logo">
+
+        <img
+          src="assets/tsec-logo.png"
+          alt="TSEC Risk & Cyber Advisory"
+        >
+
+      </div>
+
+
+      <div class="footer-copy">
+
+        © 2026 TSEC Risk &amp; Cyber Advisory LLC.
+        All rights reserved.
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <a href="mailto:Info@tsecgrc.com">
+          Info@tsecgrc.com
+        </a>
+
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </footer>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
