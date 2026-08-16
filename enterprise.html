@@ -895,6 +895,121 @@
 
   }
 
+/* =========================================================
+   MODULE 02.08 — RESOURCES HEADER
+   🔒 FROZEN — EXACT REPLICA OF RESOURCES.HTML
+   ========================================================= */
+
+nav {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 100;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 4%;
+
+  height: 72px;
+
+  background: rgba(6, 13, 26, 0.92);
+
+  backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid var(--tsec-header-border);
+}
+
+
+/* ── NAV LOGO ── */
+
+.nav-logo img {
+  height: 110px;
+
+  width: auto;
+
+  display: block;
+}
+
+
+/* ── NAV LINKS ── */
+
+.nav-links {
+  display: flex;
+
+  gap: 1.8rem;
+
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--tsec-header-gray);
+
+  text-decoration: none;
+
+  font-family: var(--tsec-font-body);
+
+  font-size: 0.88rem;
+
+  font-weight: 500;
+
+  letter-spacing: 0.03em;
+
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--tsec-header-cyan);
+}
+
+
+/* ── NAV CTA ── */
+
+.nav-cta {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.5rem;
+
+  background: var(--tsec-header-blue);
+
+  color: #fff;
+
+  border: none;
+
+  padding: 0.55rem 1.2rem;
+
+  border-radius: 6px;
+
+  font-family: var(--tsec-font-body);
+
+  font-size: 0.88rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    transform 0.1s;
+
+  text-decoration: none;
+}
+
+.nav-cta:hover {
+  background: var(--tsec-header-blue2);
+
+  transform: translateY(-1px);
+}
+     
+     
 </style>
 
   
