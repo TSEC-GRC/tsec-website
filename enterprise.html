@@ -1169,10 +1169,2302 @@ nav {
 
   }
 
-   
+/* =========================================================
+   MODULE 05 — TSEC ENTERPRISE ARCHITECTURE™
+   ========================================================= */
+
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.enterprise-architecture {
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding:
+    var(--tsec-space-4xl) 0;
+
+  background:
+    var(--tsec-surface);
+
+  border-bottom:
+    1px solid
+    var(--tsec-border-soft);
+
+}
+
+
+.enterprise-architecture::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: 620px;
+  height: 620px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(217,157,36,0.055) 0%,
+      rgba(217,157,36,0.018) 34%,
+      transparent 70%
+    );
+
+  pointer-events: none;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.enterprise-architecture-container {
+
+  position: relative;
+
+  z-index: 2;
+
+  max-width:
+    var(--tsec-content);
+
+  margin:
+    0 auto;
+
+  padding:
+    0 28px;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.enterprise-architecture-header {
+
+  max-width:
+    760px;
+
+  margin:
+    0 auto 58px;
+
+  text-align:
+    center;
+
+}
+
+
+.enterprise-architecture-header
+.enterprise-eyebrow {
+
+  justify-content:
+    center;
+
+  margin-bottom:
+    18px;
+
+}
+
+
+.enterprise-architecture-header
+.enterprise-heading {
+
+  margin-bottom:
+    18px;
+
+}
+
+
+.enterprise-architecture-header
+.enterprise-body {
+
+  max-width:
+    680px;
+
+  margin:
+    0 auto;
+
+  color:
+    var(--tsec-text);
+
+}
+
+
+/* =========================================================
+   ARCHITECTURE VISUAL
+   ========================================================= */
+
+.enterprise-architecture-map {
+
+  position: relative;
+
+  max-width:
+    1040px;
+
+  min-height:
+    485px;
+
+  margin:
+    0 auto;
+
+}
+
+
+/* =========================================================
+   CENTRAL CORE
+   ========================================================= */
+
+.enterprise-architecture-core {
+
+  position: absolute;
+
+  left:
+    50%;
+
+  top:
+    50%;
+
+  width:
+    190px;
+
+  height:
+    190px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+}
+
+
+.enterprise-architecture-core::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset:
+    0;
+
+  border:
+    1px solid
+    rgba(217,157,36,0.38);
+
+  border-radius:
+    50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(217,157,36,0.10),
+      rgba(6,17,29,0.98) 67%
+    );
+
+  box-shadow:
+    0 0 45px
+    rgba(217,157,36,0.07);
+
+}
+
+
+.enterprise-architecture-core::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset:
+    13px;
+
+  border:
+    1px dashed
+    rgba(217,157,36,0.20);
+
+  border-radius:
+    50%;
+
+}
+
+
+.enterprise-architecture-core-inner {
+
+  position:
+    relative;
+
+  z-index:
+    2;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+}
+
+
+.enterprise-architecture-core-label {
+
+  color:
+    var(--tsec-gold-light);
+
+  font-size:
+    9px;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.20em;
+
+}
+
+
+.enterprise-architecture-core-title {
+
+  margin-top:
+    5px;
+
+  color:
+    var(--tsec-white);
+
+  font-size:
+    22px;
+
+  line-height:
+    1;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.03em;
+
+}
+
+
+.enterprise-architecture-core-caption {
+
+  margin-top:
+    7px;
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    8px;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    0.15em;
+
+}
+
+
+/* =========================================================
+   ARCHITECTURE RINGS
+   ========================================================= */
+
+.enterprise-architecture-ring {
+
+  position: absolute;
+
+  left:
+    50%;
+
+  top:
+    50%;
+
+  border-radius:
+    50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events:
+    none;
+
+}
+
+
+.enterprise-architecture-ring-1 {
+
+  width:
+    280px;
+
+  height:
+    280px;
+
+  border:
+    1px solid
+    rgba(217,157,36,0.12);
+
+}
+
+
+.enterprise-architecture-ring-2 {
+
+  width:
+    390px;
+
+  height:
+    390px;
+
+  border:
+    1px solid
+    rgba(217,157,36,0.075);
+
+}
+
+
+.enterprise-architecture-ring-3 {
+
+  width:
+    480px;
+
+  height:
+    480px;
+
+  border:
+    1px dashed
+    rgba(255,255,255,0.07);
+
+}
+
+
+/* =========================================================
+   CONNECTOR LINES
+   ========================================================= */
+
+.enterprise-architecture-line {
+
+  position:
+    absolute;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(217,157,36,0.40),
+      transparent
+    );
+
+  height:
+    1px;
+
+  transform-origin:
+    center;
+
+  opacity:
+    0.72;
+
+}
+
+
+.enterprise-architecture-line::after {
+
+  content: "";
+
+  position:
+    absolute;
+
+  top:
+    -2px;
+
+  width:
+    5px;
+
+  height:
+    5px;
+
+  border-radius:
+    50%;
+
+  background:
+    var(--tsec-gold);
+
+  box-shadow:
+    0 0 8px
+    rgba(217,157,36,0.45);
+
+}
+
+
+.enterprise-line-left-top {
+
+  width:
+    245px;
+
+  left:
+    20%;
+
+  top:
+    34%;
+
+  transform:
+    rotate(14deg);
+
+}
+
+
+.enterprise-line-left-top::after {
+
+  right:
+    0;
+
+}
+
+
+.enterprise-line-right-top {
+
+  width:
+    245px;
+
+  right:
+    20%;
+
+  top:
+    34%;
+
+  transform:
+    rotate(-14deg);
+
+}
+
+
+.enterprise-line-right-top::after {
+
+  left:
+    0;
+
+}
+
+
+.enterprise-line-left-bottom {
+
+  width:
+    245px;
+
+  left:
+    20%;
+
+  bottom:
+    34%;
+
+  transform:
+    rotate(-14deg);
+
+}
+
+
+.enterprise-line-left-bottom::after {
+
+  right:
+    0;
+
+}
+
+
+.enterprise-line-right-bottom {
+
+  width:
+    245px;
+
+  right:
+    20%;
+
+  bottom:
+    34%;
+
+  transform:
+    rotate(14deg);
+
+}
+
+
+.enterprise-line-right-bottom::after {
+
+  left:
+    0;
+
+}
+
+
+/* =========================================================
+   ARCHITECTURE DIMENSION CARDS
+   ========================================================= */
+
+.enterprise-architecture-card {
+
+  position:
+    absolute;
+
+  width:
+    265px;
+
+  min-height:
+    125px;
+
+  display:
+    flex;
+
+  gap:
+    15px;
+
+  padding:
+    18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(8,21,34,0.96),
+      rgba(6,17,29,0.90)
+    );
+
+  border:
+    1px solid
+    rgba(217,157,36,0.20);
+
+  border-radius:
+    var(--tsec-radius-md);
+
+  box-shadow:
+    var(--tsec-shadow-sm);
+
+  transition:
+    180ms ease;
+
+}
+
+
+.enterprise-architecture-card:hover {
+
+  transform:
+    translateY(-3px);
+
+  border-color:
+    rgba(217,157,36,0.48);
+
+  box-shadow:
+    var(--tsec-shadow-gold);
+
+}
+
+
+/* =========================================================
+   CARD ICON
+   ========================================================= */
+
+.enterprise-architecture-icon {
+
+  width:
+    44px;
+
+  height:
+    44px;
+
+  flex:
+    0 0 44px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border:
+    1px solid
+    rgba(217,157,36,0.30);
+
+  border-radius:
+    8px;
+
+  background:
+    rgba(217,157,36,0.035);
+
+}
+
+
+.enterprise-architecture-icon svg {
+
+  width:
+    27px;
+
+  height:
+    27px;
+
+  fill:
+    none;
+
+  stroke:
+    var(--tsec-gold-light);
+
+  stroke-width:
+    1.35;
+
+  stroke-linecap:
+    round;
+
+  stroke-linejoin:
+    round;
+
+}
+
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.enterprise-architecture-card-content {
+
+  min-width:
+    0;
+
+}
+
+
+.enterprise-architecture-card-number {
+
+  display:
+    block;
+
+  color:
+    var(--tsec-gold);
+
+  font-size:
+    8px;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.18em;
+
+}
+
+
+.enterprise-architecture-card-title {
+
+  display:
+    block;
+
+  margin-top:
+    4px;
+
+  color:
+    var(--tsec-white);
+
+  font-size:
+    14px;
+
+  line-height:
+    1.25;
+
+  font-weight:
+    700;
+
+}
+
+
+.enterprise-architecture-card-text {
+
+  margin:
+    6px 0 0;
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    10px;
+
+  line-height:
+    1.5;
+
+}
+
+
+/* =========================================================
+   CARD POSITIONS
+   ========================================================= */
+
+.enterprise-architecture-card-1 {
+
+  left:
+    0;
+
+  top:
+    0;
+
+}
+
+
+.enterprise-architecture-card-2 {
+
+  right:
+    0;
+
+  top:
+    0;
+
+}
+
+
+.enterprise-architecture-card-3 {
+
+  left:
+    0;
+
+  bottom:
+    0;
+
+}
+
+
+.enterprise-architecture-card-4 {
+
+  right:
+    0;
+
+  bottom:
+    0;
+
+}
+
+
+/* =========================================================
+   BOTTOM STATEMENT
+   ========================================================= */
+
+.enterprise-architecture-statement {
+
+  position:
+    relative;
+
+  max-width:
+    850px;
+
+  margin:
+    52px auto 0;
+
+  padding:
+    22px 28px;
+
+  text-align:
+    center;
+
+  border-top:
+    1px solid
+    rgba(217,157,36,0.18);
+
+  border-bottom:
+    1px solid
+    rgba(217,157,36,0.18);
+
+}
+
+
+.enterprise-architecture-statement p {
+
+  margin:
+    0;
+
+  color:
+    var(--tsec-text);
+
+  font-size:
+    15px;
+
+  line-height:
+    1.65;
+
+}
+
+
+.enterprise-architecture-statement strong {
+
+  color:
+    var(--tsec-gold-light);
+
+  font-weight:
+    700;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .enterprise-architecture-map {
+
+    min-height:
+      auto;
+
+    display:
+      grid;
+
+    grid-template-columns:
+      1fr 1fr;
+
+    gap:
+      16px;
+
+    padding:
+      0;
+
+  }
+
+
+  .enterprise-architecture-core,
+  .enterprise-architecture-ring,
+  .enterprise-architecture-line {
+
+    display:
+      none;
+
+  }
+
+
+  .enterprise-architecture-card {
+
+    position:
+      relative;
+
+    left:
+      auto;
+
+    right:
+      auto;
+
+    top:
+      auto;
+
+    bottom:
+      auto;
+
+    width:
+      auto;
+
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .enterprise-architecture {
+
+    padding:
+      64px 0;
+
+  }
+
+
+  .enterprise-architecture-container {
+
+    padding:
+      0 20px;
+
+  }
+
+
+  .enterprise-architecture-header {
+
+    margin-bottom:
+      38px;
+
+  }
+
+
+  .enterprise-architecture-map {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  .enterprise-architecture-card {
+
+    min-height:
+      110px;
+
+  }
+
+
+  .enterprise-architecture-statement {
+
+    margin-top:
+      34px;
+
+    padding:
+      18px 10px;
+
+  }
+
+
+  .enterprise-architecture-statement p {
+
+    font-size:
+      13px;
+
+  }
+
+}
+
+     
+
+
+     
+
+/* =========================================================
+   MODULE 06 — TSEC PRINCIPAL DASHBOARD™
+   ========================================================= */
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.enterprise-dashboard {
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding:
+    var(--tsec-space-4xl) 0;
+
+  background:
+    var(--tsec-surface-dark);
+
+  border-bottom:
+    1px solid
+    var(--tsec-border-soft);
+
+}
+
+
+/* =========================================================
+   BACKGROUND GRID
+   ========================================================= */
+
+.enterprise-dashboard::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.018) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.018) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    42px 42px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      transparent,
+      black 15%,
+      black 85%,
+      transparent
+    );
+
+  pointer-events: none;
+
+}
+
+
+/* =========================================================
+   GOLD AMBIENT GLOW
+   ========================================================= */
+
+.enterprise-dashboard::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 560px;
+  height: 560px;
+
+  right: -180px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(217,157,36,0.075),
+      transparent 68%
+    );
+
+  pointer-events: none;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.enterprise-dashboard-container {
+
+  position: relative;
+
+  z-index: 2;
+
+  max-width:
+    var(--tsec-content);
+
+  margin:
+    0 auto;
+
+  padding:
+    0 28px;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.enterprise-dashboard-header {
+
+  max-width:
+    820px;
+
+  margin:
+    0 auto 56px;
+
+  text-align:
+    center;
+
+}
+
+
+.enterprise-dashboard-header
+.enterprise-eyebrow {
+
+  justify-content:
+    center;
+
+  margin-bottom:
+    18px;
+
+}
+
+
+.enterprise-dashboard-header
+.enterprise-heading {
+
+  margin-bottom:
+    18px;
+
+}
+
+
+.enterprise-dashboard-header
+.enterprise-body {
+
+  max-width:
+    700px;
+
+  margin:
+    0 auto;
+
+}
+
+
+/* =========================================================
+   DASHBOARD FRAME
+   ========================================================= */
+
+.enterprise-dashboard-frame {
+
+  position: relative;
+
+  max-width:
+    1080px;
+
+  margin:
+    0 auto;
+
+  padding:
+    10px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(217,157,36,0.20),
+      rgba(255,255,255,0.06),
+      rgba(217,157,36,0.08)
+    );
+
+  border:
+    1px solid
+    rgba(217,157,36,0.30);
+
+  border-radius:
+    14px;
+
+  box-shadow:
+    0 24px 60px
+    rgba(0,0,0,0.40),
+    0 0 35px
+    rgba(217,157,36,0.06);
+
+}
+
+
+/* =========================================================
+   DASHBOARD WINDOW
+   ========================================================= */
+
+.enterprise-dashboard-window {
+
+  overflow:
+    hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      #07131f,
+      #040d16
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+  border-radius:
+    10px;
+
+}
+
+
+/* =========================================================
+   WINDOW HEADER
+   ========================================================= */
+
+.enterprise-dashboard-window-header {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  min-height:
+    48px;
+
+  padding:
+    0 18px;
+
+  background:
+    rgba(255,255,255,0.025);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,0.07);
+
+}
+
+
+.enterprise-dashboard-window-brand {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    10px;
+
+}
+
+
+.enterprise-dashboard-window-mark {
+
+  width:
+    22px;
+
+  height:
+    22px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border:
+    1px solid
+    rgba(217,157,36,0.45);
+
+  border-radius:
+    5px;
+
+  color:
+    var(--tsec-gold-light);
+
+  font-size:
+    8px;
+
+  font-weight:
+    700;
+
+}
+
+
+.enterprise-dashboard-window-title {
+
+  color:
+    var(--tsec-white);
+
+  font-size:
+    11px;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.08em;
+
+}
+
+
+.enterprise-dashboard-window-status {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    7px;
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    0.08em;
+
+  text-transform:
+    uppercase;
+
+}
+
+
+.enterprise-dashboard-window-status::before {
+
+  content: "";
+
+  width:
+    6px;
+
+  height:
+    6px;
+
+  border-radius:
+    50%;
+
+  background:
+    var(--tsec-success);
+
+  box-shadow:
+    0 0 8px
+    rgba(142,188,70,0.45);
+
+}
+
+
+/* =========================================================
+   DASHBOARD BODY
+   ========================================================= */
+
+.enterprise-dashboard-body {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    190px
+    minmax(0,1fr);
+
+  min-height:
+    430px;
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.enterprise-dashboard-sidebar {
+
+  padding:
+    20px 14px;
+
+  background:
+    rgba(0,0,0,0.16);
+
+  border-right:
+    1px solid
+    rgba(255,255,255,0.06);
+
+}
+
+
+.enterprise-dashboard-sidebar-label {
+
+  margin:
+    0 10px 14px;
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    8px;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.16em;
+
+  text-transform:
+    uppercase;
+
+}
+
+
+.enterprise-dashboard-nav {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    5px;
+
+}
+
+
+.enterprise-dashboard-nav-item {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    9px;
+
+  padding:
+    9px 10px;
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    9px;
+
+  border:
+    1px solid
+    transparent;
+
+  border-radius:
+    5px;
+
+}
+
+
+.enterprise-dashboard-nav-item.active {
+
+  color:
+    var(--tsec-gold-light);
+
+  background:
+    rgba(217,157,36,0.07);
+
+  border-color:
+    rgba(217,157,36,0.16);
+
+}
+
+
+.enterprise-dashboard-nav-dot {
+
+  width:
+    5px;
+
+  height:
+    5px;
+
+  flex:
+    0 0 5px;
+
+  border-radius:
+    50%;
+
+  background:
+    currentColor;
+
+  opacity:
+    0.75;
+
+}
+
+
+/* =========================================================
+   MAIN DASHBOARD CONTENT
+   ========================================================= */
+
+.enterprise-dashboard-main {
+
+  min-width:
+    0;
+
+  padding:
+    22px;
+
+}
+
+
+/* =========================================================
+   TOP METRICS
+   ========================================================= */
+
+.enterprise-dashboard-metrics {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0,1fr));
+
+  gap:
+    10px;
+
+  margin-bottom:
+    12px;
+
+}
+
+
+.enterprise-dashboard-metric {
+
+  padding:
+    14px;
+
+  background:
+    rgba(255,255,255,0.025);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.07);
+
+  border-radius:
+    6px;
+
+}
+
+
+.enterprise-dashboard-metric-label {
+
+  display:
+    block;
+
+  margin-bottom:
+    8px;
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    7px;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.10em;
+
+  text-transform:
+    uppercase;
+
+}
+
+
+.enterprise-dashboard-metric-value {
+
+  display:
+    block;
+
+  color:
+    var(--tsec-white);
+
+  font-size:
+    22px;
+
+  line-height:
+    1;
+
+  font-weight:
+    700;
+
+}
+
+
+.enterprise-dashboard-metric-value.gold {
+
+  color:
+    var(--tsec-gold-light);
+
+}
+
+
+.enterprise-dashboard-metric-trend {
+
+  display:
+    block;
+
+  margin-top:
+    6px;
+
+  color:
+    var(--tsec-success);
+
+  font-size:
+    7px;
+
+}
+
+
+/* =========================================================
+   ANALYTICS GRID
+   ========================================================= */
+
+.enterprise-dashboard-analytics {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1.35fr
+    0.65fr;
+
+  gap:
+    12px;
+
+}
+
+
+/* =========================================================
+   ANALYTICS PANEL
+   ========================================================= */
+
+.enterprise-dashboard-panel {
+
+  padding:
+    17px;
+
+  background:
+    rgba(255,255,255,0.02);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.07);
+
+  border-radius:
+    7px;
+
+}
+
+
+.enterprise-dashboard-panel-header {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  margin-bottom:
+    18px;
+
+}
+
+
+.enterprise-dashboard-panel-title {
+
+  color:
+    var(--tsec-white);
+
+  font-size:
+    10px;
+
+  font-weight:
+    700;
+
+}
+
+
+.enterprise-dashboard-panel-meta {
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    7px;
+
+}
+
+
+/* =========================================================
+   RISK BARS
+   ========================================================= */
+
+.enterprise-dashboard-risk-list {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    12px;
+
+}
+
+
+.enterprise-dashboard-risk-row {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    105px
+    minmax(0,1fr)
+    35px;
+
+  align-items:
+    center;
+
+  gap:
+    9px;
+
+}
+
+
+.enterprise-dashboard-risk-name {
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    8px;
+
+}
+
+
+.enterprise-dashboard-risk-track {
+
+  height:
+    6px;
+
+  overflow:
+    hidden;
+
+  background:
+    rgba(255,255,255,0.06);
+
+  border-radius:
+    10px;
+
+}
+
+
+.enterprise-dashboard-risk-fill {
+
+  height:
+    100%;
+
+  border-radius:
+    inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--tsec-gold-dark),
+      var(--tsec-gold-light)
+    );
+
+}
+
+
+.enterprise-dashboard-risk-score {
+
+  color:
+    var(--tsec-white);
+
+  font-size:
+    8px;
+
+  font-weight:
+    700;
+
+  text-align:
+    right;
+
+}
+
+
+/* =========================================================
+   FRAMEWORK COVERAGE
+   ========================================================= */
+
+.enterprise-dashboard-framework-list {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    10px;
+
+}
+
+
+.enterprise-dashboard-framework {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    65px
+    minmax(0,1fr)
+    32px;
+
+  align-items:
+    center;
+
+  gap:
+    8px;
+
+}
+
+
+.enterprise-dashboard-framework-name {
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    8px;
+
+}
+
+
+.enterprise-dashboard-framework-track {
+
+  height:
+    5px;
+
+  overflow:
+    hidden;
+
+  background:
+    rgba(255,255,255,0.06);
+
+  border-radius:
+    8px;
+
+}
+
+
+.enterprise-dashboard-framework-fill {
+
+  height:
+    100%;
+
+  background:
+    var(--tsec-gold);
+
+  border-radius:
+    inherit;
+
+}
+
+
+.enterprise-dashboard-framework-value {
+
+  color:
+    var(--tsec-gold-light);
+
+  font-size:
+    7px;
+
+  font-weight:
+    700;
+
+  text-align:
+    right;
+
+}
+
+
+/* =========================================================
+   DASHBOARD VALUE GRID
+   ========================================================= */
+
+.enterprise-dashboard-value-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0,1fr));
+
+  gap:
+    16px;
+
+  margin-top:
+    42px;
+
+}
+
+
+.enterprise-dashboard-value-card {
+
+  padding:
+    24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--tsec-navy-850),
+      var(--tsec-navy-900)
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+  border-radius:
+    var(--tsec-radius-md);
+
+}
+
+
+.enterprise-dashboard-value-icon {
+
+  width:
+    38px;
+
+  height:
+    38px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  margin-bottom:
+    16px;
+
+  border:
+    1px solid
+    rgba(217,157,36,0.28);
+
+  border-radius:
+    7px;
+
+  color:
+    var(--tsec-gold-light);
+
+}
+
+
+.enterprise-dashboard-value-icon svg {
+
+  width:
+    21px;
+
+  height:
+    21px;
+
+  fill:
+    none;
+
+  stroke:
+    currentColor;
+
+  stroke-width:
+    1.5;
+
+  stroke-linecap:
+    round;
+
+  stroke-linejoin:
+    round;
+
+}
+
+
+.enterprise-dashboard-value-title {
+
+  margin:
+    0 0 8px;
+
+  color:
+    var(--tsec-white);
+
+  font-size:
+    15px;
+
+  font-weight:
+    700;
+
+}
+
+
+.enterprise-dashboard-value-text {
+
+  margin:
+    0;
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    11px;
+
+  line-height:
+    1.6;
+
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.enterprise-dashboard-cta {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    30px;
+
+  margin-top:
+    38px;
+
+  padding:
+    28px 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(217,157,36,0.08),
+      rgba(255,255,255,0.025)
+    );
+
+  border:
+    1px solid
+    rgba(217,157,36,0.22);
+
+  border-radius:
+    var(--tsec-radius-md);
+
+}
+
+
+.enterprise-dashboard-cta-copy {
+
+  max-width:
+    680px;
+
+}
+
+
+.enterprise-dashboard-cta-title {
+
+  margin:
+    0 0 7px;
+
+  color:
+    var(--tsec-white);
+
+  font-size:
+    18px;
+
+  font-weight:
+    700;
+
+}
+
+
+.enterprise-dashboard-cta-text {
+
+  margin:
+    0;
+
+  color:
+    var(--tsec-muted);
+
+  font-size:
+    12px;
+
+  line-height:
+    1.55;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .enterprise-dashboard-body {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  .enterprise-dashboard-sidebar {
+
+    display:
+      none;
+
+  }
+
+
+  .enterprise-dashboard-metrics {
+
+    grid-template-columns:
+      repeat(2, minmax(0,1fr));
+
+  }
+
+
+  .enterprise-dashboard-analytics {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  .enterprise-dashboard-value-grid {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .enterprise-dashboard {
+
+    padding:
+      64px 0;
+
+  }
+
+
+  .enterprise-dashboard-container {
+
+    padding:
+      0 20px;
+
+  }
+
+
+  .enterprise-dashboard-frame {
+
+    padding:
+      5px;
+
+    border-radius:
+      9px;
+
+  }
+
+
+  .enterprise-dashboard-window-header {
+
+    padding:
+      0 12px;
+
+  }
+
+
+  .enterprise-dashboard-window-status {
+
+    display:
+      none;
+
+  }
+
+
+  .enterprise-dashboard-main {
+
+    padding:
+      12px;
+
+  }
+
+
+  .enterprise-dashboard-metrics {
+
+    gap:
+      7px;
+
+  }
+
+
+  .enterprise-dashboard-metric {
+
+    padding:
+      11px;
+
+  }
+
+
+  .enterprise-dashboard-metric-value {
+
+    font-size:
+      18px;
+
+  }
+
+
+  .enterprise-dashboard-risk-row {
+
+    grid-template-columns:
+      85px
+      minmax(0,1fr)
+      28px;
+
+  }
+
+
+  .enterprise-dashboard-cta {
+
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+
+    padding:
+      22px;
+
+  }
+
+}
+     
     
 </style>
 
+ 
   
 </head>
 
@@ -3524,1369 +5816,1098 @@ nav {
   </section>
 
 
-  <!-- =====================================================
-       MODULE 06 — TSEC PRINCIPAL DASHBOARD™ STYLES
-       ===================================================== -->
+<!-- =====================================================
+     MODULE 06 — TSEC PRINCIPAL DASHBOARD™
+     ===================================================== -->
 
-  <style>
+<section
+  id="enterprise-dashboard"
+  class="enterprise-module enterprise-dashboard"
+>
 
-    /* =====================================================
-       DASHBOARD FOUNDATION
-       ===================================================== */
 
-    .enterprise-dashboard {
+  <div class="enterprise-dashboard-container">
 
-      position: relative;
 
-      padding:
-        104px 0;
+    <!-- =================================================
+         SECTION HEADER
+         ================================================= -->
 
-      background:
-        var(--tsec-navy-950);
+    <header class="enterprise-dashboard-header">
 
-      border-top:
-        1px solid
-        rgba(255, 255, 255, 0.05);
 
-      border-bottom:
-        1px solid
-        rgba(255, 255, 255, 0.05);
+      <div class="enterprise-eyebrow">
 
-    }
+        TSEC PRINCIPAL DASHBOARD™
 
+      </div>
 
-    /* =====================================================
-       DASHBOARD HEADER
-       ===================================================== */
 
-    .enterprise-dashboard-header {
+      <h2 class="enterprise-heading">
 
-      display: flex;
+        One Executive View of
+        <span>
+          Enterprise Cyber Risk
+        </span>
 
-      align-items: flex-end;
+      </h2>
 
-      justify-content: space-between;
 
-      gap: 40px;
+      <p class="enterprise-body">
 
-      margin-bottom: 42px;
+        The TSEC Principal Dashboard™ provides leadership
+        with a unified view of cybersecurity risk, framework
+        coverage, control maturity and enterprise priorities —
+        connecting technical conditions to business decisions.
 
-    }
+      </p>
 
 
-    .enterprise-dashboard-header
-    .enterprise-heading span {
+    </header>
 
-      display: block;
 
-      color:
-        var(--tsec-gold-light);
+    <!-- =================================================
+         DASHBOARD VISUAL
+         ================================================= -->
 
-    }
+    <div class="enterprise-dashboard-frame">
 
 
-    .enterprise-dashboard-header
-    .enterprise-panel-description {
+      <div class="enterprise-dashboard-window">
 
-      max-width: 700px;
 
-      margin-top: 16px;
+        <!-- =================================================
+             WINDOW HEADER
+             ================================================= -->
 
-    }
+        <div class="enterprise-dashboard-window-header">
 
 
-    .enterprise-dashboard-status {
+          <div class="enterprise-dashboard-window-brand">
 
-      display: inline-flex;
 
-      align-items: center;
+            <div class="enterprise-dashboard-window-mark">
+              T
+            </div>
 
-      gap: 9px;
 
-      flex-shrink: 0;
+            <span
+              class="enterprise-dashboard-window-title"
+            >
+              TSEC PRINCIPAL DASHBOARD™
+            </span>
 
-      padding:
-        9px 13px;
 
-      color:
-        var(--tsec-muted);
+          </div>
 
-      background:
-        rgba(255, 255, 255, 0.025);
 
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.08);
+          <div
+            class="enterprise-dashboard-window-status"
+          >
+            Enterprise Risk Environment
+          </div>
 
-      border-radius:
-        var(--tsec-radius-sm);
 
-      font-size: 10px;
+        </div>
 
-      font-weight: 700;
 
-      letter-spacing: 0.08em;
+        <!-- =================================================
+             DASHBOARD BODY
+             ================================================= -->
 
-      text-transform: uppercase;
+        <div class="enterprise-dashboard-body">
 
-    }
 
+          <!-- =================================================
+               SIDEBAR
+               ================================================= -->
 
-    .enterprise-dashboard-status-dot {
+          <aside
+            class="enterprise-dashboard-sidebar"
+          >
 
-      width: 7px;
-      height: 7px;
 
-      border-radius: 50%;
+            <div
+              class="enterprise-dashboard-sidebar-label"
+            >
+              Executive View
+            </div>
 
-      background:
-        var(--tsec-success);
 
-      box-shadow:
-        0 0 10px
-        rgba(142, 188, 70, 0.45);
+            <nav
+              class="enterprise-dashboard-nav"
+              aria-label="Dashboard sections"
+            >
 
-    }
 
+              <div
+                class="
+                  enterprise-dashboard-nav-item
+                  active
+                "
+              >
 
-    /* =====================================================
-       KPI STRIP
-       ===================================================== */
+                <span
+                  class="enterprise-dashboard-nav-dot"
+                ></span>
 
-    .enterprise-dashboard-kpis {
+                Enterprise Overview
 
-      display: grid;
+              </div>
 
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
 
-      margin-bottom: 22px;
+              <div
+                class="enterprise-dashboard-nav-item"
+              >
 
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.08);
+                <span
+                  class="enterprise-dashboard-nav-dot"
+                ></span>
 
-      border-radius:
-        var(--tsec-radius-md);
+                Cyber Risk
 
-      overflow: hidden;
+              </div>
 
-      background:
-        var(--tsec-navy-900);
 
-    }
+              <div
+                class="enterprise-dashboard-nav-item"
+              >
 
+                <span
+                  class="enterprise-dashboard-nav-dot"
+                ></span>
 
-    .enterprise-dashboard-kpi {
+                Controls
 
-      position: relative;
+              </div>
 
-      padding:
-        22px 24px;
 
-      border-right:
-        1px solid
-        rgba(255, 255, 255, 0.07);
+              <div
+                class="enterprise-dashboard-nav-item"
+              >
 
-    }
+                <span
+                  class="enterprise-dashboard-nav-dot"
+                ></span>
 
+                Frameworks
 
-    .enterprise-dashboard-kpi:last-child {
+              </div>
 
-      border-right: none;
 
-    }
+              <div
+                class="enterprise-dashboard-nav-item"
+              >
 
+                <span
+                  class="enterprise-dashboard-nav-dot"
+                ></span>
 
-    .enterprise-dashboard-kpi-label {
+                Third-Party Risk
 
-      color:
-        var(--tsec-muted);
+              </div>
 
-      font-size: 10px;
 
-      font-weight: 700;
+              <div
+                class="enterprise-dashboard-nav-item"
+              >
 
-      letter-spacing: 0.1em;
+                <span
+                  class="enterprise-dashboard-nav-dot"
+                ></span>
 
-      text-transform: uppercase;
+                Executive Reporting
 
-    }
+              </div>
 
 
-    .enterprise-dashboard-kpi-value {
+            </nav>
 
-      margin-top: 10px;
 
-      color:
-        var(--tsec-white);
+          </aside>
 
-      font-size: 25px;
 
-      line-height: 1.1;
+          <!-- =================================================
+               MAIN DASHBOARD
+               ================================================= -->
 
-      font-weight: 700;
+          <div class="enterprise-dashboard-main">
 
-    }
 
+            <!-- =================================================
+                 TOP METRICS
+                 ================================================= -->
 
-    .enterprise-dashboard-kpi:nth-child(2)
-    .enterprise-dashboard-kpi-value,
-    .enterprise-dashboard-kpi:nth-child(3)
-    .enterprise-dashboard-kpi-value {
+            <div
+              class="enterprise-dashboard-metrics"
+            >
 
-      color:
-        var(--tsec-gold-light);
 
-    }
+              <div
+                class="enterprise-dashboard-metric"
+              >
 
+                <span
+                  class="enterprise-dashboard-metric-label"
+                >
+                  Overall Risk
+                </span>
 
-    .enterprise-dashboard-kpi-meta {
+                <span
+                  class="
+                    enterprise-dashboard-metric-value
+                    gold
+                  "
+                >
+                  68%
+                </span>
 
-      margin-top: 7px;
+                <span
+                  class="enterprise-dashboard-metric-trend"
+                >
+                  ↓ Improving
+                </span>
 
-      color:
-        var(--tsec-muted);
+              </div>
 
-      font-size: 10px;
 
-    }
+              <div
+                class="enterprise-dashboard-metric"
+              >
 
+                <span
+                  class="enterprise-dashboard-metric-label"
+                >
+                  Control Maturity
+                </span>
 
-    /* =====================================================
-       MAIN DASHBOARD GRID
-       ===================================================== */
+                <span
+                  class="enterprise-dashboard-metric-value"
+                >
+                  74%
+                </span>
 
-    .enterprise-dashboard-grid {
+                <span
+                  class="enterprise-dashboard-metric-trend"
+                >
+                  ↑ +8% QoQ
+                </span>
 
-      display: grid;
+              </div>
 
-      grid-template-columns:
-        minmax(0, 1.05fr)
-        minmax(0, 0.95fr);
 
-      gap: 20px;
+              <div
+                class="enterprise-dashboard-metric"
+              >
 
-    }
+                <span
+                  class="enterprise-dashboard-metric-label"
+                >
+                  Framework Coverage
+                </span>
 
+                <span
+                  class="enterprise-dashboard-metric-value"
+                >
+                  82%
+                </span>
 
-    .enterprise-dashboard-posture,
-    .enterprise-dashboard-risk {
+                <span
+                  class="enterprise-dashboard-metric-trend"
+                >
+                  ↑ +12%
+                </span>
 
-      min-height: 430px;
+              </div>
 
-    }
 
+              <div
+                class="enterprise-dashboard-metric"
+              >
 
-    .enterprise-dashboard-panel-header {
+                <span
+                  class="enterprise-dashboard-metric-label"
+                >
+                  Critical Issues
+                </span>
 
-      display: flex;
+                <span
+                  class="
+                    enterprise-dashboard-metric-value
+                    gold
+                  "
+                >
+                  07
+                </span>
 
-      align-items: flex-start;
+                <span
+                  class="enterprise-dashboard-metric-trend"
+                >
+                  ↓ -4
+                </span>
 
-      justify-content: space-between;
+              </div>
 
-      gap: 20px;
 
-    }
+            </div>
 
 
-    .enterprise-dashboard-panel-header
-    .enterprise-panel-title {
+            <!-- =================================================
+                 ANALYTICS
+                 ================================================= -->
 
-      margin-top: 9px;
+            <div
+              class="enterprise-dashboard-analytics"
+            >
 
-    }
 
+              <!-- =================================================
+                   RISK PRIORITIES
+                   ================================================= -->
 
-    .enterprise-dashboard-period {
+              <div
+                class="enterprise-dashboard-panel"
+              >
 
-      padding:
-        6px 9px;
 
-      color:
-        var(--tsec-muted);
+                <div
+                  class="
+                    enterprise-dashboard-panel-header
+                  "
+                >
 
-      background:
-        rgba(255, 255, 255, 0.025);
+                  <span
+                    class="
+                      enterprise-dashboard-panel-title
+                    "
+                  >
+                    Enterprise Risk Priorities
+                  </span>
 
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.07);
+                  <span
+                    class="
+                      enterprise-dashboard-panel-meta
+                    "
+                  >
+                    Current State
+                  </span>
 
-      border-radius:
-        var(--tsec-radius-sm);
+                </div>
 
-      font-size: 9px;
 
-      font-weight: 700;
+                <div
+                  class="
+                    enterprise-dashboard-risk-list
+                  "
+                >
 
-      letter-spacing: 0.08em;
 
-      text-transform: uppercase;
+                  <div
+                    class="
+                      enterprise-dashboard-risk-row
+                    "
+                  >
 
-    }
+                    <span
+                      class="
+                        enterprise-dashboard-risk-name
+                      "
+                    >
+                      Identity & Access
+                    </span>
 
+                    <div
+                      class="
+                        enterprise-dashboard-risk-track
+                      "
+                    >
 
-    /* =====================================================
-       MATURITY
-       ===================================================== */
+                      <div
+                        class="
+                          enterprise-dashboard-risk-fill
+                        "
+                        style="width:82%"
+                      ></div>
 
-    .enterprise-maturity {
+                    </div>
 
-      display: grid;
+                    <span
+                      class="
+                        enterprise-dashboard-risk-score
+                      "
+                    >
+                      82
+                    </span>
 
-      grid-template-columns:
-        190px
-        minmax(0, 1fr);
+                  </div>
 
-      gap: 34px;
 
-      align-items: center;
+                  <div
+                    class="
+                      enterprise-dashboard-risk-row
+                    "
+                  >
 
-      margin-top: 40px;
+                    <span
+                      class="
+                        enterprise-dashboard-risk-name
+                      "
+                    >
+                      Third-Party Risk
+                    </span>
 
-    }
+                    <div
+                      class="
+                        enterprise-dashboard-risk-track
+                      "
+                    >
 
+                      <div
+                        class="
+                          enterprise-dashboard-risk-fill
+                        "
+                        style="width:71%"
+                      ></div>
 
-    .enterprise-maturity-score {
+                    </div>
 
-      display: flex;
+                    <span
+                      class="
+                        enterprise-dashboard-risk-score
+                      "
+                    >
+                      71
+                    </span>
 
-      flex-direction: column;
+                  </div>
 
-      align-items: center;
 
-      gap: 15px;
+                  <div
+                    class="
+                      enterprise-dashboard-risk-row
+                    "
+                  >
 
-    }
+                    <span
+                      class="
+                        enterprise-dashboard-risk-name
+                      "
+                    >
+                      Data Protection
+                    </span>
 
+                    <div
+                      class="
+                        enterprise-dashboard-risk-track
+                      "
+                    >
 
-    .enterprise-maturity-ring {
+                      <div
+                        class="
+                          enterprise-dashboard-risk-fill
+                        "
+                        style="width:64%"
+                      ></div>
 
-      display: flex;
+                    </div>
 
-      align-items: center;
+                    <span
+                      class="
+                        enterprise-dashboard-risk-score
+                      "
+                    >
+                      64
+                    </span>
 
-      justify-content: center;
+                  </div>
 
-      width: 142px;
-      height: 142px;
 
-      border-radius: 50%;
+                  <div
+                    class="
+                      enterprise-dashboard-risk-row
+                    "
+                  >
 
-      background:
-        conic-gradient(
-          var(--tsec-gold)
-          0deg,
-          var(--tsec-gold-light)
-          274deg,
-          rgba(255, 255, 255, 0.08)
-          274deg,
-          rgba(255, 255, 255, 0.08)
-          360deg
-        );
+                    <span
+                      class="
+                        enterprise-dashboard-risk-name
+                      "
+                    >
+                      Incident Readiness
+                    </span>
 
-    }
+                    <div
+                      class="
+                        enterprise-dashboard-risk-track
+                      "
+                    >
 
+                      <div
+                        class="
+                          enterprise-dashboard-risk-fill
+                        "
+                        style="width:58%"
+                      ></div>
 
-    .enterprise-maturity-ring-inner {
+                    </div>
 
-      display: flex;
+                    <span
+                      class="
+                        enterprise-dashboard-risk-score
+                      "
+                    >
+                      58
+                    </span>
 
-      flex-direction: column;
+                  </div>
 
-      align-items: center;
 
-      justify-content: center;
+                  <div
+                    class="
+                      enterprise-dashboard-risk-row
+                    "
+                  >
 
-      width: 116px;
-      height: 116px;
+                    <span
+                      class="
+                        enterprise-dashboard-risk-name
+                      "
+                    >
+                      Resilience
+                    </span>
 
-      border-radius: 50%;
+                    <div
+                      class="
+                        enterprise-dashboard-risk-track
+                      "
+                    >
 
-      background:
-        var(--tsec-navy-950);
+                      <div
+                        class="
+                          enterprise-dashboard-risk-fill
+                        "
+                        style="width:76%"
+                      ></div>
 
-    }
+                    </div>
 
+                    <span
+                      class="
+                        enterprise-dashboard-risk-score
+                      "
+                    >
+                      76
+                    </span>
 
-    .enterprise-maturity-ring-inner strong {
+                  </div>
 
-      color:
-        var(--tsec-white);
 
-      font-size: 31px;
+                </div>
 
-      line-height: 1;
 
-    }
+              </div>
 
 
-    .enterprise-maturity-ring-inner span {
+              <!-- =================================================
+                   FRAMEWORK COVERAGE
+                   ================================================= -->
 
-      margin-top: 4px;
+              <div
+                class="enterprise-dashboard-panel"
+              >
 
-      color:
-        var(--tsec-muted);
 
-      font-size: 10px;
+                <div
+                  class="
+                    enterprise-dashboard-panel-header
+                  "
+                >
 
-    }
+                  <span
+                    class="
+                      enterprise-dashboard-panel-title
+                    "
+                  >
+                    Framework Coverage
+                  </span>
 
+                  <span
+                    class="
+                      enterprise-dashboard-panel-meta
+                    "
+                  >
+                    6 Active
+                  </span>
 
-    .enterprise-maturity-score-label {
+                </div>
 
-      display: flex;
 
-      flex-direction: column;
+                <div
+                  class="
+                    enterprise-dashboard-framework-list
+                  "
+                >
 
-      align-items: center;
 
-      gap: 4px;
+                  <div
+                    class="enterprise-dashboard-framework"
+                  >
 
-      text-align: center;
+                    <span
+                      class="
+                        enterprise-dashboard-framework-name
+                      "
+                    >
+                      SOC 2
+                    </span>
 
-    }
+                    <div
+                      class="
+                        enterprise-dashboard-framework-track
+                      "
+                    >
 
+                      <div
+                        class="
+                          enterprise-dashboard-framework-fill
+                        "
+                        style="width:88%"
+                      ></div>
 
-    .enterprise-maturity-score-label strong {
+                    </div>
 
-      color:
-        var(--tsec-gold-light);
+                    <span
+                      class="
+                        enterprise-dashboard-framework-value
+                      "
+                    >
+                      88%
+                    </span>
 
-      font-size: 13px;
+                  </div>
 
-    }
 
+                  <div
+                    class="enterprise-dashboard-framework"
+                  >
 
-    .enterprise-maturity-score-label span {
+                    <span
+                      class="
+                        enterprise-dashboard-framework-name
+                      "
+                    >
+                      ISO 27001
+                    </span>
 
-      color:
-        var(--tsec-muted);
+                    <div
+                      class="
+                        enterprise-dashboard-framework-track
+                      "
+                    >
 
-      font-size: 9px;
+                      <div
+                        class="
+                          enterprise-dashboard-framework-fill
+                        "
+                        style="width:81%"
+                      ></div>
 
-    }
+                    </div>
 
+                    <span
+                      class="
+                        enterprise-dashboard-framework-value
+                      "
+                    >
+                      81%
+                    </span>
 
-    /* =====================================================
-       MATURITY SCALE
-       ===================================================== */
+                  </div>
 
-    .enterprise-maturity-scale-header {
 
-      display: flex;
+                  <div
+                    class="enterprise-dashboard-framework"
+                  >
 
-      justify-content: space-between;
+                    <span
+                      class="
+                        enterprise-dashboard-framework-name
+                      "
+                    >
+                      NYDFS
+                    </span>
 
-      margin-bottom: 13px;
+                    <div
+                      class="
+                        enterprise-dashboard-framework-track
+                      "
+                    >
 
-      color:
-        var(--tsec-muted);
+                      <div
+                        class="
+                          enterprise-dashboard-framework-fill
+                        "
+                        style="width:76%"
+                      ></div>
 
-      font-size: 10px;
+                    </div>
 
-      font-weight: 700;
+                    <span
+                      class="
+                        enterprise-dashboard-framework-value
+                      "
+                    >
+                      76%
+                    </span>
 
-      text-transform: uppercase;
+                  </div>
 
-      letter-spacing: 0.08em;
 
-    }
+                  <div
+                    class="enterprise-dashboard-framework"
+                  >
 
+                    <span
+                      class="
+                        enterprise-dashboard-framework-name
+                      "
+                    >
+                      NIST CSF
+                    </span>
 
-    .enterprise-maturity-track {
+                    <div
+                      class="
+                        enterprise-dashboard-framework-track
+                      "
+                    >
 
-      width: 100%;
-      height: 7px;
+                      <div
+                        class="
+                          enterprise-dashboard-framework-fill
+                        "
+                        style="width:84%"
+                      ></div>
 
-      overflow: hidden;
+                    </div>
 
-      background:
-        rgba(255, 255, 255, 0.08);
+                    <span
+                      class="
+                        enterprise-dashboard-framework-value
+                      "
+                    >
+                      84%
+                    </span>
 
-      border-radius: 10px;
+                  </div>
 
-    }
 
+                  <div
+                    class="enterprise-dashboard-framework"
+                  >
 
-    .enterprise-maturity-progress {
+                    <span
+                      class="
+                        enterprise-dashboard-framework-name
+                      "
+                    >
+                      PCI DSS
+                    </span>
 
-      height: 100%;
+                    <div
+                      class="
+                        enterprise-dashboard-framework-track
+                      "
+                    >
 
-      background:
-        linear-gradient(
-          90deg,
-          var(--tsec-gold-dark),
-          var(--tsec-gold-light)
-        );
+                      <div
+                        class="
+                          enterprise-dashboard-framework-fill
+                        "
+                        style="width:69%"
+                      ></div>
 
-      border-radius: 10px;
+                    </div>
 
-    }
+                    <span
+                      class="
+                        enterprise-dashboard-framework-value
+                      "
+                    >
+                      69%
+                    </span>
 
+                  </div>
 
-    .enterprise-maturity-levels {
 
-      display: flex;
+                </div>
 
-      justify-content: space-between;
 
-      gap: 6px;
+              </div>
 
-      margin-top: 11px;
 
-    }
+            </div>
 
 
-    .enterprise-maturity-levels span {
+          </div>
 
-      color:
-        var(--tsec-muted);
 
-      font-size: 8px;
+        </div>
 
-      line-height: 1.3;
 
-    }
+      </div>
 
 
-    .enterprise-maturity-levels span.active {
+    </div>
 
-      color:
-        var(--tsec-gold-light);
 
-      font-weight: 700;
+    <!-- =================================================
+         DASHBOARD VALUE PROPOSITION
+         ================================================= -->
 
-    }
+    <div
+      class="enterprise-dashboard-value-grid"
+    >
 
 
-    /* =====================================================
-       POSTURE SUMMARY
-       ===================================================== */
+      <!-- =================================================
+           VALUE 01
+           ================================================= -->
 
-    .enterprise-posture-summary {
+      <article
+        class="enterprise-dashboard-value-card"
+      >
 
-      display: grid;
+        <div
+          class="enterprise-dashboard-value-icon"
+        >
 
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
 
-      gap: 10px;
+            <circle
+              cx="12"
+              cy="12"
+              r="8"
+            />
 
-      margin-top: 34px;
+            <circle
+              cx="12"
+              cy="12"
+              r="3"
+            />
 
-      padding-top: 22px;
+            <path
+              d="M12 4v5"
+            />
 
-      border-top:
-        1px solid
-        rgba(255, 255, 255, 0.07);
+            <path
+              d="M12 15v5"
+            />
 
-    }
+            <path
+              d="M4 12h5"
+            />
 
+            <path
+              d="M15 12h5"
+            />
 
-    .enterprise-posture-summary-item {
+          </svg>
 
-      display: flex;
+        </div>
 
-      align-items: center;
 
-      gap: 10px;
+        <h3
+          class="enterprise-dashboard-value-title"
+        >
+          Executive Visibility
+        </h3>
 
-      padding: 10px;
 
-      background:
-        rgba(255, 255, 255, 0.02);
+        <p
+          class="enterprise-dashboard-value-text"
+        >
 
-      border-radius:
-        var(--tsec-radius-sm);
+          Give leadership a consolidated view of
+          cybersecurity posture, risk exposure and
+          improvement priorities.
 
-    }
+        </p>
 
+      </article>
 
-    .enterprise-posture-summary-indicator {
 
-      width: 7px;
-      height: 7px;
+      <!-- =================================================
+           VALUE 02
+           ================================================= -->
 
-      flex-shrink: 0;
+      <article
+        class="enterprise-dashboard-value-card"
+      >
 
-      border-radius: 50%;
+        <div
+          class="enterprise-dashboard-value-icon"
+        >
 
-      background:
-        var(--tsec-success);
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
 
-    }
+            <path
+              d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"
+            />
 
+            <path
+              d="M8.5 12l2.2 2.2 4.8-5"
+            />
 
-    .enterprise-posture-summary-indicator.attention {
+          </svg>
 
-      background:
-        var(--tsec-gold);
+        </div>
 
-    }
 
+        <h3
+          class="enterprise-dashboard-value-title"
+        >
+          Risk-Based Prioritization
+        </h3>
 
-    .enterprise-posture-summary-item div {
 
-      display: flex;
+        <p
+          class="enterprise-dashboard-value-text"
+        >
 
-      flex-direction: column;
+          Focus resources on the risks and control
+          gaps that matter most to the organization,
+          rather than treating every requirement equally.
 
-      gap: 3px;
+        </p>
 
-    }
+      </article>
 
 
-    .enterprise-posture-summary-item strong {
+      <!-- =================================================
+           VALUE 03
+           ================================================= -->
 
-      color:
-        var(--tsec-white);
+      <article
+        class="enterprise-dashboard-value-card"
+      >
 
-      font-size: 10px;
+        <div
+          class="enterprise-dashboard-value-icon"
+        >
 
-    }
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
 
+            <path
+              d="M4 19V9"
+            />
 
-    .enterprise-posture-summary-item span {
+            <path
+              d="M10 19V5"
+            />
 
-      color:
-        var(--tsec-muted);
+            <path
+              d="M16 19v-7"
+            />
 
-      font-size: 9px;
+            <path
+              d="M22 19V3"
+            />
 
-    }
+            <path
+              d="M3 19h20"
+            />
 
+          </svg>
 
-    /* =====================================================
-       RISK BARS
-       ===================================================== */
+        </div>
 
-    .enterprise-risk-bars {
 
-      display: flex;
+        <h3
+          class="enterprise-dashboard-value-title"
+        >
+          Measurable Improvement
+        </h3>
 
-      flex-direction: column;
 
-      gap: 22px;
+        <p
+          class="enterprise-dashboard-value-text"
+        >
 
-      margin-top: 40px;
+          Track maturity, framework coverage and
+          remediation progress through measurable
+          indicators over time.
 
-    }
+        </p>
 
+      </article>
 
-    .enterprise-risk-row-header {
 
-      display: flex;
+    </div>
 
-      justify-content: space-between;
 
-      margin-bottom: 8px;
+    <!-- =================================================
+         PLATFORM CTA
+         ================================================= -->
 
-    }
+    <div
+      class="enterprise-dashboard-cta"
+    >
 
 
-    .enterprise-risk-row-header span {
+      <div
+        class="enterprise-dashboard-cta-copy"
+      >
 
-      color:
-        var(--tsec-muted);
+        <h3
+          class="enterprise-dashboard-cta-title"
+        >
+          See how the TSEC Principal Dashboard™
+          can support executive decision-making.
+        </h3>
 
-      font-size: 10px;
 
-      font-weight: 600;
+        <p
+          class="enterprise-dashboard-cta-text"
+        >
 
-    }
+          Explore how TSEC can bring enterprise risk,
+          cybersecurity and compliance intelligence
+          together into a single executive view.
 
+        </p>
 
-    .enterprise-risk-row-header strong {
+      </div>
 
-      color:
-        var(--tsec-white);
 
-      font-size: 10px;
+      <a
+        href="#enterprise-assessment"
+        class="enterprise-btn enterprise-btn-primary"
+      >
+        REQUEST A PLATFORM DEMO
+      </a>
 
-    }
 
+    </div>
 
-    .enterprise-risk-track {
 
-      width: 100%;
-      height: 6px;
+  </div>
 
-      overflow: hidden;
 
-      background:
-        rgba(255, 255, 255, 0.07);
+</section>
 
-      border-radius: 10px;
 
-    }
-
-
-    .enterprise-risk-progress {
-
-      height: 100%;
-
-      border-radius: 10px;
-
-    }
-
-
-    .enterprise-risk-progress.critical {
-
-      background:
-        #a84b4b;
-
-    }
-
-
-    .enterprise-risk-progress.high {
-
-      background:
-        #c47a38;
-
-    }
-
-
-    .enterprise-risk-progress.medium {
-
-      background:
-        var(--tsec-gold);
-
-    }
-
-
-    .enterprise-risk-progress.low {
-
-      background:
-        var(--tsec-success);
-
-    }
-
-
-    /* =====================================================
-       RISK SUMMARY
-       ===================================================== */
-
-    .enterprise-risk-summary {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 10px;
-
-      margin-top: 34px;
-
-      padding-top: 22px;
-
-      border-top:
-        1px solid
-        rgba(255, 255, 255, 0.07);
-
-    }
-
-
-    .enterprise-risk-summary div {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 6px;
-
-    }
-
-
-    .enterprise-risk-summary span {
-
-      color:
-        var(--tsec-muted);
-
-      font-size: 9px;
-
-      text-transform: uppercase;
-
-      letter-spacing: 0.08em;
-
-    }
-
-
-    .enterprise-risk-summary strong {
-
-      color:
-        var(--tsec-white);
-
-      font-size: 20px;
-
-    }
-
-
-    /* =====================================================
-       DIMENSION SECTION HEADER
-       ===================================================== */
-
-    .enterprise-dashboard-section-header {
-
-      display: flex;
-
-      align-items: flex-end;
-
-      justify-content: space-between;
-
-      gap: 30px;
-
-      margin:
-        58px 0 22px;
-
-    }
-
-
-    .enterprise-dashboard-section-header
-    .enterprise-panel-title {
-
-      margin-top: 8px;
-
-    }
-
-
-    .enterprise-dashboard-section-note {
-
-      color:
-        var(--tsec-muted);
-
-      font-size: 9px;
-
-      letter-spacing: 0.08em;
-
-      text-transform: uppercase;
-
-    }
-
-
-    /* =====================================================
-       DIMENSION CARDS
-       ===================================================== */
-
-    .enterprise-dashboard-dimensions {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-      gap: 14px;
-
-    }
-
-
-    .enterprise-dashboard-dimension {
-
-      position: relative;
-
-      padding: 22px;
-
-      background:
-        var(--tsec-navy-900);
-
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.08);
-
-      border-radius:
-        var(--tsec-radius-md);
-
-      transition:
-        border-color var(--tsec-transition),
-        transform var(--tsec-transition);
-
-    }
-
-
-    .enterprise-dashboard-dimension:hover {
-
-      transform:
-        translateY(-2px);
-
-      border-color:
-        var(--tsec-border);
-
-    }
-
-
-    .enterprise-dashboard-dimension-top {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      margin-bottom: 18px;
-
-    }
-
-
-    .enterprise-dashboard-dimension-icon {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      width: 34px;
-      height: 34px;
-
-      color:
-        var(--tsec-gold-light);
-
-      background:
-        rgba(217, 157, 36, 0.07);
-
-      border:
-        1px solid
-        var(--tsec-border);
-
-      border-radius:
-        var(--tsec-radius-sm);
-
-      font-size: 9px;
-
-      font-weight: 700;
-
-    }
-
-
-    .enterprise-dashboard-dimension-status {
-
-      color:
-        var(--tsec-gold-light);
-
-      font-size: 18px;
-
-      font-weight: 700;
-
-    }
-
-
-    .enterprise-dashboard-dimension h4 {
-
-      margin: 0;
-
-      color:
-        var(--tsec-white);
-
-      font-size: 16px;
-
-    }
-
-
-    .enterprise-dashboard-dimension p {
-
-      min-height: 66px;
-
-      margin:
-        10px 0 18px;
-
-      color:
-        var(--tsec-muted);
-
-      font-size: 11px;
-
-      line-height: 1.55;
-
-    }
-
-
-    .enterprise-dashboard-mini-track {
-
-      width: 100%;
-      height: 4px;
-
-      overflow: hidden;
-
-      background:
-        rgba(255, 255, 255, 0.07);
-
-      border-radius: 10px;
-
-    }
-
-
-    .enterprise-dashboard-mini-track div {
-
-      height: 100%;
-
-      background:
-        linear-gradient(
-          90deg,
-          var(--tsec-gold-dark),
-          var(--tsec-gold-light)
-        );
-
-      border-radius: 10px;
-
-    }
-
-
-    .enterprise-dashboard-dimension-footer {
-
-      display: block;
-
-      margin-top: 11px;
-
-      color:
-        var(--tsec-muted);
-
-      font-size: 9px;
-
-      font-weight: 700;
-
-      text-transform: uppercase;
-
-      letter-spacing: 0.06em;
-
-    }
-
-
-    .enterprise-dashboard-dimension-footer.attention {
-
-      color:
-        var(--tsec-gold-light);
-
-    }
-
-
-    /* =====================================================
-       EXECUTIVE PRIORITY
-       ===================================================== */
-
-    .enterprise-dashboard-priority {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      gap: 40px;
-
-      margin-top: 22px;
-
-      padding: 34px 38px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(217, 157, 36, 0.08),
-          var(--tsec-navy-900)
-        );
-
-      border:
-        1px solid
-        var(--tsec-border);
-
-      border-radius:
-        var(--tsec-radius-lg);
-
-    }
-
-
-    .enterprise-dashboard-priority-content {
-
-      max-width: 720px;
-
-    }
-
-
-    .enterprise-dashboard-priority-content h3 {
-
-      margin:
-        9px 0 10px;
-
-      color:
-        var(--tsec-white);
-
-      font-size: 24px;
-
-      line-height: 1.25;
-
-    }
-
-
-    .enterprise-dashboard-priority-content p {
-
-      margin: 0;
-
-      color:
-        var(--tsec-muted);
-
-      font-size: 13px;
-
-      line-height: 1.65;
-
-    }
-
-
-    .enterprise-dashboard-priority-actions {
-
-      flex-shrink: 0;
-
-    }
-
-
-    /* =====================================================
-       RESPONSIVE — 1100px
-       ===================================================== */
-
-    @media (max-width: 1100px) {
-
-      .enterprise-dashboard-kpis {
-
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-
-      }
-
-
-      .enterprise-dashboard-kpi:nth-child(2) {
-
-        border-right: none;
-
-      }
-
-
-      .enterprise-dashboard-kpi:nth-child(-n+2) {
-
-        border-bottom:
-          1px solid
-          rgba(255, 255, 255, 0.07);
-
-      }
-
-
-      .enterprise-dashboard-grid {
-
-        grid-template-columns:
-          1fr;
-
-      }
-
-
-      .enterprise-dashboard-dimensions {
-
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-
-      }
-
-    }
-
-
-    /* =====================================================
-       RESPONSIVE — 768px
-       ===================================================== */
-
-    @media (max-width: 768px) {
-
-      .enterprise-dashboard {
-
-        padding:
-          76px 0;
-
-      }
-
-
-      .enterprise-dashboard-header {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        gap: 22px;
-
-      }
-
-
-      .enterprise-maturity {
-
-        grid-template-columns:
-          1fr;
-
-        gap: 28px;
-
-      }
-
-
-      .enterprise-maturity-score {
-
-        align-items: flex-start;
-
-      }
-
-
-      .enterprise-maturity-score-label {
-
-        align-items: flex-start;
-
-        text-align: left;
-
-      }
-
-
-      .enterprise-dashboard-section-header {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        gap: 10px;
-
-      }
-
-
-      .enterprise-dashboard-priority {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        padding: 28px;
-
-      }
-
-
-      .enterprise-dashboard-priority-actions {
-
-        width: 100%;
-
-      }
-
-
-      .enterprise-dashboard-priority-actions
-      .enterprise-btn {
-
-        width: 100%;
-
-      }
-
-    }
-
-
-    /* =====================================================
-       RESPONSIVE — 560px
-       ===================================================== */
-
-    @media (max-width: 560px) {
-
-      .enterprise-dashboard-kpis {
-
-        grid-template-columns:
-          1fr;
-
-      }
-
-
-      .enterprise-dashboard-kpi {
-
-        border-right: none;
-
-        border-bottom:
-          1px solid
-          rgba(255, 255, 255, 0.07);
-
-      }
-
-
-      .enterprise-dashboard-kpi:last-child {
-
-        border-bottom: none;
-
-      }
-
-
-      .enterprise-dashboard-dimensions {
-
-        grid-template-columns:
-          1fr;
-
-      }
-
-
-      .enterprise-posture-summary {
-
-        grid-template-columns:
-          1fr;
-
-      }
-
-
-      .enterprise-risk-summary {
-
-        grid-template-columns:
-          repeat(3, 1fr);
-
-      }
-
-    }
-
-
-    /* =====================================================
-       RESPONSIVE — 420px
-       ===================================================== */
-
-    @media (max-width: 420px) {
-
-      .enterprise-dashboard {
-
-        padding:
-          60px 0;
-
-      }
-
-
-      .enterprise-dashboard-posture,
-      .enterprise-dashboard-risk {
-
-        padding:
-          22px;
-
-      }
-
-
-      .enterprise-maturity-ring {
-
-        width: 128px;
-        height: 128px;
-
-      }
-
-
-      .enterprise-maturity-ring-inner {
-
-        width: 104px;
-        height: 104px;
-
-      }
-
-
-      .enterprise-dashboard-priority {
-
-        padding: 22px;
-
-      }
-
-    }
-
-  </style>
-
-
-  <!-- =====================================================
-       END MODULE 06 — TSEC PRINCIPAL DASHBOARD™
-       ===================================================== -->
+<!-- =====================================================
+     END MODULE 06 — TSEC PRINCIPAL DASHBOARD™
+     ===================================================== -->
 
 
    <!-- =====================================================
