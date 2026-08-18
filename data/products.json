@@ -1,14 +1,14 @@
 [
   {
-    "id": "soc2-professional",
-    "title": "SOC 2 Readiness Package",
+    "id": "soc2-professional-pack",
+    "title": "SOC 2 Professional Pack™",
     "tier": "pro",
     "type": "Professional Pack",
     "category": "compliance",
     "price": 299,
     "currency": "USD",
-    "description": "Complete compliance package designed to help organizations prepare for SOC 2 readiness with practical templates, controls, and guidance.",
-    "image": "assets/products/soc2-cover.png",
+    "description": "Professional SOC 2 readiness toolkit designed to help organizations assess gaps, strengthen controls, organize evidence, and prepare for a SOC 2 examination.",
+    "image": "assets/products/soc2-box.webp",
     "topics": [
       "SOC 2",
       "Compliance",
