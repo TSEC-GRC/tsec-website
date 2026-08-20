@@ -641,35 +641,284 @@ function renderCard(item) {
 
 }
 
-  
+// ─── FILTER / RENDER ENGINE ──────────────────────────────────────────────────
+
 function applyFilters() {
-  const q = searchQuery.toLowerCase();
+
+  const q = searchQuery.toLowerCase().trim();
+
   let totalShown = 0;
   let html = '';
 
-  const categories = activeCategory === 'all' ? Object.keys(DATA) : [activeCategory];
+
+  // =====================================================
+  // 1. EXISTING DATA CATEGORIES
+  // =====================================================
+
+  const categories =
+    activeCategory === 'all'
+      ? Object.keys(DATA)
+      : [activeCategory];
+
+
+  // =====================================================
+  // 2. RENDER EXISTING FREE / ENTERPRISE RESOURCES
+  //
+  // Legacy PRO resources inside DATA are intentionally
+  // excluded because PRO now comes exclusively from
+  // data/products.json.
+  // =====================================================
 
   categories.forEach(catKey => {
+
     const cat = DATA[catKey];
-    let items = cat.items;
 
-    // Tier filter
-    if (activeTiers.size > 0) items = items.filter(i => activeTiers.has(i.tier));
+    if (!cat) return;
 
-    // Search filter
-    if (q) items = items.filter(i =>
-      i.title.toLowerCase().includes(q) ||
-      i.desc.toLowerCase().includes(q) ||
-      i.topics.some(t => t.toLowerCase().includes(q)) ||
-      i.type.toLowerCase().includes(q)
+
+    let items = cat.items.filter(
+      item => item.tier !== 'pro'
     );
 
-    totalShown += items.length;
-    html += renderSection(catKey, cat, items);
+
+    // ---------------------------------------------------
+    // Tier filter for FREE / ENTERPRISE
+    // ---------------------------------------------------
+
+    if (activeTiers.size > 0) {
+
+      items = items.filter(
+        item => activeTiers.has(item.tier)
+      );
+
+    }
+
+
+    // ---------------------------------------------------
+    // Search filter
+    // ---------------------------------------------------
+
+    if (q) {
+
+      items = items.filter(item => {
+
+        const title =
+          (item.title || '').toLowerCase();
+
+        const description =
+          (item.description || item.desc || '').toLowerCase();
+
+        const topics =
+          Array.isArray(item.topics)
+            ? item.topics.join(' ').toLowerCase()
+            : '';
+
+        const type =
+          (item.type || '').toLowerCase();
+
+
+        return (
+          title.includes(q) ||
+          description.includes(q) ||
+          topics.includes(q) ||
+          type.includes(q)
+        );
+
+      });
+
+    }
+
+
+    // ---------------------------------------------------
+    // Render section
+    // ---------------------------------------------------
+
+    if (items.length > 0) {
+
+      totalShown += items.length;
+
+      html += renderSection(
+        catKey,
+        cat,
+        items
+      );
+
+    }
+
   });
 
-  document.getElementById('resourcesContainer').innerHTML = html;
-  document.getElementById('noResults').style.display = totalShown === 0 ? 'block': 'none';
+
+  // =====================================================
+  // 3. PROFESSIONAL PACKS
+  //
+  // PRO products come exclusively from:
+  //
+  // data/products.json
+  //
+  // Legacy DATA tier:"pro" items are NOT used.
+  // =====================================================
+
+  let proItems = TSEC_PRODUCTS.filter(
+    product => product.tier === 'pro'
+  );
+
+
+  // -----------------------------------------------------
+  // Category filter for Professional Packs
+  //
+  // Only apply a category filter when the selected
+  // category actually matches a product category.
+  // -----------------------------------------------------
+
+  if (activeCategory !== 'all') {
+
+    const matchingProItems = proItems.filter(
+      product => product.category === activeCategory
+    );
+
+
+    /*
+     * If this category exists in products.json,
+     * use the matching PRO products.
+     *
+     * If it does not exist in products.json,
+     * no PRO products are shown for that category.
+     */
+
+    proItems = matchingProItems;
+
+  }
+
+
+  // -----------------------------------------------------
+  // Tier filter
+  // -----------------------------------------------------
+
+  if (activeTiers.size > 0) {
+
+    if (activeTiers.has('pro')) {
+
+      // Keep PRO products.
+
+    } else {
+
+      // User selected FREE and/or ENTERPRISE only.
+      proItems = [];
+
+    }
+
+  }
+
+
+  // -----------------------------------------------------
+  // Search filter
+  // -----------------------------------------------------
+
+  if (q) {
+
+    proItems = proItems.filter(product => {
+
+      const title =
+        (product.title || '').toLowerCase();
+
+      const description =
+        (product.description || '').toLowerCase();
+
+      const topics =
+        Array.isArray(product.topics)
+          ? product.topics.join(' ').toLowerCase()
+          : '';
+
+      const type =
+        (product.type || '').toLowerCase();
+
+      const category =
+        (product.category || '').toLowerCase();
+
+
+      return (
+        title.includes(q) ||
+        description.includes(q) ||
+        topics.includes(q) ||
+        type.includes(q) ||
+        category.includes(q)
+      );
+
+    });
+
+  }
+
+
+  // =====================================================
+  // 4. RENDER PROFESSIONAL PACKS
+  // =====================================================
+
+  if (proItems.length > 0) {
+
+    const proCategory = {
+
+      label: 'Professional Compliance Packs™',
+
+      icon: `
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#4fc3f7"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+          />
+        </svg>
+      `
+
+    };
+
+
+    totalShown += proItems.length;
+
+
+    html += renderSection(
+      'professional-packs',
+      proCategory,
+      proItems
+    );
+
+  }
+
+
+  // =====================================================
+  // 5. UPDATE PAGE
+  // =====================================================
+
+  const container =
+    document.getElementById('resourcesContainer');
+
+
+  if (container) {
+
+    container.innerHTML = html;
+
+  }
+
+
+  const noResults =
+    document.getElementById('noResults');
+
+
+  if (noResults) {
+
+    noResults.style.display =
+      totalShown === 0
+        ? 'block'
+        : 'none';
+
+  }
+
 }
 
 // ─── EVENT LISTENERS ─────────────────────────────────────────────────────────
