@@ -974,13 +974,12 @@ async function loadProducts() {
     // LOAD PRO PRODUCTS
     // =====================================================
 
-    const productsResponse =
-      await fetch(
-        "data/products.json",
-        {
-          cache: "no-store"
-        }
-      );
+    const productsResponse = await fetch(
+      "data/products.json",
+      {
+        cache: "no-store"
+      }
+    );
 
 
     if (!productsResponse.ok) {
@@ -998,8 +997,7 @@ async function loadProducts() {
 
     if (Array.isArray(productsData)) {
 
-      TSEC_PRODUCTS =
-        productsData;
+      TSEC_PRODUCTS = productsData;
 
     } else if (
       productsData &&
@@ -1027,13 +1025,12 @@ async function loadProducts() {
     // LOAD FREE RESOURCES
     // =====================================================
 
-    const freeResponse =
-      await fetch(
-        "data/free-resources.json",
-        {
-          cache: "no-store"
-        }
-      );
+    const freeResponse = await fetch(
+      "data/free-resources.json",
+      {
+        cache: "no-store"
+      }
+    );
 
 
     if (!freeResponse.ok) {
@@ -1095,14 +1092,10 @@ async function loadProducts() {
     TSEC_PRODUCTS.forEach(product => {
 
       if (
-        tierCounts[
-          product.tier
-        ] !== undefined
+        tierCounts[product.tier] !== undefined
       ) {
 
-        tierCounts[
-          product.tier
-        ]++;
+        tierCounts[product.tier]++;
 
       }
 
@@ -1145,20 +1138,16 @@ async function loadProducts() {
     if (container) {
 
       container.innerHTML = `
-        <div
-          style="
-            padding:40px;
-            text-align:center;
-            color:#a0aec0;
-          "
-        >
+        <div style="
+          padding:40px;
+          text-align:center;
+          color:#a0aec0;
+        ">
 
-          <h3
-            style="
-              color:#fff;
-              margin-bottom:10px;
-            "
-          >
+          <h3 style="
+            color:#fff;
+            margin-bottom:10px;
+          ">
             Resources temporarily unavailable
           </h3>
 
