@@ -17,6 +17,8 @@ console.log("✅ TSEC Resources Engine v2.0 Loaded");
 
 let TSEC_PRODUCTS = [];
 
+let TSEC_FREE_RESOURCES = [];
+
 let activeCategory = "all";
 
 let activeTiers = new Set();
@@ -956,7 +958,7 @@ function initializeTierFilters() {
 
 
 // =========================================================
-// LOAD PRODUCTS
+// LOAD PRODUCTS + FREE RESOURCES
 // =========================================================
 
 async function loadProducts() {
@@ -964,11 +966,15 @@ async function loadProducts() {
   try {
 
     console.log(
-      "⏳ Loading TSEC products..."
+      "⏳ Loading TSEC resources..."
     );
 
 
-    const response =
+    // =====================================================
+    // LOAD PRO PRODUCTS
+    // =====================================================
+
+    const productsResponse =
       await fetch(
         "data/products.json",
         {
@@ -977,41 +983,31 @@ async function loadProducts() {
       );
 
 
-    if (!response.ok) {
+    if (!productsResponse.ok) {
 
       throw new Error(
-        `HTTP ${response.status}`
+        `products.json HTTP ${productsResponse.status}`
       );
 
     }
 
 
-    const data =
-      await response.json();
+    const productsData =
+      await productsResponse.json();
 
 
-    // -----------------------------------------------------
-    // Support either:
-    //
-    // [...]
-    //
-    // OR
-    //
-    // { "products": [...] }
-    // -----------------------------------------------------
-
-    if (Array.isArray(data)) {
+    if (Array.isArray(productsData)) {
 
       TSEC_PRODUCTS =
-        data;
+        productsData;
 
     } else if (
-      data &&
-      Array.isArray(data.products)
+      productsData &&
+      Array.isArray(productsData.products)
     ) {
 
       TSEC_PRODUCTS =
-        data.products;
+        productsData.products;
 
     } else {
 
@@ -1023,13 +1019,67 @@ async function loadProducts() {
 
 
     console.log(
-      `✅ TSEC Products loaded: ${TSEC_PRODUCTS.length}`
+      `✅ TSEC PRO products loaded: ${TSEC_PRODUCTS.length}`
     );
 
 
-    // -----------------------------------------------------
-    // Validate products
-    // -----------------------------------------------------
+    // =====================================================
+    // LOAD FREE RESOURCES
+    // =====================================================
+
+    const freeResponse =
+      await fetch(
+        "data/free-resources.json",
+        {
+          cache: "no-store"
+        }
+      );
+
+
+    if (!freeResponse.ok) {
+
+      throw new Error(
+        `free-resources.json HTTP ${freeResponse.status}`
+      );
+
+    }
+
+
+    const freeData =
+      await freeResponse.json();
+
+
+    if (!Array.isArray(freeData)) {
+
+      throw new Error(
+        "free-resources.json does not contain a valid array."
+      );
+
+    }
+
+
+    TSEC_FREE_RESOURCES =
+      freeData;
+
+
+    console.log(
+      `✅ TSEC FREE resources loaded: ${TSEC_FREE_RESOURCES.length}`
+    );
+
+
+    // =====================================================
+    // COMBINE FREE + PRO
+    // =====================================================
+
+    TSEC_PRODUCTS = [
+      ...TSEC_FREE_RESOURCES,
+      ...TSEC_PRODUCTS
+    ];
+
+
+    // =====================================================
+    // VALIDATE TIERS
+    // =====================================================
 
     const tierCounts = {
 
@@ -1065,9 +1115,9 @@ async function loadProducts() {
     );
 
 
-    // -----------------------------------------------------
-    // Initialize
-    // -----------------------------------------------------
+    // =====================================================
+    // INITIALIZE
+    // =====================================================
 
     initializeSearch();
 
@@ -1081,7 +1131,7 @@ async function loadProducts() {
   } catch (error) {
 
     console.error(
-      "❌ TSEC Resources Engine failed to load products:",
+      "❌ TSEC Resources Engine failed to load resources:",
       error
     );
 
@@ -1125,7 +1175,6 @@ async function loadProducts() {
   }
 
 }
-
 
 // =========================================================
 // INITIALIZE
