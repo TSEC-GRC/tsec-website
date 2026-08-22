@@ -280,35 +280,35 @@ function renderAction(item) {
   // FREE
   // -------------------------------------------------------
 
-if (item.tier === "free") {
+  if (item.tier === "free") {
 
-  return `
-    <a
-      href="#"
-      class="rc-download"
-      data-resource-id="${item.id || ""}"
-      onclick="return TSECEngine.handleFreeDownload('${String(item.id || "").replace(/'/g, "\\'")}');"
-    >
+    return `
+      <a
+        href="#"
+        class="rc-download"
+        data-resource-id="${item.id || ""}"
+        onclick='TSECEngine.download(${JSON.stringify(item)}); return false;'
+      >
 
-      <svg width="14" height="14"
-           viewBox="0 0 24 24"
-           fill="none"
-           stroke="currentColor"
-           stroke-width="2"
-           stroke-linecap="round"
-           stroke-linejoin="round">
+        <svg width="14" height="14"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round">
 
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
 
-      </svg>
+        </svg>
 
-      Download
+        Download
 
-    </a>
-  `;
-}
+      </a>
+    `;
+  }
 
 
   // -------------------------------------------------------
@@ -335,7 +335,7 @@ if (item.tier === "free") {
 
         </svg>
 
-        Purchase
+        Get Pro Pack
 
       </a>
     `;
@@ -377,7 +377,6 @@ if (item.tier === "free") {
 
   return "";
 }
-
 
 // =========================================================
 // RENDER CARD
