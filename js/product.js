@@ -1,11 +1,19 @@
 /*
 ==========================================================
- TSEC Product Engine v1.1
- Dynamic Product Loading + Lead Capture + Checkout Action
+ TSEC Product Engine v2.0
+ Universal Professional Pack Product Engine
+
+ Purpose:
+ - Load product from products.json
+ - Read product ID from URL
+ - Populate universal product.html
+ - Support product-specific content
+ - Preserve lead capture
+ - Preserve checkout action
 ==========================================================
 */
 
-console.log("TSEC Product Page Loaded");
+console.log("🚀 TSEC Product Engine v2.0 Loaded");
 
 
 // =========================================================
@@ -24,6 +32,48 @@ let CURRENT_PRODUCT = null;
 
 
 // =========================================================
+// HELPER — SAFE ELEMENT UPDATE
+// =========================================================
+
+function setText(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (!element) {
+
+        return;
+
+    }
+
+    element.textContent =
+        value ?? "";
+
+}
+
+
+// =========================================================
+// HELPER — SAFE HTML UPDATE
+// =========================================================
+
+function setHTML(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (!element) {
+
+        return;
+
+    }
+
+    element.innerHTML =
+        value ?? "";
+
+}
+
+
+// =========================================================
 // LOAD PRODUCT
 // =========================================================
 
@@ -31,12 +81,14 @@ async function loadProduct() {
 
     try {
 
-        console.log("⏳ Loading TSEC product...");
+        console.log(
+            "⏳ Loading TSEC product..."
+        );
 
 
-        // -------------------------------------------------
-        // Load products database
-        // -------------------------------------------------
+        // =================================================
+        // LOAD PRODUCTS DATABASE
+        // =================================================
 
         const response =
             await fetch(
@@ -60,15 +112,9 @@ async function loadProduct() {
             await response.json();
 
 
-        // -------------------------------------------------
-        // Support both:
-        //
-        // [...]
-        //
-        // OR
-        //
-        // { products: [...] }
-        // -------------------------------------------------
+        // =================================================
+        // SUPPORT ARRAY OR OBJECT STRUCTURE
+        // =================================================
 
         const products =
             Array.isArray(data)
@@ -85,9 +131,14 @@ async function loadProduct() {
         }
 
 
-        // -------------------------------------------------
-        // Get product ID from URL
-        // -------------------------------------------------
+        console.log(
+            `📦 Products loaded: ${products.length}`
+        );
+
+
+        // =================================================
+        // GET PRODUCT ID FROM URL
+        // =================================================
 
         const params =
             new URLSearchParams(
@@ -114,15 +165,15 @@ async function loadProduct() {
         );
 
 
-        // -------------------------------------------------
-        // Find product
-        // -------------------------------------------------
+        // =================================================
+        // FIND PRODUCT
+        // =================================================
 
         const product =
             products.find(
                 p =>
-                    String(p.id) ===
-                    String(productId)
+                    String(p.id).trim() ===
+                    String(productId).trim()
             );
 
 
@@ -135,9 +186,9 @@ async function loadProduct() {
         }
 
 
-        // -------------------------------------------------
-        // Store current product globally
-        // -------------------------------------------------
+        // =================================================
+        // STORE CURRENT PRODUCT
+        // =================================================
 
         CURRENT_PRODUCT =
             product;
@@ -153,76 +204,68 @@ async function loadProduct() {
         // BASIC PRODUCT INFORMATION
         // =================================================
 
-        const tierElement =
-            document.getElementById(
-                "product-tier"
-            );
+        setText(
+            "product-title",
+            product.title
+        );
 
 
-        const titleElement =
-            document.getElementById(
-                "product-title"
-            );
+        setText(
+            "product-breadcrumb-title",
+            product.title
+        );
 
 
-        const descriptionElement =
-            document.getElementById(
-                "product-description"
-            );
+        setText(
+            "product-tier",
+            formatTier(product.tier)
+        );
 
 
-        const priceElement =
-            document.getElementById(
-                "product-price"
-            );
+        setText(
+            "product-type",
+            formatProductType(product.type)
+        );
 
 
-        const paymentElement =
-            document.getElementById(
-                "product-payment"
-            );
+        setText(
+            "product-description",
+            product.description ||
+            product.desc ||
+            ""
+        );
 
 
-        if (tierElement) {
-
-            tierElement.textContent =
-                product.tier || "";
-
-        }
-
-
-        if (titleElement) {
-
-            titleElement.textContent =
-                product.title || "";
-
-        }
+        setText(
+            "product-price",
+            formatPrice(
+                product.price,
+                product.currency
+            )
+        );
 
 
-        if (descriptionElement) {
-
-            descriptionElement.textContent =
-                product.description ||
-                product.desc ||
-                "";
-
-        }
+        setText(
+            "product-payment",
+            product.payment ||
+            "One-Time Purchase"
+        );
 
 
-        if (priceElement) {
+        // =================================================
+        // PRODUCT POSITIONING
+        // =================================================
 
-            priceElement.textContent =
-                product.price || "";
+        const positioning =
+            product.positioning?.label ||
+            product.positioning ||
+            "Build • Govern • Assure";
 
-        }
 
-
-        if (paymentElement) {
-
-            paymentElement.textContent =
-                product.payment || "";
-
-        }
+        setText(
+            "product-positioning",
+            positioning
+        );
 
 
         // =================================================
@@ -244,7 +287,8 @@ async function loadProduct() {
                 product.image;
 
             productImage.alt =
-                product.title || "TSEC Product";
+                product.title ||
+                "TSEC Professional Pack™";
 
         }
 
@@ -253,66 +297,59 @@ async function loadProduct() {
         // PRODUCT FEATURES
         // =================================================
 
-        const featuresList =
-            document.getElementById(
-                "product-features"
-            );
-
-
-        if (featuresList) {
-
-            featuresList.innerHTML = "";
-
-
-            const features =
-                Array.isArray(product.features)
-                    ? product.features
-                    : [];
-
-
-            features.forEach(
-                feature => {
-
-                    const li =
-                        document.createElement(
-                            "li"
-                        );
-
-
-                    li.textContent =
-                        "✔ " + feature;
-
-
-                    featuresList.appendChild(
-                        li
-                    );
-
-                }
-            );
-
-        }
+        renderFeatures(
+            product.features
+        );
 
 
         // =================================================
-        // OPTIONAL PRODUCT METADATA
+        // PRODUCT STATISTICS
         // =================================================
 
-        const productType =
-            document.getElementById(
-                "product-type"
-            );
+        renderStatistics(
+            product.stats
+        );
 
 
-        if (
-            productType &&
-            product.type
-        ) {
+        // =================================================
+        // PRODUCT METADATA
+        // =================================================
 
-            productType.textContent =
-                product.type;
+        renderMetadata(
+            product
+        );
 
-        }
 
+        // =================================================
+        // INCLUDED CONTENT
+        // =================================================
+
+        renderIncluded(
+            product
+        );
+
+
+        // =================================================
+        // FRAMEWORK COVERAGE
+        // =================================================
+
+        renderFrameworks(
+            product
+        );
+
+
+        // =================================================
+        // HERO VALUE PROPOSITIONS
+        // =================================================
+
+        renderHeroFeatures(
+            product
+        );
+
+
+        // =================================================
+        // FINAL PRODUCT LOG
+        // =================================================
 
         console.log(
             `✅ TSEC Product Page ready: ${product.title}`
@@ -327,36 +364,16 @@ async function loadProduct() {
         );
 
 
-        // -------------------------------------------------
-        // Display product error
-        // -------------------------------------------------
-
-        const titleElement =
-            document.getElementById(
-                "product-title"
-            );
+        setText(
+            "product-title",
+            "Product Unavailable"
+        );
 
 
-        if (titleElement) {
-
-            titleElement.textContent =
-                "Product Unavailable";
-
-        }
-
-
-        const descriptionElement =
-            document.getElementById(
-                "product-description"
-            );
-
-
-        if (descriptionElement) {
-
-            descriptionElement.textContent =
-                "We were unable to load this product. Please return to the TSEC Resources page.";
-
-        }
+        setText(
+            "product-description",
+            "We were unable to load this product. Please return to the TSEC Resources page."
+        );
 
     }
 
@@ -364,7 +381,755 @@ async function loadProduct() {
 
 
 // =========================================================
-// TSEC CHECKOUT ACTION
+// FORMAT PRICE
+// =========================================================
+
+function formatPrice(
+    price,
+    currency = "USD"
+) {
+
+    if (
+        price === undefined ||
+        price === null ||
+        price === ""
+    ) {
+
+        return "";
+
+    }
+
+
+    try {
+
+        return new Intl.NumberFormat(
+            "en-US",
+            {
+                style: "currency",
+                currency: currency
+            }
+        ).format(price);
+
+    } catch (error) {
+
+        return `$${price}`;
+
+    }
+
+}
+
+
+// =========================================================
+// FORMAT TIER
+// =========================================================
+
+function formatTier(
+    tier
+) {
+
+    if (!tier) {
+
+        return "Professional Pack™";
+
+    }
+
+
+    const normalized =
+        String(tier).toLowerCase();
+
+
+    if (
+        normalized === "pro"
+    ) {
+
+        return "Professional Pack™";
+
+    }
+
+
+    return tier;
+
+}
+
+
+// =========================================================
+// FORMAT PRODUCT TYPE
+// =========================================================
+
+function formatProductType(
+    type
+) {
+
+    if (!type) {
+
+        return "PROFESSIONAL COMPLIANCE PACK™";
+
+    }
+
+
+    if (
+        String(type).toLowerCase()
+            .includes("professional")
+    ) {
+
+        return "PROFESSIONAL COMPLIANCE PACK™";
+
+    }
+
+
+    return type;
+
+}
+
+
+// =========================================================
+// RENDER FEATURES
+// =========================================================
+
+function renderFeatures(
+    features
+) {
+
+    const list =
+        document.getElementById(
+            "product-features"
+        );
+
+
+    if (!list) {
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    if (
+        !Array.isArray(features) ||
+        features.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    features.forEach(
+        feature => {
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+
+            const icon =
+                document.createElement(
+                    "span"
+                );
+
+
+            icon.className =
+                "check-green";
+
+
+            icon.textContent =
+                "✓";
+
+
+            li.appendChild(
+                icon
+            );
+
+
+            const text =
+                document.createTextNode(
+                    ` ${feature}`
+                );
+
+
+            li.appendChild(
+                text
+            );
+
+
+            list.appendChild(
+                li
+            );
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// RENDER STATISTICS
+// =========================================================
+
+function renderStatistics(
+    stats
+) {
+
+    if (!stats) {
+
+        console.log(
+            "ℹ No product statistics defined."
+        );
+
+        return;
+
+    }
+
+
+    setText(
+        "stat-editable-files",
+        stats.editableFiles ?? "—"
+    );
+
+
+    setText(
+        "stat-word-templates",
+        stats.wordTemplates ?? "—"
+    );
+
+
+    setText(
+        "stat-excel-workbooks",
+        stats.excelWorkbooks ?? "—"
+    );
+
+
+    setText(
+        "stat-powerpoint",
+        stats.powerPointDecks ??
+        stats.powerpointDecks ??
+        "—"
+    );
+
+
+    setText(
+        "stat-guides",
+        stats.guides ?? "—"
+    );
+
+
+    setText(
+        "stat-delivery",
+        stats.deliveryShort ||
+        "Instant"
+    );
+
+}
+
+
+// =========================================================
+// RENDER METADATA
+// =========================================================
+
+function renderMetadata(
+    product
+) {
+
+    const metadata =
+        product.metadata ||
+        {};
+
+
+    // -----------------------------------------------------
+    // Frameworks
+    // -----------------------------------------------------
+
+    if (
+        Array.isArray(product.topics)
+    ) {
+
+        setHTML(
+            "product-frameworks",
+            product.topics
+                .map(
+                    topic =>
+                        escapeHTML(topic)
+                )
+                .join("<br>")
+        );
+
+    }
+
+
+    // -----------------------------------------------------
+    // Format
+    // -----------------------------------------------------
+
+    setText(
+        "product-format",
+        metadata.format ||
+        "Microsoft Word, Excel & PowerPoint"
+    );
+
+
+    // -----------------------------------------------------
+    // Delivery
+    // -----------------------------------------------------
+
+    setText(
+        "product-delivery",
+        metadata.delivery ||
+        "Instant Digital Download"
+    );
+
+
+    // -----------------------------------------------------
+    // License
+    // -----------------------------------------------------
+
+    setText(
+        "product-license",
+        metadata.license ||
+        "Single Organization Use"
+    );
+
+
+    // -----------------------------------------------------
+    // Updates
+    // -----------------------------------------------------
+
+    setText(
+        "product-updates",
+        metadata.updates ||
+        "Minor updates for 12 months"
+    );
+
+}
+
+
+// =========================================================
+// RENDER INCLUDED CONTENT
+// =========================================================
+
+function renderIncluded(
+    product
+) {
+
+    const grid =
+        document.getElementById(
+            "product-included-grid"
+        );
+
+
+    if (!grid) {
+
+        return;
+
+    }
+
+
+    const included =
+        product.included;
+
+
+    // -----------------------------------------------------
+    // If no structured included content exists yet,
+    // preserve the universal placeholders.
+    // -----------------------------------------------------
+
+    if (
+        !Array.isArray(included) ||
+        included.length === 0
+    ) {
+
+        console.log(
+            "ℹ No structured included content defined."
+        );
+
+        return;
+
+    }
+
+
+    grid.innerHTML = "";
+
+
+    included.forEach(
+        item => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "included-card";
+
+
+            const title =
+                document.createElement(
+                    "h3"
+                );
+
+
+            title.textContent =
+                item.title ||
+                "";
+
+
+            const description =
+                document.createElement(
+                    "p"
+                );
+
+
+            description.textContent =
+                item.description ||
+                "";
+
+
+            card.appendChild(
+                title
+            );
+
+
+            card.appendChild(
+                description
+            );
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    if (
+        product.includedDescription
+    ) {
+
+        setText(
+            "product-included-description",
+            product.includedDescription
+        );
+
+    }
+
+}
+
+
+// =========================================================
+// RENDER FRAMEWORKS
+// =========================================================
+
+function renderFrameworks(
+    product
+) {
+
+    const grid =
+        document.getElementById(
+            "framework-grid"
+        );
+
+
+    if (!grid) {
+
+        return;
+
+    }
+
+
+    const frameworks =
+        product.frameworks;
+
+
+    // -----------------------------------------------------
+    // No structured frameworks yet
+    // -----------------------------------------------------
+
+    if (
+        !Array.isArray(frameworks) ||
+        frameworks.length === 0
+    ) {
+
+        console.log(
+            "ℹ No structured framework cards defined."
+        );
+
+        return;
+
+    }
+
+
+    grid.innerHTML = "";
+
+
+    frameworks.forEach(
+        framework => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "framework-card";
+
+
+            // ---------------------------------------------
+            // ICON
+            // ---------------------------------------------
+
+            const iconWrapper =
+                document.createElement(
+                    "div"
+                );
+
+
+            iconWrapper.className =
+                "framework-icon";
+
+
+            if (
+                framework.icon
+            ) {
+
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+
+                image.src =
+                    framework.icon;
+
+
+                image.alt =
+                    framework.name ||
+                    "Framework";
+
+
+                iconWrapper.appendChild(
+                    image
+                );
+
+            } else {
+
+                iconWrapper.textContent =
+                    "✓";
+
+            }
+
+
+            // ---------------------------------------------
+            // NAME
+            // ---------------------------------------------
+
+            const title =
+                document.createElement(
+                    "h3"
+                );
+
+
+            title.textContent =
+                framework.name ||
+                "";
+
+
+            // ---------------------------------------------
+            // DESCRIPTION
+            // ---------------------------------------------
+
+            const description =
+                document.createElement(
+                    "p"
+                );
+
+
+            description.textContent =
+                framework.description ||
+                "";
+
+
+            // ---------------------------------------------
+            // ASSEMBLE
+            // ---------------------------------------------
+
+            card.appendChild(
+                iconWrapper
+            );
+
+
+            card.appendChild(
+                title
+            );
+
+
+            card.appendChild(
+                description
+            );
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    if (
+        product.frameworkDescription
+    ) {
+
+        setText(
+            "framework-description",
+            product.frameworkDescription
+        );
+
+    }
+
+}
+
+
+// =========================================================
+// RENDER HERO FEATURES
+// =========================================================
+
+function renderHeroFeatures(
+    product
+) {
+
+    const container =
+        document.getElementById(
+            "product-hero-features"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    // -----------------------------------------------------
+    // Product-specific hero features
+    // -----------------------------------------------------
+
+    const heroFeatures =
+        product.heroFeatures;
+
+
+    if (
+        !Array.isArray(heroFeatures) ||
+        heroFeatures.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    heroFeatures.forEach(
+        item => {
+
+            const wrapper =
+                document.createElement(
+                    "div"
+                );
+
+
+            wrapper.className =
+                "hero-feature";
+
+
+            const icon =
+                document.createElement(
+                    "span"
+                );
+
+
+            icon.className =
+                "feature-icon";
+
+
+            icon.textContent =
+                item.icon ||
+                "✓";
+
+
+            const text =
+                document.createElement(
+                    "span"
+                );
+
+
+            text.textContent =
+                item.text ||
+                "";
+
+
+            wrapper.appendChild(
+                icon
+            );
+
+
+            wrapper.appendChild(
+                text
+            );
+
+
+            container.appendChild(
+                wrapper
+            );
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// HTML ESCAPE
+// =========================================================
+
+function escapeHTML(
+    value
+) {
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// =========================================================
+// TSEC CHECKOUT / LEAD ACTION
 // =========================================================
 
 function initProductAction() {
@@ -717,7 +1482,9 @@ function initLeadModal() {
 // CORPORATE EMAIL VALIDATION
 // =========================================================
 
-function isCorporateEmail(email) {
+function isCorporateEmail(
+    email
+) {
 
     if (!email) {
 
@@ -774,7 +1541,9 @@ function isCorporateEmail(email) {
 // SAVE LEAD
 // =========================================================
 
-async function saveLead(leadData) {
+async function saveLead(
+    leadData
+) {
 
     console.log(
         "📤 Sending lead to TSEC:",
@@ -891,7 +1660,7 @@ async function saveLead(leadData) {
 
 
 // =========================================================
-// START
+// START TSEC PRODUCT ENGINE
 // =========================================================
 
 document.addEventListener(
@@ -906,3 +1675,4 @@ document.addEventListener(
 
     }
 );
+
