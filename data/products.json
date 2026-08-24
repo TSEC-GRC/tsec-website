@@ -710,15 +710,16 @@
     "category": "cybersecurity",
     "price": 399,
     "currency": "USD",
-    "description": "Professional NIST SP 800-53 toolkit designed to help organizations assess security and privacy controls, manage control implementation, and strengthen their security control environment.",
+    "positioning": "Select • Implement • Assess"
+    "description": "Professional NIST SP 800-53 Rev. 5 toolkit designed to help organizations assess security and privacy controls, manage control implementation, and strengthen their security control environment.",
     "image": "assets/products/nist-80053-box.webp",
     "topics": [
-      "NIST SP 800-53",
+      "NIST SP 800-53 Rev. 5",
       "Security Controls",
       "Privacy Controls"
     ],
     "features": [
-      "NIST 800-53 Control Library",
+      "NIST SP 800-53 Rev. 5 Control Library",
       "Control Assessment",
       "Security & Privacy Controls",
       "Implementation Guidance",
@@ -735,7 +736,7 @@
     },
     "frameworks": [
   {
-    "name": "NIST SP 800-53",
+    "name": "NIST SP 800-53 Rev. 5",
     "description": "Security and privacy controls for information systems and organizations.",
     "icon": "assets/icons/nist-800-53.png"
   },
