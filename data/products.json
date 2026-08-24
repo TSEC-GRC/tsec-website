@@ -7,6 +7,7 @@
     "category": "ai-governance",
     "price": 299,
     "currency": "USD",
+    "positioning": "Govern • Map • Measure",
     "description": "A practical AI governance toolkit designed to help organizations implement responsible AI practices aligned with NIST AI RMF and ISO/IEC 42001 principles.",
     "image": "assets/products/ai-governance-box.webp",
     "topics": [
@@ -78,6 +79,7 @@
     "category": "compliance",
     "price": 299,
     "currency": "USD",
+    "positioning": "Assess • Remediate • Assure",
     "description": "Professional SOC 2 readiness toolkit designed to help organizations assess gaps, strengthen controls, organize evidence, and prepare for a SOC 2 examination.",
     "image": "assets/products/soc2-box.webp",
     "topics": [
@@ -139,6 +141,7 @@
     "category": "compliance",
     "price": 399,
     "currency": "USD",
+    "positioning": "Establish • Implement • Improve",
     "description": "Professional ISO 27001 toolkit designed to help organizations establish, assess, and strengthen an Information Security Management System aligned with ISO/IEC 27001.",
     "image": "assets/products/iso27001-box.webp",
     "topics": [
@@ -200,6 +203,7 @@
     "category": "financial-compliance",
     "price": 349,
     "currency": "USD",
+    "positioning": "Assess • Protect • Respond",
     "description": "Professional cybersecurity toolkit designed to help organizations assess and strengthen their cybersecurity program aligned with NYDFS Part 500 requirements.",
     "image": "assets/products/nydfs-box.webp",
     "topics": [
@@ -261,6 +265,7 @@
     "category": "governance",
     "price": 299,
     "currency": "USD",
+    "positioning": "Govern • Manage • Align",
     "description": "Professional COBIT governance toolkit designed to help organizations strengthen IT governance, management practices, control objectives, and enterprise alignment.",
     "image": "assets/products/cobit-box.webp",
     "topics": [
@@ -322,6 +327,7 @@
     "category": "cybersecurity",
     "price": 299,
     "currency": "USD",
+    "positioning": "Govern • Identify • Protect",
     "description": "Professional NIST Cybersecurity Framework toolkit designed to help organizations assess cybersecurity maturity, identify gaps, prioritize risk, and build an improvement roadmap.",
     "image": "assets/products/nist-csf-box.webp",
     "topics": [
@@ -383,6 +389,7 @@
     "category": "compliance",
     "price": 349,
     "currency": "USD",
+    "positioning": "Assess • Protect • Monitor",
     "description": "Professional PCI DSS toolkit designed to help organizations assess payment security controls, identify compliance gaps, organize evidence, and strengthen cardholder data protection.",
     "image": "assets/products/pci-dss-box.webp",
     "topics": [
@@ -444,6 +451,7 @@
     "category": "healthcare-compliance",
     "price": 299,
     "currency": "USD",
+    "positioning": "Assess • Safeguard • Secure",
     "description": "Professional HIPAA Security Rule toolkit designed to help organizations assess safeguards, strengthen security controls, manage risks, and support compliance readiness.",
     "image": "assets/products/hipaa-box.webp",
     "topics": [
@@ -505,6 +513,7 @@
     "category": "healthcare-compliance",
     "price": 399,
     "currency": "USD",
+    "positioning": "Assess • Remediate • Assure",
     "description": "Professional HITRUST CSF toolkit designed to help organizations assess control maturity, manage compliance requirements, and prepare for HITRUST certification activities.",
     "image": "assets/products/hitrust-box.webp",
     "topics": [
@@ -566,6 +575,7 @@
     "category": "ai-governance",
     "price": 399,
     "currency": "USD",
+    "positioning": "Establish • Implement • Improve",
     "description": "Professional ISO 42001 toolkit designed to help organizations establish and strengthen an Artificial Intelligence Management System aligned with ISO/IEC 42001.",
     "image": "assets/products/iso42001-box.webp",
     "topics": [
@@ -627,6 +637,7 @@
     "category": "business-continuity",
     "price": 349,
     "currency": "USD",
+    "positioning": "Select • Implement • Assess",
     "description": "Professional ISO 22301 toolkit designed to help organizations establish, assess, and improve a Business Continuity Management System aligned with ISO/IEC 22301.",
     "image": "assets/products/iso22301-box.webp",
     "topics": [
