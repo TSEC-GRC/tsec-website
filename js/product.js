@@ -8,11 +8,11 @@
  - Read product ID from URL
  - Populate universal product.html
  - Support product-specific content
- - Populate product statistics
- - Populate product metadata
- - Populate What's Included
- - Populate Framework Coverage
- - Load framework/regulation icons from /assets/icons/
+ - Display product image dynamically
+ - Display product statistics dynamically
+ - Display product metadata dynamically
+ - Display What's Included dynamically
+ - Display Framework / Regulation Coverage dynamically
  - Preserve lead capture
  - Preserve checkout action
 ==========================================================
@@ -46,7 +46,9 @@ function setText(id, value) {
         document.getElementById(id);
 
     if (!element) {
+
         return;
+
     }
 
     element.textContent =
@@ -65,7 +67,9 @@ function setHTML(id, value) {
         document.getElementById(id);
 
     if (!element) {
+
         return;
+
     }
 
     element.innerHTML =
@@ -236,17 +240,25 @@ async function loadProduct() {
         );
 
 
+        setText(
+            "product-type",
+            product.type || ""
+        );
+
+
         // =================================================
         // PRODUCT IMAGE
         // =================================================
         //
-        // IMPORTANT:
-        // This is the PRODUCT BOX IMAGE.
+        // PRODUCT BOX IMAGE:
+        //
+        // assets/products/
         //
         // Example:
         // assets/products/ai-governance-box.webp
         //
-        // This is NOT the framework icon.
+        // IMPORTANT:
+        // This is NOT a framework/regulation icon.
         // =================================================
 
         const productImage =
@@ -309,6 +321,7 @@ async function loadProduct() {
                     check.className =
                         "check-green";
 
+
                     check.textContent =
                         "✓";
 
@@ -340,16 +353,6 @@ async function loadProduct() {
 
 
         // =================================================
-        // OPTIONAL PRODUCT TYPE
-        // =================================================
-
-        setText(
-            "product-type",
-            product.type || ""
-        );
-
-
-        // =================================================
         // PRODUCT STATISTICS
         // =================================================
 
@@ -375,9 +378,13 @@ async function loadProduct() {
         );
 
 
+        // IMPORTANT:
+        // products.json uses "powerpoint"
+        // NOT "powerPoint"
+
         setText(
             "stat-powerpoint",
-            stats.powerPoint ?? "—"
+            stats.powerpoint ?? "—"
         );
 
 
@@ -402,7 +409,16 @@ async function loadProduct() {
 
 
         // -------------------------------------------------
-        // Frameworks
+        // FRAMEWORKS
+        // -------------------------------------------------
+        //
+        // Primary source:
+        //
+        // product.frameworks
+        //
+        // Fallback:
+        //
+        // product.topics
         // -------------------------------------------------
 
         const frameworkElement =
@@ -414,28 +430,49 @@ async function loadProduct() {
         if (frameworkElement) {
 
             const frameworks =
-                Array.isArray(metadata.frameworks)
-                    ? metadata.frameworks
+                Array.isArray(product.frameworks)
+                    ? product.frameworks
                     : (
-                        Array.isArray(product.topics)
-                            ? product.topics
-                            : []
+                        Array.isArray(metadata.frameworks)
+                            ? metadata.frameworks
+                            : (
+                                Array.isArray(product.topics)
+                                    ? product.topics
+                                    : []
+                            )
                     );
 
 
             frameworkElement.innerHTML =
                 frameworks
                     .map(
-                        framework =>
-                            String(framework)
+                        framework => {
+
+                            if (
+                                typeof framework === "object" &&
+                                framework !== null
+                            ) {
+
+                                return String(
+                                    framework.name || ""
+                                );
+
+                            }
+
+                            return String(
+                                framework
+                            );
+
+                        }
                     )
+                    .filter(Boolean)
                     .join("<br>");
 
         }
 
 
         // -------------------------------------------------
-        // Format
+        // FORMAT
         // -------------------------------------------------
 
         setText(
@@ -446,7 +483,7 @@ async function loadProduct() {
 
 
         // -------------------------------------------------
-        // Delivery
+        // DELIVERY
         // -------------------------------------------------
 
         setText(
@@ -457,7 +494,7 @@ async function loadProduct() {
 
 
         // -------------------------------------------------
-        // License
+        // LICENSE
         // -------------------------------------------------
 
         setText(
@@ -468,7 +505,7 @@ async function loadProduct() {
 
 
         // -------------------------------------------------
-        // Updates
+        // UPDATES
         // -------------------------------------------------
 
         setText(
@@ -571,7 +608,7 @@ async function loadProduct() {
 
 
         // =================================================
-        // FRAMEWORK COVERAGE
+        // FRAMEWORK / REGULATION COVERAGE
         // =================================================
         //
         // IMPORTANT:
@@ -586,6 +623,16 @@ async function loadProduct() {
         //
         // assets/products/
         //
+        // products.json structure:
+        //
+        // "frameworks": [
+        //   {
+        //     "name": "...",
+        //     "description": "...",
+        //     "icon": "assets/icons/..."
+        //   }
+        // ]
+        //
         // =================================================
 
         const frameworkGrid =
@@ -599,11 +646,13 @@ async function loadProduct() {
             frameworkGrid.innerHTML = "";
 
 
+            // IMPORTANT:
+            // products.json uses "frameworks"
+            // NOT "frameworkCoverage"
+
             const frameworkCoverage =
-                Array.isArray(
-                    product.frameworkCoverage
-                )
-                    ? product.frameworkCoverage
+                Array.isArray(product.frameworks)
+                    ? product.frameworks
                     : [];
 
 
@@ -642,32 +691,41 @@ async function loadProduct() {
                     // FRAMEWORK ICON
                     // =====================================
 
-                    const icon =
-                        document.createElement(
-                            "img"
+                    if (
+                        framework.icon
+                    ) {
+
+                        const icon =
+                            document.createElement(
+                                "img"
+                            );
+
+
+                        icon.src =
+                            framework.icon;
+
+
+                        icon.alt =
+                            framework.name ||
+                            "Framework";
+
+
+                        icon.loading =
+                            "lazy";
+
+
+                        // Preserve the existing
+                        // framework icon visual quality.
+
+                        icon.decoding =
+                            "async";
+
+
+                        iconContainer.appendChild(
+                            icon
                         );
 
-
-                    icon.src =
-                        framework.icon || "";
-
-
-                    icon.alt =
-                        framework.name ||
-                        "Framework";
-
-
-                    icon.loading =
-                        "lazy";
-
-
-                    // =====================================
-                    // APPEND ICON
-                    // =====================================
-
-                    iconContainer.appendChild(
-                        icon
-                    );
+                    }
 
 
                     // =====================================
@@ -1307,7 +1365,3 @@ document.addEventListener(
 
     }
 );
-
-
-
-
