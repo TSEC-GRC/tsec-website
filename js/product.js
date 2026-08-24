@@ -219,6 +219,10 @@ async function loadProduct() {
             product.title || ""
         );
 
+       setText(
+          "product-positioning",
+          product.positioning || ""
+       );
 
         setText(
             "product-description",
