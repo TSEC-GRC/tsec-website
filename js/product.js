@@ -1,6 +1,6 @@
 /*
 ==========================================================
- TSEC Product Engine v2.0
+ TSEC Product Engine v2.1
  Universal Professional Pack Product Engine
 
  Purpose:
@@ -8,12 +8,17 @@
  - Read product ID from URL
  - Populate universal product.html
  - Support product-specific content
+ - Populate product statistics
+ - Populate product metadata
+ - Populate What's Included
+ - Populate Framework Coverage
+ - Load framework/regulation icons from /assets/icons/
  - Preserve lead capture
  - Preserve checkout action
 ==========================================================
 */
 
-console.log("🚀 TSEC Product Engine v2.0 Loaded");
+console.log("🚀 TSEC Product Engine v2.1 Loaded");
 
 
 // =========================================================
@@ -41,9 +46,7 @@ function setText(id, value) {
         document.getElementById(id);
 
     if (!element) {
-
         return;
-
     }
 
     element.textContent =
@@ -62,9 +65,7 @@ function setHTML(id, value) {
         document.getElementById(id);
 
     if (!element) {
-
         return;
-
     }
 
     element.innerHTML =
@@ -81,9 +82,7 @@ async function loadProduct() {
 
     try {
 
-        console.log(
-            "⏳ Loading TSEC product..."
-        );
+        console.log("⏳ Loading TSEC product...");
 
 
         // =================================================
@@ -113,7 +112,13 @@ async function loadProduct() {
 
 
         // =================================================
-        // SUPPORT ARRAY OR OBJECT STRUCTURE
+        // SUPPORT BOTH:
+        //
+        // [...]
+        //
+        // OR
+        //
+        // { products: [...] }
         // =================================================
 
         const products =
@@ -129,11 +134,6 @@ async function loadProduct() {
             );
 
         }
-
-
-        console.log(
-            `📦 Products loaded: ${products.length}`
-        );
 
 
         // =================================================
@@ -172,8 +172,8 @@ async function loadProduct() {
         const product =
             products.find(
                 p =>
-                    String(p.id).trim() ===
-                    String(productId).trim()
+                    String(p.id) ===
+                    String(productId)
             );
 
 
@@ -205,26 +205,14 @@ async function loadProduct() {
         // =================================================
 
         setText(
-            "product-title",
-            product.title
-        );
-
-
-        setText(
-            "product-breadcrumb-title",
-            product.title
-        );
-
-
-        setText(
             "product-tier",
-            formatTier(product.tier)
+            product.tier || ""
         );
 
 
         setText(
-            "product-type",
-            formatProductType(product.type)
+            "product-title",
+            product.title || ""
         );
 
 
@@ -238,38 +226,27 @@ async function loadProduct() {
 
         setText(
             "product-price",
-            formatPrice(
-                product.price,
-                product.currency
-            )
+            product.price || ""
         );
 
 
         setText(
             "product-payment",
-            product.payment ||
-            "One-Time Purchase"
-        );
-
-
-        // =================================================
-        // PRODUCT POSITIONING
-        // =================================================
-
-        const positioning =
-            product.positioning?.label ||
-            product.positioning ||
-            "Build • Govern • Assure";
-
-
-        setText(
-            "product-positioning",
-            positioning
+            product.payment || ""
         );
 
 
         // =================================================
         // PRODUCT IMAGE
+        // =================================================
+        //
+        // IMPORTANT:
+        // This is the PRODUCT BOX IMAGE.
+        //
+        // Example:
+        // assets/products/ai-governance-box.webp
+        //
+        // This is NOT the framework icon.
         // =================================================
 
         const productImage =
@@ -288,7 +265,7 @@ async function loadProduct() {
 
             productImage.alt =
                 product.title ||
-                "TSEC Professional Pack™";
+                "TSEC Professional Pack";
 
         }
 
@@ -297,8 +274,78 @@ async function loadProduct() {
         // PRODUCT FEATURES
         // =================================================
 
-        renderFeatures(
-            product.features
+        const featuresList =
+            document.getElementById(
+                "product-features"
+            );
+
+
+        if (featuresList) {
+
+            featuresList.innerHTML = "";
+
+
+            const features =
+                Array.isArray(product.features)
+                    ? product.features
+                    : [];
+
+
+            features.forEach(
+                feature => {
+
+                    const li =
+                        document.createElement(
+                            "li"
+                        );
+
+
+                    const check =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    check.className =
+                        "check-green";
+
+                    check.textContent =
+                        "✓";
+
+
+                    li.appendChild(
+                        check
+                    );
+
+
+                    const text =
+                        document.createTextNode(
+                            " " + feature
+                        );
+
+
+                    li.appendChild(
+                        text
+                    );
+
+
+                    featuresList.appendChild(
+                        li
+                    );
+
+                }
+            );
+
+        }
+
+
+        // =================================================
+        // OPTIONAL PRODUCT TYPE
+        // =================================================
+
+        setText(
+            "product-type",
+            product.type || ""
         );
 
 
@@ -306,8 +353,43 @@ async function loadProduct() {
         // PRODUCT STATISTICS
         // =================================================
 
-        renderStatistics(
-            product.stats
+        const stats =
+            product.stats || {};
+
+
+        setText(
+            "stat-editable-files",
+            stats.editableFiles ?? "—"
+        );
+
+
+        setText(
+            "stat-word-templates",
+            stats.wordTemplates ?? "—"
+        );
+
+
+        setText(
+            "stat-excel-workbooks",
+            stats.excelWorkbooks ?? "—"
+        );
+
+
+        setText(
+            "stat-powerpoint",
+            stats.powerPoint ?? "—"
+        );
+
+
+        setText(
+            "stat-guides",
+            stats.guides ?? "—"
+        );
+
+
+        setText(
+            "stat-delivery",
+            stats.delivery || "Instant"
         );
 
 
@@ -315,40 +397,338 @@ async function loadProduct() {
         // PRODUCT METADATA
         // =================================================
 
-        renderMetadata(
-            product
+        const metadata =
+            product.metadata || {};
+
+
+        // -------------------------------------------------
+        // Frameworks
+        // -------------------------------------------------
+
+        const frameworkElement =
+            document.getElementById(
+                "product-frameworks"
+            );
+
+
+        if (frameworkElement) {
+
+            const frameworks =
+                Array.isArray(metadata.frameworks)
+                    ? metadata.frameworks
+                    : (
+                        Array.isArray(product.topics)
+                            ? product.topics
+                            : []
+                    );
+
+
+            frameworkElement.innerHTML =
+                frameworks
+                    .map(
+                        framework =>
+                            String(framework)
+                    )
+                    .join("<br>");
+
+        }
+
+
+        // -------------------------------------------------
+        // Format
+        // -------------------------------------------------
+
+        setText(
+            "product-format",
+            metadata.format ||
+            "Microsoft Word, Excel & PowerPoint"
+        );
+
+
+        // -------------------------------------------------
+        // Delivery
+        // -------------------------------------------------
+
+        setText(
+            "product-delivery",
+            metadata.delivery ||
+            "Instant Digital Download"
+        );
+
+
+        // -------------------------------------------------
+        // License
+        // -------------------------------------------------
+
+        setText(
+            "product-license",
+            metadata.license ||
+            "Single Organization Use"
+        );
+
+
+        // -------------------------------------------------
+        // Updates
+        // -------------------------------------------------
+
+        setText(
+            "product-updates",
+            metadata.updates ||
+            "Minor updates for 12 months"
         );
 
 
         // =================================================
-        // INCLUDED CONTENT
+        // WHAT'S INCLUDED
         // =================================================
 
-        renderIncluded(
-            product
+        setText(
+            "product-included-description",
+            product.includedDescription ||
+            "Professional resources designed to help your organization implement and strengthen its program."
+        );
+
+
+        const includedGrid =
+            document.getElementById(
+                "product-included-grid"
+            );
+
+
+        if (includedGrid) {
+
+            includedGrid.innerHTML = "";
+
+
+            const included =
+                Array.isArray(product.included)
+                    ? product.included
+                    : [];
+
+
+            included.forEach(
+                item => {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "included-card";
+
+
+                    const title =
+                        document.createElement(
+                            "h3"
+                        );
+
+
+                    title.textContent =
+                        item.title || "";
+
+
+                    const description =
+                        document.createElement(
+                            "p"
+                        );
+
+
+                    description.textContent =
+                        item.description || "";
+
+
+                    card.appendChild(
+                        title
+                    );
+
+
+                    card.appendChild(
+                        description
+                    );
+
+
+                    includedGrid.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+        // =================================================
+        // FRAMEWORK COVERAGE DESCRIPTION
+        // =================================================
+
+        setText(
+            "framework-description",
+            product.frameworkDescription ||
+            "Aligned with recognized governance, risk, cybersecurity and compliance frameworks."
         );
 
 
         // =================================================
         // FRAMEWORK COVERAGE
         // =================================================
+        //
+        // IMPORTANT:
+        //
+        // These are the FRAMEWORK / REGULATION ICONS.
+        //
+        // They come from:
+        //
+        // assets/icons/
+        //
+        // NOT:
+        //
+        // assets/products/
+        //
+        // =================================================
 
-        renderFrameworks(
-            product
-        );
+        const frameworkGrid =
+            document.getElementById(
+                "framework-grid"
+            );
+
+
+        if (frameworkGrid) {
+
+            frameworkGrid.innerHTML = "";
+
+
+            const frameworkCoverage =
+                Array.isArray(
+                    product.frameworkCoverage
+                )
+                    ? product.frameworkCoverage
+                    : [];
+
+
+            frameworkCoverage.forEach(
+                framework => {
+
+                    // =====================================
+                    // FRAMEWORK CARD
+                    // =====================================
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "framework-card";
+
+
+                    // =====================================
+                    // FRAMEWORK ICON CONTAINER
+                    // =====================================
+
+                    const iconContainer =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    iconContainer.className =
+                        "framework-icon";
+
+
+                    // =====================================
+                    // FRAMEWORK ICON
+                    // =====================================
+
+                    const icon =
+                        document.createElement(
+                            "img"
+                        );
+
+
+                    icon.src =
+                        framework.icon || "";
+
+
+                    icon.alt =
+                        framework.name ||
+                        "Framework";
+
+
+                    icon.loading =
+                        "lazy";
+
+
+                    // =====================================
+                    // APPEND ICON
+                    // =====================================
+
+                    iconContainer.appendChild(
+                        icon
+                    );
+
+
+                    // =====================================
+                    // FRAMEWORK NAME
+                    // =====================================
+
+                    const title =
+                        document.createElement(
+                            "h3"
+                        );
+
+
+                    title.textContent =
+                        framework.name || "";
+
+
+                    // =====================================
+                    // FRAMEWORK DESCRIPTION
+                    // =====================================
+
+                    const description =
+                        document.createElement(
+                            "p"
+                        );
+
+
+                    description.textContent =
+                        framework.description || "";
+
+
+                    // =====================================
+                    // BUILD CARD
+                    // =====================================
+
+                    card.appendChild(
+                        iconContainer
+                    );
+
+
+                    card.appendChild(
+                        title
+                    );
+
+
+                    card.appendChild(
+                        description
+                    );
+
+
+                    frameworkGrid.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
 
 
         // =================================================
-        // HERO VALUE PROPOSITIONS
-        // =================================================
-
-        renderHeroFeatures(
-            product
-        );
-
-
-        // =================================================
-        // FINAL PRODUCT LOG
+        // PRODUCT PAGE READY
         // =================================================
 
         console.log(
@@ -363,6 +743,10 @@ async function loadProduct() {
             error
         );
 
+
+        // =================================================
+        // DISPLAY PRODUCT ERROR
+        // =================================================
 
         setText(
             "product-title",
@@ -381,755 +765,7 @@ async function loadProduct() {
 
 
 // =========================================================
-// FORMAT PRICE
-// =========================================================
-
-function formatPrice(
-    price,
-    currency = "USD"
-) {
-
-    if (
-        price === undefined ||
-        price === null ||
-        price === ""
-    ) {
-
-        return "";
-
-    }
-
-
-    try {
-
-        return new Intl.NumberFormat(
-            "en-US",
-            {
-                style: "currency",
-                currency: currency
-            }
-        ).format(price);
-
-    } catch (error) {
-
-        return `$${price}`;
-
-    }
-
-}
-
-
-// =========================================================
-// FORMAT TIER
-// =========================================================
-
-function formatTier(
-    tier
-) {
-
-    if (!tier) {
-
-        return "Professional Pack™";
-
-    }
-
-
-    const normalized =
-        String(tier).toLowerCase();
-
-
-    if (
-        normalized === "pro"
-    ) {
-
-        return "Professional Pack™";
-
-    }
-
-
-    return tier;
-
-}
-
-
-// =========================================================
-// FORMAT PRODUCT TYPE
-// =========================================================
-
-function formatProductType(
-    type
-) {
-
-    if (!type) {
-
-        return "PROFESSIONAL COMPLIANCE PACK™";
-
-    }
-
-
-    if (
-        String(type).toLowerCase()
-            .includes("professional")
-    ) {
-
-        return "PROFESSIONAL COMPLIANCE PACK™";
-
-    }
-
-
-    return type;
-
-}
-
-
-// =========================================================
-// RENDER FEATURES
-// =========================================================
-
-function renderFeatures(
-    features
-) {
-
-    const list =
-        document.getElementById(
-            "product-features"
-        );
-
-
-    if (!list) {
-
-        return;
-
-    }
-
-
-    list.innerHTML = "";
-
-
-    if (
-        !Array.isArray(features) ||
-        features.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    features.forEach(
-        feature => {
-
-            const li =
-                document.createElement(
-                    "li"
-                );
-
-
-            const icon =
-                document.createElement(
-                    "span"
-                );
-
-
-            icon.className =
-                "check-green";
-
-
-            icon.textContent =
-                "✓";
-
-
-            li.appendChild(
-                icon
-            );
-
-
-            const text =
-                document.createTextNode(
-                    ` ${feature}`
-                );
-
-
-            li.appendChild(
-                text
-            );
-
-
-            list.appendChild(
-                li
-            );
-
-        }
-    );
-
-}
-
-
-// =========================================================
-// RENDER STATISTICS
-// =========================================================
-
-function renderStatistics(
-    stats
-) {
-
-    if (!stats) {
-
-        console.log(
-            "ℹ No product statistics defined."
-        );
-
-        return;
-
-    }
-
-
-    setText(
-        "stat-editable-files",
-        stats.editableFiles ?? "—"
-    );
-
-
-    setText(
-        "stat-word-templates",
-        stats.wordTemplates ?? "—"
-    );
-
-
-    setText(
-        "stat-excel-workbooks",
-        stats.excelWorkbooks ?? "—"
-    );
-
-
-    setText(
-        "stat-powerpoint",
-        stats.powerPointDecks ??
-        stats.powerpointDecks ??
-        "—"
-    );
-
-
-    setText(
-        "stat-guides",
-        stats.guides ?? "—"
-    );
-
-
-    setText(
-        "stat-delivery",
-        stats.deliveryShort ||
-        "Instant"
-    );
-
-}
-
-
-// =========================================================
-// RENDER METADATA
-// =========================================================
-
-function renderMetadata(
-    product
-) {
-
-    const metadata =
-        product.metadata ||
-        {};
-
-
-    // -----------------------------------------------------
-    // Frameworks
-    // -----------------------------------------------------
-
-    if (
-        Array.isArray(product.topics)
-    ) {
-
-        setHTML(
-            "product-frameworks",
-            product.topics
-                .map(
-                    topic =>
-                        escapeHTML(topic)
-                )
-                .join("<br>")
-        );
-
-    }
-
-
-    // -----------------------------------------------------
-    // Format
-    // -----------------------------------------------------
-
-    setText(
-        "product-format",
-        metadata.format ||
-        "Microsoft Word, Excel & PowerPoint"
-    );
-
-
-    // -----------------------------------------------------
-    // Delivery
-    // -----------------------------------------------------
-
-    setText(
-        "product-delivery",
-        metadata.delivery ||
-        "Instant Digital Download"
-    );
-
-
-    // -----------------------------------------------------
-    // License
-    // -----------------------------------------------------
-
-    setText(
-        "product-license",
-        metadata.license ||
-        "Single Organization Use"
-    );
-
-
-    // -----------------------------------------------------
-    // Updates
-    // -----------------------------------------------------
-
-    setText(
-        "product-updates",
-        metadata.updates ||
-        "Minor updates for 12 months"
-    );
-
-}
-
-
-// =========================================================
-// RENDER INCLUDED CONTENT
-// =========================================================
-
-function renderIncluded(
-    product
-) {
-
-    const grid =
-        document.getElementById(
-            "product-included-grid"
-        );
-
-
-    if (!grid) {
-
-        return;
-
-    }
-
-
-    const included =
-        product.included;
-
-
-    // -----------------------------------------------------
-    // If no structured included content exists yet,
-    // preserve the universal placeholders.
-    // -----------------------------------------------------
-
-    if (
-        !Array.isArray(included) ||
-        included.length === 0
-    ) {
-
-        console.log(
-            "ℹ No structured included content defined."
-        );
-
-        return;
-
-    }
-
-
-    grid.innerHTML = "";
-
-
-    included.forEach(
-        item => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "included-card";
-
-
-            const title =
-                document.createElement(
-                    "h3"
-                );
-
-
-            title.textContent =
-                item.title ||
-                "";
-
-
-            const description =
-                document.createElement(
-                    "p"
-                );
-
-
-            description.textContent =
-                item.description ||
-                "";
-
-
-            card.appendChild(
-                title
-            );
-
-
-            card.appendChild(
-                description
-            );
-
-
-            grid.appendChild(
-                card
-            );
-
-        }
-    );
-
-
-    if (
-        product.includedDescription
-    ) {
-
-        setText(
-            "product-included-description",
-            product.includedDescription
-        );
-
-    }
-
-}
-
-
-// =========================================================
-// RENDER FRAMEWORKS
-// =========================================================
-
-function renderFrameworks(
-    product
-) {
-
-    const grid =
-        document.getElementById(
-            "framework-grid"
-        );
-
-
-    if (!grid) {
-
-        return;
-
-    }
-
-
-    const frameworks =
-        product.frameworks;
-
-
-    // -----------------------------------------------------
-    // No structured frameworks yet
-    // -----------------------------------------------------
-
-    if (
-        !Array.isArray(frameworks) ||
-        frameworks.length === 0
-    ) {
-
-        console.log(
-            "ℹ No structured framework cards defined."
-        );
-
-        return;
-
-    }
-
-
-    grid.innerHTML = "";
-
-
-    frameworks.forEach(
-        framework => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "framework-card";
-
-
-            // ---------------------------------------------
-            // ICON
-            // ---------------------------------------------
-
-            const iconWrapper =
-                document.createElement(
-                    "div"
-                );
-
-
-            iconWrapper.className =
-                "framework-icon";
-
-
-            if (
-                framework.icon
-            ) {
-
-                const image =
-                    document.createElement(
-                        "img"
-                    );
-
-
-                image.src =
-                    framework.icon;
-
-
-                image.alt =
-                    framework.name ||
-                    "Framework";
-
-
-                iconWrapper.appendChild(
-                    image
-                );
-
-            } else {
-
-                iconWrapper.textContent =
-                    "✓";
-
-            }
-
-
-            // ---------------------------------------------
-            // NAME
-            // ---------------------------------------------
-
-            const title =
-                document.createElement(
-                    "h3"
-                );
-
-
-            title.textContent =
-                framework.name ||
-                "";
-
-
-            // ---------------------------------------------
-            // DESCRIPTION
-            // ---------------------------------------------
-
-            const description =
-                document.createElement(
-                    "p"
-                );
-
-
-            description.textContent =
-                framework.description ||
-                "";
-
-
-            // ---------------------------------------------
-            // ASSEMBLE
-            // ---------------------------------------------
-
-            card.appendChild(
-                iconWrapper
-            );
-
-
-            card.appendChild(
-                title
-            );
-
-
-            card.appendChild(
-                description
-            );
-
-
-            grid.appendChild(
-                card
-            );
-
-        }
-    );
-
-
-    if (
-        product.frameworkDescription
-    ) {
-
-        setText(
-            "framework-description",
-            product.frameworkDescription
-        );
-
-    }
-
-}
-
-
-// =========================================================
-// RENDER HERO FEATURES
-// =========================================================
-
-function renderHeroFeatures(
-    product
-) {
-
-    const container =
-        document.getElementById(
-            "product-hero-features"
-        );
-
-
-    if (!container) {
-
-        return;
-
-    }
-
-
-    // -----------------------------------------------------
-    // Product-specific hero features
-    // -----------------------------------------------------
-
-    const heroFeatures =
-        product.heroFeatures;
-
-
-    if (
-        !Array.isArray(heroFeatures) ||
-        heroFeatures.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    container.innerHTML = "";
-
-
-    heroFeatures.forEach(
-        item => {
-
-            const wrapper =
-                document.createElement(
-                    "div"
-                );
-
-
-            wrapper.className =
-                "hero-feature";
-
-
-            const icon =
-                document.createElement(
-                    "span"
-                );
-
-
-            icon.className =
-                "feature-icon";
-
-
-            icon.textContent =
-                item.icon ||
-                "✓";
-
-
-            const text =
-                document.createElement(
-                    "span"
-                );
-
-
-            text.textContent =
-                item.text ||
-                "";
-
-
-            wrapper.appendChild(
-                icon
-            );
-
-
-            wrapper.appendChild(
-                text
-            );
-
-
-            container.appendChild(
-                wrapper
-            );
-
-        }
-    );
-
-}
-
-
-// =========================================================
-// HTML ESCAPE
-// =========================================================
-
-function escapeHTML(
-    value
-) {
-
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-// =========================================================
-// TSEC CHECKOUT / LEAD ACTION
+// TSEC CHECKOUT ACTION
 // =========================================================
 
 function initProductAction() {
@@ -1161,7 +797,7 @@ function initProductAction() {
 
 
             // ------------------------------------------------
-            // Make sure product is loaded
+            // MAKE SURE PRODUCT IS LOADED
             // ------------------------------------------------
 
             if (!CURRENT_PRODUCT) {
@@ -1182,7 +818,7 @@ function initProductAction() {
 
 
             // ------------------------------------------------
-            // Open Lead Modal
+            // OPEN LEAD MODAL
             // ------------------------------------------------
 
             const modal =
@@ -1304,7 +940,7 @@ function initLeadModal() {
 
 
                 // --------------------------------------------
-                // Make sure product exists
+                // MAKE SURE PRODUCT EXISTS
                 // --------------------------------------------
 
                 if (!CURRENT_PRODUCT) {
@@ -1319,7 +955,7 @@ function initLeadModal() {
 
 
                 // --------------------------------------------
-                // Read email
+                // READ EMAIL
                 // --------------------------------------------
 
                 const emailElement =
@@ -1335,7 +971,7 @@ function initLeadModal() {
 
 
                 // --------------------------------------------
-                // Corporate Email Validation
+                // CORPORATE EMAIL VALIDATION
                 // --------------------------------------------
 
                 if (
@@ -1482,9 +1118,7 @@ function initLeadModal() {
 // CORPORATE EMAIL VALIDATION
 // =========================================================
 
-function isCorporateEmail(
-    email
-) {
+function isCorporateEmail(email) {
 
     if (!email) {
 
@@ -1541,9 +1175,7 @@ function isCorporateEmail(
 // SAVE LEAD
 // =========================================================
 
-async function saveLead(
-    leadData
-) {
+async function saveLead(leadData) {
 
     console.log(
         "📤 Sending lead to TSEC:",
@@ -1660,7 +1292,7 @@ async function saveLead(
 
 
 // =========================================================
-// START TSEC PRODUCT ENGINE
+// START
 // =========================================================
 
 document.addEventListener(
@@ -1675,4 +1307,7 @@ document.addEventListener(
 
     }
 );
+
+
+
 
