@@ -1141,32 +1141,31 @@ function initLeadModal() {
                     );
 
 
-                if (saved) {
+         if (saved) {
 
-                    console.log(
-                        "✅ Lead saved successfully"
-                    );
-
-
-                    alert(
-                        "Thank you! Your access request has been received."
-                    );
+           console.log(
+               "✅ Lead saved successfully"
+         );
 
 
-                    modal.style.display =
-                        "none";
+          // =================================================
+          // CONTINUE TO CHECKOUT
+          // =================================================
+
+          window.location.href =
+             "checkout.html?id=" +
+                encodeURIComponent(
+                  CURRENT_PRODUCT.id
+              );
 
 
-                    form.reset();
+          } else {
 
+            alert(
+               "Unable to save your information. Please try again."
+                 );
 
-                } else {
-
-                    alert(
-                        "Unable to save your information. Please try again."
-                    );
-
-                }
+               }
 
             }
         );
