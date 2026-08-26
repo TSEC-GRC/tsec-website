@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TSEC Checkout</title>
+    <title>TSEC Secure Checkout</title>
 
     <link rel="stylesheet" href="css/product.css">
 
@@ -27,7 +27,10 @@
 
         <a href="index.html" class="logo">
 
-            <img src="assets/tsec-logo.png" alt="TSEC GRC">
+            <img
+                src="assets/tsec-logo.png"
+                alt="TSEC GRC"
+            >
 
         </a>
 
@@ -55,187 +58,212 @@
      CHECKOUT PAGE
 ================================ -->
 
-
 <main class="checkout-page">
 
 
+    <!-- ================================
+         CHECKOUT HEADING
+    ================================= -->
 
-<!-- CHECKOUT PROGRESS -->
+    <section class="checkout-heading">
 
-<section class="checkout-progress">
+        <span class="checkout-eyebrow">
+            SECURE CHECKOUT
+        </span>
 
 
-    <div class="progress-step active">
-
-
-        <div class="step-number">
-
-            1
-
-        </div>
-
-
-        <div class="step-content">
-
-            <h4>Review Order</h4>
-
-            <p>Product Details</p>
-
-        </div>
-
-
-    </div>
-
-
-
-    <div class="progress-line"></div>
-
-
-
-    <div class="progress-step">
-
-
-        <div class="step-number">
-
-            2
-
-        </div>
-
-
-        <div class="step-content">
-
-            <h4>Payment</h4>
-
-            <p>Secure Checkout</p>
-
-        </div>
-
-
-    </div>
-
-
-
-    <div class="progress-line"></div>
-
-
-
-    <div class="progress-step">
-
-
-        <div class="step-number">
-
-            3
-
-        </div>
-
-
-        <div class="step-content">
-
-            <h4>Confirmation</h4>
-
-            <p>Instant Access</p>
-
-        </div>
-
-
-    </div>
-
-
-</section>
-
-
-
-
-
-<!-- CHECKOUT CONTENT -->
-
-
-<section class="checkout-container">
-
-
-
-    <!-- ORDER SUMMARY -->
-
-
-    <div class="order-summary">
-
-
-        <h2>
-
-            Order Summary
-
-        </h2>
-
-
-
-<div class="checkout-product">
-
-    <img
-        id="checkout-product-image"
-        src=""
-        alt="TSEC Professional Pack"
-    >
-
-    <div class="checkout-product-info">
-
-        <h3 id="checkout-product-title"></h3>
-
-        <p id="checkout-product-positioning"></p>
-
-        <span id="checkout-product-price"></span>
-
-    </div>
-
-</div>
-
-
-    </div>
-
-
-
-
-
-    <!-- PAYMENT -->
-
-
-    <div class="payment-box">
-
-
-        <h2>
-
-            Payment
-
-        </h2>
+        <h1>
+            Complete Your Order
+        </h1>
 
 
         <p>
-
-            Secure checkout powered by Stripe.
-
+            Complete your order and securely access your TSEC Professional Pack.
         </p>
 
-
-
-        <button class="checkout-button">
-
-            Continue to Secure Payment
-
-        </button>
-
-
-
-    </div>
+    </section>
 
 
 
 
-</section>
+    <!-- ================================
+         CHECKOUT PROGRESS
+    ================================= -->
 
+    <section class="checkout-progress">
+
+
+        <!-- STEP 1 -->
+
+        <div class="progress-step active">
+
+            <div class="step-number">
+                1
+            </div>
+
+
+            <div class="step-content">
+
+                <h4>
+                    Review Order
+                </h4>
+
+                <p>
+                    Product Details
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="progress-line"></div>
+
+
+
+        <!-- STEP 2 -->
+
+        <div class="progress-step">
+
+            <div class="step-number">
+                2
+            </div>
+
+
+            <div class="step-content">
+
+                <h4>
+                    Payment
+                </h4>
+
+                <p>
+                    Secure Checkout
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="progress-line"></div>
+
+
+
+        <!-- STEP 3 -->
+
+        <div class="progress-step">
+
+            <div class="step-number">
+                3
+            </div>
+
+
+            <div class="step-content">
+
+                <h4>
+                    Confirmation
+                </h4>
+
+                <p>
+                    Instant Access
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+
+    <!-- ================================
+         CHECKOUT CONTENT
+    ================================= -->
+
+    <section class="checkout-container">
+
+
+        <!-- ================================
+             ORDER SUMMARY
+        ================================= -->
+
+        <div class="order-summary">
+
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+            <div class="checkout-product">
+
+
+                <img
+                    id="checkout-product-image"
+                    src=""
+                    alt="TSEC Professional Pack"
+                >
+
+
+                <div class="checkout-product-info">
+
+
+                    <h3 id="checkout-product-title"></h3>
+
+
+                    <p id="checkout-product-positioning"></p>
+
+
+                    <span id="checkout-product-price"></span>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <!-- ================================
+             PAYMENT
+        ================================= -->
+
+        <div class="payment-box">
+
+
+            <h2>
+                Payment
+            </h2>
+
+
+            <p>
+                Secure checkout powered by Stripe.
+            </p>
+
+
+            <button
+                type="button"
+                class="checkout-button"
+            >
+                Continue to Secure Payment
+            </button>
+
+
+        </div>
+
+
+    </section>
 
 
 </main>
-
-
 
 
 
@@ -244,7 +272,6 @@
      FOOTER
 ================================ -->
 
-
 <footer class="site-footer">
 
 
@@ -252,9 +279,7 @@
 
 
         <p>
-
             © 2026 TSEC Risk & Cyber Advisory LLC. All rights reserved.
-
         </p>
 
 
@@ -263,7 +288,15 @@
 
 </footer>
 
+
+
+
+<!-- ================================
+     CHECKOUT ENGINE
+================================ -->
+
 <script src="js/checkout.js"></script>
+
 
 </body>
 
