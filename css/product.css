@@ -1025,241 +1025,735 @@ footer{
 
 }
 
-/* ================================
-   CHECKOUT PAGE
-================================ */
+/* =========================================
+   TSEC CHECKOUT PAGE
+   Version: 2.0
+   Purpose:
+   - Premium checkout visual system
+   - Preserve dynamic checkout architecture
+   ========================================= */
 
+.checkout-page {
 
-/* Checkout Layout */
+    width: min(1180px, 92%);
 
-.checkout-page{
+    margin: 0 auto;
 
-    width:min(1200px,94%);
+    padding-top: 105px;
 
-    margin:auto;
-
-}
-
-
-
-/* Checkout Progress */
-
-.checkout-progress{
-
-    max-width:900px;
-
-    margin:60px auto 40px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
+    padding-bottom: 80px;
 
 }
 
 
-.progress-step{
+/* =========================================
+   CHECKOUT HEADER
+   ========================================= */
 
-    display:flex;
+.checkout-page::before {
 
-    align-items:center;
+    content: "SECURE CHECKOUT";
 
-    gap:15px;
+    display: block;
 
-    opacity:.45;
+    text-align: center;
 
-}
+    color: #2563eb;
 
+    font-size: 12px;
 
-.progress-step.active{
+    font-weight: 800;
 
-    opacity:1;
+    letter-spacing: .16em;
 
-}
-
-
-.step-number{
-
-    width:42px;
-
-    height:42px;
-
-    border-radius:50%;
-
-    background:#1e293b;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-weight:700;
-
-    color:white;
+    margin-bottom: 12px;
 
 }
 
 
-.progress-step.active .step-number{
+.checkout-page::after {
 
-    background:#2563eb;
+    content: "Complete your order and securely access your TSEC Professional Pack.";
 
-}
+    display: block;
 
+    text-align: center;
 
-.step-content h4{
+    color: #64748b;
 
-    margin:0;
+    font-size: 15px;
 
-    font-size:16px;
+    line-height: 1.6;
 
-    color:white;
+    margin-top: -95px;
 
-}
-
-
-.step-content p{
-
-    margin:4px 0 0;
-
-    font-size:13px;
-
-    color:#94a3b8;
+    margin-bottom: 45px;
 
 }
 
 
-.progress-line{
+/* =========================================
+   CHECKOUT PROGRESS
+   ========================================= */
 
-    width:80px;
+.checkout-progress {
 
-    height:1px;
+    max-width: 920px;
 
-    background:#334155;
+    margin: 0 auto 55px;
 
-    margin:0 25px;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.progress-step {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    opacity: .45;
+
+    transition: all .25s ease;
 
 }
 
 
+.progress-step.active {
 
-/* Checkout Cards */
-
-.checkout-container{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:40px;
-
-    margin-bottom:80px;
+    opacity: 1;
 
 }
 
+
+.step-number {
+
+    width: 44px;
+
+    height: 44px;
+
+    min-width: 44px;
+
+    border-radius: 50%;
+
+    background: #e2e8f0;
+
+    color: #475569;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    border: 1px solid #cbd5e1;
+
+}
+
+
+.progress-step.active .step-number {
+
+    background: #2563eb;
+
+    border-color: #2563eb;
+
+    color: #ffffff;
+
+    box-shadow: 0 8px 22px rgba(37,99,235,.25);
+
+}
+
+
+.step-content h4 {
+
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 15px;
+
+    line-height: 1.3;
+
+    font-weight: 700;
+
+}
+
+
+.step-content p {
+
+    margin: 4px 0 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.3;
+
+}
+
+
+.progress-line {
+
+    width: 85px;
+
+    height: 1px;
+
+    background: #cbd5e1;
+
+    margin: 0 22px;
+
+}
+
+
+/* =========================================
+   CHECKOUT CONTAINER
+   ========================================= */
+
+.checkout-container {
+
+    display: grid;
+
+    grid-template-columns: 1.08fr .92fr;
+
+    gap: 28px;
+
+    align-items: stretch;
+
+    margin-bottom: 30px;
+
+}
+
+
+/* =========================================
+   CHECKOUT CARDS
+   ========================================= */
 
 .order-summary,
-.payment-box{
+.payment-box {
 
-    background:#111c2e;
+    background: #ffffff;
 
-    border:1px solid #23324a;
+    border: 1px solid #e2e8f0;
 
-    border-radius:16px;
+    border-radius: 20px;
 
-    padding:30px;
+    padding: 34px;
 
-}
+    box-shadow:
 
+        0 18px 45px rgba(15,23,42,.08),
 
-
-.checkout-product{
-
-    display:flex;
-
-    gap:25px;
-
-    align-items:center;
+        0 3px 12px rgba(15,23,42,.04);
 
 }
 
 
-.checkout-product img{
+/* =========================================
+   CARD HEADINGS
+   ========================================= */
 
-    width:120px;
+.order-summary h2,
+.payment-box h2 {
 
-    border-radius:10px;
+    margin: 0 0 26px;
 
-}
+    color: #0f172a;
 
+    font-size: 22px;
 
-.checkout-product span{
+    line-height: 1.25;
 
-    font-size:28px;
+    font-weight: 800;
 
-    font-weight:700;
-
-    color:white;
-
-}
-
-
-
-.checkout-button{
-
-    width:100%;
-
-    padding:16px;
-
-    border:none;
-
-    border-radius:8px;
-
-    background:#2563eb;
-
-    color:white;
-
-    font-size:16px;
-
-    cursor:pointer;
+    letter-spacing: -.3px;
 
 }
 
 
+.order-summary h2::after,
+.payment-box h2::after {
 
-/* Mobile */
+    content: "";
 
-@media(max-width:768px){
+    display: block;
+
+    width: 42px;
+
+    height: 3px;
+
+    margin-top: 10px;
+
+    border-radius: 999px;
+
+    background: #2563eb;
+
+}
 
 
-    .checkout-container{
+/* =========================================
+   CHECKOUT PRODUCT
+   ========================================= */
 
-        grid-template-columns:1fr;
+.checkout-product {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 24px;
+
+    padding: 20px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
+
+}
+
+
+/* Product Image */
+
+.checkout-product img {
+
+    width: 145px;
+
+    height: 145px;
+
+    min-width: 145px;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    padding: 8px;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow: 0 10px 25px rgba(15,23,42,.08);
+
+}
+
+
+/* Product Information */
+
+.checkout-product-info {
+
+    min-width: 0;
+
+}
+
+
+.checkout-product h3 {
+
+    margin: 0 0 9px;
+
+    color: #0f172a;
+
+    font-size: 20px;
+
+    line-height: 1.3;
+
+    font-weight: 800;
+
+    letter-spacing: -.25px;
+
+}
+
+
+.checkout-product p {
+
+    margin: 0 0 18px;
+
+    color: #2563eb;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+
+}
+
+
+.checkout-product span {
+
+    display: block;
+
+    color: #0f172a;
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================================
+   ORDER DETAILS
+   ========================================= */
+
+.order-summary::after {
+
+    content: "Digital delivery • One-Time Purchase";
+
+    display: block;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #e2e8f0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================
+   PAYMENT PANEL
+   ========================================= */
+
+.payment-box {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.payment-box > p {
+
+    margin: 0 0 22px;
+
+    color: #64748b;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================
+   SECURITY NOTICE
+   ========================================= */
+
+.payment-box::before {
+
+    content: "🔒  Secure Stripe Checkout";
+
+    display: block;
+
+    order: 1;
+
+    margin-bottom: 24px;
+
+    padding: 14px 16px;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    color: #334155;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.payment-box h2 {
+
+    order: 0;
+
+}
+
+
+.payment-box > p {
+
+    order: 0;
+
+}
+
+
+.payment-box .checkout-button {
+
+    order: 2;
+
+}
+
+
+/* =========================================
+   CHECKOUT CTA
+   ========================================= */
+
+.checkout-button {
+
+    width: 100%;
+
+    min-height: 54px;
+
+    padding: 16px 22px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    letter-spacing: .01em;
+
+    cursor: pointer;
+
+    box-shadow: 0 10px 25px rgba(37,99,235,.22);
+
+    transition:
+
+        background .2s ease,
+
+        transform .2s ease,
+
+        box-shadow .2s ease;
+
+}
+
+
+.checkout-button:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 14px 30px rgba(37,99,235,.28);
+
+}
+
+
+.checkout-button:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* =========================================
+   PAYMENT FOOTNOTE
+   ========================================= */
+
+.payment-box .checkout-button::after {
+
+    content: "Secure payment • Instant digital delivery";
+
+    display: block;
+
+    margin-top: 12px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .checkout-container {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .checkout-progress {
+
+        max-width: 760px;
+
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .checkout-page {
+
+        width: min(94%, 620px);
+
+        padding-top: 95px;
+
+        padding-bottom: 55px;
 
     }
 
 
-    .checkout-progress{
+    .checkout-progress {
 
-        flex-direction:column;
+        flex-direction: column;
 
-        gap:20px;
+        gap: 14px;
+
+        margin-bottom: 40px;
 
     }
 
 
-    .progress-line{
+    .progress-step {
 
-        width:1px;
+        width: 100%;
 
-        height:40px;
+        justify-content: flex-start;
+
+    }
+
+
+    .progress-line {
+
+        width: 1px;
+
+        height: 30px;
+
+        margin: 0;
+
+    }
+
+
+    .checkout-container {
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+
+    }
+
+
+    .order-summary,
+    .payment-box {
+
+        padding: 24px;
+
+        border-radius: 16px;
+
+    }
+
+
+    .checkout-product {
+
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 20px;
+
+    }
+
+
+    .checkout-product img {
+
+        width: 170px;
+
+        height: 170px;
+
+        min-width: 170px;
+
+    }
+
+
+    .checkout-product h3 {
+
+        font-size: 19px;
+
+    }
+
+
+    .checkout-product span {
+
+        font-size: 28px;
 
     }
 
 }
 
+
+@media (max-width: 480px) {
+
+    .checkout-page {
+
+        width: 92%;
+
+    }
+
+
+    .order-summary,
+    .payment-box {
+
+        padding: 20px;
+
+    }
+
+
+    .step-content h4 {
+
+        font-size: 14px;
+
+    }
+
+
+    .step-content p {
+
+        font-size: 11px;
+
+    }
+
+
+    .step-number {
+
+        width: 40px;
+
+        height: 40px;
+
+        min-width: 40px;
+
+    }
+
+}
 /* ==================================
    PRODUCT INFORMATION SECTION
 ================================== */
