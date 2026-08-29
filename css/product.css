@@ -1226,7 +1226,7 @@ footer{
 
     grid-template-columns: 1.08fr .92fr;
 
-    gap: 28px;
+    gap: 32px;
 
     align-items: stretch;
 
@@ -1246,15 +1246,27 @@ footer{
 
     border: 1px solid #e2e8f0;
 
-    border-radius: 20px;
+    border-radius: 16px;
 
-    padding: 34px;
+    padding: 30px;
 
     box-shadow:
 
         0 18px 45px rgba(15,23,42,.08),
 
         0 3px 12px rgba(15,23,42,.04);
+
+}
+
+/* =========================================
+   PAYMENT CARD EMPHASIS
+   ========================================= */
+
+.payment-box {
+
+    border-color: #cbd5e1;
+
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
 
 }
 
@@ -1266,7 +1278,7 @@ footer{
 .order-summary h2,
 .payment-box h2 {
 
-    margin: 0 0 26px;
+    margin: 0 0 22px;
 
     color: #0f172a;
 
@@ -1311,9 +1323,9 @@ footer{
 
     align-items: center;
 
-    gap: 24px;
+    gap: 26px;
 
-    padding: 20px;
+    padding: 22px;
 
     background: #f8fafc;
 
@@ -1328,11 +1340,11 @@ footer{
 
 .checkout-product img {
 
-    width: 145px;
+    width: 150px;
 
-    height: 145px;
+    height: 150px;
 
-    min-width: 145px;
+    min-width: 150px;
 
     object-fit: contain;
 
@@ -1340,7 +1352,7 @@ footer{
 
     background: #ffffff;
 
-    padding: 8px;
+    padding: 10px;
 
     border: 1px solid #e2e8f0;
 
@@ -1404,7 +1416,6 @@ footer{
 
 }
 
-
 /* =========================================
    ORDER DETAILS
    ========================================= */
@@ -1427,8 +1438,11 @@ footer{
 
     font-weight: 600;
 
-}
+    line-height: 1.5;
 
+    letter-spacing: .1px;
+
+}
 
 /* =========================================
    PAYMENT PANEL
@@ -1445,16 +1459,17 @@ footer{
 
 .payment-box > p {
 
-    margin: 0 0 22px;
+    margin: 0 0 24px;
 
     color: #64748b;
 
-    font-size: 15px;
+    font-size: 14px;
 
-    line-height: 1.7;
+    line-height: 1.65;
+
+    max-width: 560px;
 
 }
-
 
 /* =========================================
    SECURITY NOTICE
@@ -1470,9 +1485,9 @@ footer{
 
     margin-bottom: 24px;
 
-    padding: 14px 16px;
+    padding: 13px 16px;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
     background: #f8fafc;
 
@@ -1483,6 +1498,8 @@ footer{
     font-size: 13px;
 
     font-weight: 700;
+
+    line-height: 1.4;
 
 }
 
@@ -1507,7 +1524,6 @@ footer{
 
 }
 
-
 /* =========================================
    CHECKOUT CTA
    ========================================= */
@@ -1518,7 +1534,7 @@ footer{
 
     min-height: 54px;
 
-    padding: 16px 22px;
+    padding: 15px 22px;
 
     border: none;
 
@@ -1555,9 +1571,9 @@ footer{
 
     background: #1d4ed8;
 
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 
-    box-shadow: 0 14px 30px rgba(37,99,235,.28);
+    box-shadow: 0 14px 30px rgba(37,99,235,.26);
 
 }
 
@@ -1567,7 +1583,6 @@ footer{
     transform: translateY(0);
 
 }
-
 
 /* =========================================
    PAYMENT FOOTNOTE
@@ -1587,8 +1602,11 @@ footer{
 
     font-weight: 500;
 
-}
+    line-height: 1.4;
 
+    letter-spacing: .05px;
+
+}
 
 /* =========================================
    MOBILE
@@ -1617,7 +1635,7 @@ footer{
 
         width: min(94%, 620px);
 
-        padding-top: 95px;
+        padding-top: 80px;
 
         padding-bottom: 55px;
 
@@ -1718,6 +1736,8 @@ footer{
 
         width: 92%;
 
+        padding-top: 70px;
+
     }
 
 
@@ -1753,7 +1773,27 @@ footer{
 
     }
 
+
+    .checkout-product {
+
+        padding: 18px;
+
+    }
+
+
+    .checkout-product img {
+
+        width: 155px;
+
+        height: 155px;
+
+        min-width: 155px;
+
+    }
+
 }
+
+
 /* ==================================
    PRODUCT INFORMATION SECTION
 ================================== */
