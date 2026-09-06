@@ -149,6 +149,245 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
 @media(max-width:700px){.solutions-grid{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.shield-wrap{width:260px;height:260px}}
 .hero h1 span { color: #b94a2c; font-weight: 800; }
 .hero-sub { font-size: 1.05rem; color: #c8d8e8; max-width: 520px; margin-bottom: 2.4rem; font-weight: 300; line-height: 1.7; }
+
+/* =========================================================
+   FREE COMPLIANCE RESOURCES — HOMEPAGE
+========================================================= */
+
+.home-free-resources{
+  width:100%;
+  padding:4.5rem 4%;
+  background:var(--navy2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.home-free-resources-header{
+  max-width:1100px;
+  margin:0 auto 2rem;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:2rem;
+}
+
+.home-free-resources-title{
+  display:flex;
+  align-items:flex-start;
+  gap:1rem;
+}
+
+.home-free-resources-icon{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  color:var(--cyan);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  background:rgba(79,195,247,0.06);
+}
+
+.home-free-resources-icon svg{
+  width:22px;
+  height:22px;
+}
+
+.home-free-resources-title h2{
+  font-family:var(--font-head);
+  font-size:clamp(1.35rem,2.5vw,1.8rem);
+  font-weight:700;
+  letter-spacing:0.08em;
+  color:var(--white);
+  margin-bottom:0.4rem;
+}
+
+.home-free-resources-title p{
+  max-width:680px;
+  color:var(--gray);
+  font-size:0.88rem;
+  line-height:1.6;
+}
+
+.home-free-resources-view-all{
+  flex-shrink:0;
+  color:var(--cyan);
+  text-decoration:none;
+  font-size:0.82rem;
+  font-weight:600;
+  white-space:nowrap;
+  transition:color .2s;
+}
+
+.home-free-resources-view-all:hover{
+  color:var(--white);
+}
+
+.home-free-resources-list{
+  max-width:1100px;
+  margin:0 auto;
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+  background:rgba(6,13,26,0.65);
+}
+
+.home-free-resources-columns{
+  display:grid;
+  grid-template-columns:2.1fr 1fr 3fr 0.8fr;
+  gap:1rem;
+  align-items:center;
+  padding:0.8rem 1.2rem;
+  background:rgba(79,195,247,0.05);
+  border-bottom:1px solid var(--border);
+  color:var(--gray2);
+  font-size:0.68rem;
+  font-weight:700;
+  letter-spacing:0.12em;
+}
+
+.home-free-resource-row{
+  display:grid;
+  grid-template-columns:2.1fr 1fr 3fr 0.8fr;
+  gap:1rem;
+  align-items:center;
+  padding:1rem 1.2rem;
+  border-bottom:1px solid rgba(79,195,247,0.08);
+  transition:background .2s;
+}
+
+.home-free-resource-row:last-child{
+  border-bottom:none;
+}
+
+.home-free-resource-row:hover{
+  background:rgba(79,195,247,0.035);
+}
+
+.home-free-resource-name{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+  min-width:0;
+}
+
+.home-free-resource-icon{
+  width:30px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  color:var(--cyan);
+  background:rgba(79,195,247,0.06);
+  border:1px solid var(--border);
+  border-radius:6px;
+}
+
+.home-free-resource-name strong{
+  color:var(--white);
+  font-size:0.82rem;
+  font-weight:600;
+  line-height:1.35;
+}
+
+.home-free-resource-framework{
+  color:var(--cyan);
+  font-size:0.72rem;
+  font-weight:600;
+}
+
+.home-free-resource-description{
+  color:var(--gray);
+  font-size:0.75rem;
+  line-height:1.45;
+}
+
+.home-free-resource-access{
+  text-align:right;
+}
+
+.home-free-resource-access a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0.45rem 0.75rem;
+  border:1px solid var(--border2);
+  border-radius:5px;
+  color:var(--cyan);
+  text-decoration:none;
+  font-size:0.72rem;
+  font-weight:600;
+  transition:all .2s;
+}
+
+.home-free-resource-access a:hover{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:var(--white);
+}
+
+@media(max-width:800px){
+
+  .home-free-resources{
+    padding:3.5rem 4%;
+  }
+
+  .home-free-resources-header{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:1rem;
+  }
+
+  .home-free-resources-columns{
+    display:none;
+  }
+
+  .home-free-resource-row{
+    grid-template-columns:1fr auto;
+    gap:0.8rem;
+  }
+
+  .home-free-resource-framework{
+    grid-column:1;
+  }
+
+  .home-free-resource-description{
+    grid-column:1 / -1;
+  }
+
+  .home-free-resource-access{
+    grid-column:2;
+    grid-row:1 / span 2;
+  }
+}
+
+@media(max-width:500px){
+
+  .home-free-resources-title{
+    gap:0.7rem;
+  }
+
+  .home-free-resources-title h2{
+    font-size:1.2rem;
+  }
+
+  .home-free-resources-title p{
+    font-size:0.8rem;
+  }
+
+  .home-free-resource-row{
+    padding:0.9rem;
+  }
+
+  .home-free-resource-name strong{
+    font-size:0.75rem;
+  }
+}
+
+
 </style>
 </head>
 <body>
@@ -207,6 +446,87 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
     </div>
   </div>
 </section>
+
+<!-- =========================================================
+     FREE COMPLIANCE RESOURCES
+========================================================= -->
+
+<section class="home-free-resources" id="free-compliance-resources">
+
+  <div class="home-free-resources-header">
+
+    <div class="home-free-resources-title">
+
+      <div class="home-free-resources-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="8" y1="13" x2="16" y2="13"/>
+          <line x1="8" y1="17" x2="14" y2="17"/>
+        </svg>
+      </div>
+
+      <div>
+
+        <h2>FREE COMPLIANCE RESOURCES</h2>
+
+        <p>
+          Get started with our most popular free resources.
+          Practical tools to help you strengthen your compliance
+          and risk management program.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <a
+      href="resources.html"
+      class="home-free-resources-view-all"
+    >
+      View All Resources
+      <span aria-hidden="true">→</span>
+    </a>
+
+  </div>
+
+
+  <!-- RESOURCE LIST -->
+
+  <div class="home-free-resources-list">
+
+    <div class="home-free-resources-columns">
+
+      <span>RESOURCE</span>
+
+      <span>FRAMEWORK</span>
+
+      <span>DESCRIPTION</span>
+
+      <span>ACCESS</span>
+
+    </div>
+
+
+    <div id="homeFreeResourcesContainer">
+
+      <!-- Resources will be loaded here -->
+
+    </div>
+
+  </div>
+
+</section>
+
 
 <!-- TRUSTED BY / INDUSTRIES -->
 <div id="industries" class="trusted" style="padding:4rem 4%;text-align:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(10,22,40,0.85);backdrop-filter:blur(8px);">
