@@ -990,5 +990,227 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
   </div>
 </footer>
 
+<script src="js/engine.js"></script>
+
+<script>
+/* =========================================================
+   TSEC — HOMEPAGE FREE COMPLIANCE RESOURCES
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", async function () {
+
+  const container =
+    document.getElementById("homeFreeResourcesContainer");
+
+  if (!container) return;
+
+  try {
+
+    const response = await fetch(
+      "data/free-resources.json",
+      {
+        cache: "no-store"
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `free-resources.json HTTP ${response.status}`
+      );
+    }
+
+    const resources = await response.json();
+
+    if (!Array.isArray(resources)) {
+      throw new Error(
+        "free-resources.json does not contain a valid array."
+      );
+    }
+
+    const freeResources = resources.filter(
+      item => item.tier === "free"
+    );
+
+    window.TSEC_HOME_FREE_RESOURCES = freeResources;
+
+    container.innerHTML = freeResources.map(item => {
+
+      const framework = getHomeResourceFramework(item);
+
+      return `
+        <div class="home-free-resource-row">
+
+          <div class="home-free-resource-name">
+
+            <div class="home-free-resource-icon">
+
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/>
+                <line x1="8" y1="17" x2="14" y2="17"/>
+              </svg>
+
+            </div>
+
+            <strong>
+              ${escapeHomeResourceHTML(item.title || "Untitled Resource")}
+            </strong>
+
+          </div>
+
+
+          <div class="home-free-resource-framework">
+            ${escapeHomeResourceHTML(framework)}
+          </div>
+
+
+          <div class="home-free-resource-description">
+            ${escapeHomeResourceHTML(item.description || "")}
+          </div>
+
+
+          <div class="home-free-resource-access">
+
+            <a
+              href="#"
+              data-resource-id="${escapeHomeResourceHTML(item.id || "")}"
+              onclick="downloadHomeFreeResource(this); return false;"
+            >
+
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+
+              Download
+
+            </a>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+
+    console.log(
+      `✅ Homepage FREE resources loaded: ${freeResources.length}`
+    );
+
+  } catch (error) {
+
+    console.error(
+      "❌ Failed to load homepage FREE resources:",
+      error
+    );
+
+    container.innerHTML = `
+      <div style="
+        padding:1.5rem;
+        color:var(--gray);
+        font-size:.8rem;
+      ">
+        Free resources are temporarily unavailable.
+      </div>
+    `;
+
+  }
+
+});
+
+
+function downloadHomeFreeResource(link) {
+
+  const resourceId =
+    link.getAttribute("data-resource-id");
+
+  const resource =
+    (window.TSEC_HOME_FREE_RESOURCES || [])
+      .find(item => item.id === resourceId);
+
+  if (!resource) {
+
+    console.error(
+      "TSEC FREE resource not found:",
+      resourceId
+    );
+
+    return;
+  }
+
+  if (
+    typeof TSECEngine !== "undefined" &&
+    typeof TSECEngine.download === "function"
+  ) {
+
+    TSECEngine.download(resource);
+
+  } else {
+
+    console.error(
+      "TSECEngine.download is not available."
+    );
+
+  }
+
+}
+
+
+function getHomeResourceFramework(item) {
+
+  const category =
+    String(item.category || "").toLowerCase();
+
+  const categoryMap = {
+    "compliance": "Compliance",
+    "ai-governance": "AI Governance",
+    "risk-management": "Risk Management",
+    "training": "Training",
+    "templates": "Templates",
+    "grants": "Grants",
+    "enterprise-programs": "Enterprise"
+  };
+
+  return categoryMap[category] ||
+         item.category ||
+         "Compliance";
+}
+
+
+function escapeHomeResourceHTML(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+</script>
+
+
 </body>
 </html>
