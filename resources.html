@@ -192,10 +192,9 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
   </button>
 </div>
     <div class="tier-pills" id="tierFilters">
-      <button class="tier-pill free" data-tier="free">Free</button>
-      <button class="tier-pill pro" data-tier="pro">Pro</button>
-      <button class="tier-pill enterprise" data-tier="enterprise" onclick="window.location.href='enterprise.html'">Enterprise</button>
-    </div>
+  <button class="tier-pill pro" data-tier="pro">Pro</button>
+  <button class="tier-pill enterprise" data-tier="enterprise" onclick="window.location.href='enterprise.html'">Enterprise</button>
+</div>
   </div>
 </div>
 
@@ -227,20 +226,6 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
     <h2>Resource Access Tiers</h2>
     <p>Choose the level of depth that fits your organization's needs.</p>
     <div class="tier-cards">
-      <div class="tier-card free">
-        <div class="tier-card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#48bb78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>Free</h3>
-        <p>Foundational resources available to everyone. No account required — just download and use.</p>
-        <ul>
-          <li>Core policy templates</li>
-          <li>Framework overviews &amp; checklists</li>
-          <li>Introductory guides</li>
-          <li>Training module samples</li>
-        </ul>
-        <a href="#resources-section" class="tier-cta">Browse Free Resources →</a>
-      </div>
       <div class="tier-card pro">
         <div class="tier-card-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4fc3f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -286,6 +271,65 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
 
 <script src="js/resources.js"></script>
 <script src="js/engine.js"></script>
+
+<script>
+/* =====================================================
+   TSEC RESOURCES — HIDE FREE RESOURCES
+   FREE resources are now available on index.html
+   Do not modify resources.js
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const hideFreeResources = function () {
+
+        /* Remove FREE resource cards */
+        document
+            .querySelectorAll(".resource-card.free")
+            .forEach(card => card.remove());
+
+        /* Remove empty resource sections */
+        document
+            .querySelectorAll(".resource-section")
+            .forEach(section => {
+
+                const cards = section.querySelectorAll(".resource-card");
+
+                if (cards.length === 0) {
+                    section.remove();
+                }
+
+            });
+
+    };
+
+    /*
+       resources.js renders asynchronously,
+       so run once immediately and observe future changes.
+    */
+
+    hideFreeResources();
+
+    const container =
+        document.getElementById("resourcesContainer");
+
+    if (container) {
+
+        const observer = new MutationObserver(function () {
+            hideFreeResources();
+        });
+
+        observer.observe(container, {
+            childList: true,
+            subtree: true
+        });
+
+    }
+
+});
+</script>
+
+  
   
 <!-- TSEC BACK TO HOME BUTTON -->
 <section style="padding:60px 20px 80px; text-align:center;">
