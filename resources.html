@@ -37,9 +37,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .page-hero p{color:var(--gray);font-size:1rem;max-width:580px;margin:0 auto 2rem;line-height:1.7}
 
 /* ── SEARCH + FILTER ── */
-.resources-controls{padding:0.9rem 4%;background:var(--navy2);border-bottom:1px solid var(--border);position:sticky;top:72px;z-index:50;backdrop-filter:blur(12px)}
-.controls-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-.search-wrap{position:relative;flex:1;min-width:240px}
+.resources-controls{
+  padding:0.9rem 4%;
+  background:var(--navy2);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:72px;
+  z-index:50;
+  backdrop-filter:blur(12px);
+}
+
+.controls-inner{
+  max-width:1100px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+
+.search-wrap{
+  position:relative;
+  flex:1;
+  max-width:620px;
+  min-width:240px;
+}
+
 .search-wrap svg{position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);color:var(--gray2);pointer-events:none}
 .search-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:0.65rem 0.9rem 0.65rem 2.6rem;color:var(--white);font-family:var(--font-body);font-size:0.88rem;outline:none;transition:border-color .2s}
 .search-input::placeholder{color:var(--gray2)}
@@ -48,7 +70,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .filter-btn{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:6px;padding:0.45rem 0.9rem;color:var(--gray);font-family:var(--font-body);font-size:0.82rem;cursor:pointer;transition:all .2s;white-space:nowrap}
 .filter-btn:hover{border-color:var(--border2);color:var(--white)}
 .filter-btn.active{background:var(--blue);border-color:var(--blue);color:#fff}
-.tier-pills{display:flex;gap:0.4rem;margin-left:auto}
+.tier-pills{
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  margin-left:auto;
+}
 .tier-pill{padding:0.35rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:600;cursor:pointer;border:1px solid transparent;transition:all .2s}
 .tier-pill.free{background:rgba(72,187,120,0.1);color:#68d391;border-color:rgba(72,187,120,0.2)}
 .tier-pill.pro{background:rgba(79,195,247,0.1);color:var(--cyan);border-color:rgba(79,195,247,0.2)}
@@ -177,20 +204,7 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="text" class="search-input" id="searchInput" placeholder="Search resources, frameworks, topics…" autocomplete="off">
     </div>
-<div class="filter-tabs" id="categoryFilters">
-  <button class="filter-btn active" data-category="all">All</button>
-  <button class="filter-btn" data-category="compliance">Compliance</button>
-  <button class="filter-btn" data-category="ai-governance">AI Governance</button>
-  <button class="filter-btn" data-category="risk-management">Risk Management</button>
-  <button class="filter-btn" data-category="training">Training</button>
-  <button class="filter-btn" data-category="grants">Grants</button>
-  <button class="filter-btn" data-category="templates">Templates</button>
 
-  <!-- NEW -->
-  <button class="filter-btn" data-category="enterprise-programs">
-    Enterprise Programs
-  </button>
-</div>
     <div class="tier-pills" id="tierFilters">
   <button class="tier-pill pro" data-tier="pro">Pro</button>
   <button class="tier-pill enterprise" data-tier="enterprise" onclick="window.location.href='enterprise.html'">Enterprise</button>
