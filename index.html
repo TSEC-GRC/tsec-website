@@ -179,15 +179,313 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   }
 }
 
-/* ── TRUSTED BY ── */
-.trusted{padding:3rem 4%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(10,22,40,0.85);backdrop-filter:blur(8px);text-align:center}
-.trusted-label{font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:2rem}
-.trusted-label span{color:var(--cyan)}
-.industries-grid{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;max-width:900px;margin:0 auto}
-.industry-item{display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--gray);font-size:0.82rem;font-weight:500;letter-spacing:0.02em;transition:color .2s}
-.industry-item:hover{color:var(--cyan)}
-.industry-item svg{opacity:0.7;transition:opacity .2s}
-.industry-item:hover svg{opacity:1}
+/* ── INDUSTRIES / BUILT FOR ORGANIZATIONS ── */
+
+.industries-section {
+  position: relative;
+  padding: 90px 4%;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(26,86,219,0.12), transparent 42%),
+    linear-gradient(180deg, #081321 0%, #060d1a 100%);
+  border-top: 1px solid rgba(79,195,247,0.14);
+  border-bottom: 1px solid rgba(79,195,247,0.14);
+  overflow: hidden;
+}
+
+.industries-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 900px;
+  height: 260px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse,
+    rgba(42,127,255,0.10) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.industries-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.industries-header {
+  max-width: 920px;
+  margin: 0 auto 3.5rem;
+  text-align: center;
+}
+
+.industries-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.2rem;
+  font-family: var(--font-head);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f4c76b;
+}
+
+.industries-eyebrow::before,
+.industries-eyebrow::after {
+  content: "";
+  width: 42px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(244,199,107,0.8)
+  );
+}
+
+.industries-eyebrow::after {
+  background: linear-gradient(
+    90deg,
+    rgba(244,199,107,0.8),
+    transparent
+  );
+}
+
+.industries-header h2 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 1.2rem;
+}
+
+.industries-header h2 span {
+  color: #f4c76b;
+}
+
+.industries-header p {
+  max-width: 820px;
+  margin: 0 auto;
+  color: #aebfd2;
+  font-size: 1rem;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+/* Industry cards */
+
+.industries-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.industry-card {
+  position: relative;
+  min-height: 365px;
+  overflow: hidden;
+  border: 1px solid rgba(79,195,247,0.20);
+  border-radius: 12px;
+  background: #091525;
+  box-shadow:
+    0 18px 45px rgba(0,0,0,0.24),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  transition:
+    transform .28s ease,
+    border-color .28s ease,
+    box-shadow .28s ease;
+}
+
+.industry-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(244,199,107,0.45);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,0.38),
+    0 0 30px rgba(42,127,255,0.08);
+}
+
+.industry-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.82;
+  transition:
+    transform .55s ease,
+    opacity .35s ease;
+}
+
+.industry-card:hover .industry-image {
+  transform: scale(1.055);
+  opacity: 0.94;
+}
+
+/* Dark cinematic overlay */
+
+.industry-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5,13,25,0.04) 0%,
+      rgba(5,13,25,0.20) 30%,
+      rgba(5,13,25,0.84) 67%,
+      rgba(5,13,25,0.98) 100%
+    );
+  pointer-events: none;
+}
+
+.industry-content {
+  position: relative;
+  z-index: 2;
+  min-height: 365px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.7rem;
+}
+
+.industry-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(244,199,107,0.55);
+  border-radius: 11px;
+  background: rgba(6,13,26,0.68);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.25),
+    inset 0 0 15px rgba(244,199,107,0.04);
+}
+
+.industry-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #f4c76b;
+  stroke-width: 1.5;
+}
+
+.industry-content h3 {
+  max-width: 370px;
+  margin-bottom: 0.55rem;
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+}
+
+.industry-content p {
+  max-width: 390px;
+  margin-bottom: 1rem;
+  color: #c1cedc;
+  font-size: 0.84rem;
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+.industry-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  color: #f4c76b;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: gap .2s ease, color .2s ease;
+}
+
+.industry-link span {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.industry-link:hover {
+  gap: 0.8rem;
+  color: #ffffff;
+}
+
+/* Individual image positioning */
+
+.industry-card--saas .industry-image {
+  object-position: center 32%;
+}
+
+.industry-card--fintech .industry-image {
+  object-position: center 35%;
+}
+
+.industry-card--healthcare .industry-image {
+  object-position: center 30%;
+}
+
+.industry-card--professional .industry-image {
+  object-position: center 35%;
+}
+
+.industry-card--growth .industry-image {
+  object-position: center 35%;
+}
+
+.industry-card--security .industry-image {
+  object-position: center 42%;
+}
+
+/* Responsive */
+
+@media (max-width: 1050px) {
+  .industries-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .industries-section {
+    padding: 70px 5%;
+  }
+
+  .industries-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .industries-header h2 {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+
+  .industries-header p {
+    font-size: 0.9rem;
+  }
+
+  .industries-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .industry-card,
+  .industry-content {
+    min-height: 340px;
+  }
+
+  .industry-content {
+    padding: 1.4rem;
+  }
+}
 
 /* ── SOLUTIONS ── */
 .solutions{padding:80px 4%;background:var(--navy)}
@@ -568,39 +866,322 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
   
 </section>
 
-<!-- TRUSTED BY / INDUSTRIES -->
-<div id="industries" class="trusted" style="padding:4rem 4%;text-align:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(10,22,40,0.85);backdrop-filter:blur(8px);">
-  <p style="font-family:var(--font-head);font-size:1rem;font-weight:700;letter-spacing:0.2em;color:var(--cyan);text-transform:uppercase;margin-bottom:3rem;position:relative;display:inline-block;">
-    BUILT FOR GROWING & REGULATED ORGANIZATIONS
-    <span style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);"></span>
-  </p>
-  <div style="display:flex;justify-content:center;align-items:flex-start;gap:0;flex-wrap:nowrap;max-width:1000px;margin:0 auto;">
-    <div class="industry-item" style="flex:1;min-width:0;padding:0 0.5rem;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16,18 22,12 16,6"/><polyline points="8,6 2,12 8,18"/></svg>
-      <span style="font-size:0.78rem;line-height:1.4;display:block;margin-top:0.4rem;">SaaS & Technology Companies</span>
+<!-- INDUSTRIES / BUILT FOR ORGANIZATIONS -->
+
+<section id="industries" class="industries-section">
+
+  <div class="industries-inner">
+
+    <!-- SECTION HEADER -->
+
+    <div class="industries-header">
+
+      <div class="industries-eyebrow">
+        INDUSTRIES WE SERVE
+      </div>
+
+      <h2>
+        BUILT FOR ORGANIZATIONS WHERE
+        <span>TRUST MATTERS</span>
+      </h2>
+
+      <p>
+        From high-growth technology companies to regulated enterprises,
+        TSEC helps organizations turn cybersecurity, compliance, and risk
+        into a competitive advantage.
+      </p>
+
     </div>
-    <div class="industry-item" style="flex:1;min-width:0;padding:0 0.5rem;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
-      <span style="font-size:0.78rem;line-height:1.4;display:block;margin-top:0.4rem;">Fintech & Financial Services</span>
+
+
+    <!-- INDUSTRY CARDS -->
+
+    <div class="industries-grid">
+
+
+      <!-- 01 — SAAS -->
+
+      <article class="industry-card industry-card--saas">
+
+        <img
+          src="assets/industry-saas-technology.webp"
+          alt="Technology professionals working in a modern enterprise environment"
+          class="industry-image"
+          loading="lazy"
+        >
+
+        <div class="industry-content">
+
+          <div class="industry-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="4" width="18" height="14" rx="2"/>
+              <path d="M8 21h8"/>
+              <path d="M12 18v3"/>
+              <path d="M8 8h3"/>
+              <path d="M8 12h5"/>
+            </svg>
+          </div>
+
+          <h3>SaaS &amp; Technology Companies</h3>
+
+          <p>
+            Build customer trust and accelerate enterprise growth
+            with scalable security and compliance.
+          </p>
+
+          <a href="#solutions" class="industry-link">
+            Explore solutions
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 02 — FINTECH -->
+
+      <article class="industry-card industry-card--fintech">
+
+        <img
+          src="assets/industry-fintech-financial.webp"
+          alt="Financial district and modern financial services environment"
+          class="industry-image"
+          loading="lazy"
+        >
+
+        <div class="industry-content">
+
+          <div class="industry-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 10h18"/>
+              <path d="M5 10v8"/>
+              <path d="M9 10v8"/>
+              <path d="M15 10v8"/>
+              <path d="M19 10v8"/>
+              <path d="M3 18h18"/>
+              <path d="M12 3l9 5H3l9-5z"/>
+            </svg>
+          </div>
+
+          <h3>Fintech &amp; Financial Services</h3>
+
+          <p>
+            Strengthen regulatory readiness, cyber risk management,
+            and customer confidence.
+          </p>
+
+          <a href="#solutions" class="industry-link">
+            Explore solutions
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 03 — HEALTHCARE -->
+
+      <article class="industry-card industry-card--healthcare">
+
+        <img
+          src="assets/industry-healthcare-healthtech.webp"
+          alt="Healthcare professional using technology in a modern clinical environment"
+          class="industry-image"
+          loading="lazy"
+        >
+
+        <div class="industry-content">
+
+          <div class="industry-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 7v10"/>
+              <path d="M7 12h10"/>
+            </svg>
+          </div>
+
+          <h3>Healthcare &amp; HealthTech</h3>
+
+          <p>
+            Protect sensitive data while building scalable security
+            and compliance programs.
+          </p>
+
+          <a href="#solutions" class="industry-link">
+            Explore solutions
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 04 — PROFESSIONAL SERVICES -->
+
+      <article class="industry-card industry-card--professional">
+
+        <img
+          src="assets/industry-professional-services.webp"
+          alt="Business professionals collaborating in a modern corporate office"
+          class="industry-image"
+          loading="lazy"
+        >
+
+        <div class="industry-content">
+
+          <div class="industry-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="9" cy="8" r="3"/>
+              <path d="M3 19c0-3 2.5-5 6-5s6 2 6 5"/>
+              <path d="M16 5.5a3 3 0 0 1 0 5.8"/>
+              <path d="M18 14c2 .6 3 2.1 3 5"/>
+            </svg>
+          </div>
+
+          <h3>Professional Services</h3>
+
+          <p>
+            Establish a stronger security posture and demonstrate
+            compliance to clients and strategic partners.
+          </p>
+
+          <a href="#solutions" class="industry-link">
+            Explore solutions
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 05 — HIGH-GROWTH -->
+
+      <article class="industry-card industry-card--growth">
+
+        <img
+          src="assets/industry-high-growth.webp"
+          alt="Executive leading a growing company in a modern business environment"
+          class="industry-image"
+          loading="lazy"
+        >
+
+        <div class="industry-content">
+
+          <div class="industry-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 18l6-6 4 4 8-9"/>
+              <path d="M15 7h6v6"/>
+              <path d="M3 21h18"/>
+            </svg>
+          </div>
+
+          <h3>High-Growth Companies</h3>
+
+          <p>
+            Build compliance into your growth strategy before
+            security and regulatory requirements become a barrier.
+          </p>
+
+          <a href="#solutions" class="industry-link">
+            Explore solutions
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- 06 — SECURITY & COMPLIANCE -->
+
+      <article class="industry-card industry-card--security">
+
+        <img
+          src="assets/industry-security-compliance.webp"
+          alt="Enterprise security infrastructure and data center environment"
+          class="industry-image"
+          loading="lazy"
+        >
+
+        <div class="industry-content">
+
+          <div class="industry-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 3l8 3v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3z"/>
+              <path d="M8.5 12l2.2 2.2 4.8-5"/>
+            </svg>
+          </div>
+
+          <h3>Security &amp; Compliance-Driven Organizations</h3>
+
+          <p>
+            Modernize GRC operations with continuous monitoring,
+            control intelligence, and compliance automation.
+          </p>
+
+          <a href="#solutions" class="industry-link">
+            Explore solutions
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+
     </div>
-    <div class="industry-item" style="flex:1;min-width:0;padding:0 0.5rem;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-      <span style="font-size:0.78rem;line-height:1.4;display:block;margin-top:0.4rem;">Healthcare & HealthTech</span>
-    </div>
-    <div class="industry-item" style="flex:1;min-width:0;padding:0 0.5rem;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      <span style="font-size:0.78rem;line-height:1.4;display:block;margin-top:0.4rem;">Professional Services</span>
-    </div>
-    <div class="industry-item" style="flex:1;min-width:0;padding:0 0.5rem;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,7 13.5,15.5 8.5,10.5 2,17"/><polyline points="16,7 22,7 22,13"/></svg>
-      <span style="font-size:0.78rem;line-height:1.4;display:block;margin-top:0.4rem;">High-Growth Companies</span>
-    </div>
-    <div class="industry-item" style="flex:1;min-width:0;padding:0 0.5rem;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg>
-      <span style="font-size:0.78rem;line-height:1.4;display:block;margin-top:0.4rem;">Security & Compliance-Driven Organizations</span>
-    </div>
+
   </div>
-</div>
+
+</section>
+
+  
 <!-- SOLUTIONS -->
 <section id="solutions" class="solutions">
   <div class="section-inner">
