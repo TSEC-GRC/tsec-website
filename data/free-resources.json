@@ -126,7 +126,7 @@
       "Implementation",
       "Compliance"
     ],
-    "updated": "2026-07-13",
+    "updated": "2026-09-13",
     "downloadPath": "/downloads/free/ai-governance/AI_Governance_Roadmap.pdf"
   },
   {
@@ -142,7 +142,7 @@
       "Data Leakage",
       "AI Usage Policy"
     ],
-    "updated": "2026-07-13",
+    "updated": "2026-09-13",
     "downloadPath": "/downloads/free/ai-governance/AI_Prompt_Security_Guide.pdf"
   },
   {
@@ -158,7 +158,8 @@
       "Financial Impact",
       "Probability Modeling"
     ],
-    "updated": "2024-06-15"
+    "updated": "2026-09-13",
+    "downloadPath": "/downloads/free/risk-management/Cyber_Risk_Quantification_Guide_TSEC.pdf"
   },
   {
     "id": "risk-002",
