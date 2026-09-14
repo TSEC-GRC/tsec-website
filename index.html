@@ -179,6 +179,411 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   }
 }
 
+/* =========================================================
+   TSEC — OUR CORE SOLUTIONS
+   ========================================================= */
+
+.core-solutions {
+  position: relative;
+  padding: 7rem 2rem 7.5rem;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(30, 76, 115, 0.16),
+      transparent 42%
+    ),
+    #050b12;
+  overflow: hidden;
+}
+
+.core-solutions::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.018) 1px,
+      transparent 1px
+    );
+  background-size: 80px 80px;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.7),
+    transparent 80%
+  );
+}
+
+.core-solutions-container {
+  position: relative;
+  z-index: 1;
+  width: min(1460px, 100%);
+  margin: 0 auto;
+}
+
+
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+
+.core-solutions-header {
+  max-width: 900px;
+  margin: 0 auto 4.5rem;
+  text-align: center;
+}
+
+.core-solutions-header .section-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+
+  color: #e8b85c;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.core-solutions-header .eyebrow-line {
+  width: 62px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(232,184,92,0.85)
+  );
+}
+
+.core-solutions-header .eyebrow-line:last-child {
+  background: linear-gradient(
+    90deg,
+    rgba(232,184,92,0.85),
+    transparent
+  );
+}
+
+.core-solutions-header h2 {
+  margin: 0;
+  color: #edf3f8;
+  font-family: var(--font-head, "Manrope", sans-serif);
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.core-solutions-header h2 span {
+  display: block;
+  margin-top: 0.15rem;
+  color: #e9b85d;
+}
+
+.core-solutions-header p {
+  max-width: 760px;
+  margin: 1.5rem auto 0;
+  color: rgba(218, 229, 239, 0.78);
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+
+/* ---------------------------------------------------------
+   GRID
+   --------------------------------------------------------- */
+
+.core-solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.25rem;
+}
+
+
+/* ---------------------------------------------------------
+   CARD
+   --------------------------------------------------------- */
+
+.core-solution-card {
+  position: relative;
+  min-width: 0;
+  min-height: 405px;
+
+  grid-column: span 2;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(71, 133, 184, 0.38);
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(12, 27, 41, 0.96),
+      rgba(5, 15, 24, 0.98)
+    );
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.28);
+
+  transition:
+    transform 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.core-solution-card-wide {
+  grid-column: span 3;
+  min-height: 390px;
+}
+
+.core-solution-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(232, 184, 92, 0.65);
+
+  box-shadow:
+    0 28px 75px rgba(0,0,0,0.42),
+    0 0 0 1px rgba(232,184,92,0.08);
+}
+
+
+/* ---------------------------------------------------------
+   IMAGE
+   --------------------------------------------------------- */
+
+.core-solution-image {
+  position: relative;
+  height: 205px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.core-solution-card-wide .core-solution-image {
+  height: 220px;
+}
+
+.core-solution-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 650ms cubic-bezier(.2,.65,.25,1),
+    filter 650ms ease;
+}
+
+.core-solution-card:hover .core-solution-image img {
+  transform: scale(1.045);
+  filter: brightness(1.05);
+}
+
+
+/* ---------------------------------------------------------
+   IMAGE OVERLAY
+   --------------------------------------------------------- */
+
+.core-solution-image-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(3, 10, 17, 0.05) 0%,
+      rgba(3, 10, 17, 0.10) 38%,
+      rgba(3, 10, 17, 0.82) 100%
+    );
+
+  pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   CARD CONTENT
+   --------------------------------------------------------- */
+
+.core-solution-content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  gap: 1rem;
+
+  margin-top: -1px;
+  padding: 1.25rem 1.35rem 1.5rem;
+}
+
+.core-solution-icon {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(232,184,92,0.52);
+  border-radius: 10px;
+
+  color: #e9b85d;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(232,184,92,0.08),
+      rgba(4,12,20,0.8)
+    );
+
+  box-shadow:
+    inset 0 0 20px rgba(232,184,92,0.035);
+}
+
+.core-solution-icon svg {
+  width: 27px;
+  height: 27px;
+}
+
+.core-solution-text {
+  min-width: 0;
+}
+
+.core-solution-text h3 {
+  margin: 0 0 0.55rem;
+
+  color: #f0f5f9;
+
+  font-family: var(--font-head, "Manrope", sans-serif);
+  font-size: 1.28rem;
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -0.018em;
+}
+
+.core-solution-text p {
+  margin: 0;
+
+  color: rgba(213, 226, 237, 0.78);
+
+  font-family: var(--font-body, "Inter", sans-serif);
+  font-size: 0.91rem;
+  line-height: 1.62;
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE — TABLET
+   --------------------------------------------------------- */
+
+@media (max-width: 1050px) {
+
+  .core-solutions {
+    padding: 6rem 1.5rem;
+  }
+
+  .core-solutions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .core-solution-card,
+  .core-solution-card-wide {
+    grid-column: span 1;
+  }
+
+  .core-solution-card:last-child {
+    grid-column: span 2;
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE — MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 700px) {
+
+  .core-solutions {
+    padding: 5rem 1rem;
+  }
+
+  .core-solutions-header {
+    margin-bottom: 3rem;
+  }
+
+  .core-solutions-header .section-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.17em;
+    gap: 0.7rem;
+  }
+
+  .core-solutions-header .eyebrow-line {
+    width: 32px;
+  }
+
+  .core-solutions-header h2 {
+    font-size: clamp(2rem, 9vw, 2.7rem);
+  }
+
+  .core-solutions-header p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .core-solutions-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .core-solution-card,
+  .core-solution-card-wide,
+  .core-solution-card:last-child {
+    grid-column: span 1;
+  }
+
+  .core-solution-card {
+    min-height: auto;
+  }
+
+  .core-solution-image,
+  .core-solution-card-wide .core-solution-image {
+    height: 205px;
+  }
+
+  .core-solution-content {
+    padding: 1.1rem 1.1rem 1.35rem;
+  }
+
+  .core-solution-icon {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .core-solution-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .core-solution-text h3 {
+    font-size: 1.12rem;
+  }
+
+  .core-solution-text p {
+    font-size: 0.88rem;
+  }
+
+}
+
+
+  
 /* ── INDUSTRIES / BUILT FOR ORGANIZATIONS ── */
 
 .industries-section {
@@ -1182,57 +1587,332 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
 </section>
 
   
-<!-- SOLUTIONS -->
-<section id="solutions" class="solutions">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2 style="font-family:var(--font-head);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">OUR CORE SOLUTIONS</h2>
-      <div class="underline-accent"></div>
-    </div>
-    <div class="solutions-grid" style="grid-template-columns:repeat(5,1fr);gap:1rem;">
+<!-- =========================================================
+     OUR CORE SOLUTIONS
+     ========================================================= -->
+<section class="core-solutions" id="core-solutions">
 
-      <div class="sol-card">
-        <div class="sol-icon" style="background:rgba(26,86,219,0.15);border:1px solid rgba(26,86,219,0.3)">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg>
-        </div>
-        <h3>AI-Powered Compliance Automation</h3>
-        <p>End-to-end automation for SOC 2, NYDFS, ISO 27001 and regulatory frameworks including evidence collection, policy generation, and control monitoring.</p>
+  <div class="core-solutions-container">
+
+    <!-- Section Header -->
+    <div class="core-solutions-header">
+
+      <div class="section-eyebrow">
+        <span class="eyebrow-line"></span>
+        <span>OUR CORE SOLUTIONS</span>
+        <span class="eyebrow-line"></span>
       </div>
 
-      <div class="sol-card">
-        <div class="sol-icon" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3)">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="7,16 10,11 13,13 17,8"/><circle cx="17" cy="8" r="1.5" fill="#a78bfa"/></svg>
-        </div>
-        <h3>GRC Intelligence & Control Mapping</h3>
-        <p>AI-assisted governance, risk, and compliance workflows with continuous control monitoring and real-time visibility across your security posture.</p>
-      </div>
+      <h2>
+        From Automation to Certification —
+        <span>A Complete Compliance Advantage</span>
+      </h2>
 
-      <div class="sol-card" style="border-color:rgba(79,195,247,0.35)">
-        <div class="sol-icon" style="background:rgba(79,195,247,0.12);border:1px solid rgba(79,195,247,0.35)">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4FC3F7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M6 20C6 17 8.7 15 12 15C15.3 15 18 17 18 20"/><circle cx="18.5" cy="7" r="2.5"/><circle cx="5.5" cy="7" r="2.5"/><path d="M18.5 9.5C19.5 10.5 20 12 20 13"/><path d="M5.5 9.5C4.5 10.5 4 12 4 13"/></svg>
-        </div>
-        <h3>Virtual Compliance Operations (vCISO-as-a-Service)</h3>
-        <p>Ongoing compliance leadership, audit readiness support, and regulatory oversight for growing and regulated companies.</p>
-      </div>
-
-      <div class="sol-card">
-        <div class="sol-icon" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3)">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-        </div>
-        <h3>Risk & Governance Framework Design</h3>
-        <p>Structured risk assessments, policy frameworks, and enterprise governance models aligned with industry regulations and audit requirements.</p>
-      </div>
-
-      <div class="sol-card">
-        <div class="sol-icon" style="background:rgba(20,184,166,0.15);border:1px solid rgba(20,184,166,0.3)">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="9" width="14" height="12" rx="2"/><path d="M9 9V7C9 5.3 10.3 4 12 4C13.7 4 15 5.3 15 7V9"/><circle cx="12" cy="15" r="2"/><line x1="12" y1="17" x2="12" y2="19"/></svg>
-        </div>
-        <h3>Audit Readiness & Enterprise Certification</h3>
-        <p>Continuous audit preparation, evidence management, and enterprise-grade readiness for SOC 2, ISO 27001, NYDFS, AML, HIPAA, and regulated contracts.</p>
-      </div>
+      <p>
+        Integrated services, advanced technology, and expert leadership
+        to help organizations reduce risk, meet regulatory requirements,
+        and grow with confidence.
+      </p>
 
     </div>
+
+
+    <!-- Solutions Grid -->
+    <div class="core-solutions-grid">
+
+
+      <!-- =====================================================
+           CARD 1 — AI COMPLIANCE AUTOMATION
+           ===================================================== -->
+      <article class="core-solution-card">
+
+        <div class="core-solution-image">
+          <img
+            src="assets/core-compliance-automation.webp"
+            alt="AI-powered compliance automation and continuous compliance monitoring"
+            loading="lazy"
+          />
+
+          <div class="core-solution-image-overlay"></div>
+        </div>
+
+        <div class="core-solution-content">
+
+          <div class="core-solution-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"
+                stroke="currentColor"
+                stroke-width="1.6"
+              />
+              <path
+                d="M19.2 13.4a7.6 7.6 0 0 0 0-2.8l1.5-1.1-1.7-3-1.8.7a7.7 7.7 0 0 0-2.4-1.4L14.6 4h-3.4l-.2 1.8a7.7 7.7 0 0 0-2.4 1.4l-1.8-.7-1.7 3 1.5 1.1a7.6 7.6 0 0 0 0 2.8l-1.5 1.1 1.7 3 1.8-.7a7.7 7.7 0 0 0 2.4 1.4l.2 1.8h3.4l.2-1.8a7.7 7.7 0 0 0 2.4-1.4l1.8.7 1.7-3-1.5-1.1Z"
+                stroke="currentColor"
+                stroke-width="1.35"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div class="core-solution-text">
+
+            <h3>AI-Powered Compliance Automation</h3>
+
+            <p>
+              End-to-end compliance automation for SOC 2, NYDFS,
+              ISO 27001, and other regulatory frameworks — streamlining
+              evidence collection, policy generation, control monitoring,
+              and compliance workflows.
+            </p>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- =====================================================
+           CARD 2 — GRC INTELLIGENCE
+           ===================================================== -->
+      <article class="core-solution-card">
+
+        <div class="core-solution-image">
+          <img
+            src="assets/core-grc-intelligence.webp"
+            alt="GRC intelligence and control mapping"
+            loading="lazy"
+          />
+
+          <div class="core-solution-image-overlay"></div>
+        </div>
+
+        <div class="core-solution-content">
+
+          <div class="core-solution-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle
+                cx="12"
+                cy="12"
+                r="2.6"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <circle
+                cx="5"
+                cy="6"
+                r="2"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <circle
+                cx="19"
+                cy="6"
+                r="2"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <circle
+                cx="19"
+                cy="18"
+                r="2"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M7 7.2 10 10M17 7.2 14 10M17 16.8 14 14"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+
+          <div class="core-solution-text">
+
+            <h3>GRC Intelligence &amp; Control Mapping</h3>
+
+            <p>
+              AI-assisted GRC intelligence that connects risks, controls,
+              policies, and regulatory requirements — providing continuous
+              control visibility and actionable insight across your security
+              and compliance posture.
+            </p>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- =====================================================
+           CARD 3 — vCISO
+           ===================================================== -->
+      <article class="core-solution-card">
+
+        <div class="core-solution-image">
+          <img
+            src="assets/core-vciso-operations.webp"
+            alt="Virtual compliance operations and vCISO leadership"
+            loading="lazy"
+          />
+
+          <div class="core-solution-image-overlay"></div>
+        </div>
+
+        <div class="core-solution-content">
+
+          <div class="core-solution-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle
+                cx="12"
+                cy="8"
+                r="3.2"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M5.5 20c.5-4 2.7-6 6.5-6s6 2 6.5 6"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M4 12.5h3M17 12.5h3"
+                stroke="currentColor"
+                stroke-width="1.3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+
+          <div class="core-solution-text">
+
+            <h3>Virtual Compliance Operations (vCISO-as-a-Service)</h3>
+
+            <p>
+              Ongoing compliance leadership for growing and regulated
+              organizations — combining strategic oversight, audit readiness,
+              risk management, and regulatory support without the cost of
+              a full-time executive function.
+            </p>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- =====================================================
+           CARD 4 — RISK & GOVERNANCE
+           ===================================================== -->
+      <article class="core-solution-card core-solution-card-wide">
+
+        <div class="core-solution-image">
+          <img
+            src="assets/core-risk-governance.webp"
+            alt="Risk and governance framework design"
+            loading="lazy"
+          />
+
+          <div class="core-solution-image-overlay"></div>
+        </div>
+
+        <div class="core-solution-content">
+
+          <div class="core-solution-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 3.5 19 6v5.2c0 4.4-2.6 7.8-7 9.3-4.4-1.5-7-4.9-7-9.3V6l7-2.5Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+              />
+              <path
+                d="m8.8 12.1 2.1 2.1 4.4-4.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div class="core-solution-text">
+
+            <h3>Risk &amp; Governance Framework Design</h3>
+
+            <p>
+              Enterprise-grade risk and governance frameworks designed
+              around your business, regulatory obligations, and risk profile —
+              including risk assessments, policy architecture, control
+              structures, and governance models.
+            </p>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- =====================================================
+           CARD 5 — AUDIT READINESS
+           ===================================================== -->
+      <article class="core-solution-card core-solution-card-wide">
+
+        <div class="core-solution-image">
+          <img
+            src="assets/core-audit-readiness.webp"
+            alt="Audit readiness and enterprise certification"
+            loading="lazy"
+          />
+
+          <div class="core-solution-image-overlay"></div>
+        </div>
+
+        <div class="core-solution-content">
+
+          <div class="core-solution-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M6 3.5h8l4 4V20.5H6V3.5Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M14 3.5v4h4M9 11h6M9 14.5h6M9 18h4"
+                stroke="currentColor"
+                stroke-width="1.4"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+
+          <div class="core-solution-text">
+
+            <h3>Audit Readiness &amp; Enterprise Certification</h3>
+
+            <p>
+              Continuous audit and certification readiness supported by
+              structured evidence management, control validation, and
+              remediation — preparing organizations for SOC 2, ISO 27001,
+              NYDFS, AML, HIPAA, and regulated customer requirements.
+            </p>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
   </div>
+
 </section>
 
 <!-- FRAMEWORKS -->
