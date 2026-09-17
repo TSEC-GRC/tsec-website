@@ -799,6 +799,10 @@ function renderIncluded(included) {
 
 function renderMetadata(product) {
 
+    // -------------------------------------------------
+    // BASIC PRODUCT INFORMATION
+    // -------------------------------------------------
+
     setText(
         "product-id",
         product.id || ""
@@ -823,9 +827,110 @@ function renderMetadata(product) {
     );
 
 
+    // -------------------------------------------------
+    // PRODUCT METADATA
+    // -------------------------------------------------
+
+    const metadata =
+        product.metadata || {};
+
+
+    // -------------------------------------------------
+    // FRAMEWORK
+    // -------------------------------------------------
+
+    const frameworkElement =
+        document.getElementById(
+            "product-frameworks"
+        );
+
+
+    if (frameworkElement) {
+
+        const frameworks =
+            Array.isArray(product.frameworks)
+                ? product.frameworks
+                : [];
+
+
+        const frameworkNames =
+            frameworks
+                .map(
+                    framework => {
+
+                        if (
+                            typeof framework === "object" &&
+                            framework !== null
+                        ) {
+
+                            return String(
+                                framework.name || ""
+                            );
+
+                        }
+
+                        return String(
+                            framework || ""
+                        );
+
+                    }
+                )
+                .filter(Boolean);
+
+
+        frameworkElement.innerHTML =
+            frameworkNames.length > 0
+                ? frameworkNames.join("<br>")
+                : "—";
+
+    }
+
+
+    // -------------------------------------------------
+    // FORMAT
+    // -------------------------------------------------
+
+    setText(
+        "product-format",
+        metadata.format ||
+        product.format ||
+        "Microsoft Word, Excel & PowerPoint"
+    );
+
+
+    // -------------------------------------------------
+    // DELIVERY
+    // -------------------------------------------------
+
+    setText(
+        "product-delivery",
+        metadata.delivery ||
+        product.delivery ||
+        "Instant Digital Download"
+    );
+
+
+    // -------------------------------------------------
+    // LICENSE
+    // -------------------------------------------------
+
     setText(
         "product-license",
-        product.license || ""
+        metadata.license ||
+        product.license ||
+        "Single Organization Use"
+    );
+
+
+    // -------------------------------------------------
+    // UPDATES
+    // -------------------------------------------------
+
+    setText(
+        "product-updates",
+        metadata.updates ||
+        product.updates ||
+        "Minor updates for 12 months"
     );
 
 }
