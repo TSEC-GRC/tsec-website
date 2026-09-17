@@ -542,24 +542,22 @@ function renderFeatures(features) {
 // =========================================================
 // RENDER STATS
 // =========================================================
-
 function renderStats(stats) {
 
     if (!stats) {
         return;
     }
 
-
     const statMap = {
 
-        files:
-            "stat-files",
+        editableFiles:
+            "stat-editable-files",
 
-        word:
-            "stat-word",
+        wordTemplates:
+            "stat-word-templates",
 
-        excel:
-            "stat-excel",
+        excelWorkbooks:
+            "stat-excel-workbooks",
 
         powerpoint:
             "stat-powerpoint",
@@ -569,7 +567,6 @@ function renderStats(stats) {
 
         delivery:
             "stat-delivery"
-
     };
 
 
@@ -596,7 +593,6 @@ function renderStats(stats) {
     );
 
 }
-
 
 // =========================================================
 // RENDER FRAMEWORKS
