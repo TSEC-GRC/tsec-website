@@ -406,9 +406,10 @@ async function loadProduct() {
         // =================================================
 
         renderIncluded(
-    product.included,
-    product.stats
-);
+            product.included,
+            product.stats
+        );
+
 
         // =================================================
         // PRODUCT METADATA
@@ -502,8 +503,10 @@ function renderFeatures(features) {
                     "span"
                 );
 
+
             icon.className =
                 "check-green";
+
 
             icon.textContent =
                 "✓";
@@ -514,6 +517,7 @@ function renderFeatures(features) {
                     "span"
                 );
 
+
             text.textContent =
                 typeof feature === "string"
                     ? feature
@@ -523,6 +527,7 @@ function renderFeatures(features) {
             li.appendChild(
                 icon
             );
+
 
             li.appendChild(
                 text
@@ -545,99 +550,60 @@ function renderFeatures(features) {
 
 function renderStats(stats) {
 
-    if (!stats) return;
+    if (!stats) {
+        return;
+    }
+
 
     // -----------------------------------------------------
     // TOP PRODUCT STATS
     // -----------------------------------------------------
 
     const statMap = {
-        editableFiles: "stat-editable-files",
-        wordTemplates: "stat-word-templates",
-        excelWorkbooks: "stat-excel-workbooks",
-        powerpoint: "stat-powerpoint",
-        guides: "stat-guides",
-        delivery: "stat-delivery"
+
+        editableFiles:
+            "stat-editable-files",
+
+        wordTemplates:
+            "stat-word-templates",
+
+        excelWorkbooks:
+            "stat-excel-workbooks",
+
+        powerpoint:
+            "stat-powerpoint",
+
+        guides:
+            "stat-guides",
+
+        delivery:
+            "stat-delivery"
+
     };
 
-    Object.entries(statMap).forEach(([key, id]) => {
 
-        if (Object.prototype.hasOwnProperty.call(stats, key)) {
+    Object.entries(statMap).forEach(
+        ([key, id]) => {
 
-            setText(
-                id,
-                stats[key]
-            );
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    stats,
+                    key
+                )
+            ) {
+
+                setText(
+                    id,
+                    stats[key]
+                );
+
+            }
 
         }
-
-    });
-
-
-    // -----------------------------------------------------
-    // PACK CONTENT SUMMARY
-    // -----------------------------------------------------
-
-    setText(
-        "summary-word",
-        stats.wordTemplates ?? 0
-    );
-
-    setText(
-        "summary-excel",
-        stats.excelWorkbooks ?? 0
-    );
-
-    setText(
-        "summary-powerpoint",
-        stats.powerpoint ?? 0
-    );
-
-    setText(
-        "summary-guides",
-        stats.guides ?? 0
-    );
-
-
-    // -----------------------------------------------------
-    // QUICK START GUIDE
-    // -----------------------------------------------------
-    // Only display a value if the product actually defines
-    // quickStart in its stats object.
-    // Otherwise keep the field neutral.
-
-    if (
-        Object.prototype.hasOwnProperty.call(
-            stats,
-            "quickStart"
-        )
-    ) {
-
-        setText(
-            "summary-quickstart",
-            stats.quickStart
-        );
-
-    } else {
-
-        setText(
-            "summary-quickstart",
-            "—"
-        );
-
-    }
-
-
-    // -----------------------------------------------------
-    // TOTAL EDITABLE FILES
-    // -----------------------------------------------------
-
-    setText(
-        "summary-total",
-        `${stats.editableFiles ?? 0} Files`
     );
 
 }
+
 
 // =========================================================
 // RENDER FRAMEWORKS
@@ -677,6 +643,7 @@ function renderFrameworks(frameworks) {
                     "div"
                 );
 
+
             card.className =
                 "framework-card";
 
@@ -685,6 +652,7 @@ function renderFrameworks(frameworks) {
                 document.createElement(
                     "div"
                 );
+
 
             icon.className =
                 "framework-icon";
@@ -699,12 +667,15 @@ function renderFrameworks(frameworks) {
                         "img"
                     );
 
+
                 img.src =
                     framework.icon;
+
 
                 img.alt =
                     framework.name ||
                     "Framework";
+
 
                 icon.appendChild(
                     img
@@ -718,6 +689,7 @@ function renderFrameworks(frameworks) {
                     "h3"
                 );
 
+
             name.textContent =
                 framework.name ||
                 "";
@@ -728,6 +700,7 @@ function renderFrameworks(frameworks) {
                     "p"
                 );
 
+
             description.textContent =
                 framework.description ||
                 "";
@@ -737,9 +710,11 @@ function renderFrameworks(frameworks) {
                 icon
             );
 
+
             card.appendChild(
                 name
             );
+
 
             card.appendChild(
                 description
@@ -760,31 +735,37 @@ function renderFrameworks(frameworks) {
 // RENDER PACK INCLUDED CONTENT
 // =========================================================
 
-function renderIncluded(included) {
+function renderIncluded(
+    included,
+    stats
+) {
 
     const container =
         document.getElementById(
             "pack-documents-grid"
         );
 
+
     if (!container) {
         return;
     }
 
 
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
     // CLEAR EXISTING CONTENT
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
 
 
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
     // NO INCLUDED CONTENT
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
 
     if (
-        !Array.isArray(included) ||
+        !Array.isArray(included)
+        ||
         included.length === 0
     ) {
 
@@ -796,16 +777,19 @@ function renderIncluded(included) {
             </div>
         `;
 
-        // Keep summary neutral
-        renderIncludedSummary([]);
+
+        renderIncludedSummary(
+            stats
+        );
+
 
         return;
     }
 
 
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
     // RENDER EACH INCLUDED ITEM
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
 
     included.forEach(
         item => {
@@ -904,6 +888,10 @@ function renderIncluded(included) {
             }
 
 
+            // -------------------------------------------------
+            // ADD CARD TO LEFT GRID
+            // -------------------------------------------------
+
             container.appendChild(
                 card
             );
@@ -912,131 +900,14 @@ function renderIncluded(included) {
     );
 
 
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
     // UPDATE PACK SUMMARY
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
 
     renderIncludedSummary(
-    stats
-);
-
-}
-
-
-
-// =========================================================
-// RENDER INCLUDED DOCUMENTS
-// =========================================================
-
-function renderIncluded(included, stats) {
-
-    const container = document.getElementById(
-        "pack-documents-grid"
+        stats
     );
 
-    if (!container) {
-        return;
-    }
-
-    // Clear existing content
-    container.innerHTML = "";
-
-
-    // ---------------------------------------------------------
-    // EMPTY STATE
-    // ---------------------------------------------------------
-
-    if (
-        !Array.isArray(included) ||
-        included.length === 0
-    ) {
-
-        container.innerHTML = `
-            <div class="pack-document-empty">
-                <p>
-                    Product documentation details
-                    will be displayed here.
-                </p>
-            </div>
-        `;
-
-        renderIncludedSummary(stats);
-
-        return;
-    }
-
-
-    // ---------------------------------------------------------
-    // RENDER INCLUDED CARDS — LEFT SIDE
-    // ---------------------------------------------------------
-
-    included.forEach(item => {
-
-        const card = document.createElement("article");
-
-        card.className =
-            "pack-document-card";
-
-
-        // DOCUMENT TYPE
-        const type =
-            document.createElement("div");
-
-        type.className =
-            "pack-document-type";
-
-        type.textContent =
-            item.type ||
-            item.category ||
-            "DOCUMENT";
-
-
-        // DOCUMENT TITLE
-        const title =
-            document.createElement("h3");
-
-        title.className =
-            "pack-document-title";
-
-        title.textContent =
-            item.title ||
-            item.name ||
-            "";
-
-
-        // DOCUMENT DESCRIPTION
-        const description =
-            document.createElement("p");
-
-        description.className =
-            "pack-document-description";
-
-        description.textContent =
-            item.description ||
-            "";
-
-
-        // BUILD CARD
-        card.appendChild(type);
-
-        card.appendChild(title);
-
-        if (item.description) {
-            card.appendChild(description);
-        }
-
-
-        // ADD CARD TO LEFT GRID
-        container.appendChild(card);
-
-    });
-
-
-    // ---------------------------------------------------------
-    // RENDER SUMMARY — RIGHT SIDE
-    // ---------------------------------------------------------
-
-    renderIncludedSummary(stats);
 }
 
 
@@ -1044,42 +915,59 @@ function renderIncluded(included, stats) {
 // RENDER INCLUDED SUMMARY
 // =========================================================
 
-function renderIncludedSummary(stats) {
+function renderIncludedSummary(
+    stats
+) {
 
     if (!stats) {
         return;
     }
 
 
+    // -----------------------------------------------------
     // WORD DOCUMENTS
+    // -----------------------------------------------------
+
     setText(
         "summary-word",
         stats.wordTemplates ?? 0
     );
 
 
+    // -----------------------------------------------------
     // EXCEL WORKBOOKS
+    // -----------------------------------------------------
+
     setText(
         "summary-excel",
         stats.excelWorkbooks ?? 0
     );
 
 
+    // -----------------------------------------------------
     // POWERPOINT DECKS
+    // -----------------------------------------------------
+
     setText(
         "summary-powerpoint",
         stats.powerpoint ?? 0
     );
 
 
+    // -----------------------------------------------------
     // IMPLEMENTATION GUIDES
+    // -----------------------------------------------------
+
     setText(
         "summary-guides",
         stats.guides ?? 0
     );
 
 
+    // -----------------------------------------------------
     // QUICK START GUIDE
+    // -----------------------------------------------------
+
     if (
         Object.prototype.hasOwnProperty.call(
             stats,
@@ -1102,11 +990,15 @@ function renderIncludedSummary(stats) {
     }
 
 
+    // -----------------------------------------------------
     // TOTAL FILES
+    // -----------------------------------------------------
+
     setText(
         "summary-total",
         `${stats.editableFiles ?? 0} Files`
     );
+
 }
 
 
@@ -1114,39 +1006,9 @@ function renderIncludedSummary(stats) {
 // RENDER PRODUCT METADATA
 // =========================================================
 
-function renderMetadata(product) {
-
-    // -------------------------------------------------
-    // BASIC PRODUCT INFORMATION
-    // -------------------------------------------------
-
-    setText(
-        "product-id",
-        product.id || ""
-    );
-
-
-    setText(
-        "product-category",
-        product.category || ""
-    );
-
-
-    setText(
-        "product-currency",
-        product.currency || "USD"
-    );
-
-
-    setText(
-        "product-status",
-        product.status || ""
-    );
-// =========================================================
-// RENDER PRODUCT METADATA
-// =========================================================
-
-function renderMetadata(product) {
+function renderMetadata(
+    product
+) {
 
     // -------------------------------------------------
     // BASIC PRODUCT INFORMATION
@@ -1208,7 +1070,8 @@ function renderMetadata(product) {
                     framework => {
 
                         if (
-                            typeof framework === "object" &&
+                            typeof framework === "object"
+                            &&
                             framework !== null
                         ) {
 
@@ -1217,6 +1080,7 @@ function renderMetadata(product) {
                             );
 
                         }
+
 
                         return String(
                             framework || ""
@@ -1303,6 +1167,7 @@ function initProductAction() {
             "⚠ Checkout button not found"
         );
 
+
         return;
 
     }
@@ -1326,6 +1191,7 @@ function initProductAction() {
                 console.warn(
                     "⚠ Product not loaded yet"
                 );
+
 
                 return;
 
@@ -1402,6 +1268,7 @@ function initLeadModal() {
             "⚠ Lead modal not found"
         );
 
+
         return;
 
     }
@@ -1469,6 +1336,7 @@ function initLeadModal() {
                     alert(
                         "Product information is not available. Please refresh the page and try again."
                     );
+
 
                     return;
 
@@ -1552,6 +1420,7 @@ function initLeadModal() {
                     alert(
                         "Please use your corporate email address. Personal email providers are not accepted."
                     );
+
 
                     return;
 
@@ -1707,7 +1576,9 @@ function initLeadModal() {
 // CORPORATE EMAIL VALIDATION
 // =========================================================
 
-function isCorporateEmail(email) {
+function isCorporateEmail(
+    email
+) {
 
     if (!email) {
         return false;
@@ -1748,7 +1619,9 @@ function isCorporateEmail(email) {
     if (
         parts.length !== 2
     ) {
+
         return false;
+
     }
 
 
