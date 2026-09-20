@@ -719,7 +719,7 @@ function renderIncluded(included) {
 
     const container =
         document.getElementById(
-            "product-included-grid"
+            "pack-documents-grid"
         );
 
 
@@ -732,14 +732,32 @@ function renderIncluded(included) {
         "";
 
 
+    // ---------------------------------------------------------
+    // NO INCLUDED CONTENT
+    // ---------------------------------------------------------
+
     if (
         !Array.isArray(included)
         ||
         included.length === 0
     ) {
+
+        container.innerHTML = `
+            <div class="pack-document-empty">
+                <p>
+                    Product documentation details will be displayed here.
+                </p>
+            </div>
+        `;
+
         return;
+
     }
 
+
+    // ---------------------------------------------------------
+    // RENDER INCLUDED DOCUMENTS
+    // ---------------------------------------------------------
 
     included.forEach(
         item => {
@@ -749,38 +767,85 @@ function renderIncluded(included) {
                     "div"
                 );
 
-            card.className =
-                "included-card";
 
+            card.className =
+                "pack-document-card";
+
+
+            // -------------------------------------------------
+            // DOCUMENT TYPE
+            // -------------------------------------------------
+
+            const type =
+                document.createElement(
+                    "div"
+                );
+
+
+            type.className =
+                "pack-document-type";
+
+
+            type.textContent =
+                item.type ||
+                item.category ||
+                "DOCUMENT";
+
+
+            // -------------------------------------------------
+            // DOCUMENT TITLE
+            // -------------------------------------------------
 
             const title =
                 document.createElement(
                     "h3"
                 );
 
+
             title.textContent =
                 item.name ||
                 item.title ||
-                "";
+                "Professional Compliance Document";
 
+
+            // -------------------------------------------------
+            // DESCRIPTION
+            // -------------------------------------------------
 
             const description =
                 document.createElement(
                     "p"
                 );
 
+
             description.textContent =
                 item.description ||
                 "";
+
+
+            // -------------------------------------------------
+            // APPEND
+            // -------------------------------------------------
+
+            card.appendChild(
+                type
+            );
 
 
             card.appendChild(
                 title
             );
 
-            card.appendChild(
-                description
-            );
+
+            if (
+                item.description
+            ) {
+
+                card.appendChild(
+                    description
+                );
+
+            }
 
 
             container.appendChild(
@@ -788,6 +853,218 @@ function renderIncluded(included) {
             );
 
         }
+    );
+
+
+    // ---------------------------------------------------------
+    // UPDATE PACK SUMMARY
+    // ---------------------------------------------------------
+
+    renderIncludedSummary(
+        included
+    );
+
+}
+
+
+// =========================================================
+// RENDER INCLUDED SUMMARY
+// =========================================================
+
+function renderIncludedSummary(
+    included
+) {
+
+    if (
+        !Array.isArray(included)
+    ) {
+        return;
+    }
+
+
+    let word =
+        0;
+
+    let excel =
+        0;
+
+    let powerpoint =
+        0;
+
+    let guides =
+        0;
+
+    let quickstart =
+        0;
+
+
+    // ---------------------------------------------------------
+    // COUNT INCLUDED FILES
+    // ---------------------------------------------------------
+
+    included.forEach(
+        item => {
+
+            const type =
+                String(
+                    item.type ||
+                    item.format ||
+                    item.category ||
+                    ""
+                ).toLowerCase();
+
+
+            const title =
+                String(
+                    item.name ||
+                    item.title ||
+                    ""
+                ).toLowerCase();
+
+
+            // -----------------------------------------------
+            // WORD
+            // -----------------------------------------------
+
+            if (
+                type.includes("word")
+                ||
+                type.includes("docx")
+                ||
+                title.includes("policy")
+                ||
+                title.includes("procedure")
+                ||
+                title.includes("methodology")
+                ||
+                title.includes("plan")
+            ) {
+
+                word++;
+
+            }
+
+
+            // -----------------------------------------------
+            // EXCEL
+            // -----------------------------------------------
+
+            if (
+                type.includes("excel")
+                ||
+                type.includes("xlsx")
+                ||
+                title.includes("register")
+                ||
+                title.includes("assessment")
+                ||
+                title.includes("tracker")
+                ||
+                title.includes("dashboard")
+            ) {
+
+                excel++;
+
+            }
+
+
+            // -----------------------------------------------
+            // POWERPOINT
+            // -----------------------------------------------
+
+            if (
+                type.includes("powerpoint")
+                ||
+                type.includes("pptx")
+                ||
+                type.includes("presentation")
+                ||
+                title.includes("training")
+                ||
+                title.includes("presentation")
+            ) {
+
+                powerpoint++;
+
+            }
+
+
+            // -----------------------------------------------
+            // GUIDES
+            // -----------------------------------------------
+
+            if (
+                title.includes("guide")
+                ||
+                title.includes("implementation")
+                ||
+                title.includes("roadmap")
+            ) {
+
+                guides++;
+
+            }
+
+
+            // -----------------------------------------------
+            // QUICK START
+            // -----------------------------------------------
+
+            if (
+                title.includes("quick start")
+                ||
+                title.includes("quickstart")
+            ) {
+
+                quickstart++;
+
+            }
+
+        }
+    );
+
+
+    // ---------------------------------------------------------
+    // UPDATE SUMMARY VALUES
+    // ---------------------------------------------------------
+
+    setText(
+        "summary-word",
+        word
+    );
+
+
+    setText(
+        "summary-excel",
+        excel
+    );
+
+
+    setText(
+        "summary-powerpoint",
+        powerpoint
+    );
+
+
+    setText(
+        "summary-guides",
+        guides
+    );
+
+
+    setText(
+        "summary-quickstart",
+        quickstart
+    );
+
+
+    // ---------------------------------------------------------
+    // TOTAL
+    // ---------------------------------------------------------
+
+    setText(
+        "summary-total",
+        `${included.length} Files`
     );
 
 }
