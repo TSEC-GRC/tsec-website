@@ -762,18 +762,27 @@ function renderFrameworks(frameworks) {
 
 function renderIncluded(included) {
 
-    const container = document.getElementById(
-        "pack-documents-grid"
-    );
+    const container =
+        document.getElementById(
+            "pack-documents-grid"
+        );
 
-    if (!container) return;
+    if (!container) {
+        return;
+    }
 
 
-    // Clear existing content
+    // ---------------------------------------------------------
+    // CLEAR EXISTING CONTENT
+    // ---------------------------------------------------------
+
     container.innerHTML = "";
 
 
-    // No included content
+    // ---------------------------------------------------------
+    // NO INCLUDED CONTENT
+    // ---------------------------------------------------------
+
     if (
         !Array.isArray(included) ||
         included.length === 0
@@ -787,64 +796,121 @@ function renderIncluded(included) {
             </div>
         `;
 
+        // Keep summary neutral
+        renderIncludedSummary([]);
+
         return;
     }
 
 
-    // Render each content category
-    included.forEach(item => {
+    // ---------------------------------------------------------
+    // RENDER EACH INCLUDED ITEM
+    // ---------------------------------------------------------
 
-        const card = document.createElement("article");
+    included.forEach(
+        item => {
 
-        card.className = "pack-document-card";
-
-
-        // Document label
-        const type = document.createElement("div");
-
-        type.className = "pack-document-type";
-
-        type.textContent = "DOCUMENT";
+            const card =
+                document.createElement(
+                    "article"
+                );
 
 
-        // Title
-        const title = document.createElement("h3");
-
-        title.className = "pack-document-title";
-
-        title.textContent =
-            item.title ||
-            item.name ||
-            "";
+            card.className =
+                "pack-document-card";
 
 
-        // Description
-        const description = document.createElement("p");
+            // -------------------------------------------------
+            // DOCUMENT TYPE
+            // -------------------------------------------------
 
-        description.className = "pack-document-description";
+            const type =
+                document.createElement(
+                    "div"
+                );
 
-        description.textContent =
-            item.description ||
-            "";
+
+            type.className =
+                "pack-document-type";
 
 
-        // Assemble card
-        card.appendChild(type);
+            type.textContent =
+                item.type ||
+                item.category ||
+                "DOCUMENT";
 
-        card.appendChild(title);
 
-        if (item.description) {
+            // -------------------------------------------------
+            // DOCUMENT TITLE
+            // -------------------------------------------------
 
-            card.appendChild(description);
+            const title =
+                document.createElement(
+                    "h3"
+                );
+
+
+            title.className =
+                "pack-document-title";
+
+
+            title.textContent =
+                item.title ||
+                item.name ||
+                "";
+
+
+            // -------------------------------------------------
+            // DOCUMENT DESCRIPTION
+            // -------------------------------------------------
+
+            const description =
+                document.createElement(
+                    "p"
+                );
+
+
+            description.className =
+                "pack-document-description";
+
+
+            description.textContent =
+                item.description ||
+                "";
+
+
+            // -------------------------------------------------
+            // ASSEMBLE CARD
+            // -------------------------------------------------
+
+            card.appendChild(
+                type
+            );
+
+
+            card.appendChild(
+                title
+            );
+
+
+            if (
+                item.description
+            ) {
+
+                card.appendChild(
+                    description
+                );
+
+            }
+
+
+            container.appendChild(
+                card
+            );
 
         }
+    );
 
-
-        container.appendChild(card);
-
-    });
-
-}
 
     // ---------------------------------------------------------
     // UPDATE PACK SUMMARY
@@ -855,6 +921,7 @@ function renderIncluded(included) {
     );
 
 }
+
 
 
 // =========================================================
@@ -872,20 +939,15 @@ function renderIncludedSummary(
     }
 
 
-    let word =
-        0;
+    let word = 0;
 
-    let excel =
-        0;
+    let excel = 0;
 
-    let powerpoint =
-        0;
+    let powerpoint = 0;
 
-    let guides =
-        0;
+    let guides = 0;
 
-    let quickstart =
-        0;
+    let quickstart = 0;
 
 
     // ---------------------------------------------------------
@@ -912,22 +974,13 @@ function renderIncludedSummary(
                 ).toLowerCase();
 
 
-            // -----------------------------------------------
+            // -------------------------------------------------
             // WORD
-            // -----------------------------------------------
+            // -------------------------------------------------
 
             if (
-                type.includes("word")
-                ||
+                type.includes("word") ||
                 type.includes("docx")
-                ||
-                title.includes("policy")
-                ||
-                title.includes("procedure")
-                ||
-                title.includes("methodology")
-                ||
-                title.includes("plan")
             ) {
 
                 word++;
@@ -935,22 +988,13 @@ function renderIncludedSummary(
             }
 
 
-            // -----------------------------------------------
+            // -------------------------------------------------
             // EXCEL
-            // -----------------------------------------------
+            // -------------------------------------------------
 
             if (
-                type.includes("excel")
-                ||
+                type.includes("excel") ||
                 type.includes("xlsx")
-                ||
-                title.includes("register")
-                ||
-                title.includes("assessment")
-                ||
-                title.includes("tracker")
-                ||
-                title.includes("dashboard")
             ) {
 
                 excel++;
@@ -958,20 +1002,14 @@ function renderIncludedSummary(
             }
 
 
-            // -----------------------------------------------
+            // -------------------------------------------------
             // POWERPOINT
-            // -----------------------------------------------
+            // -------------------------------------------------
 
             if (
-                type.includes("powerpoint")
-                ||
-                type.includes("pptx")
-                ||
+                type.includes("powerpoint") ||
+                type.includes("pptx") ||
                 type.includes("presentation")
-                ||
-                title.includes("training")
-                ||
-                title.includes("presentation")
             ) {
 
                 powerpoint++;
@@ -979,15 +1017,14 @@ function renderIncludedSummary(
             }
 
 
-            // -----------------------------------------------
+            // -------------------------------------------------
             // GUIDES
-            // -----------------------------------------------
+            // -------------------------------------------------
 
             if (
-                title.includes("guide")
-                ||
-                title.includes("implementation")
-                ||
+                type.includes("guide") ||
+                title.includes("guide") ||
+                title.includes("implementation") ||
                 title.includes("roadmap")
             ) {
 
@@ -996,14 +1033,15 @@ function renderIncludedSummary(
             }
 
 
-            // -----------------------------------------------
+            // -------------------------------------------------
             // QUICK START
-            // -----------------------------------------------
+            // -------------------------------------------------
 
             if (
-                title.includes("quick start")
-                ||
-                title.includes("quickstart")
+                title.includes("quick start") ||
+                title.includes("quickstart") ||
+                type.includes("quick start") ||
+                type.includes("quickstart")
             ) {
 
                 quickstart++;
@@ -1049,7 +1087,7 @@ function renderIncludedSummary(
 
 
     // ---------------------------------------------------------
-    // TOTAL
+    // TOTAL FILES
     // ---------------------------------------------------------
 
     setText(
@@ -1058,7 +1096,6 @@ function renderIncludedSummary(
     );
 
 }
-
 
 // =========================================================
 // RENDER PRODUCT METADATA
