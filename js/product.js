@@ -542,11 +542,17 @@ function renderFeatures(features) {
 // =========================================================
 // RENDER STATS
 // =========================================================
+
 function renderStats(stats) {
 
     if (!stats) {
         return;
     }
+
+
+    // -------------------------------------------------------
+    // TOP PRODUCT STATISTICS
+    // -------------------------------------------------------
 
     const statMap = {
 
@@ -567,6 +573,7 @@ function renderStats(stats) {
 
         delivery:
             "stat-delivery"
+
     };
 
 
@@ -590,6 +597,50 @@ function renderStats(stats) {
             }
 
         }
+    );
+
+
+    // -------------------------------------------------------
+    // WHAT'S INCLUDED SUMMARY
+    // -------------------------------------------------------
+
+    setText(
+        "summary-word",
+        stats.wordTemplates ?? 0
+    );
+
+
+    setText(
+        "summary-excel",
+        stats.excelWorkbooks ?? 0
+    );
+
+
+    setText(
+        "summary-powerpoint",
+        stats.powerpoint ?? 0
+    );
+
+
+    setText(
+        "summary-guides",
+        stats.guides ?? 0
+    );
+
+
+    setText(
+        "summary-quickstart",
+        stats.quickStart ?? 0
+    );
+
+
+    // -------------------------------------------------------
+    // TOTAL FILES
+    // -------------------------------------------------------
+
+    setText(
+        "summary-total",
+        `${stats.editableFiles ?? 0} Files`
     );
 
 }
