@@ -925,63 +925,161 @@ function renderIncluded(included) {
 
 
 // =========================================================
+// RENDER INCLUDED DOCUMENTS
+// =========================================================
+
+function renderIncluded(included, stats) {
+
+    const container = document.getElementById(
+        "pack-documents-grid"
+    );
+
+    if (!container) {
+        return;
+    }
+
+    // Clear existing content
+    container.innerHTML = "";
+
+
+    // ---------------------------------------------------------
+    // EMPTY STATE
+    // ---------------------------------------------------------
+
+    if (
+        !Array.isArray(included) ||
+        included.length === 0
+    ) {
+
+        container.innerHTML = `
+            <div class="pack-document-empty">
+                <p>
+                    Product documentation details
+                    will be displayed here.
+                </p>
+            </div>
+        `;
+
+        renderIncludedSummary(stats);
+
+        return;
+    }
+
+
+    // ---------------------------------------------------------
+    // RENDER INCLUDED CARDS — LEFT SIDE
+    // ---------------------------------------------------------
+
+    included.forEach(item => {
+
+        const card = document.createElement("article");
+
+        card.className =
+            "pack-document-card";
+
+
+        // DOCUMENT TYPE
+        const type =
+            document.createElement("div");
+
+        type.className =
+            "pack-document-type";
+
+        type.textContent =
+            item.type ||
+            item.category ||
+            "DOCUMENT";
+
+
+        // DOCUMENT TITLE
+        const title =
+            document.createElement("h3");
+
+        title.className =
+            "pack-document-title";
+
+        title.textContent =
+            item.title ||
+            item.name ||
+            "";
+
+
+        // DOCUMENT DESCRIPTION
+        const description =
+            document.createElement("p");
+
+        description.className =
+            "pack-document-description";
+
+        description.textContent =
+            item.description ||
+            "";
+
+
+        // BUILD CARD
+        card.appendChild(type);
+
+        card.appendChild(title);
+
+        if (item.description) {
+            card.appendChild(description);
+        }
+
+
+        // ADD CARD TO LEFT GRID
+        container.appendChild(card);
+
+    });
+
+
+    // ---------------------------------------------------------
+    // RENDER SUMMARY — RIGHT SIDE
+    // ---------------------------------------------------------
+
+    renderIncludedSummary(stats);
+}
+
+
+// =========================================================
 // RENDER INCLUDED SUMMARY
 // =========================================================
 
-function renderIncluded(
-    included,
-    stats
-) {
+function renderIncludedSummary(stats) {
 
     if (!stats) {
         return;
     }
 
 
-    // ---------------------------------------------------------
     // WORD DOCUMENTS
-    // ---------------------------------------------------------
-
     setText(
         "summary-word",
         stats.wordTemplates ?? 0
     );
 
 
-    // ---------------------------------------------------------
     // EXCEL WORKBOOKS
-    // ---------------------------------------------------------
-
     setText(
         "summary-excel",
         stats.excelWorkbooks ?? 0
     );
 
 
-    // ---------------------------------------------------------
     // POWERPOINT DECKS
-    // ---------------------------------------------------------
-
     setText(
         "summary-powerpoint",
         stats.powerpoint ?? 0
     );
 
 
-    // ---------------------------------------------------------
     // IMPLEMENTATION GUIDES
-    // ---------------------------------------------------------
-
     setText(
         "summary-guides",
         stats.guides ?? 0
     );
 
 
-    // ---------------------------------------------------------
     // QUICK START GUIDE
-    // ---------------------------------------------------------
-
     if (
         Object.prototype.hasOwnProperty.call(
             stats,
@@ -1004,17 +1102,46 @@ function renderIncluded(
     }
 
 
-    // ---------------------------------------------------------
     // TOTAL FILES
-    // ---------------------------------------------------------
-
     setText(
         "summary-total",
         `${stats.editableFiles ?? 0} Files`
     );
-
 }
 
+
+// =========================================================
+// RENDER PRODUCT METADATA
+// =========================================================
+
+function renderMetadata(product) {
+
+    // -------------------------------------------------
+    // BASIC PRODUCT INFORMATION
+    // -------------------------------------------------
+
+    setText(
+        "product-id",
+        product.id || ""
+    );
+
+
+    setText(
+        "product-category",
+        product.category || ""
+    );
+
+
+    setText(
+        "product-currency",
+        product.currency || "USD"
+    );
+
+
+    setText(
+        "product-status",
+        product.status || ""
+    );
 // =========================================================
 // RENDER PRODUCT METADATA
 // =========================================================
