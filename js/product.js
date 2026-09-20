@@ -406,9 +406,9 @@ async function loadProduct() {
         // =================================================
 
         renderIncluded(
-            product.included
-        );
-
+    product.included,
+    product.stats
+);
 
         // =================================================
         // PRODUCT METADATA
@@ -917,8 +917,8 @@ function renderIncluded(included) {
     // ---------------------------------------------------------
 
     renderIncludedSummary(
-        included
-    );
+    stats
+);
 
 }
 
@@ -928,7 +928,10 @@ function renderIncluded(included) {
 // RENDER INCLUDED SUMMARY
 // =========================================================
 
-function renderIncludedSummary(stats) {
+function renderIncluded(
+    included,
+    stats
+) {
 
     if (!stats) {
         return;
