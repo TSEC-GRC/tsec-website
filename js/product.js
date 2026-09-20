@@ -540,87 +540,58 @@ function renderFeatures(features) {
 
 
 // =========================================================
-// RENDER STATS
+// RENDER PRODUCT STATS
 // =========================================================
 
 function renderStats(stats) {
 
-    if (!stats) {
-        return;
-    }
+    if (!stats) return;
 
-
-    // -------------------------------------------------------
-    // TOP PRODUCT STATISTICS
-    // -------------------------------------------------------
+    // -----------------------------------------------------
+    // TOP PRODUCT STATS
+    // -----------------------------------------------------
 
     const statMap = {
-
-        editableFiles:
-            "stat-editable-files",
-
-        wordTemplates:
-            "stat-word-templates",
-
-        excelWorkbooks:
-            "stat-excel-workbooks",
-
-        powerpoint:
-            "stat-powerpoint",
-
-        guides:
-            "stat-guides",
-
-        delivery:
-            "stat-delivery"
-
+        editableFiles: "stat-editable-files",
+        wordTemplates: "stat-word-templates",
+        excelWorkbooks: "stat-excel-workbooks",
+        powerpoint: "stat-powerpoint",
+        guides: "stat-guides",
+        delivery: "stat-delivery"
     };
 
+    Object.entries(statMap).forEach(([key, id]) => {
 
-    Object.entries(
-        statMap
-    ).forEach(
-        ([key, id]) => {
+        if (Object.prototype.hasOwnProperty.call(stats, key)) {
 
-            if (
-                Object.prototype.hasOwnProperty.call(
-                    stats,
-                    key
-                )
-            ) {
-
-                setText(
-                    id,
-                    stats[key]
-                );
-
-            }
+            setText(
+                id,
+                stats[key]
+            );
 
         }
-    );
+
+    });
 
 
-    // -------------------------------------------------------
-    // WHAT'S INCLUDED SUMMARY
-    // -------------------------------------------------------
+    // -----------------------------------------------------
+    // PACK CONTENT SUMMARY
+    // -----------------------------------------------------
 
     setText(
         "summary-word",
         stats.wordTemplates ?? 0
     );
 
-
     setText(
         "summary-excel",
         stats.excelWorkbooks ?? 0
     );
 
-
     setText(
         "summary-powerpoint",
         stats.powerpoint ?? 0
     );
-
 
     setText(
         "summary-guides",
@@ -628,15 +599,38 @@ function renderStats(stats) {
     );
 
 
-    setText(
-        "summary-quickstart",
-        stats.quickStart ?? 0
-    );
+    // -----------------------------------------------------
+    // QUICK START GUIDE
+    // -----------------------------------------------------
+    // Only display a value if the product actually defines
+    // quickStart in its stats object.
+    // Otherwise keep the field neutral.
+
+    if (
+        Object.prototype.hasOwnProperty.call(
+            stats,
+            "quickStart"
+        )
+    ) {
+
+        setText(
+            "summary-quickstart",
+            stats.quickStart
+        );
+
+    } else {
+
+        setText(
+            "summary-quickstart",
+            "—"
+        );
+
+    }
 
 
-    // -------------------------------------------------------
-    // TOTAL FILES
-    // -------------------------------------------------------
+    // -----------------------------------------------------
+    // TOTAL EDITABLE FILES
+    // -----------------------------------------------------
 
     setText(
         "summary-total",
@@ -763,33 +757,25 @@ function renderFrameworks(frameworks) {
 
 
 // =========================================================
-// RENDER WHAT'S INCLUDED
+// RENDER PACK INCLUDED CONTENT
 // =========================================================
 
 function renderIncluded(included) {
 
-    const container =
-        document.getElementById(
-            "pack-documents-grid"
-        );
+    const container = document.getElementById(
+        "pack-documents-grid"
+    );
+
+    if (!container) return;
 
 
-    if (!container) {
-        return;
-    }
+    // Clear existing content
+    container.innerHTML = "";
 
 
-    container.innerHTML =
-        "";
-
-
-    // ---------------------------------------------------------
-    // NO INCLUDED CONTENT
-    // ---------------------------------------------------------
-
+    // No included content
     if (
-        !Array.isArray(included)
-        ||
+        !Array.isArray(included) ||
         included.length === 0
     ) {
 
@@ -802,110 +788,63 @@ function renderIncluded(included) {
         `;
 
         return;
-
     }
 
 
-    // ---------------------------------------------------------
-    // RENDER INCLUDED DOCUMENTS
-    // ---------------------------------------------------------
+    // Render each content category
+    included.forEach(item => {
 
-    included.forEach(
-        item => {
+        const card = document.createElement("article");
 
-            const card =
-                document.createElement(
-                    "div"
-                );
+        card.className = "pack-document-card";
 
 
-            card.className =
-                "pack-document-card";
+        // Document label
+        const type = document.createElement("div");
+
+        type.className = "pack-document-type";
+
+        type.textContent = "DOCUMENT";
 
 
-            // -------------------------------------------------
-            // DOCUMENT TYPE
-            // -------------------------------------------------
+        // Title
+        const title = document.createElement("h3");
 
-            const type =
-                document.createElement(
-                    "div"
-                );
+        title.className = "pack-document-title";
 
-
-            type.className =
-                "pack-document-type";
+        title.textContent =
+            item.title ||
+            item.name ||
+            "";
 
 
-            type.textContent =
-                item.type ||
-                item.category ||
-                "DOCUMENT";
+        // Description
+        const description = document.createElement("p");
+
+        description.className = "pack-document-description";
+
+        description.textContent =
+            item.description ||
+            "";
 
 
-            // -------------------------------------------------
-            // DOCUMENT TITLE
-            // -------------------------------------------------
+        // Assemble card
+        card.appendChild(type);
 
-            const title =
-                document.createElement(
-                    "h3"
-                );
+        card.appendChild(title);
 
+        if (item.description) {
 
-            title.textContent =
-                item.name ||
-                item.title ||
-                "Professional Compliance Document";
-
-
-            // -------------------------------------------------
-            // DESCRIPTION
-            // -------------------------------------------------
-
-            const description =
-                document.createElement(
-                    "p"
-                );
-
-
-            description.textContent =
-                item.description ||
-                "";
-
-
-            // -------------------------------------------------
-            // APPEND
-            // -------------------------------------------------
-
-            card.appendChild(
-                type
-            );
-
-
-            card.appendChild(
-                title
-            );
-
-
-            if (
-                item.description
-            ) {
-
-                card.appendChild(
-                    description
-                );
-
-            }
-
-
-            container.appendChild(
-                card
-            );
+            card.appendChild(description);
 
         }
-    );
 
+
+        container.appendChild(card);
+
+    });
+
+}
 
     // ---------------------------------------------------------
     // UPDATE PACK SUMMARY
