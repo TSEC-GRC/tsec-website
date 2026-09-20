@@ -928,162 +928,77 @@ function renderIncluded(included) {
 // RENDER INCLUDED SUMMARY
 // =========================================================
 
-function renderIncludedSummary(
-    included
-) {
+function renderIncludedSummary(stats) {
 
-    if (
-        !Array.isArray(included)
-    ) {
+    if (!stats) {
         return;
     }
 
 
-    let word = 0;
-
-    let excel = 0;
-
-    let powerpoint = 0;
-
-    let guides = 0;
-
-    let quickstart = 0;
-
-
     // ---------------------------------------------------------
-    // COUNT INCLUDED FILES
-    // ---------------------------------------------------------
-
-    included.forEach(
-        item => {
-
-            const type =
-                String(
-                    item.type ||
-                    item.format ||
-                    item.category ||
-                    ""
-                ).toLowerCase();
-
-
-            const title =
-                String(
-                    item.name ||
-                    item.title ||
-                    ""
-                ).toLowerCase();
-
-
-            // -------------------------------------------------
-            // WORD
-            // -------------------------------------------------
-
-            if (
-                type.includes("word") ||
-                type.includes("docx")
-            ) {
-
-                word++;
-
-            }
-
-
-            // -------------------------------------------------
-            // EXCEL
-            // -------------------------------------------------
-
-            if (
-                type.includes("excel") ||
-                type.includes("xlsx")
-            ) {
-
-                excel++;
-
-            }
-
-
-            // -------------------------------------------------
-            // POWERPOINT
-            // -------------------------------------------------
-
-            if (
-                type.includes("powerpoint") ||
-                type.includes("pptx") ||
-                type.includes("presentation")
-            ) {
-
-                powerpoint++;
-
-            }
-
-
-            // -------------------------------------------------
-            // GUIDES
-            // -------------------------------------------------
-
-            if (
-                type.includes("guide") ||
-                title.includes("guide") ||
-                title.includes("implementation") ||
-                title.includes("roadmap")
-            ) {
-
-                guides++;
-
-            }
-
-
-            // -------------------------------------------------
-            // QUICK START
-            // -------------------------------------------------
-
-            if (
-                title.includes("quick start") ||
-                title.includes("quickstart") ||
-                type.includes("quick start") ||
-                type.includes("quickstart")
-            ) {
-
-                quickstart++;
-
-            }
-
-        }
-    );
-
-
-    // ---------------------------------------------------------
-    // UPDATE SUMMARY VALUES
+    // WORD DOCUMENTS
     // ---------------------------------------------------------
 
     setText(
         "summary-word",
-        word
+        stats.wordTemplates ?? 0
     );
 
+
+    // ---------------------------------------------------------
+    // EXCEL WORKBOOKS
+    // ---------------------------------------------------------
 
     setText(
         "summary-excel",
-        excel
+        stats.excelWorkbooks ?? 0
     );
 
+
+    // ---------------------------------------------------------
+    // POWERPOINT DECKS
+    // ---------------------------------------------------------
 
     setText(
         "summary-powerpoint",
-        powerpoint
+        stats.powerpoint ?? 0
     );
 
+
+    // ---------------------------------------------------------
+    // IMPLEMENTATION GUIDES
+    // ---------------------------------------------------------
 
     setText(
         "summary-guides",
-        guides
+        stats.guides ?? 0
     );
 
 
-    setText(
-        "summary-quickstart",
-        quickstart
-    );
+    // ---------------------------------------------------------
+    // QUICK START GUIDE
+    // ---------------------------------------------------------
+
+    if (
+        Object.prototype.hasOwnProperty.call(
+            stats,
+            "quickStart"
+        )
+    ) {
+
+        setText(
+            "summary-quickstart",
+            stats.quickStart
+        );
+
+    } else {
+
+        setText(
+            "summary-quickstart",
+            "—"
+        );
+
+    }
 
 
     // ---------------------------------------------------------
@@ -1092,7 +1007,7 @@ function renderIncludedSummary(
 
     setText(
         "summary-total",
-        `${included.length} Files`
+        `${stats.editableFiles ?? 0} Files`
     );
 
 }
