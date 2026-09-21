@@ -1148,6 +1148,67 @@ function renderMetadata(
 
 }
 
+// =========================================================
+// PADDLE CHECKOUT — SANDBOX CONFIGURATION
+// =========================================================
+
+const PADDLE_CLIENT_TOKEN =
+    "test_5b1cc1b840fbce081663e12a9ea";
+
+const PADDLE_SOC2_PRICE_ID =
+    "pri_01m306t66hbgv4rn4zg3n7xqzr";
+
+// =========================================================
+// INITIALIZE PADDLE
+// =========================================================
+
+function initPaddle() {
+
+    if (
+        typeof Paddle === "undefined"
+    ) {
+
+        console.error(
+            "❌ Paddle.js was not loaded"
+        );
+
+        return false;
+
+    }
+
+
+    try {
+
+        Paddle.Initialize({
+
+            token:
+                PADDLE_CLIENT_TOKEN
+
+        });
+
+
+        console.log(
+            "✅ Paddle Sandbox initialized"
+        );
+
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "❌ Paddle initialization failed:",
+            error
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
 
 // =========================================================
 // TSEC CHECKOUT ACTION
@@ -1538,35 +1599,64 @@ function initLeadModal() {
 
 
                 // --------------------------------------------
-                // CLOSE MODAL
-                // --------------------------------------------
+// CLOSE LEAD MODAL
+// --------------------------------------------
 
-                modal.style.display =
-                    "none";
-
-
-                // --------------------------------------------
-                // REDIRECT TO CHECKOUT
-                // --------------------------------------------
-
-                const checkoutUrl =
-                    `checkout.html?id=${encodeURIComponent(
-                        CURRENT_PRODUCT.id
-                    )}`;
+modal.style.display =
+    "none";
 
 
-                console.log(
-                    "➡ Redirecting to:",
-                    checkoutUrl
-                );
+// --------------------------------------------
+// OPEN PADDLE CHECKOUT
+// --------------------------------------------
+
+if (
+    !initPaddle()
+) {
+
+    alert(
+        "Secure checkout is temporarily unavailable. Please try again shortly."
+    );
+
+    return;
+
+}
 
 
-                window.location.href =
-                    checkoutUrl;
+console.log(
+    "➡ Opening Paddle Checkout"
+);
 
-            }
-        );
 
+console.log(
+    "🛒 Paddle Price ID:",
+    PADDLE_SOC2_PRICE_ID
+);
+
+
+Paddle.Checkout.open({
+
+    items: [
+
+        {
+            priceId:
+                PADDLE_SOC2_PRICE_ID,
+
+            quantity:
+                1
+
+        }
+
+    ],
+
+    customer: {
+
+        email:
+            email
+
+    }
+
+});
     }
 
 }
