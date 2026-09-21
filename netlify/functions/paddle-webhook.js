@@ -9,6 +9,9 @@ import { getDatabase } from "@netlify/database";
 
 const db = getDatabase();
 
+const PADDLE_API_BASE_URL =
+    "https://sandbox-api.paddle.com";
+
 // ============================================================
 // TSEC CONFIGURATION
 // ============================================================
@@ -578,7 +581,7 @@ export default async function handler(request) {
     }
 
 
-   // --------------------------------------------------------
+ // --------------------------------------------------------
 // 15. EXTRACT CUSTOMER INFORMATION
 // --------------------------------------------------------
 
@@ -586,27 +589,157 @@ const customerId =
     transaction?.customer_id ||
     null;
 
-const customerEmail =
-    transaction?.customer?.email ||
-    transaction?.billing_details?.email ||
-    transaction?.billing_details?.customer?.email ||
-    transaction?.checkout?.customer?.email ||
-    null;
+
+if (!customerId) {
+
+    console.error(
+        "❌ Missing Paddle customer_id",
+        {
+            transactionId
+        }
+    );
+
+    return jsonResponse(
+        {
+            error:
+                "Missing Paddle customer ID"
+        },
+        400
+    );
+}
+
+
+let customerEmail = null;
+
+
+const paddleApiKey =
+    process.env.PADDLE_API_KEY;
+
+
+if (!paddleApiKey) {
+
+    console.error(
+        "❌ PADDLE_API_KEY is not configured"
+    );
+
+    return jsonResponse(
+        {
+            error:
+                "Paddle API key not configured"
+        },
+        500
+    );
+}
+
+
+try {
+
+    const paddleTransactionResponse =
+        await fetch(
+            `${PADDLE_API_BASE_URL}/transactions/${transactionId}?include=customer`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization:
+                        `Bearer ${paddleApiKey}`,
+                    "Content-Type":
+                        "application/json"
+                }
+            }
+        );
+
+
+    if (
+        !paddleTransactionResponse.ok
+    ) {
+
+        const errorBody =
+            await paddleTransactionResponse.text();
+
+
+        console.error(
+            "❌ Paddle transaction lookup failed",
+            {
+                transactionId,
+                customerId,
+                status:
+                    paddleTransactionResponse.status,
+                response:
+                    errorBody
+            }
+        );
+
+        return jsonResponse(
+            {
+                error:
+                    "Unable to retrieve Paddle customer information"
+            },
+            502
+        );
+    }
+
+
+    const paddleTransactionData =
+        await paddleTransactionResponse.json();
+
+
+    customerEmail =
+        paddleTransactionData
+            ?.data
+            ?.customer
+            ?.email ||
+        null;
+
+
+} catch (error) {
+
+    console.error(
+        "❌ Paddle API request failed",
+        {
+            transactionId,
+            customerId,
+            error:
+                error?.message ||
+                String(error)
+        }
+    );
+
+    return jsonResponse(
+        {
+            error:
+                "Paddle customer lookup failed"
+        },
+        502
+    );
+}
+
+
+if (!customerEmail) {
+
+    console.error(
+        "❌ Paddle customer email not found",
+        {
+            transactionId,
+            customerId
+        }
+    );
+
+    return jsonResponse(
+        {
+            error:
+                "Customer email not found"
+        },
+        400
+    );
+}
+
 
 console.log(
-    "🔎 Paddle customer email diagnostic",
+    "✅ Paddle customer information retrieved",
     {
         transactionId,
         customerId,
-        customerEmail,
-        transactionKeys:
-            Object.keys(transaction || {}),
-        customer:
-            transaction?.customer || null,
-        billingDetails:
-            transaction?.billing_details || null,
-        checkout:
-            transaction?.checkout || null
+        customerEmail
     }
 );
     
