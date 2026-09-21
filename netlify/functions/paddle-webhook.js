@@ -1,21 +1,16 @@
 // ============================================================
 // TSEC — Paddle Webhook
-// P1.9 Fulfillment / Provisioning
-// Signature Verification
+// TEMPORARY DIAGNOSTIC VERSION
+// P1.9 — Webhook Signature Diagnostics
 // ============================================================
 
 import crypto from "crypto";
 
-
-// ============================================================
-// MAIN HANDLER
-// ============================================================
-
 export default async function handler(request) {
 
-    // --------------------------------------------------------
-    // Only POST requests are accepted
-    // --------------------------------------------------------
+    // ------------------------------------------------------------
+    // 1. METHOD CHECK
+    // ------------------------------------------------------------
 
     if (request.method !== "POST") {
 
@@ -30,313 +25,104 @@ export default async function handler(request) {
                 }
             }
         );
-
     }
 
 
-    // --------------------------------------------------------
-    // Read raw request body
-    //
-    // IMPORTANT:
-    // Do not parse JSON before signature verification.
-    // Paddle signs the raw request body.
-    // --------------------------------------------------------
+    // ------------------------------------------------------------
+    // 2. READ RAW BODY
+    // ------------------------------------------------------------
 
     const rawBody = await request.text();
 
 
-    // --------------------------------------------------------
-    // Get Paddle signature
-    // --------------------------------------------------------
+    // ------------------------------------------------------------
+    // 3. READ PADDLE SIGNATURE HEADER
+    // ------------------------------------------------------------
 
     const paddleSignature =
         request.headers.get("paddle-signature");
 
 
-    if (!paddleSignature) {
-
-        console.error(
-            "❌ Paddle-Signature header is missing"
-        );
-
-        return new Response(
-            JSON.stringify({
-                error: "Missing Paddle signature"
-            }),
-            {
-                status: 400,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
-    }
-
-
-    // --------------------------------------------------------
-    // Get webhook secret from Netlify environment
-    // --------------------------------------------------------
+    // ------------------------------------------------------------
+    // 4. READ WEBHOOK SECRET
+    // ------------------------------------------------------------
 
     const secretKey =
         process.env.PADDLE_WEBHOOK_SECRET;
 
 
-    if (!secretKey) {
+    // ------------------------------------------------------------
+    // 5. BASIC SIGNATURE DIAGNOSTICS
+    // ------------------------------------------------------------
 
-        console.error(
-            "❌ PADDLE_WEBHOOK_SECRET is not configured"
-        );
+    const signaturePresent =
+        Boolean(paddleSignature);
 
-        return new Response(
-            JSON.stringify({
-                error: "Server misconfigured"
-            }),
-            {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
-    }
-
-
-    // --------------------------------------------------------
-    // Parse Paddle-Signature
-    //
-    // Expected format:
-    //
-    // ts=1234567890;h1=abcdef123456...
-    // --------------------------------------------------------
-
-    const signatureParts =
-        paddleSignature.split(";");
-
+    const secretPresent =
+        Boolean(secretKey);
 
     let timestamp = null;
     let receivedSignature = null;
 
+    let signatureParts = [];
 
-    for (const part of signatureParts) {
+    if (paddleSignature) {
 
-        const [key, value] =
-            part.split("=");
+        signatureParts =
+            paddleSignature.split(";");
 
+        for (const part of signatureParts) {
 
-        if (key === "ts") {
+            const separatorIndex =
+                part.indexOf("=");
 
-            timestamp = value;
+            if (separatorIndex === -1) {
+                continue;
+            }
 
+            const key =
+                part.substring(
+                    0,
+                    separatorIndex
+                );
+
+            const value =
+                part.substring(
+                    separatorIndex + 1
+                );
+
+            if (key === "ts") {
+                timestamp = value;
+            }
+
+            if (key === "h1") {
+                receivedSignature = value;
+            }
         }
-
-
-        if (key === "h1") {
-
-            receivedSignature = value;
-
-        }
-
     }
 
 
-    if (!timestamp || !receivedSignature) {
+    // ------------------------------------------------------------
+    // 6. SAFE SIGNATURE INFORMATION
+    // ------------------------------------------------------------
 
-        console.error(
-            "❌ Invalid Paddle-Signature format"
-        );
+    const timestampPresent =
+        Boolean(timestamp);
 
-        return new Response(
-            JSON.stringify({
-                error: "Invalid Paddle signature"
-            }),
-            {
-                status: 400,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
+    const h1Present =
+        Boolean(receivedSignature);
 
-    }
+    const h1Length =
+        receivedSignature
+            ? receivedSignature.length
+            : 0;
 
 
-    // --------------------------------------------------------
-    // Validate timestamp
-    //
-    // Paddle recommends a short tolerance to help prevent
-    // replay attacks.
-    // --------------------------------------------------------
+    // ------------------------------------------------------------
+    // 7. PAYLOAD INFORMATION
+    // ------------------------------------------------------------
 
-    const timestampSeconds =
-        Number(timestamp);
-
-
-    if (!Number.isFinite(timestampSeconds)) {
-
-        console.error(
-            "❌ Invalid Paddle timestamp"
-        );
-
-        return new Response(
-            JSON.stringify({
-                error: "Invalid timestamp"
-            }),
-            {
-                status: 400,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
-    }
-
-
-    const currentTimestamp =
-        Math.floor(Date.now() / 1000);
-
-
-    const timestampDifference =
-        Math.abs(
-            currentTimestamp - timestampSeconds
-        );
-
-
-    if (timestampDifference > 5) {
-
-        console.error(
-            "❌ Paddle webhook timestamp outside tolerance"
-        );
-
-        return new Response(
-            JSON.stringify({
-                error: "Webhook timestamp expired"
-            }),
-            {
-                status: 408,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
-    }
-
-
-    // --------------------------------------------------------
-    // Build signed payload
-    //
-    // Paddle signs:
-    //
-    // timestamp + ":" + rawBody
-    // --------------------------------------------------------
-
-    const signedPayload =
-        `${timestamp}:${rawBody}`;
-
-
-    // --------------------------------------------------------
-    // Calculate HMAC SHA-256
-    // --------------------------------------------------------
-
-    const expectedSignature =
-        crypto
-            .createHmac(
-                "sha256",
-                secretKey
-            )
-            .update(
-                signedPayload,
-                "utf8"
-            )
-            .digest("hex");
-
-
-    // --------------------------------------------------------
-    // Timing-safe signature comparison
-    // --------------------------------------------------------
-
-    const receivedBuffer =
-        Buffer.from(
-            receivedSignature,
-            "hex"
-        );
-
-
-    const expectedBuffer =
-        Buffer.from(
-            expectedSignature,
-            "hex"
-        );
-
-
-    if (
-        receivedBuffer.length !==
-        expectedBuffer.length
-    ) {
-
-        console.error(
-            "❌ Paddle signature length mismatch"
-        );
-
-        return new Response(
-            JSON.stringify({
-                error: "Invalid signature"
-            }),
-            {
-                status: 401,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
-    }
-
-
-    if (
-        !crypto.timingSafeEqual(
-            receivedBuffer,
-            expectedBuffer
-        )
-    ) {
-
-        console.error(
-            "❌ Paddle signature verification failed"
-        );
-
-        return new Response(
-            JSON.stringify({
-                error: "Invalid signature"
-            }),
-            {
-                status: 401,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
-    }
-
-
-    // --------------------------------------------------------
-    // Signature verified
-    // --------------------------------------------------------
-
-    console.log(
-        "✅ Paddle webhook signature verified"
-    );
-
-
-    // --------------------------------------------------------
-    // Parse verified event
-    // --------------------------------------------------------
-
-    let event;
-
+    let event = null;
 
     try {
 
@@ -346,89 +132,130 @@ export default async function handler(request) {
     } catch (error) {
 
         console.error(
-            "❌ Invalid JSON payload:",
-            error
+            "❌ Payload is not valid JSON"
         );
-
-        return new Response(
-            JSON.stringify({
-                error: "Invalid JSON"
-            }),
-            {
-                status: 400,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
     }
 
 
-    // --------------------------------------------------------
-    // Identify event
-    // --------------------------------------------------------
-
     const eventType =
-        event?.event_type || "unknown";
-
+        event?.event_type || null;
 
     const eventId =
-        event?.event_id || "unknown";
+        event?.event_id || null;
 
+    const transactionId =
+        event?.data?.id || null;
+
+
+    // ------------------------------------------------------------
+    // 8. LOG SAFE DIAGNOSTIC INFORMATION
+    // ------------------------------------------------------------
 
     console.log(
-        "Paddle event type:",
+        "============================================================"
+    );
+
+    console.log(
+        "TSEC PADDLE WEBHOOK DIAGNOSTIC"
+    );
+
+    console.log(
+        "============================================================"
+    );
+
+    console.log(
+        "HTTP Method:",
+        request.method
+    );
+
+    console.log(
+        "Raw body length:",
+        rawBody.length
+    );
+
+    console.log(
+        "Paddle-Signature present:",
+        signaturePresent
+    );
+
+    console.log(
+        "PADDLE_WEBHOOK_SECRET configured:",
+        secretPresent
+    );
+
+    console.log(
+        "Signature timestamp present:",
+        timestampPresent
+    );
+
+    console.log(
+        "Signature h1 present:",
+        h1Present
+    );
+
+    console.log(
+        "Signature h1 length:",
+        h1Length
+    );
+
+    console.log(
+        "Event type:",
         eventType
     );
 
-
     console.log(
-        "Paddle event ID:",
+        "Event ID:",
         eventId
     );
 
+    console.log(
+        "Transaction ID:",
+        transactionId
+    );
 
-    // --------------------------------------------------------
-    // Transaction completed
-    // --------------------------------------------------------
-
-    if (
-        eventType ===
-        "transaction.completed"
-    ) {
-
-        const transactionId =
-            event?.data?.id || "unknown";
+    console.log(
+        "============================================================"
+    );
 
 
-        console.log(
-            "✅ Transaction completed:",
-            transactionId
-        );
-
-
-        // ----------------------------------------------------
-        // P1.9.4 — Fulfillment will be added here
-        // ----------------------------------------------------
-
-        console.log(
-            "📦 Fulfillment processing will be added next."
-        );
-
-    }
-
-
-    // --------------------------------------------------------
-    // Acknowledge webhook
-    // --------------------------------------------------------
+    // ------------------------------------------------------------
+    // 9. TEMPORARY DIAGNOSTIC RESPONSE
+    // ------------------------------------------------------------
 
     return new Response(
-        JSON.stringify({
-            received: true,
-            verified: true,
-            event_type: eventType
-        }),
+        JSON.stringify(
+            {
+                diagnostic: true,
+
+                method: request.method,
+
+                paddle_signature_present:
+                    signaturePresent,
+
+                secret_configured:
+                    secretPresent,
+
+                timestamp_present:
+                    timestampPresent,
+
+                h1_present:
+                    h1Present,
+
+                h1_length:
+                    h1Length,
+
+                event_type:
+                    eventType,
+
+                event_id:
+                    eventId,
+
+                transaction_id:
+                    transactionId
+            },
+            null,
+            2
+        ),
         {
             status: 200,
             headers: {
@@ -436,5 +263,4 @@ export default async function handler(request) {
             }
         }
     );
-
 }
