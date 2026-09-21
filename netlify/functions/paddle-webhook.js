@@ -578,11 +578,11 @@ export default async function handler(request) {
     }
 
 
-    // --------------------------------------------------------
-    // 15. EXTRACT CUSTOMER INFORMATION
-    // --------------------------------------------------------
+   // --------------------------------------------------------
+// 15. EXTRACT CUSTOMER INFORMATION
+// --------------------------------------------------------
 
-   const customerId =
+const customerId =
     transaction?.customer_id ||
     null;
 
@@ -593,6 +593,23 @@ const customerEmail =
     transaction?.checkout?.customer?.email ||
     null;
 
+console.log(
+    "🔎 Paddle customer email diagnostic",
+    {
+        transactionId,
+        customerId,
+        customerEmail,
+        transactionKeys:
+            Object.keys(transaction || {}),
+        customer:
+            transaction?.customer || null,
+        billingDetails:
+            transaction?.billing_details || null,
+        checkout:
+            transaction?.checkout || null
+    }
+);
+    
 
 // --------------------------------------------------------
 // 16. EXTRACT PURCHASE INFORMATION
