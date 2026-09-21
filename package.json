@@ -4,6 +4,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@netlify/database": "latest"
+    "@netlify/database": "^2.0.1"
   }
 }
