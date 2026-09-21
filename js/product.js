@@ -1158,6 +1158,7 @@ const PADDLE_CLIENT_TOKEN =
 const PADDLE_SOC2_PRICE_ID =
     "pri_01m306t66hbgv4rn4zg3n7xqzr";
 
+
 // =========================================================
 // INITIALIZE PADDLE
 // =========================================================
@@ -1179,6 +1180,19 @@ function initPaddle() {
 
     try {
 
+        // -------------------------------------------------
+        // FORCE PADDLE SANDBOX ENVIRONMENT
+        // -------------------------------------------------
+
+        Paddle.Environment.set(
+            "sandbox"
+        );
+
+
+        // -------------------------------------------------
+        // INITIALIZE PADDLE
+        // -------------------------------------------------
+
         Paddle.Initialize({
 
             token:
@@ -1188,11 +1202,12 @@ function initPaddle() {
 
 
         console.log(
-            "✅ Paddle Sandbox initialized"
+            "✅ Paddle Sandbox initialized correctly"
         );
 
 
         return true;
+
 
     } catch (error) {
 
@@ -1207,7 +1222,6 @@ function initPaddle() {
     }
 
 }
-
 
 
 // =========================================================
