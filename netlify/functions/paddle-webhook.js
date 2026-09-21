@@ -1,14 +1,9 @@
 // ============================================================
 // TSEC — Paddle Webhook
-// TEMPORARY STRUCTURE DIAGNOSTIC
-// P1.9 — Inspect Paddle-Signature Header Structure
+// TEMPORARY SECRET FORMAT DIAGNOSTIC
 // ============================================================
 
 export default async function handler(request) {
-
-    // --------------------------------------------------------
-    // Only POST is allowed
-    // --------------------------------------------------------
 
     if (request.method !== "POST") {
 
@@ -25,151 +20,94 @@ export default async function handler(request) {
         );
     }
 
-
-    // --------------------------------------------------------
-    // Read raw body exactly as received
-    // --------------------------------------------------------
-
     const rawBody = await request.text();
-
-
-    // --------------------------------------------------------
-    // Read Paddle-Signature header
-    // --------------------------------------------------------
 
     const paddleSignature =
         request.headers.get("paddle-signature");
 
-
-    // --------------------------------------------------------
-    // Basic diagnostics
-    // --------------------------------------------------------
-
-    const headerPresent =
-        Boolean(paddleSignature);
-
-
-    const headerLength =
-        paddleSignature
-            ? paddleSignature.length
-            : 0;
+    const secretKey =
+        process.env.PADDLE_WEBHOOK_SECRET || "";
 
 
     // --------------------------------------------------------
-    // Parse header components
-    //
-    // Example:
-    // ts=1234567890;h1=abcdef...
+    // SECRET STRUCTURE — NEVER expose the secret itself
     // --------------------------------------------------------
 
-    const components =
-        paddleSignature
-            ? paddleSignature.split(";")
-            : [];
+    const secretLength =
+        secretKey.length;
 
+    const trimmedSecret =
+        secretKey.trim();
 
-    const componentNames = [];
+    const hasLeadingWhitespace =
+        secretKey.length !==
+        secretKey.trimStart().length;
 
-    const h1Lengths = [];
+    const hasTrailingWhitespace =
+        secretKey.length !==
+        secretKey.trimEnd().length;
 
-    let timestampLength = 0;
+    const hasWhitespaceAnywhere =
+        /\s/.test(secretKey);
 
-    let h1Count = 0;
+    const hasDoubleQuotes =
+        secretKey.includes('"');
 
-    let unknownComponentCount = 0;
+    const hasSingleQuotes =
+        secretKey.includes("'");
 
-    let emptyComponentCount = 0;
+    const startsCorrectly =
+        secretKey.startsWith("pdl_ntfset_");
+
+    const secretFormatCorrect =
+        /^pdl_ntfset_[A-Za-z0-9]{26}_[A-Za-z0-9]{32}$/.test(
+            secretKey
+        );
 
 
     // --------------------------------------------------------
-    // Inspect each component WITHOUT exposing values
+    // SIGNATURE STRUCTURE
     // --------------------------------------------------------
 
-    for (const component of components) {
+    let timestamp = null;
+    let receivedSignature = null;
 
-        const trimmedComponent =
-            component.trim();
+    if (paddleSignature) {
 
+        const components =
+            paddleSignature.split(";");
 
-        if (!trimmedComponent) {
+        for (const component of components) {
 
-            emptyComponentCount++;
+            const separatorIndex =
+                component.indexOf("=");
 
-            continue;
+            if (separatorIndex === -1) continue;
+
+            const key =
+                component.substring(
+                    0,
+                    separatorIndex
+                ).trim();
+
+            const value =
+                component.substring(
+                    separatorIndex + 1
+                ).trim();
+
+            if (key === "ts") {
+                timestamp = value;
+            }
+
+            if (key === "h1") {
+                receivedSignature = value;
+            }
         }
-
-
-        const separatorIndex =
-            trimmedComponent.indexOf("=");
-
-
-        if (separatorIndex === -1) {
-
-            componentNames.push(
-                "INVALID_COMPONENT"
-            );
-
-            unknownComponentCount++;
-
-            continue;
-        }
-
-
-        const key =
-            trimmedComponent.substring(
-                0,
-                separatorIndex
-            );
-
-
-        const value =
-            trimmedComponent.substring(
-                separatorIndex + 1
-            );
-
-
-        componentNames.push(key);
-
-
-        // ----------------------------------------------------
-        // Timestamp
-        // ----------------------------------------------------
-
-        if (key === "ts") {
-
-            timestampLength =
-                value.length;
-
-            continue;
-        }
-
-
-        // ----------------------------------------------------
-        // H1 signature
-        // ----------------------------------------------------
-
-        if (key === "h1") {
-
-            h1Count++;
-
-            h1Lengths.push(
-                value.length
-            );
-
-            continue;
-        }
-
-
-        // ----------------------------------------------------
-        // Anything unexpected
-        // ----------------------------------------------------
-
-        unknownComponentCount++;
     }
 
 
     // --------------------------------------------------------
-    // Parse payload JSON
+    // PAYLOAD
     // --------------------------------------------------------
 
     let event = null;
@@ -182,25 +120,13 @@ export default async function handler(request) {
     } catch (error) {
 
         console.error(
-            "❌ Payload is not valid JSON"
+            "Payload is not valid JSON"
         );
     }
 
 
-    const eventType =
-        event?.event_type || null;
-
-
-    const eventId =
-        event?.event_id || null;
-
-
-    const transactionId =
-        event?.data?.id || null;
-
-
     // --------------------------------------------------------
-    // SERVER LOGS
+    // LOG SAFE DIAGNOSTICS
     // --------------------------------------------------------
 
     console.log(
@@ -208,7 +134,7 @@ export default async function handler(request) {
     );
 
     console.log(
-        "TSEC PADDLE SIGNATURE STRUCTURE DIAGNOSTIC"
+        "TSEC PADDLE SECRET FORMAT DIAGNOSTIC"
     );
 
     console.log(
@@ -216,8 +142,72 @@ export default async function handler(request) {
     );
 
     console.log(
-        "HTTP Method:",
-        request.method
+        "Secret configured:",
+        Boolean(secretKey)
+    );
+
+    console.log(
+        "Secret length:",
+        secretLength
+    );
+
+    console.log(
+        "Starts with pdl_ntfset_:",
+        startsCorrectly
+    );
+
+    console.log(
+        "Secret format correct:",
+        secretFormatCorrect
+    );
+
+    console.log(
+        "Has leading whitespace:",
+        hasLeadingWhitespace
+    );
+
+    console.log(
+        "Has trailing whitespace:",
+        hasTrailingWhitespace
+    );
+
+    console.log(
+        "Has whitespace anywhere:",
+        hasWhitespaceAnywhere
+    );
+
+    console.log(
+        "Contains double quotes:",
+        hasDoubleQuotes
+    );
+
+    console.log(
+        "Contains single quotes:",
+        hasSingleQuotes
+    );
+
+    console.log(
+        "Timestamp present:",
+        Boolean(timestamp)
+    );
+
+    console.log(
+        "Timestamp length:",
+        timestamp
+            ? timestamp.length
+            : 0
+    );
+
+    console.log(
+        "H1 present:",
+        Boolean(receivedSignature)
+    );
+
+    console.log(
+        "H1 length:",
+        receivedSignature
+            ? receivedSignature.length
+            : 0
     );
 
     console.log(
@@ -226,63 +216,8 @@ export default async function handler(request) {
     );
 
     console.log(
-        "Paddle-Signature present:",
-        headerPresent
-    );
-
-    console.log(
-        "Paddle-Signature length:",
-        headerLength
-    );
-
-    console.log(
-        "Component count:",
-        components.length
-    );
-
-    console.log(
-        "Component names:",
-        componentNames
-    );
-
-    console.log(
-        "Timestamp length:",
-        timestampLength
-    );
-
-    console.log(
-        "H1 count:",
-        h1Count
-    );
-
-    console.log(
-        "H1 lengths:",
-        h1Lengths
-    );
-
-    console.log(
-        "Unknown component count:",
-        unknownComponentCount
-    );
-
-    console.log(
-        "Empty component count:",
-        emptyComponentCount
-    );
-
-    console.log(
         "Event type:",
-        eventType
-    );
-
-    console.log(
-        "Event ID:",
-        eventId
-    );
-
-    console.log(
-        "Transaction ID:",
-        transactionId
+        event?.event_type || null
     );
 
     console.log(
@@ -291,63 +226,66 @@ export default async function handler(request) {
 
 
     // --------------------------------------------------------
-    // Safe diagnostic response
+    // SAFE RESPONSE
     // --------------------------------------------------------
 
     return new Response(
 
         JSON.stringify(
-
             {
                 diagnostic: true,
 
-                method:
-                    request.method,
+                secret_configured:
+                    Boolean(secretKey),
+
+                secret_length:
+                    secretLength,
+
+                starts_with_pdl_ntfset:
+                    startsCorrectly,
+
+                secret_format_correct:
+                    secretFormatCorrect,
+
+                has_leading_whitespace:
+                    hasLeadingWhitespace,
+
+                has_trailing_whitespace:
+                    hasTrailingWhitespace,
+
+                has_whitespace_anywhere:
+                    hasWhitespaceAnywhere,
+
+                contains_double_quotes:
+                    hasDoubleQuotes,
+
+                contains_single_quotes:
+                    hasSingleQuotes,
+
+                timestamp_present:
+                    Boolean(timestamp),
+
+                timestamp_length:
+                    timestamp
+                        ? timestamp.length
+                        : 0,
+
+                h1_present:
+                    Boolean(receivedSignature),
+
+                h1_length:
+                    receivedSignature
+                        ? receivedSignature.length
+                        : 0,
 
                 raw_body_length:
                     rawBody.length,
 
-                paddle_signature_present:
-                    headerPresent,
-
-                paddle_signature_length:
-                    headerLength,
-
-                component_count:
-                    components.length,
-
-                component_names:
-                    componentNames,
-
-                timestamp_length:
-                    timestampLength,
-
-                h1_count:
-                    h1Count,
-
-                h1_lengths:
-                    h1Lengths,
-
-                unknown_component_count:
-                    unknownComponentCount,
-
-                empty_component_count:
-                    emptyComponentCount,
-
                 event_type:
-                    eventType,
-
-                event_id:
-                    eventId,
-
-                transaction_id:
-                    transactionId
+                    event?.event_type || null
             },
-
             null,
-
             2
-
         ),
 
         {
@@ -358,6 +296,5 @@ export default async function handler(request) {
                     "application/json"
             }
         }
-
     );
 }
