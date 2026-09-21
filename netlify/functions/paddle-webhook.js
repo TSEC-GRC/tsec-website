@@ -1,7 +1,7 @@
 // ============================================================
 // TSEC — Paddle Webhook
-// TEMPORARY DIAGNOSTIC VERSION
-// P1.9 — Webhook Signature Diagnostics
+// TEMPORARY HMAC DIAGNOSTIC VERSION
+// P1.9 — Signature Verification Diagnostics
 // ============================================================
 
 import crypto from "crypto";
@@ -32,97 +32,272 @@ export default async function handler(request) {
     // 2. READ RAW BODY
     // ------------------------------------------------------------
 
-    const rawBody = await request.text();
+    const rawBody =
+        await request.text();
 
 
     // ------------------------------------------------------------
-    // 3. READ PADDLE SIGNATURE HEADER
+    // 3. READ PADDLE SIGNATURE
     // ------------------------------------------------------------
 
     const paddleSignature =
-        request.headers.get("paddle-signature");
+        request.headers.get(
+            "paddle-signature"
+        );
+
+
+    if (!paddleSignature) {
+
+        return new Response(
+            JSON.stringify({
+                error: "Missing Paddle signature"
+            }),
+            {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+    }
 
 
     // ------------------------------------------------------------
-    // 4. READ WEBHOOK SECRET
+    // 4. READ SECRET
     // ------------------------------------------------------------
 
     const secretKey =
         process.env.PADDLE_WEBHOOK_SECRET;
 
 
-    // ------------------------------------------------------------
-    // 5. BASIC SIGNATURE DIAGNOSTICS
-    // ------------------------------------------------------------
+    if (!secretKey) {
 
-    const signaturePresent =
-        Boolean(paddleSignature);
-
-    const secretPresent =
-        Boolean(secretKey);
-
-    let timestamp = null;
-    let receivedSignature = null;
-
-    let signatureParts = [];
-
-    if (paddleSignature) {
-
-        signatureParts =
-            paddleSignature.split(";");
-
-        for (const part of signatureParts) {
-
-            const separatorIndex =
-                part.indexOf("=");
-
-            if (separatorIndex === -1) {
-                continue;
+        return new Response(
+            JSON.stringify({
+                error: "PADDLE_WEBHOOK_SECRET is not configured"
+            }),
+            {
+                status: 500,
+                headers: {
+                    "Content-Type": "application/json"
+                }
             }
-
-            const key =
-                part.substring(
-                    0,
-                    separatorIndex
-                );
-
-            const value =
-                part.substring(
-                    separatorIndex + 1
-                );
-
-            if (key === "ts") {
-                timestamp = value;
-            }
-
-            if (key === "h1") {
-                receivedSignature = value;
-            }
-        }
+        );
     }
 
 
     // ------------------------------------------------------------
-    // 6. SAFE SIGNATURE INFORMATION
+    // 5. PARSE PADDLE-SIGNATURE
     // ------------------------------------------------------------
 
-    const timestampPresent =
-        Boolean(timestamp);
+    let timestamp = null;
+    let receivedSignature = null;
 
-    const h1Present =
-        Boolean(receivedSignature);
+    const signatureParts =
+        paddleSignature.split(";");
 
-    const h1Length =
-        receivedSignature
-            ? receivedSignature.length
-            : 0;
+
+    for (const part of signatureParts) {
+
+        const separatorIndex =
+            part.indexOf("=");
+
+
+        if (separatorIndex === -1) {
+            continue;
+        }
+
+
+        const key =
+            part.substring(
+                0,
+                separatorIndex
+            );
+
+
+        const value =
+            part.substring(
+                separatorIndex + 1
+            );
+
+
+        if (key === "ts") {
+
+            timestamp = value;
+
+        }
+
+
+        if (key === "h1") {
+
+            receivedSignature = value;
+
+        }
+
+    }
 
 
     // ------------------------------------------------------------
-    // 7. PAYLOAD INFORMATION
+    // 6. BASIC VALIDATION
+    // ------------------------------------------------------------
+
+    if (!timestamp) {
+
+        return new Response(
+            JSON.stringify({
+                error: "Missing timestamp"
+            }),
+            {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+    }
+
+
+    if (!receivedSignature) {
+
+        return new Response(
+            JSON.stringify({
+                error: "Missing h1 signature"
+            }),
+            {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+    }
+
+
+    // ------------------------------------------------------------
+    // 7. TIMESTAMP VALIDATION
+    // ------------------------------------------------------------
+
+    const timestampSeconds =
+        Number(timestamp);
+
+
+    if (!Number.isFinite(timestampSeconds)) {
+
+        return new Response(
+            JSON.stringify({
+                error: "Invalid timestamp"
+            }),
+            {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+    }
+
+
+    const currentTimestamp =
+        Math.floor(
+            Date.now() / 1000
+        );
+
+
+    const timestampDifference =
+        Math.abs(
+            currentTimestamp -
+            timestampSeconds
+        );
+
+
+    console.log(
+        "Paddle timestamp difference:",
+        timestampDifference,
+        "seconds"
+    );
+
+
+    // ------------------------------------------------------------
+    // 8. CALCULATE EXPECTED HMAC
+    // ------------------------------------------------------------
+
+    const signedPayload =
+        `${timestamp}:${rawBody}`;
+
+
+    const expectedSignature =
+        crypto
+            .createHmac(
+                "sha256",
+                secretKey
+            )
+            .update(
+                signedPayload,
+                "utf8"
+            )
+            .digest("hex");
+
+
+    // ------------------------------------------------------------
+    // 9. SAFE LENGTH CHECK
+    // ------------------------------------------------------------
+
+    const receivedLength =
+        receivedSignature.length;
+
+
+    const expectedLength =
+        expectedSignature.length;
+
+
+    // ------------------------------------------------------------
+    // 10. SAFE SIGNATURE COMPARISON
+    // ------------------------------------------------------------
+
+    let signatureMatch = false;
+
+
+    if (
+        receivedLength ===
+        expectedLength
+    ) {
+
+        const receivedBuffer =
+            Buffer.from(
+                receivedSignature,
+                "hex"
+            );
+
+
+        const expectedBuffer =
+            Buffer.from(
+                expectedSignature,
+                "hex"
+            );
+
+
+        if (
+            receivedBuffer.length ===
+            expectedBuffer.length
+        ) {
+
+            signatureMatch =
+                crypto.timingSafeEqual(
+                    receivedBuffer,
+                    expectedBuffer
+                );
+
+        }
+
+    }
+
+
+    // ------------------------------------------------------------
+    // 11. PARSE EVENT
     // ------------------------------------------------------------
 
     let event = null;
+
 
     try {
 
@@ -132,23 +307,38 @@ export default async function handler(request) {
     } catch (error) {
 
         console.error(
-            "❌ Payload is not valid JSON"
+            "❌ Invalid JSON payload"
         );
+
+        return new Response(
+            JSON.stringify({
+                error: "Invalid JSON"
+            }),
+            {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+
     }
 
 
     const eventType =
         event?.event_type || null;
 
+
     const eventId =
         event?.event_id || null;
+
 
     const transactionId =
         event?.data?.id || null;
 
 
     // ------------------------------------------------------------
-    // 8. LOG SAFE DIAGNOSTIC INFORMATION
+    // 12. SAFE DIAGNOSTIC LOGGING
     // ------------------------------------------------------------
 
     console.log(
@@ -156,7 +346,7 @@ export default async function handler(request) {
     );
 
     console.log(
-        "TSEC PADDLE WEBHOOK DIAGNOSTIC"
+        "TSEC PADDLE HMAC DIAGNOSTIC"
     );
 
     console.log(
@@ -164,7 +354,7 @@ export default async function handler(request) {
     );
 
     console.log(
-        "HTTP Method:",
+        "Method:",
         request.method
     );
 
@@ -174,28 +364,23 @@ export default async function handler(request) {
     );
 
     console.log(
-        "Paddle-Signature present:",
-        signaturePresent
+        "Timestamp present:",
+        Boolean(timestamp)
     );
 
     console.log(
-        "PADDLE_WEBHOOK_SECRET configured:",
-        secretPresent
+        "Received signature length:",
+        receivedLength
     );
 
     console.log(
-        "Signature timestamp present:",
-        timestampPresent
+        "Expected signature length:",
+        expectedLength
     );
 
     console.log(
-        "Signature h1 present:",
-        h1Present
-    );
-
-    console.log(
-        "Signature h1 length:",
-        h1Length
+        "Signature match:",
+        signatureMatch
     );
 
     console.log(
@@ -219,7 +404,7 @@ export default async function handler(request) {
 
 
     // ------------------------------------------------------------
-    // 9. TEMPORARY DIAGNOSTIC RESPONSE
+    // 13. DIAGNOSTIC RESPONSE
     // ------------------------------------------------------------
 
     return new Response(
@@ -227,22 +412,20 @@ export default async function handler(request) {
             {
                 diagnostic: true,
 
-                method: request.method,
-
-                paddle_signature_present:
-                    signaturePresent,
-
-                secret_configured:
-                    secretPresent,
+                method:
+                    request.method,
 
                 timestamp_present:
-                    timestampPresent,
+                    Boolean(timestamp),
 
-                h1_present:
-                    h1Present,
+                received_signature_length:
+                    receivedLength,
 
-                h1_length:
-                    h1Length,
+                expected_signature_length:
+                    expectedLength,
+
+                signature_match:
+                    signatureMatch,
 
                 event_type:
                     eventType,
@@ -263,4 +446,5 @@ export default async function handler(request) {
             }
         }
     );
+
 }
