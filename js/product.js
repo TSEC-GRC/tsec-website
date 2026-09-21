@@ -1634,29 +1634,38 @@ console.log(
 );
 
 
-Paddle.Checkout.open({
+ Paddle.Checkout.open({
 
-    items: [
+                    items: [
 
-        {
-            priceId:
-                PADDLE_SOC2_PRICE_ID,
+                        {
+                            priceId:
+                                PADDLE_SOC2_PRICE_ID,
 
-            quantity:
-                1
+                            quantity:
+                                1
+                        }
 
-        }
+                    ],
 
-    ],
+                    customer: {
 
-    customer: {
+                        email:
+                            email
 
-        email:
-            email
+                    }
 
+                });
+
+            }
+        );
     }
 
-});
+    // =========================================================
+    // END LEAD FORM SUBMISSION
+    // =========================================================
+
+}
 
 
 
