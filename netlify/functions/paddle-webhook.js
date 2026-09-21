@@ -582,14 +582,15 @@ export default async function handler(request) {
     // 15. EXTRACT CUSTOMER INFORMATION
     // --------------------------------------------------------
 
-    const customerId =
+   const customerId =
     transaction?.customer_id ||
     null;
-
 
 const customerEmail =
     transaction?.customer?.email ||
     transaction?.billing_details?.email ||
+    transaction?.billing_details?.customer?.email ||
+    transaction?.checkout?.customer?.email ||
     null;
 
 
