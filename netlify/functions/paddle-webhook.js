@@ -1,12 +1,12 @@
-// ============================================================
-// TSEC — Paddle Webhook
-// TEMPORARY SECRET FORMAT DIAGNOSTIC
-// ============================================================
+import crypto from "crypto";
 
 export default async function handler(request) {
 
-    if (request.method !== "POST") {
+    // --------------------------------------------------------
+    // Only POST
+    // --------------------------------------------------------
 
+    if (request.method !== "POST") {
         return new Response(
             JSON.stringify({
                 error: "Method Not Allowed"
@@ -20,113 +20,194 @@ export default async function handler(request) {
         );
     }
 
+    // --------------------------------------------------------
+    // IMPORTANT:
+    // Read the raw body exactly once.
+    // --------------------------------------------------------
+
     const rawBody = await request.text();
 
     const paddleSignature =
         request.headers.get("paddle-signature");
 
     const secretKey =
-        process.env.PADDLE_WEBHOOK_SECRET || "";
+        process.env.PADDLE_WEBHOOK_SECRET;
 
-
-    // --------------------------------------------------------
-    // SECRET STRUCTURE — NEVER expose the secret itself
-    // --------------------------------------------------------
-
-    const secretLength =
-        secretKey.length;
-
-    const trimmedSecret =
-        secretKey.trim();
-
-    const hasLeadingWhitespace =
-        secretKey.length !==
-        secretKey.trimStart().length;
-
-    const hasTrailingWhitespace =
-        secretKey.length !==
-        secretKey.trimEnd().length;
-
-    const hasWhitespaceAnywhere =
-        /\s/.test(secretKey);
-
-    const hasDoubleQuotes =
-        secretKey.includes('"');
-
-    const hasSingleQuotes =
-        secretKey.includes("'");
-
-    const startsCorrectly =
-        secretKey.startsWith("pdl_ntfset_");
-
-    const secretFormatCorrect =
-        /^pdl_ntfset_[A-Za-z0-9]{26}_[A-Za-z0-9]{32}$/.test(
-            secretKey
+    if (!paddleSignature) {
+        return new Response(
+            JSON.stringify({
+                error: "Missing Paddle-Signature"
+            }),
+            {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
         );
+    }
 
+    if (!secretKey) {
+        return new Response(
+            JSON.stringify({
+                error: "Missing PADDLE_WEBHOOK_SECRET"
+            }),
+            {
+                status: 500,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+    }
 
     // --------------------------------------------------------
-    // SIGNATURE STRUCTURE
+    // Parse Paddle-Signature
     // --------------------------------------------------------
 
     let timestamp = null;
-    let receivedSignature = null;
+    const receivedSignatures = [];
 
-    if (paddleSignature) {
+    const components =
+        paddleSignature.split(";");
 
-        const components =
-            paddleSignature.split(";");
+    for (const component of components) {
 
-        for (const component of components) {
+        const separatorIndex =
+            component.indexOf("=");
 
-            const separatorIndex =
-                component.indexOf("=");
+        if (separatorIndex === -1) {
+            continue;
+        }
 
-            if (separatorIndex === -1) continue;
+        const key =
+            component
+                .substring(0, separatorIndex)
+                .trim();
 
-            const key =
-                component.substring(
-                    0,
-                    separatorIndex
-                ).trim();
+        const value =
+            component
+                .substring(separatorIndex + 1)
+                .trim();
 
-            const value =
-                component.substring(
-                    separatorIndex + 1
-                ).trim();
+        if (key === "ts") {
+            timestamp = value;
+        }
 
-            if (key === "ts") {
-                timestamp = value;
-            }
-
-            if (key === "h1") {
-                receivedSignature = value;
-            }
+        if (key === "h1") {
+            receivedSignatures.push(value);
         }
     }
 
+    if (!timestamp) {
+        return new Response(
+            JSON.stringify({
+                error: "Missing timestamp"
+            }),
+            {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+    }
+
+    if (receivedSignatures.length === 0) {
+        return new Response(
+            JSON.stringify({
+                error: "Missing h1 signature"
+            }),
+            {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+    }
 
     // --------------------------------------------------------
-    // PAYLOAD
+    // Paddle signing specification:
+    //
+    // signed_payload = timestamp + ":" + rawBody
+    // --------------------------------------------------------
+
+    const signedPayload =
+        `${timestamp}:${rawBody}`;
+
+    // --------------------------------------------------------
+    // Calculate expected HMAC
+    // --------------------------------------------------------
+
+    const expectedSignature =
+        crypto
+            .createHmac("sha256", secretKey)
+            .update(signedPayload, "utf8")
+            .digest("hex");
+
+    // --------------------------------------------------------
+    // Compare against ALL received h1 values
+    // --------------------------------------------------------
+
+    let signatureMatch = false;
+
+    for (const receivedSignature of receivedSignatures) {
+
+        if (
+            receivedSignature.length !==
+            expectedSignature.length
+        ) {
+            continue;
+        }
+
+        const expectedBuffer =
+            Buffer.from(
+                expectedSignature,
+                "utf8"
+            );
+
+        const receivedBuffer =
+            Buffer.from(
+                receivedSignature,
+                "utf8"
+            );
+
+        if (
+            crypto.timingSafeEqual(
+                expectedBuffer,
+                receivedBuffer
+            )
+        ) {
+            signatureMatch = true;
+            break;
+        }
+    }
+
+    // --------------------------------------------------------
+    // Parse event
     // --------------------------------------------------------
 
     let event = null;
 
     try {
-
-        event =
-            JSON.parse(rawBody);
-
+        event = JSON.parse(rawBody);
     } catch (error) {
-
-        console.error(
-            "Payload is not valid JSON"
+        return new Response(
+            JSON.stringify({
+                error: "Invalid JSON"
+            }),
+            {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
         );
     }
 
-
     // --------------------------------------------------------
-    // LOG SAFE DIAGNOSTICS
+    // Safe diagnostics
     // --------------------------------------------------------
 
     console.log(
@@ -134,80 +215,26 @@ export default async function handler(request) {
     );
 
     console.log(
-        "TSEC PADDLE SECRET FORMAT DIAGNOSTIC"
+        "TSEC PADDLE HMAC DIAGNOSTIC"
     );
 
     console.log(
         "=============================================="
-    );
-
-    console.log(
-        "Secret configured:",
-        Boolean(secretKey)
     );
 
     console.log(
         "Secret length:",
-        secretLength
+        secretKey.length
     );
 
     console.log(
-        "Starts with pdl_ntfset_:",
-        startsCorrectly
-    );
-
-    console.log(
-        "Secret format correct:",
-        secretFormatCorrect
-    );
-
-    console.log(
-        "Has leading whitespace:",
-        hasLeadingWhitespace
-    );
-
-    console.log(
-        "Has trailing whitespace:",
-        hasTrailingWhitespace
-    );
-
-    console.log(
-        "Has whitespace anywhere:",
-        hasWhitespaceAnywhere
-    );
-
-    console.log(
-        "Contains double quotes:",
-        hasDoubleQuotes
-    );
-
-    console.log(
-        "Contains single quotes:",
-        hasSingleQuotes
-    );
-
-    console.log(
-        "Timestamp present:",
-        Boolean(timestamp)
+        "Secret starts with pdl_ntfset_:",
+        secretKey.startsWith("pdl_ntfset_")
     );
 
     console.log(
         "Timestamp length:",
-        timestamp
-            ? timestamp.length
-            : 0
-    );
-
-    console.log(
-        "H1 present:",
-        Boolean(receivedSignature)
-    );
-
-    console.log(
-        "H1 length:",
-        receivedSignature
-            ? receivedSignature.length
-            : 0
+        timestamp.length
     );
 
     console.log(
@@ -216,81 +243,95 @@ export default async function handler(request) {
     );
 
     console.log(
+        "Received h1 count:",
+        receivedSignatures.length
+    );
+
+    console.log(
+        "Received h1 lengths:",
+        receivedSignatures.map(
+            signature => signature.length
+        )
+    );
+
+    console.log(
+        "Expected signature length:",
+        expectedSignature.length
+    );
+
+    console.log(
+        "Signature match:",
+        signatureMatch
+    );
+
+    console.log(
         "Event type:",
-        event?.event_type || null
+        event.event_type || null
+    );
+
+    console.log(
+        "Event ID:",
+        event.event_id || null
+    );
+
+    console.log(
+        "Transaction ID:",
+        event.data?.id || null
     );
 
     console.log(
         "=============================================="
     );
 
+    // --------------------------------------------------------
+    // IMPORTANT:
+    // Do NOT fulfill if signature is invalid.
+    // --------------------------------------------------------
+
+    if (!signatureMatch) {
+
+        return new Response(
+            JSON.stringify({
+                diagnostic: true,
+                signature_match: false,
+                received_h1_count:
+                    receivedSignatures.length,
+                received_h1_lengths:
+                    receivedSignatures.map(
+                        signature => signature.length
+                    ),
+                expected_signature_length:
+                    expectedSignature.length,
+                event_type:
+                    event.event_type || null
+            }, null, 2),
+            {
+                status: 401,
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                }
+            }
+        );
+    }
 
     // --------------------------------------------------------
-    // SAFE RESPONSE
+    // Signature VERIFIED
     // --------------------------------------------------------
 
     return new Response(
-
-        JSON.stringify(
-            {
-                diagnostic: true,
-
-                secret_configured:
-                    Boolean(secretKey),
-
-                secret_length:
-                    secretLength,
-
-                starts_with_pdl_ntfset:
-                    startsCorrectly,
-
-                secret_format_correct:
-                    secretFormatCorrect,
-
-                has_leading_whitespace:
-                    hasLeadingWhitespace,
-
-                has_trailing_whitespace:
-                    hasTrailingWhitespace,
-
-                has_whitespace_anywhere:
-                    hasWhitespaceAnywhere,
-
-                contains_double_quotes:
-                    hasDoubleQuotes,
-
-                contains_single_quotes:
-                    hasSingleQuotes,
-
-                timestamp_present:
-                    Boolean(timestamp),
-
-                timestamp_length:
-                    timestamp
-                        ? timestamp.length
-                        : 0,
-
-                h1_present:
-                    Boolean(receivedSignature),
-
-                h1_length:
-                    receivedSignature
-                        ? receivedSignature.length
-                        : 0,
-
-                raw_body_length:
-                    rawBody.length,
-
-                event_type:
-                    event?.event_type || null
-            },
-            null,
-            2
-        ),
-
+        JSON.stringify({
+            diagnostic: true,
+            signature_match: true,
+            event_type:
+                event.event_type || null,
+            event_id:
+                event.event_id || null,
+            transaction_id:
+                event.data?.id || null
+        }, null, 2),
         {
             status: 200,
-
             headers: {
                 "Content-Type":
                     "application/json"
