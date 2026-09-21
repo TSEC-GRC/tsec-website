@@ -5,7 +5,9 @@
 // ============================================================
 
 import crypto from "crypto";
+import { getDatabase } from "@netlify/database";
 
+const db = getDatabase();
 
 // ============================================================
 // TSEC CONFIGURATION
@@ -581,39 +583,56 @@ export default async function handler(request) {
     // --------------------------------------------------------
 
     const customerId =
-        transaction?.customer_id ||
-        null;
+    transaction?.customer_id ||
+    null;
 
 
-    const customerEmail =
-        transaction?.customer?.email ||
-        transaction?.billing_details?.email ||
-        null;
+const customerEmail =
+    transaction?.customer?.email ||
+    transaction?.billing_details?.email ||
+    null;
 
 
-    // --------------------------------------------------------
-    // 16. EXTRACT PURCHASE INFORMATION
-    // --------------------------------------------------------
+// --------------------------------------------------------
+// 16. EXTRACT PURCHASE INFORMATION
+// --------------------------------------------------------
 
-    const quantity =
-        matchingItem?.quantity ||
-        1;
-
-
-    const currency =
-        transaction?.currency_code ||
-        null;
+const quantity =
+    Number(
+        matchingItem?.quantity || 1
+    );
 
 
-    const totals =
-        transaction?.details?.totals ||
-        null;
+const currency =
+    transaction?.currency_code ||
+    null;
 
 
-    const totalAmount =
-        totals?.grand_total ||
-        totals?.total ||
-        null;
+const totals =
+    transaction?.details?.totals ||
+    null;
+
+
+const totalAmountMinor =
+    totals?.grand_total ||
+    totals?.total ||
+    null;
+
+
+// Paddle monetary values are provided
+// in the lowest denomination.
+// Example: USD 54266 = $542.66.
+
+const totalAmount =
+    totalAmountMinor !== null
+        ? Number(totalAmountMinor) / 100
+        : null;
+
+
+// Current TSEC catalog product name.
+
+const productName =
+    "SOC 2 Professional Pack™";
 
 
     // --------------------------------------------------------
@@ -692,43 +711,96 @@ export default async function handler(request) {
 
 
     // --------------------------------------------------------
-    // 18. FULFILLMENT PLACEHOLDER
-    //
-    // IMPORTANT:
-    // We do NOT grant access here yet.
-    //
-    // P1.10 will add:
-    //
-    // - idempotency
-    // - purchase record
-    // - secure fulfillment
-    // - download/access provisioning
-    //
-    // This prevents accidental double fulfillment.
-    // --------------------------------------------------------
+// 18. SAVE PURCHASE — IDEMPOTENT
+//
+// Paddle can deliver the same event more than once.
+// event_id is UNIQUE in the database.
+//
+// ON CONFLICT DO NOTHING guarantees that the same
+// Paddle event cannot create a duplicate purchase.
+// --------------------------------------------------------
+
+const insertedPurchase =
+    await db.sql`
+        INSERT INTO purchases (
+            event_id,
+            transaction_id,
+            customer_email,
+            product_id,
+            price_id,
+            product_name,
+            quantity,
+            amount,
+            currency,
+            payment_status,
+            fulfillment_status
+        )
+        VALUES (
+            ${eventId},
+            ${transactionId},
+            ${customerEmail},
+            ${TSEC_SOC2_PRODUCT_ID},
+            ${TSEC_SOC2_PRICE_ID},
+            ${productName},
+            ${quantity},
+            ${totalAmount},
+            ${currency},
+            ${"completed"},
+            ${"pending"}
+        )
+        ON CONFLICT (event_id)
+        DO NOTHING
+        RETURNING id
+    `;
+
+
+const purchaseInserted =
+    insertedPurchase.length > 0;
+
+
+if (purchaseInserted) {
 
     console.log(
-        "ℹ️ Transaction verified. Fulfillment not yet provisioned."
+        "✅ Purchase recorded in Netlify Database",
+        {
+            purchaseId:
+                insertedPurchase[0].id,
+            eventId,
+            transactionId
+        }
     );
 
+} else {
+
+    console.log(
+        "ℹ️ Duplicate Paddle event ignored",
+        {
+            eventId,
+            transactionId
+        }
+    );
+
+}
 
     // --------------------------------------------------------
     // 19. SUCCESS RESPONSE
     // --------------------------------------------------------
 
     return jsonResponse(
-        {
-            received: true,
-            processed: true,
-            fulfillment:
-                "pending",
-            event_id:
-                eventId,
-            transaction_id:
-                transactionId
-        },
-        200
-    );
+    {
+        received: true,
+        processed: true,
+        purchase_recorded:
+            purchaseInserted,
+        fulfillment:
+            "pending",
+        event_id:
+            eventId,
+        transaction_id:
+            transactionId
+    },
+    200
+);
 }
 
 
