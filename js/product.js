@@ -1613,80 +1613,80 @@ function initLeadModal() {
 
 
                 // --------------------------------------------
-// CLOSE LEAD MODAL
-// --------------------------------------------
+                // CLOSE LEAD MODAL
+                // --------------------------------------------
 
-modal.style.display =
-    "none";
-
-
-// --------------------------------------------
-// OPEN PADDLE CHECKOUT
-// --------------------------------------------
-
-if (
-    !initPaddle()
-) {
-
-    alert(
-        "Secure checkout is temporarily unavailable. Please try again shortly."
-    );
-
-    return;
-
-}
+                modal.style.display =
+                    "none";
 
 
-console.log(
-    "➡ Opening Paddle Checkout"
-);
+                // --------------------------------------------
+                // OPEN PADDLE CHECKOUT
+                // --------------------------------------------
+
+                if (
+                    !initPaddle()
+                ) {
+
+                    alert(
+                        "Secure checkout is temporarily unavailable. Please try again shortly."
+                    );
+
+                    return;
+
+                }
 
 
-console.log(
-    "🛒 Paddle Price ID:",
-    PADDLE_SOC2_PRICE_ID
-);
+                console.log(
+                    "➡ Opening Paddle Checkout"
+                );
 
 
- Paddle.Checkout.open({
+                console.log(
+                    "🛒 Paddle Price ID:",
+                    PADDLE_SOC2_PRICE_ID
+                );
 
-    items: [
 
-        {
-            priceId:
-                PADDLE_SOC2_PRICE_ID,
+                Paddle.Checkout.open({
 
-            quantity:
-                1
-        }
+                    items: [
 
-    ],
+                        {
+                            priceId:
+                                PADDLE_SOC2_PRICE_ID,
 
-    customer: {
+                            quantity:
+                                1
+                        }
 
-        email:
-            email
+                    ],
 
-    },
+                    customer: {
 
-    customData: {
+                        email:
+                            email
 
-        customer_email:
-            email
+                    },
 
+                    customData: {
+
+                        customer_email:
+                            email
+
+                    }
+
+                });
+
+            }
+        );
     }
-
-});
-             
-}
 
     // =========================================================
     // END LEAD FORM SUBMISSION
     // =========================================================
 
 }
-
-
 
 // =========================================================
 // CORPORATE EMAIL VALIDATION
