@@ -622,137 +622,35 @@ console.log(
     }
 );
 
+// =========================================================
+// CUSTOMER VALIDATION
+// =========================================================
+
 if (!customerId) {
 
-    console.error(
-        "❌ Missing Paddle customer_id",
+    console.warn(
+        "⚠️ Paddle customer_id not provided",
         {
             transactionId
         }
     );
 
-    return jsonResponse(
-        {
-            error:
-                "Missing Paddle customer ID"
-        },
-        400
-    );
 }
 
 
-let customerEmail = null;
-
-
-const paddleApiKey =
-    process.env.PADDLE_API_KEY;
-
-
-if (!paddleApiKey) {
-
-    console.error(
-        "❌ PADDLE_API_KEY is not configured"
-    );
-
-    return jsonResponse(
-        {
-            error:
-                "Paddle API key not configured"
-        },
-        500
-    );
-}
-
-
-try {
-
-    const paddleTransactionResponse =
-        await fetch(
-            `${PADDLE_API_BASE_URL}/transactions/${transactionId}?include=customer`,
-            {
-                method: "GET",
-                headers: {
-                    Authorization:
-                        `Bearer ${paddleApiKey}`,
-                    "Content-Type":
-                        "application/json"
-                }
-            }
-        );
-
-
-    if (
-        !paddleTransactionResponse.ok
-    ) {
-
-        const errorBody =
-            await paddleTransactionResponse.text();
-
-
-        console.error(
-            "❌ Paddle transaction lookup failed",
-            {
-                transactionId,
-                customerId,
-                status:
-                    paddleTransactionResponse.status,
-                response:
-                    errorBody
-            }
-        );
-
-        return jsonResponse(
-            {
-                error:
-                    "Unable to retrieve Paddle customer information"
-            },
-            502
-        );
-    }
-
-
-    const paddleTransactionData =
-        await paddleTransactionResponse.json();
-
-
-    customerEmail =
-        paddleTransactionData
-            ?.data
-            ?.customer
-            ?.email ||
-        null;
-
-
-} catch (error) {
-
-    console.error(
-        "❌ Paddle API request failed",
-        {
-            transactionId,
-            customerId,
-            error:
-                error?.message ||
-                String(error)
-        }
-    );
-
-    return jsonResponse(
-        {
-            error:
-                "Paddle customer lookup failed"
-        },
-        502
-    );
-}
-
+// =========================================================
+// CUSTOMER EMAIL VALIDATION
+// =========================================================
 
 if (!customerEmail) {
 
     console.error(
-        "❌ Paddle customer email not found",
+        "❌ Paddle customer email not found in webhook",
         {
             transactionId,
-            customerId
+            customerId,
+            customData:
+                transaction?.custom_data || null
         }
     );
 
@@ -763,11 +661,12 @@ if (!customerEmail) {
         },
         400
     );
+
 }
 
 
 console.log(
-    "✅ Paddle customer information retrieved",
+    "✅ Paddle customer email retrieved from webhook",
     {
         transactionId,
         customerId,
@@ -775,7 +674,6 @@ console.log(
     }
 );
     
-
 // --------------------------------------------------------
 // 16. EXTRACT PURCHASE INFORMATION
 // --------------------------------------------------------
