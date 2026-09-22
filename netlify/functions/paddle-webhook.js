@@ -588,7 +588,24 @@ export default async function handler(request) {
 const customerId =
     transaction?.customer_id ||
     null;
-
+console.log(
+    "🔎 Paddle customer email diagnostic",
+    {
+        transactionId,
+        customerId,
+        customerEmail,
+        transactionKeys:
+            Object.keys(transaction || {}),
+        customer:
+            transaction?.customer || null,
+        billingDetails:
+            transaction?.billing_details || null,
+        checkout:
+            transaction?.checkout || null,
+        customData:
+            transaction?.custom_data || null
+    }
+);
 
 if (!customerId) {
 
