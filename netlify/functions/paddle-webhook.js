@@ -608,7 +608,6 @@ console.log(
     {
         transactionId,
         customerId,
-        customerEmail,
         transactionKeys:
             Object.keys(transaction || {}),
         customer:
