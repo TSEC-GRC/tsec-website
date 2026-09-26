@@ -604,7 +604,7 @@ const customerEmail =
 // =========================================================
 
 console.log(
-    "🔎 Paddle customer email diagnostic",
+    "🔎 Paddle diagnostic",
     {
         transactionId,
         customerId,
