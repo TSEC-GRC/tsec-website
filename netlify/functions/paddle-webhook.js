@@ -600,7 +600,7 @@ const customerEmail =
 
 
 // =========================================================
-// CUSTOMER EMAIL DIAGNOSTIC
+// CUSTOMER INFORMATION DIAGNOSTIC
 // =========================================================
 
 console.log(
@@ -620,7 +620,7 @@ console.log(
             transaction?.custom_data || null
     }
 );
-
+    
 // =========================================================
 // CUSTOMER VALIDATION
 // =========================================================
