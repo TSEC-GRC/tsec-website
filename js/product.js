@@ -1613,74 +1613,66 @@ function initLeadModal() {
 
 
                 // --------------------------------------------
-                // CLOSE LEAD MODAL
-                // --------------------------------------------
+// SAVE CHECKOUT CUSTOMER DATA
+// --------------------------------------------
 
-                modal.style.display =
-                    "none";
+sessionStorage.setItem(
+    "tsec_checkout_customer",
+    JSON.stringify({
 
+        firstName:
+            firstName,
 
-                // --------------------------------------------
-                // OPEN PADDLE CHECKOUT
-                // --------------------------------------------
+        lastName:
+            lastName,
 
-                if (
-                    !initPaddle()
-                ) {
+        company:
+            company,
 
-                    alert(
-                        "Secure checkout is temporarily unavailable. Please try again shortly."
-                    );
+        role:
+            role,
 
-                    return;
+        email:
+            email,
 
-                }
+        productId:
+            CURRENT_PRODUCT.id,
 
+        product:
+            CURRENT_PRODUCT.title
 
-                console.log(
-                    "➡ Opening Paddle Checkout"
-                );
-
-
-                console.log(
-                    "🛒 Paddle Price ID:",
-                    PADDLE_SOC2_PRICE_ID
-                );
+    })
+);
 
 
-                Paddle.Checkout.open({
+// --------------------------------------------
+// CLOSE LEAD MODAL
+// --------------------------------------------
 
-                    items: [
+modal.style.display =
+    "none";
 
-                        {
-                            priceId:
-                                PADDLE_SOC2_PRICE_ID,
 
-                            quantity:
-                                1
-                        }
+// --------------------------------------------
+// REDIRECT TO TSEC CHECKOUT PAGE
+// --------------------------------------------
 
-                    ],
+const checkoutUrl =
+    `checkout.html?id=${encodeURIComponent(
+        CURRENT_PRODUCT.id
+    )}`;
 
-                    customer: {
 
-                        email:
-                            email
+console.log(
+    "➡ Redirecting to TSEC Checkout:",
+    checkoutUrl
+);
 
-                    },
 
-                    customData: {
-
-                        customer_email:
-                            email
-
-                    }
-
-                });
-
-            }
-        );
-    }
+window.location.href =
+    checkoutUrl;    
+            
+ }
 
     // =========================================================
     // END LEAD FORM SUBMISSION
