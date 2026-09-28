@@ -16,10 +16,10 @@ export const TSEC_PRODUCTS = {
         productName: "SOC 2 Professional Pack™",
 
         paddleProductId:
-            "pro_01m2zw8nsgkxj3kzx2jptkmr3p",
+       "pro_01m3meafsc92fb5t6xksw9h0pp",
 
-        paddlePriceId:
-            "pri_01m306t66hbgv4rn4zg3n7xqzr",
+       paddlePriceId:
+       "pri_01m3mextwkdpbymxpm5b7669sq",
 
         blobKey:
             "soc2/SOC2_Professional_Pack.zip",
