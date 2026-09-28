@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TSEC Order Confirmation</title>
+
+    <link
+        rel="stylesheet"
+        href="css/product.css"
+    >
+
+    <style>
+
+        /* ================================================
+           TSEC SUCCESS PAGE
+        ================================================= */
+
+        .success-page {
+
+            min-height:
+                calc(100vh - 160px);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                80px 24px;
+
+        }
+
+
+        .success-card {
+
+            width:
+                min(720px, 100%);
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius:
+                18px;
+
+            padding:
+                56px 48px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 20px 60px rgba(
+                    0,
+                    0,
+                    0,
+                    0.08
+                );
+
+        }
+
+
+        .success-icon {
+
+            width:
+                72px;
+
+            height:
+                72px;
+
+            margin:
+                0 auto 28px;
+
+            border-radius:
+                50%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                #f7f1df;
+
+            color:
+                #b28a2e;
+
+            font-size:
+                34px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .success-card h1 {
+
+            margin:
+                0 0 16px;
+
+            font-size:
+                clamp(
+                    2rem,
+                    4vw,
+                    3rem
+                );
+
+        }
+
+
+        .success-card p {
+
+            margin:
+                0 auto 14px;
+
+            max-width:
+                580px;
+
+            line-height:
+                1.7;
+
+            color:
+                #5f6368;
+
+        }
+
+
+        .success-status {
+
+            margin:
+                32px auto;
+
+            padding:
+                18px 22px;
+
+            border-radius:
+                12px;
+
+            background:
+                #f8fafc;
+
+            border:
+                1px solid #e5e7eb;
+
+            color:
+                #374151;
+
+        }
+
+
+        .success-product {
+
+            font-weight:
+                700;
+
+            color:
+                #111827;
+
+        }
+
+
+        .download-button {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            margin-top:
+                12px;
+
+            padding:
+                15px 28px;
+
+            border-radius:
+                8px;
+
+            background:
+                #111827;
+
+            color:
+                #ffffff;
+
+            text-decoration:
+                none;
+
+            font-weight:
+                700;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+
+        }
+
+
+        .download-button:hover {
+
+            transform:
+                translateY(-1px);
+
+            opacity:
+                0.92;
+
+        }
+
+
+        .download-button.disabled {
+
+            opacity:
+                0.55;
+
+            pointer-events:
+                none;
+
+        }
+
+
+        .success-error {
+
+            margin-top:
+                24px;
+
+            padding:
+                16px;
+
+            border-radius:
+                10px;
+
+            background:
+                #fef2f2;
+
+            border:
+                1px solid #fecaca;
+
+            color:
+                #991b1b;
+
+            display:
+                none;
+
+        }
+
+
+        .success-help {
+
+            margin-top:
+                28px !important;
+
+            font-size:
+                0.9rem;
+
+        }
+
+
+        .transaction-reference {
+
+            margin-top:
+                20px;
+
+            font-size:
+                0.8rem;
+
+            color:
+                #9ca3af;
+
+            word-break:
+                break-all;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================================
+     HEADER
+================================================= -->
+
+<header class="site-header">
+
+    <div class="header-container">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+
+            <img
+                src="assets/tsec-logo.png"
+                alt="TSEC GRC"
+            >
+
+        </a>
+
+
+        <nav class="main-nav">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="resources.html">
+                Resources
+            </a>
+
+            <a href="enterprise.html">
+                Enterprise
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<!-- ================================================
+     SUCCESS PAGE
+================================================= -->
+
+<main class="success-page">
+
+    <section class="success-card">
+
+
+        <!-- STATUS ICON -->
+
+        <div
+            class="success-icon"
+            id="success-icon"
+        >
+            ✓
+        </div>
+
+
+        <!-- TITLE -->
+
+        <h1 id="success-title">
+            Payment Received
+        </h1>
+
+
+        <!-- DESCRIPTION -->
+
+        <p id="success-message">
+
+            Thank you for your purchase.
+            We are verifying your order and preparing
+            your secure download.
+
+        </p>
+
+
+        <!-- STATUS -->
+
+        <div
+            class="success-status"
+            id="success-status"
+        >
+
+            <div id="status-message">
+
+                Verifying your order...
+
+            </div>
+
+
+            <div
+                class="success-product"
+                id="product-name"
+                style="display:none;"
+            ></div>
+
+        </div>
+
+
+        <!-- DOWNLOAD BUTTON -->
+
+        <a
+            id="download-button"
+            class="download-button disabled"
+            href="#"
+        >
+
+            Preparing Secure Download...
+
+        </a>
+
+
+        <!-- ERROR -->
+
+        <div
+            id="success-error"
+            class="success-error"
+        ></div>
+
+
+        <!-- HELP -->
+
+        <p class="success-help">
+
+            Your secure download link is protected and
+            limited to the purchase entitlement associated
+            with your transaction.
+
+        </p>
+
+
+        <!-- TRANSACTION -->
+
+        <div
+            id="transaction-reference"
+            class="transaction-reference"
+        ></div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- ================================================
+     FOOTER
+================================================= -->
+
+<footer class="site-footer">
+
+    <div class="footer-container">
+
+        <p>
+            © 2026 TSEC Risk & Cyber Advisory LLC.
+            All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- ================================================
+     SUCCESS PAGE ENGINE
+================================================= -->
+
+<script>
+
+(function () {
+
+
+    // =================================================
+    // CONFIGURATION
+    // =================================================
+
+    const MAX_ATTEMPTS =
+        20;
+
+
+    const RETRY_DELAY =
+        3000;
+
+
+    let attempts =
+        0;
+
+
+    // =================================================
+    // ELEMENTS
+    // =================================================
+
+    const statusMessage =
+        document.getElementById(
+            "status-message"
+        );
+
+
+    const productName =
+        document.getElementById(
+            "product-name"
+        );
+
+
+    const downloadButton =
+        document.getElementById(
+            "download-button"
+        );
+
+
+    const errorBox =
+        document.getElementById(
+            "success-error"
+        );
+
+
+    const transactionReference =
+        document.getElementById(
+            "transaction-reference"
+        );
+
+
+    // =================================================
+    // GET TRANSACTION ID
+    // =================================================
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const transactionId =
+        params.get(
+            "transaction_id"
+        );
+
+
+    // =================================================
+    // VALIDATE TRANSACTION ID
+    // =================================================
+
+    if (
+        !transactionId
+    ) {
+
+        showError(
+            "We could not identify your transaction. Please contact TSEC support if you completed a purchase."
+        );
+
+
+        return;
+
+    }
+
+
+    transactionReference.textContent =
+        `Transaction: ${transactionId}`;
+
+
+    // =================================================
+    // STATUS UPDATE
+    // =================================================
+
+    function setStatus(
+        message
+    ) {
+
+        statusMessage.textContent =
+            message;
+
+    }
+
+
+    // =================================================
+    // SHOW ERROR
+    // =================================================
+
+    function showError(
+        message
+    ) {
+
+        errorBox.textContent =
+            message;
+
+        errorBox.style.display =
+            "block";
+
+        downloadButton.classList.add(
+            "disabled"
+        );
+
+    }
+
+
+    // =================================================
+    // READY
+    // =================================================
+
+    function showDownload(
+        data
+    ) {
+
+        setStatus(
+            "Your order has been verified and your secure download is ready."
+        );
+
+
+        if (
+            data.product
+        ) {
+
+            productName.textContent =
+                data.product;
+
+            productName.style.display =
+                "block";
+
+        }
+
+
+        downloadButton.href =
+            data.download_url;
+
+
+        downloadButton.textContent =
+            "Download Your Professional Pack →";
+
+
+        downloadButton.classList.remove(
+            "disabled"
+        );
+
+
+        if (
+            data.downloads_remaining
+            !== undefined
+        ) {
+
+            downloadButton.title =
+                `${data.downloads_remaining} download(s) remaining`;
+
+        }
+
+    }
+
+
+    // =================================================
+    // CHECK ORDER
+    // =================================================
+
+    async function checkOrder() {
+
+        attempts++;
+
+
+        try {
+
+            setStatus(
+                attempts === 1
+                    ? "Verifying your order..."
+                    : "Still processing your payment. Please wait..."
+            );
+
+
+            const response =
+                await fetch(
+                    `/.netlify/functions/get-download-link?transaction_id=${encodeURIComponent(
+                        transactionId
+                    )}`,
+                    {
+                        method:
+                            "GET",
+
+                        cache:
+                            "no-store"
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            // =============================================
+            // READY
+            // =============================================
+
+            if (
+                response.ok
+                &&
+                data.ready === true
+            ) {
+
+                showDownload(
+                    data
+                );
+
+
+                return;
+
+            }
+
+
+            // =============================================
+            // PROCESSING
+            // =============================================
+
+            if (
+                response.status === 202
+                ||
+                data.status ===
+                    "processing"
+            ) {
+
+                if (
+                    attempts <
+                    MAX_ATTEMPTS
+                ) {
+
+                    setTimeout(
+                        checkOrder,
+                        RETRY_DELAY
+                    );
+
+
+                    return;
+
+                }
+
+
+                showError(
+                    "Your payment was received, but your download is still being prepared. Please refresh this page in a few moments."
+                );
+
+
+                return;
+
+            }
+
+
+            // =============================================
+            // OTHER ERROR
+            // =============================================
+
+            showError(
+                data.error
+                ||
+                "We were unable to prepare your secure download."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Order verification error:",
+                error
+            );
+
+
+            if (
+                attempts <
+                MAX_ATTEMPTS
+            ) {
+
+                setTimeout(
+                    checkOrder,
+                    RETRY_DELAY
+                );
+
+
+                return;
+
+            }
+
+
+            showError(
+                "We were unable to verify your order right now. Please refresh this page or contact TSEC support."
+            );
+
+        }
+
+    }
+
+
+    // =================================================
+    // START
+    // =================================================
+
+    checkOrder();
+
+
+})();
+
+</script>
+
+
+</body>
+
+</html>

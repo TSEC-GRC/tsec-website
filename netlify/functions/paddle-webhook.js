@@ -581,33 +581,19 @@ export default async function handler(request) {
     }
 
 
-// =========================================================
-// CUSTOMER INFORMATION
-// =========================================================
+ // --------------------------------------------------------
+// 15. EXTRACT CUSTOMER INFORMATION
+// --------------------------------------------------------
 
 const customerId =
     transaction?.customer_id ||
     null;
-
-
-const customerEmail =
-    transaction?.custom_data?.customer_email ||
-    transaction?.customer?.email ||
-    transaction?.billing_details?.email ||
-    transaction?.billing_details?.customer?.email ||
-    transaction?.checkout?.customer?.email ||
-    null;
-
-
-// =========================================================
-// CUSTOMER INFORMATION DIAGNOSTIC
-// =========================================================
-
 console.log(
-    "🔎 Paddle diagnostic",
+    "🔎 Paddle customer email diagnostic",
     {
         transactionId,
         customerId,
+
         transactionKeys:
             Object.keys(transaction || {}),
         customer:
@@ -620,36 +606,138 @@ console.log(
             transaction?.custom_data || null
     }
 );
-    
-// =========================================================
-// CUSTOMER VALIDATION
-// =========================================================
 
 if (!customerId) {
 
-    console.warn(
-        "⚠️ Paddle customer_id not provided",
+    console.error(
+        "❌ Missing Paddle customer_id",
         {
             transactionId
         }
     );
 
+    return jsonResponse(
+        {
+            error:
+                "Missing Paddle customer ID"
+        },
+        400
+    );
 }
 
 
-// =========================================================
-// CUSTOMER EMAIL VALIDATION
-// =========================================================
+let customerEmail = null;
+
+
+const paddleApiKey =
+    process.env.PADDLE_API_KEY;
+
+
+if (!paddleApiKey) {
+
+    console.error(
+        "❌ PADDLE_API_KEY is not configured"
+    );
+
+    return jsonResponse(
+        {
+            error:
+                "Paddle API key not configured"
+        },
+        500
+    );
+}
+
+
+try {
+
+    const paddleTransactionResponse =
+        await fetch(
+            `${PADDLE_API_BASE_URL}/transactions/${transactionId}`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization:
+                        `Bearer ${paddleApiKey}`,
+                    "Content-Type":
+                        "application/json"
+                }
+            }
+        );
+
+
+    if (
+        !paddleTransactionResponse.ok
+    ) {
+
+        const errorBody =
+            await paddleTransactionResponse.text();
+
+
+        console.error(
+            "❌ Paddle transaction lookup failed",
+            {
+                transactionId,
+                customerId,
+                status:
+                    paddleTransactionResponse.status,
+                response:
+                    errorBody
+            }
+        );
+
+        return jsonResponse(
+            {
+                error:
+                    "Unable to retrieve Paddle customer information"
+            },
+            502
+        );
+    }
+
+
+    const paddleTransactionData =
+        await paddleTransactionResponse.json();
+
+
+    customerEmail =
+        paddleTransactionData
+            ?.data
+            ?.custom_data
+            ?.customer_email ||
+        null;
+
+
+} catch (error) {
+
+    console.error(
+        "❌ Paddle API request failed",
+        {
+            transactionId,
+            customerId,
+            error:
+                error?.message ||
+                String(error)
+        }
+    );
+
+    return jsonResponse(
+        {
+            error:
+                "Paddle customer lookup failed"
+        },
+        502
+    );
+}
+
 
 if (!customerEmail) {
 
     console.error(
-        "❌ Paddle customer email not found in webhook",
+        "❌ Paddle customer email not found",
         {
             transactionId,
-            customerId,
-            customData:
-                transaction?.custom_data || null
+            customerId
         }
     );
 
@@ -660,12 +748,11 @@ if (!customerEmail) {
         },
         400
     );
-
 }
 
 
 console.log(
-    "✅ Paddle customer email retrieved from webhook",
+    "✅ Paddle customer information retrieved",
     {
         transactionId,
         customerId,
@@ -673,6 +760,7 @@ console.log(
     }
 );
     
+
 // --------------------------------------------------------
 // 16. EXTRACT PURCHASE INFORMATION
 // --------------------------------------------------------
@@ -790,7 +878,7 @@ const productName =
     );
 
 
-    // --------------------------------------------------------
+// --------------------------------------------------------
 // 18. SAVE PURCHASE — IDEMPOTENT
 //
 // Paddle can deliver the same event more than once.
@@ -834,17 +922,24 @@ const insertedPurchase =
     `;
 
 
-const purchaseInserted =
-    insertedPurchase.length > 0;
+// --------------------------------------------------------
+// 19. RESOLVE PURCHASE ID
+//
+// For a new event, use the ID returned by INSERT.
+// For a duplicate event, retrieve the existing purchase.
+// --------------------------------------------------------
 
+let purchaseId;
 
-if (purchaseInserted) {
+if (insertedPurchase.length > 0) {
+
+    purchaseId =
+        insertedPurchase[0].id;
 
     console.log(
         "✅ Purchase recorded in Netlify Database",
         {
-            purchaseId:
-                insertedPurchase[0].id,
+            purchaseId,
             eventId,
             transactionId
         }
@@ -852,16 +947,169 @@ if (purchaseInserted) {
 
 } else {
 
+    const existingPurchase =
+        await db.sql`
+            SELECT id
+            FROM purchases
+            WHERE event_id = ${eventId}
+            LIMIT 1
+        `;
+
+    if (existingPurchase.length === 0) {
+
+        throw new Error(
+            "Purchase conflict detected, but existing purchase could not be found."
+        );
+
+    }
+
+    purchaseId =
+        existingPurchase[0].id;
+
     console.log(
-        "ℹ️ Duplicate Paddle event ignored",
+        "ℹ️ Duplicate Paddle event detected",
         {
+            purchaseId,
             eventId,
             transactionId
         }
     );
-
 }
 
+
+// --------------------------------------------------------
+// 20. CREATE DOWNLOAD ENTITLEMENT — IDEMPOTENT
+//
+// Each purchase may have only one entitlement.
+// purchase_id is UNIQUE in download_entitlements.
+//
+// The token is generated only when the entitlement does
+// not already exist.
+// --------------------------------------------------------
+
+const existingEntitlement =
+    await db.sql`
+        SELECT id
+        FROM download_entitlements
+        WHERE purchase_id = ${purchaseId}
+        LIMIT 1
+    `;
+
+
+let entitlementId;
+
+if (existingEntitlement.length > 0) {
+
+    entitlementId =
+        existingEntitlement[0].id;
+
+    console.log(
+        "ℹ️ Download entitlement already exists",
+        {
+            entitlementId,
+            purchaseId,
+            eventId
+        }
+    );
+
+} else {
+
+    const cryptoToken =
+        crypto.randomBytes(32).toString("hex");
+
+    const entitlement =
+        await db.sql`
+            INSERT INTO download_entitlements (
+                purchase_id,
+                customer_email,
+                product_id,
+                download_token,
+                download_count,
+                max_downloads,
+                expires_at,
+                status
+            )
+            VALUES (
+                ${purchaseId},
+                ${customerEmail},
+                ${TSEC_SOC2_PRODUCT_ID},
+                ${cryptoToken},
+                ${0},
+                ${5},
+                ${new Date(
+                    Date.now() +
+                    7 * 24 * 60 * 60 * 1000
+                ).toISOString()},
+                ${"active"}
+            )
+            ON CONFLICT (purchase_id)
+            DO NOTHING
+            RETURNING id
+        `;
+
+    if (entitlement.length === 0) {
+
+        const existingAfterConflict =
+            await db.sql`
+                SELECT id
+                FROM download_entitlements
+                WHERE purchase_id = ${purchaseId}
+                LIMIT 1
+            `;
+
+        if (existingAfterConflict.length === 0) {
+
+            throw new Error(
+                "Download entitlement could not be created."
+            );
+
+        }
+
+        entitlementId =
+            existingAfterConflict[0].id;
+
+    } else {
+
+        entitlementId =
+            entitlement[0].id;
+    }
+
+    console.log(
+        "✅ Download entitlement ready",
+        {
+            entitlementId,
+            purchaseId,
+            productId:
+                TSEC_SOC2_PRODUCT_ID,
+            expiresInDays: 7,
+            maxDownloads: 5
+        }
+    );
+}
+
+
+// --------------------------------------------------------
+// 21. MARK PURCHASE READY FOR FULFILLMENT
+//
+// "ready" means the secure download entitlement exists.
+// The customer has not necessarily downloaded the product yet.
+// --------------------------------------------------------
+
+await db.sql`
+    UPDATE purchases
+    SET
+        fulfillment_status = ${"ready"},
+        updated_at = NOW()
+    WHERE id = ${purchaseId}
+`;
+
+console.log(
+    "✅ Purchase fulfillment status updated",
+    {
+        purchaseId,
+        fulfillmentStatus: "ready"
+    }
+);
     // --------------------------------------------------------
     // 19. SUCCESS RESPONSE
     // --------------------------------------------------------
@@ -871,9 +1119,9 @@ if (purchaseInserted) {
         received: true,
         processed: true,
         purchase_recorded:
-            purchaseInserted,
+            true,
         fulfillment:
-            "pending",
+            "ready",
         event_id:
             eventId,
         transaction_id:
@@ -908,3 +1156,8 @@ function jsonResponse(
         }
     );
 }
+
+
+
+
+

@@ -1,20 +1,17 @@
 // =========================================================
 // TSEC CHECKOUT ENGINE
 // Version: 2.0
-//
 // Purpose:
 // - Load selected product from products.json
-// - Populate checkout order summary
-// - Load customer information from sessionStorage
+// - Load customer data from sessionStorage
 // - Initialize Paddle Sandbox
-// - Open Paddle Checkout
-// - Capture checkout.completed
-// - Redirect customer to secure confirmation page
+// - Open secure Paddle checkout
+// - Redirect to success.html after checkout completion
 // =========================================================
 
 
 console.log(
-    "TSEC Checkout Engine v2.0 Loaded"
+    "✅ TSEC Checkout Engine 2.0 Loaded"
 );
 
 
@@ -27,29 +24,12 @@ const PADDLE_CLIENT_TOKEN =
 
 
 // =========================================================
-// CURRENT CHECKOUT STATE
+// GLOBAL CHECKOUT STATE
 // =========================================================
-
-let CURRENT_CHECKOUT_PRODUCT = null;
 
 let CHECKOUT_CUSTOMER = null;
 
-
-// =========================================================
-// GET PRODUCT ID
-// =========================================================
-
-function getCheckoutProductId() {
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    return params.get("id");
-
-}
+let CURRENT_CHECKOUT_PRODUCT = null;
 
 
 // =========================================================
@@ -69,54 +49,50 @@ function loadCheckoutCustomer() {
         if (!storedCustomer) {
 
             console.warn(
-                "No TSEC checkout customer data found."
+                "⚠️ No checkout customer data found."
             );
 
-            return null;
+            return false;
 
         }
 
 
-        const customer =
+        CHECKOUT_CUSTOMER =
             JSON.parse(
                 storedCustomer
             );
 
 
         if (
-            !customer.email
+            !CHECKOUT_CUSTOMER.email
         ) {
 
             console.warn(
-                "Checkout customer email is missing."
+                "⚠️ Checkout customer email is missing."
             );
 
-            return null;
+            return false;
 
         }
 
 
-        CHECKOUT_CUSTOMER =
-            customer;
-
-
         console.log(
-            "Checkout customer loaded."
+            "✅ Checkout customer loaded:",
+            CHECKOUT_CUSTOMER.email
         );
 
 
-        return customer;
-
+        return true;
 
     } catch (error) {
 
         console.error(
-            "Unable to load checkout customer:",
+            "❌ Unable to load checkout customer:",
             error
         );
 
 
-        return null;
+        return false;
 
     }
 
@@ -132,7 +108,7 @@ async function loadCheckoutProduct() {
     try {
 
         console.log(
-            "Loading checkout product..."
+            "⏳ Loading checkout product..."
         );
 
 
@@ -140,8 +116,14 @@ async function loadCheckoutProduct() {
         // GET PRODUCT ID FROM URL
         // =================================================
 
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
         const productId =
-            getCheckoutProductId();
+            params.get("id");
 
 
         if (!productId) {
@@ -154,7 +136,7 @@ async function loadCheckoutProduct() {
 
 
         console.log(
-            "Checkout Product ID:",
+            "🔎 Checkout Product ID:",
             productId
         );
 
@@ -184,10 +166,6 @@ async function loadCheckoutProduct() {
         const data =
             await response.json();
 
-
-        // =================================================
-        // SUPPORT BOTH PRODUCT STRUCTURES
-        // =================================================
 
         const products =
             Array.isArray(data)
@@ -230,7 +208,7 @@ async function loadCheckoutProduct() {
 
 
         console.log(
-            "Checkout product loaded:",
+            "✅ Checkout product loaded:",
             product
         );
 
@@ -249,7 +227,6 @@ async function loadCheckoutProduct() {
 
             image.src =
                 product.image || "";
-
 
             image.alt =
                 product.title ||
@@ -315,7 +292,7 @@ async function loadCheckoutProduct() {
 
 
             if (
-                Number.isFinite(
+                !Number.isNaN(
                     numericPrice
                 )
             ) {
@@ -342,17 +319,16 @@ async function loadCheckoutProduct() {
 
 
         console.log(
-            `Checkout ready: ${product.title}`
+            `✅ Checkout ready: ${product.title}`
         );
 
 
-        return product;
-
+        return true;
 
     } catch (error) {
 
         console.error(
-            "Checkout loading error:",
+            "❌ Checkout loading error:",
             error
         );
 
@@ -399,7 +375,7 @@ async function loadCheckoutProduct() {
         }
 
 
-        return null;
+        return false;
 
     }
 
@@ -413,11 +389,12 @@ async function loadCheckoutProduct() {
 function initPaddle() {
 
     if (
-        typeof Paddle === "undefined"
+        typeof Paddle ===
+        "undefined"
     ) {
 
         console.error(
-            "Paddle.js was not loaded."
+            "❌ Paddle.js is not loaded."
         );
 
         return false;
@@ -427,28 +404,24 @@ function initPaddle() {
 
     try {
 
-        // -------------------------------------------------
-        // SANDBOX
-        // -------------------------------------------------
+        // ================================================
+        // PADDLE SANDBOX
+        // ================================================
 
         Paddle.Environment.set(
             "sandbox"
         );
 
 
-        // -------------------------------------------------
-        // INITIALIZE
-        // -------------------------------------------------
+        // ================================================
+        // INITIALIZE PADDLE
+        // ================================================
 
         Paddle.Initialize({
 
             token:
                 PADDLE_CLIENT_TOKEN,
 
-
-            // =============================================
-            // PADDLE EVENT CALLBACK
-            // =============================================
 
             eventCallback:
                 function (event) {
@@ -459,31 +432,25 @@ function initPaddle() {
                     );
 
 
-                    // -----------------------------------------
+                    // ====================================
                     // CHECKOUT COMPLETED
-                    // -----------------------------------------
+                    // ====================================
 
                     if (
-                        event
-                        &&
                         event.name ===
-                            "checkout.completed"
+                        "checkout.completed"
                     ) {
 
                         const transactionId =
-                            event
-                                ?.data
+                            event?.data
                                 ?.transaction_id;
 
 
-                        if (
-                            !transactionId
-                        ) {
+                        if (!transactionId) {
 
                             console.error(
-                                "checkout.completed received without transaction_id."
+                                "❌ Paddle checkout completed but transaction_id is missing."
                             );
-
 
                             return;
 
@@ -491,14 +458,14 @@ function initPaddle() {
 
 
                         console.log(
-                            "Paddle checkout completed:",
+                            "✅ Paddle checkout completed:",
                             transactionId
                         );
 
 
-                        // -------------------------------------
+                        // =================================
                         // REDIRECT TO SUCCESS PAGE
-                        // -------------------------------------
+                        // =================================
 
                         const successUrl =
                             `success.html?transaction_id=${encodeURIComponent(
@@ -517,17 +484,16 @@ function initPaddle() {
 
 
         console.log(
-            "Paddle Sandbox initialized."
+            "✅ Paddle Sandbox initialized."
         );
 
 
         return true;
 
-
     } catch (error) {
 
         console.error(
-            "Paddle initialization failed:",
+            "❌ Paddle initialization error:",
             error
         );
 
@@ -546,17 +512,17 @@ function initPaddle() {
 function openPaddleCheckout() {
 
     // =====================================================
-    // VALIDATE PRODUCT
+    // VALIDATE PADDLE
     // =====================================================
 
     if (
-        !CURRENT_CHECKOUT_PRODUCT
+        typeof Paddle ===
+        "undefined"
     ) {
 
         alert(
-            "Product information is not available. Please refresh the page."
+            "Secure payment service is unavailable. Please try again."
         );
-
 
         return;
 
@@ -574,9 +540,8 @@ function openPaddleCheckout() {
     ) {
 
         alert(
-            "Customer information is missing. Please return to the product page and try again."
+            "Your checkout session has expired. Please return to the product page and try again."
         );
-
 
         return;
 
@@ -584,17 +549,16 @@ function openPaddleCheckout() {
 
 
     // =====================================================
-    // INITIALIZE PADDLE
+    // VALIDATE PRODUCT
     // =====================================================
 
     if (
-        !initPaddle()
+        !CURRENT_CHECKOUT_PRODUCT
     ) {
 
         alert(
-            "Secure checkout is temporarily unavailable. Please try again shortly."
+            "Product information is unavailable. Please try again."
         );
-
 
         return;
 
@@ -602,7 +566,7 @@ function openPaddleCheckout() {
 
 
     // =====================================================
-    // PRODUCT / PRICE
+    // GET PADDLE PRICE ID
     // =====================================================
 
     const paddlePriceId =
@@ -612,65 +576,75 @@ function openPaddleCheckout() {
 
 
     console.log(
-        "Opening Paddle Checkout..."
-    );
-
-
-    console.log(
-        "Paddle Price ID:",
+        "💳 Opening Paddle Checkout:",
         paddlePriceId
     );
 
 
     // =====================================================
-    // OPEN PADDLE
+    // OPEN PADDLE CHECKOUT
     // =====================================================
 
-    Paddle.Checkout.open({
+    try {
 
-        items: [
+        Paddle.Checkout.open({
 
-            {
-                priceId:
-                    paddlePriceId,
+            items: [
 
-                quantity:
-                    1
+                {
+
+                    priceId:
+                        paddlePriceId,
+
+                    quantity:
+                        1
+
+                }
+
+            ],
+
+
+            // =============================================
+            // CUSTOMER
+            // =============================================
+
+            customer: {
+
+                email:
+                    CHECKOUT_CUSTOMER.email
+
+            },
+
+
+            // =============================================
+            // CUSTOM DATA
+            // =============================================
+
+            customData: {
+
+                customer_email:
+                    CHECKOUT_CUSTOMER.email,
+
+                product_id:
+                    CURRENT_CHECKOUT_PRODUCT.id
 
             }
 
-        ],
+        });
+
+    } catch (error) {
+
+        console.error(
+            "❌ Paddle Checkout error:",
+            error
+        );
 
 
-        // -------------------------------------------------
-        // CUSTOMER
-        // -------------------------------------------------
+        alert(
+            "Unable to open secure payment checkout. Please try again."
+        );
 
-        customer: {
-
-            email:
-                CHECKOUT_CUSTOMER.email
-
-        },
-
-
-        // -------------------------------------------------
-        // CUSTOM DATA
-        //
-        // This is later read by paddle-webhook.js
-        // -------------------------------------------------
-
-        customData: {
-
-            customer_email:
-                CHECKOUT_CUSTOMER.email,
-
-            product_id:
-                CURRENT_CHECKOUT_PRODUCT.id
-
-        }
-
-    });
+    }
 
 }
 
@@ -690,9 +664,8 @@ function initCheckoutButton() {
     if (!button) {
 
         console.warn(
-            "Checkout button not found."
+            "⚠️ Checkout button not found."
         );
-
 
         return;
 
@@ -709,6 +682,10 @@ function initCheckoutButton() {
     );
 
 
+    console.log(
+        "✅ Checkout button initialized."
+    );
+
 }
 
 
@@ -724,22 +701,20 @@ function updatePaymentText() {
         );
 
 
-    if (!paymentText) {
+    if (
+        paymentText
+    ) {
 
-        return;
+        paymentText.textContent =
+            "Secure payment processing powered by Paddle.";
 
     }
-
-
-    paymentText.textContent =
-        "Secure payment processing powered by Paddle.";
-
 
 }
 
 
 // =========================================================
-// INITIALIZE
+// START CHECKOUT
 // =========================================================
 
 document.addEventListener(
@@ -747,21 +722,48 @@ document.addEventListener(
     async function () {
 
         console.log(
-            "Initializing TSEC Checkout Page..."
+            "🚀 Starting TSEC Checkout..."
         );
 
+
+        // ================================================
+        // LOAD CUSTOMER
+        // ================================================
 
         loadCheckoutCustomer();
 
 
+        // ================================================
+        // LOAD PRODUCT
+        // ================================================
+
         await loadCheckoutProduct();
 
+
+        // ================================================
+        // UPDATE PAYMENT TEXT
+        // ================================================
 
         updatePaymentText();
 
 
+        // ================================================
+        // INITIALIZE PADDLE
+        // ================================================
+
+        initPaddle();
+
+
+        // ================================================
+        // INITIALIZE BUTTON
+        // ================================================
+
         initCheckoutButton();
 
+
+        console.log(
+            "✅ TSEC Checkout initialization complete."
+        );
 
     }
 );
