@@ -404,15 +404,7 @@ function initPaddle() {
 
     try {
 
-        // ================================================
-        // PADDLE SANDBOX
-        // ================================================
-
-        Paddle.Environment.set(
-            "sandbox"
-        );
-
-
+        
         // ================================================
         // INITIALIZE PADDLE
         // ================================================
@@ -484,8 +476,8 @@ function initPaddle() {
 
 
         console.log(
-            "✅ Paddle Sandbox initialized."
-        );
+        "✅ Paddle Live initialized."
+       );
 
 
         return true;
