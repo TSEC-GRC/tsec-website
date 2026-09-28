@@ -6,6 +6,7 @@
 
 import crypto from "crypto";
 import { getDatabase } from "@netlify/database";
+import { getProductByPriceId } from "./tsec-products.js";
 
 const db = getDatabase();
 
