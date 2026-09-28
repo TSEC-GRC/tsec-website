@@ -1,7 +1,7 @@
-// ============================================================
-// TSEC — Paddle Webhook
+﻿// ============================================================
+// TSEC â€” Paddle Webhook
 // Production-Ready Sandbox Version
-// P1.9 — Signature Verification + Transaction Validation
+// P1.9 â€” Signature Verification + Transaction Validation
 // ============================================================
 
 import crypto from "crypto";
@@ -16,8 +16,6 @@ const PADDLE_API_BASE_URL =
 // ============================================================
 // TSEC CONFIGURATION
 // ============================================================
-
-
 const EXPECTED_EVENT_TYPE =
     "transaction.completed";
 
@@ -71,7 +69,7 @@ export default async function handler(request) {
     if (!paddleSignature) {
 
         console.error(
-            "❌ Missing Paddle-Signature header"
+            "âŒ Missing Paddle-Signature header"
         );
 
         return jsonResponse(
@@ -87,7 +85,7 @@ export default async function handler(request) {
     if (!secretKey) {
 
         console.error(
-            "❌ PADDLE_WEBHOOK_SECRET is not configured"
+            "âŒ PADDLE_WEBHOOK_SECRET is not configured"
         );
 
         return jsonResponse(
@@ -166,7 +164,7 @@ export default async function handler(request) {
     if (!timestamp) {
 
         console.error(
-            "❌ Paddle signature timestamp missing"
+            "âŒ Paddle signature timestamp missing"
         );
 
         return jsonResponse(
@@ -184,7 +182,7 @@ export default async function handler(request) {
     ) {
 
         console.error(
-            "❌ Paddle h1 signature missing"
+            "âŒ Paddle h1 signature missing"
         );
 
         return jsonResponse(
@@ -216,7 +214,7 @@ export default async function handler(request) {
     ) {
 
         console.error(
-            "❌ Invalid Paddle timestamp"
+            "âŒ Invalid Paddle timestamp"
         );
 
         return jsonResponse(
@@ -252,7 +250,7 @@ export default async function handler(request) {
     ) {
 
         console.error(
-            "❌ Paddle webhook timestamp outside allowed window",
+            "âŒ Paddle webhook timestamp outside allowed window",
             {
                 timestampAge
             }
@@ -354,7 +352,7 @@ export default async function handler(request) {
     if (!signatureVerified) {
 
         console.error(
-            "❌ Paddle webhook signature verification failed"
+            "âŒ Paddle webhook signature verification failed"
         );
 
         return jsonResponse(
@@ -368,7 +366,7 @@ export default async function handler(request) {
 
 
     console.log(
-        "✅ Paddle webhook signature verified"
+        "âœ… Paddle webhook signature verified"
     );
 
 
@@ -389,7 +387,7 @@ export default async function handler(request) {
     } catch (error) {
 
         console.error(
-            "❌ Invalid JSON payload"
+            "âŒ Invalid JSON payload"
         );
 
         return jsonResponse(
@@ -428,7 +426,7 @@ export default async function handler(request) {
     ) {
 
         console.log(
-            "ℹ️ Ignoring unsupported event type:",
+            "â„¹ï¸ Ignoring unsupported event type:",
             eventType
         );
 
@@ -447,7 +445,7 @@ export default async function handler(request) {
     if (!eventId) {
 
         console.error(
-            "❌ Missing Paddle event_id"
+            "âŒ Missing Paddle event_id"
         );
 
         return jsonResponse(
@@ -463,7 +461,7 @@ export default async function handler(request) {
     if (!transactionId) {
 
         console.error(
-            "❌ Missing transaction ID"
+            "âŒ Missing transaction ID"
         );
 
         return jsonResponse(
@@ -491,7 +489,7 @@ export default async function handler(request) {
     ) {
 
         console.error(
-            "❌ Transaction status is not completed:",
+            "âŒ Transaction status is not completed:",
             transactionStatus
         );
 
@@ -532,7 +530,7 @@ const matchingItem =
 if (!matchingItem) {
 
     console.error(
-        "❌ Transaction does not contain a recognized TSEC Price ID",
+        "âŒ Transaction does not contain a recognized TSEC Price ID",
         {
             transactionId
         }
@@ -557,7 +555,7 @@ const tsecProduct =
 if (!tsecProduct) {
 
     console.error(
-        "❌ TSEC product catalog lookup failed",
+        "âŒ TSEC product catalog lookup failed",
         {
             transactionId,
             priceId:
@@ -576,42 +574,41 @@ if (!tsecProduct) {
 
     
     // --------------------------------------------------------
-// 14. VALIDATE PRODUCT ID
-//
-// Confirm that the Paddle Product ID associated with the
-// transaction matches the private TSEC product catalog.
+    // 14. VALIDATE PRODUCT ID
+    //
+    // Confirm that the Paddle Product ID associated with the
+    // transaction matches the private TSEC product catalog.
+    // --------------------------------------------------------
+
+    const receivedProductId =
+        matchingItem?.price?.product_id;
+
+
+    if (
+        receivedProductId !==
+        tsecProduct.paddleProductId
+    ) {
+
+        console.error(
+            "Product ID mismatch",
+            {
+                transactionId,
+                receivedProductId,
+                expectedProductId:
+                    tsecProduct.paddleProductId
+            }
+        );
+
+        return jsonResponse(
+            {
+                error:
+                    "Product ID mismatch"
+            },
+            400
+        );
+    }
+
 // --------------------------------------------------------
-
-const receivedProductId =
-    matchingItem?.price?.product_id;
-
-
-if (
-    receivedProductId !==
-    tsecProduct.paddleProductId
-) {
-
-    console.error(
-        "❌ Product ID mismatch",
-        {
-            transactionId,
-            receivedProductId,
-            expectedProductId:
-                tsecProduct.paddleProductId
-        }
-    );
-
-    return jsonResponse(
-        {
-            error:
-                "Product ID mismatch"
-        },
-        400
-    );
-}
-
-
- // --------------------------------------------------------
 // 15. EXTRACT CUSTOMER INFORMATION
 // --------------------------------------------------------
 
@@ -619,7 +616,7 @@ const customerId =
     transaction?.customer_id ||
     null;
 console.log(
-    "🔎 Paddle customer email diagnostic",
+    "ðŸ”Ž Paddle customer email diagnostic",
     {
         transactionId,
         customerId,
@@ -640,7 +637,7 @@ console.log(
 if (!customerId) {
 
     console.error(
-        "❌ Missing Paddle customer_id",
+        "âŒ Missing Paddle customer_id",
         {
             transactionId
         }
@@ -666,7 +663,7 @@ const paddleApiKey =
 if (!paddleApiKey) {
 
     console.error(
-        "❌ PADDLE_API_KEY is not configured"
+        "âŒ PADDLE_API_KEY is not configured"
     );
 
     return jsonResponse(
@@ -705,7 +702,7 @@ try {
 
 
         console.error(
-            "❌ Paddle transaction lookup failed",
+            "âŒ Paddle transaction lookup failed",
             {
                 transactionId,
                 customerId,
@@ -741,7 +738,7 @@ try {
 } catch (error) {
 
     console.error(
-        "❌ Paddle API request failed",
+        "âŒ Paddle API request failed",
         {
             transactionId,
             customerId,
@@ -764,7 +761,7 @@ try {
 if (!customerEmail) {
 
     console.error(
-        "❌ Paddle customer email not found",
+        "âŒ Paddle customer email not found",
         {
             transactionId,
             customerId
@@ -782,7 +779,7 @@ if (!customerEmail) {
 
 
 console.log(
-    "✅ Paddle customer information retrieved",
+    "âœ… Paddle customer information retrieved",
     {
         transactionId,
         customerId,
@@ -827,13 +824,7 @@ const totalAmount =
         : null;
 
 
-// Current TSEC catalog product name.
-
-const productName =
-    "SOC 2 Professional Pack™";
-
-
-    // --------------------------------------------------------
+// --------------------------------------------------------
     // 17. LOG VERIFIED TRANSACTION
     //
     // DO NOT log secrets or payment information.
@@ -844,7 +835,7 @@ const productName =
     );
 
     console.log(
-        "TSEC PADDLE WEBHOOK — VERIFIED"
+        "TSEC PADDLE WEBHOOK â€” VERIFIED"
     );
 
     console.log(
@@ -909,7 +900,7 @@ const productName =
 
 
 // --------------------------------------------------------
-// 18. SAVE PURCHASE — IDEMPOTENT
+// 18. SAVE PURCHASE â€” IDEMPOTENT
 //
 // Paddle can deliver the same event more than once.
 // event_id is UNIQUE in the database.
@@ -967,7 +958,7 @@ if (insertedPurchase.length > 0) {
         insertedPurchase[0].id;
 
     console.log(
-        "✅ Purchase recorded in Netlify Database",
+        "âœ… Purchase recorded in Netlify Database",
         {
             purchaseId,
             eventId,
@@ -997,7 +988,7 @@ if (insertedPurchase.length > 0) {
         existingPurchase[0].id;
 
     console.log(
-        "ℹ️ Duplicate Paddle event detected",
+        "â„¹ï¸ Duplicate Paddle event detected",
         {
             purchaseId,
             eventId,
@@ -1008,7 +999,7 @@ if (insertedPurchase.length > 0) {
 
 
 // --------------------------------------------------------
-// 20. CREATE DOWNLOAD ENTITLEMENT — IDEMPOTENT
+// 20. CREATE DOWNLOAD ENTITLEMENT â€” IDEMPOTENT
 //
 // Each purchase may have only one entitlement.
 // purchase_id is UNIQUE in download_entitlements.
@@ -1034,7 +1025,7 @@ if (existingEntitlement.length > 0) {
         existingEntitlement[0].id;
 
     console.log(
-        "ℹ️ Download entitlement already exists",
+        "â„¹ï¸ Download entitlement already exists",
         {
             entitlementId,
             purchaseId,
@@ -1062,7 +1053,7 @@ if (existingEntitlement.length > 0) {
             VALUES (
                 ${purchaseId},
                 ${customerEmail},
-                ${TSEC_SOC2_PRODUCT_ID},
+                ${tsecProduct.productId},
                 ${cryptoToken},
                 ${0},
                 ${5},
@@ -1105,12 +1096,12 @@ if (existingEntitlement.length > 0) {
     }
 
     console.log(
-        "✅ Download entitlement ready",
+        "âœ… Download entitlement ready",
         {
             entitlementId,
             purchaseId,
             productId:
-                TSEC_SOC2_PRODUCT_ID,
+                tsecProduct.productId,
             expiresInDays: 7,
             maxDownloads: 5
         }
@@ -1134,7 +1125,7 @@ await db.sql`
 `;
 
 console.log(
-    "✅ Purchase fulfillment status updated",
+    "âœ… Purchase fulfillment status updated",
     {
         purchaseId,
         fulfillmentStatus: "ready"
@@ -1186,6 +1177,9 @@ function jsonResponse(
         }
     );
 }
+
+
+
 
 
 

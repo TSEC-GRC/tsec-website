@@ -1,12 +1,10 @@
-import crypto from "crypto";
 import { getDatabase } from "@netlify/database";
 import { getStore } from "@netlify/blobs";
+import { getProductById } from "./tsec-products.js";
 
 const db = getDatabase();
 
 const DOWNLOAD_STORE = "tsec-pro-downloads";
-const SOC2_BLOB_KEY = "soc2/SOC2_Professional_Pack.zip";
-
 export default async (request) => {
     try {
         // ---------------------------------------------------------
@@ -213,19 +211,70 @@ export default async (request) => {
         }
 
         // ---------------------------------------------------------
+        // RESOLVE TSEC PRODUCT
+        // ---------------------------------------------------------
+        //
+        // The entitlement stores the internal TSEC product ID.
+        // Resolve the corresponding private product catalog
+        // entry to determine the Blob key and download filename.
+        // ---------------------------------------------------------
+
+        const tsecProduct =
+            getProductById(
+                entitlement.product_id
+            );
+
+        if (!tsecProduct) {
+
+            // Roll back the download counter if the product
+            // is not recognized by the private catalog.
+            await db.sql`
+                UPDATE download_entitlements
+                SET
+                    download_count = GREATEST(
+                        download_count - 1,
+                        0
+                    ),
+                    last_downloaded_at = NULL,
+                    updated_at = NOW()
+                WHERE id = ${entitlement.id}
+            `;
+
+            console.error(
+                "Unrecognized TSEC product:",
+                entitlement.product_id
+            );
+
+            return new Response(
+                JSON.stringify({
+                    error: "Download product is not configured"
+                }),
+                {
+                    status: 500,
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+        }
+
+        // ---------------------------------------------------------
         // GET PRIVATE BLOB
         // ---------------------------------------------------------
 
-        const store = getStore(DOWNLOAD_STORE);
+        const store =
+            getStore(DOWNLOAD_STORE);
 
-        const zipData = await store.get(
-            SOC2_BLOB_KEY,
-            {
-                type: "arrayBuffer"
-            }
-        );
+        const zipData =
+            await store.get(
+                tsecProduct.blobKey,
+                {
+                    type: "arrayBuffer"
+                }
+            );
 
         if (!zipData) {
+
             // Roll back the download counter if the file cannot
             // be retrieved.
             await db.sql`
@@ -241,13 +290,14 @@ export default async (request) => {
             `;
 
             console.error(
-                "SOC2 ZIP not found in Netlify Blob Store:",
-                SOC2_BLOB_KEY
+                "TSEC product ZIP not found in Netlify Blob Store:",
+                tsecProduct.blobKey
             );
 
             return new Response(
                 JSON.stringify({
-                    error: "Download file is temporarily unavailable"
+                    error:
+                        "Download file is temporarily unavailable"
                 }),
                 {
                     status: 503,
@@ -257,7 +307,6 @@ export default async (request) => {
                 }
             );
         }
-
         // ---------------------------------------------------------
         // RESPONSE
         // ---------------------------------------------------------
@@ -267,7 +316,7 @@ export default async (request) => {
             headers: {
                 "Content-Type": "application/zip",
                 "Content-Disposition":
-                    'attachment; filename="SOC2_Professional_Pack.zip"',
+                    `attachment; filename="${tsecProduct.downloadFilename}"`,
                 "Content-Length":
                     String(zipData.byteLength),
                 "Cache-Control":
