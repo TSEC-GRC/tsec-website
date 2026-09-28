@@ -1153,7 +1153,7 @@ function renderMetadata(
 // =========================================================
 
 const PADDLE_CLIENT_TOKEN =
-    "live_TU_TOKEN_LIVE_AQUI";
+    "live_d0b4d4140a4caaeb982bf9796c3";
 
 const PADDLE_SOC2_PRICE_ID =
     "pri_01m3mextwkdpbymxpm5b7669sq";
