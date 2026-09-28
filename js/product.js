@@ -1149,14 +1149,14 @@ function renderMetadata(
 }
 
 // =========================================================
-// PADDLE CHECKOUT — SANDBOX CONFIGURATION
+// PADDLE CHECKOUT — LIVE CONFIGURATION
 // =========================================================
 
 const PADDLE_CLIENT_TOKEN =
-    "test_5b1cc1b840fbce081663e12a9ea";
+    "live_TU_TOKEN_LIVE_AQUI";
 
 const PADDLE_SOC2_PRICE_ID =
-    "pri_01m306t66hbgv4rn4zg3n7xqzr";
+    "pri_01m3mextwkdpbymxpm5b7669sq";
 
 
 // =========================================================
@@ -1180,15 +1180,7 @@ function initPaddle() {
 
     try {
 
-        // -------------------------------------------------
-        // FORCE PADDLE SANDBOX ENVIRONMENT
-        // -------------------------------------------------
-
-        Paddle.Environment.set(
-            "sandbox"
-        );
-
-
+      
         // -------------------------------------------------
         // INITIALIZE PADDLE
         // -------------------------------------------------
@@ -1201,8 +1193,8 @@ function initPaddle() {
         });
 
 
-        console.log(
-            "✅ Paddle Sandbox initialized correctly"
+       console.log(
+        "✅ Paddle Live initialized correctly"
         );
 
 
