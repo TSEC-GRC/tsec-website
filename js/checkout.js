@@ -4,7 +4,7 @@
 // Purpose:
 // - Load selected product from products.json
 // - Load customer data from sessionStorage
-// - Initialize Paddle Sandbox
+// - Initialize Paddle Live
 // - Open secure Paddle checkout
 // - Redirect to success.html after checkout completion
 // =========================================================
@@ -20,7 +20,7 @@ console.log(
 // =========================================================
 
 const PADDLE_CLIENT_TOKEN =
-    "test_5b1cc1b840fbce081663e12a9ea";
+    "live_d0b4d4140a4caaeb982bf9796c3";
 
 
 // =========================================================
@@ -564,7 +564,7 @@ function openPaddleCheckout() {
     const paddlePriceId =
         CURRENT_CHECKOUT_PRODUCT.paddle_price_id
         ||
-        "pri_01m306t66hbgv4rn4zg3n7xqzr";
+        "pri_01m3mextwkdpbymxpm5b7669sq";
 
 
     console.log(

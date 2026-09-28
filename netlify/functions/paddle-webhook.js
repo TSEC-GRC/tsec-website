@@ -1,6 +1,6 @@
 ﻿// ============================================================
 // TSEC â€” Paddle Webhook
-// Production-Ready Sandbox Version
+// Production-Ready Live Version
 // P1.9 â€” Signature Verification + Transaction Validation
 // ============================================================
 
@@ -11,7 +11,7 @@ import { getProductByPriceId } from "./tsec-products.js";
 const db = getDatabase();
 
 const PADDLE_API_BASE_URL =
-    "https://sandbox-api.paddle.com";
+    "https://api.paddle.com";
 
 // ============================================================
 // TSEC CONFIGURATION
