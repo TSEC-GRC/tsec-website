@@ -576,33 +576,39 @@ if (!tsecProduct) {
 
     
     // --------------------------------------------------------
-    // 14. VALIDATE PRODUCT ID
-    // --------------------------------------------------------
+// 14. VALIDATE PRODUCT ID
+//
+// Confirm that the Paddle Product ID associated with the
+// transaction matches the private TSEC product catalog.
+// --------------------------------------------------------
 
-    const receivedProductId =
-        matchingItem?.price?.product_id;
+const receivedProductId =
+    matchingItem?.price?.product_id;
 
 
-    if (
-        receivedProductId !==
-        TSEC_SOC2_PRODUCT_ID
-    ) {
+if (
+    receivedProductId !==
+    tsecProduct.paddleProductId
+) {
 
-        console.error(
-            "❌ Product ID mismatch",
-            {
-                transactionId
-            }
-        );
+    console.error(
+        "❌ Product ID mismatch",
+        {
+            transactionId,
+            receivedProductId,
+            expectedProductId:
+                tsecProduct.paddleProductId
+        }
+    );
 
-        return jsonResponse(
-            {
-                error:
-                    "Product ID mismatch"
-            },
-            400
-        );
-    }
+    return jsonResponse(
+        {
+            error:
+                "Product ID mismatch"
+        },
+        400
+    );
+}
 
 
  // --------------------------------------------------------
