@@ -17,11 +17,6 @@ const PADDLE_API_BASE_URL =
 // TSEC CONFIGURATION
 // ============================================================
 
-const TSEC_SOC2_PRICE_ID =
-    "pri_01m306t66hbgv4rn4zg3n7xqzr";
-
-const TSEC_SOC2_PRODUCT_ID =
-    "pro_01m2zw8nsgkxj3kzx2jptkmr3p";
 
 const EXPECTED_EVENT_TYPE =
     "transaction.completed";
@@ -510,48 +505,76 @@ export default async function handler(request) {
     }
 
 
-    // --------------------------------------------------------
-    // 13. VALIDATE TSEC PRODUCT
-    //
-    // We accept the transaction only if one of its items
-    // contains our exact Paddle Price ID.
-    // --------------------------------------------------------
+   // --------------------------------------------------------
+// 13. VALIDATE TSEC PRODUCT
+//
+// Identify the purchased product through the private
+// TSEC product catalog using the Paddle Price ID.
+// --------------------------------------------------------
 
-    const items =
-        Array.isArray(
-            transaction?.items
-        )
-            ? transaction.items
-            : [];
-
-
-    const matchingItem =
-        items.find(
-            item =>
-                item?.price?.id ===
-                TSEC_SOC2_PRICE_ID
-        );
+const items =
+    Array.isArray(
+        transaction?.items
+    )
+        ? transaction.items
+        : [];
 
 
-    if (!matchingItem) {
-
-        console.error(
-            "❌ Transaction does not contain the TSEC SOC 2 Price ID",
-            {
-                transactionId
-            }
-        );
-
-        return jsonResponse(
-            {
-                error:
-                    "Unrecognized TSEC product"
-            },
-            400
-        );
-    }
+const matchingItem =
+    items.find(
+        item =>
+            getProductByPriceId(
+                item?.price?.id
+            )
+    );
 
 
+if (!matchingItem) {
+
+    console.error(
+        "❌ Transaction does not contain a recognized TSEC Price ID",
+        {
+            transactionId
+        }
+    );
+
+    return jsonResponse(
+        {
+            error:
+                "Unrecognized TSEC product"
+        },
+        400
+    );
+}
+
+
+const tsecProduct =
+    getProductByPriceId(
+        matchingItem?.price?.id
+    );
+
+
+if (!tsecProduct) {
+
+    console.error(
+        "❌ TSEC product catalog lookup failed",
+        {
+            transactionId,
+            priceId:
+                matchingItem?.price?.id
+        }
+    );
+
+    return jsonResponse(
+        {
+            error:
+                "TSEC product catalog lookup failed"
+        },
+        400
+    );
+}
+
+    
     // --------------------------------------------------------
     // 14. VALIDATE PRODUCT ID
     // --------------------------------------------------------
