@@ -1,39 +1,670 @@
-<!-- =======================================================
-     MODULE 01 — ENTERPRISE DOCUMENT FOUNDATION
-     ======================================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TSEC Enterprise cybersecurity, risk, governance and compliance programs for organizations managing complex security and regulatory environments.">
+  <title>TSEC Enterprise | Cybersecurity, Risk & Compliance Transformation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <style>
+    /* =========================================================
+       TSEC ENTERPRISE — EXECUTIVE DESIGN SYSTEM
+       Self-contained page. No framework required.
+       ========================================================= */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#060d1a;
+      --navy2:#0a1628;
+      --navy3:#0d1e38;
+      --navy4:#111f35;
+      --blue:#1a56db;
+      --blue2:#2a7fff;
+      --cyan:#4fc3f7;
+      --cyan2:#00d4ff;
+      --gold:#d99d24;
+      --gold2:#f0bd45;
+      --white:#ffffff;
+      --text:#d8e1eb;
+      --gray:#a0aec0;
+      --gray2:#718096;
+      --border:rgba(79,195,247,.15);
+      --border2:rgba(79,195,247,.28);
+      --gold-border:rgba(217,157,36,.28);
+      --font-head:'Manrope',sans-serif;
+      --font-body:'Inter',sans-serif;
+      --shadow:0 18px 55px rgba(0,0,0,.30);
+      --shadow-soft:0 12px 35px rgba(0,0,0,.20);
+      --radius:14px;
+      --content:1180px;
+    }
 
-  <title>TSEC Risk & Cyber Advisory | Enterprise</title>
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);background:var(--navy);color:var(--white);line-height:1.6;overflow-x:hidden}
+    a{color:inherit}
+    img{max-width:100%;display:block}
+    button,input{font:inherit}
 
-  <!-- =====================================================
-       TSEC TYPOGRAPHY
-       Shared visual language with resources.html
-       ===================================================== -->
+    /* =========================================================
+       HEADER — MATCHES TSEC RESOURCES NAVIGATION STYLE
+       ========================================================= */
+    nav.site-nav{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      height:72px;padding:0 4%;
+      display:flex;align-items:center;justify-content:space-between;
+      background:rgba(6,13,26,.95);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-logo img{height:58px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:1.8rem;list-style:none}
+    .nav-links a{color:var(--gray);text-decoration:none;font-size:.88rem;font-weight:500;letter-spacing:.03em;transition:.2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--white)}
+    .nav-links a.active{border-bottom:2px solid var(--cyan);padding-bottom:4px}
+    .nav-cta{display:inline-flex;align-items:center;gap:.5rem;background:var(--blue);color:#fff;text-decoration:none;padding:.55rem 1.2rem;border-radius:6px;font-size:.88rem;font-weight:600;transition:.2s}
+    .nav-cta:hover{background:var(--blue2);transform:translateY(-1px)}
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+    /* =========================================================
+       GLOBAL
+       ========================================================= */
+    .container{width:min(calc(100% - 48px),var(--content));margin:0 auto}
+    .section{padding:88px 0}
+    .section.alt{background:var(--navy2)}
+    .eyebrow{display:inline-flex;align-items:center;gap:.55rem;color:var(--cyan);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+    .eyebrow::before{content:"";width:22px;height:2px;background:linear-gradient(90deg,var(--gold),var(--cyan));border-radius:2px}
+    .section-heading{max-width:760px;margin-bottom:46px}
+    .section-heading.center{text-align:center;margin-left:auto;margin-right:auto}
+    .section-heading h2{font-family:var(--font-head);font-size:clamp(1.9rem,3.2vw,2.7rem);line-height:1.13;letter-spacing:-.025em;margin:.65rem 0 .8rem}
+    .section-heading p{color:var(--gray);font-size:.95rem;line-height:1.75;max-width:720px}
+    .center p{margin-left:auto;margin-right:auto}
+    .accent-line{width:52px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));margin-top:1rem}
 
-<!-- =========================================================
-     MODULE 02 — ENTERPRISE DESIGN SYSTEM
-     ========================================================= -->
+    /* =========================================================
+       HERO
+       ========================================================= */
+    .hero{
+      min-height:720px;padding:120px 0 70px;position:relative;overflow:hidden;
+      display:flex;align-items:center;
+      background:url('assets/tsec-hero-city2.webp') center/cover no-repeat;
+    }
+    .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,11,20,.97) 0%,rgba(3,11,20,.88) 38%,rgba(3,11,20,.60) 67%,rgba(3,11,20,.30) 100%)}
+    .hero::after{content:"";position:absolute;inset:auto 0 0;height:180px;background:linear-gradient(transparent,var(--navy));pointer-events:none}
+    .hero-inner{position:relative;z-index:2;width:min(calc(100% - 48px),var(--content));margin:auto}
+    .hero-copy{max-width:720px}
+    .hero .eyebrow{color:#d8e8f6}
+    .hero h1{font-family:var(--font-head);font-size:clamp(2.65rem,5vw,4.45rem);line-height:1.02;letter-spacing:-.045em;margin:1rem 0 1.25rem}
+    .hero h1 span{color:var(--cyan)}
+    .hero-lead{font-size:1.08rem;color:#d1dce8;line-height:1.75;max-width:680px;margin-bottom:2rem}
+    .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:2rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;text-decoration:none;border-radius:7px;padding:.82rem 1.35rem;font-size:.9rem;font-weight:650;transition:.2s;border:1px solid transparent}
+    .btn-primary{background:var(--blue);color:#fff}
+    .btn-primary:hover{background:var(--blue2);transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,86,219,.32)}
+    .btn-outline{border-color:rgba(255,255,255,.28);color:#fff;background:rgba(255,255,255,.025)}
+    .btn-outline:hover{border-color:var(--cyan);color:var(--cyan)}
+    .hero-trust{display:flex;gap:1.4rem;flex-wrap:wrap;color:var(--gray);font-size:.76rem}
+    .hero-trust span{display:flex;align-items:center;gap:.4rem}
+    .hero-trust svg{color:var(--cyan)}
 
-<style>
+    /* =========================================================
+       EXECUTIVE SYSTEM
+       ========================================================= */
+    .system-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:rgba(255,255,255,.02)}
+    .system-card{padding:28px 24px;border-right:1px solid var(--border);transition:.2s}
+    .system-card:last-child{border-right:0}
+    .system-card:hover{background:rgba(79,195,247,.035)}
+    .icon-box{width:46px;height:46px;border-radius:11px;display:grid;place-items:center;color:var(--cyan);border:1px solid var(--border2);background:rgba(79,195,247,.055);margin-bottom:18px}
+    .system-card h3{font-family:var(--font-head);font-size:1.03rem;margin-bottom:.4rem}
+    .system-card p{font-size:.8rem;color:var(--gray);line-height:1.65}
+    .system-statement{margin-top:24px;text-align:center;color:#c9d7e5;font-size:.9rem}
+    .system-statement strong{color:#fff}
 
-  /* =========================================================
-     02.01 — VARIABLES
-     Enterprise visual language
+    /* =========================================================
+       ENTERPRISE PROGRAM TABS — vCISO IS #4
+       ========================================================= */
+    .program-tabs-shell{background:linear-gradient(180deg,#0a1628 0%,#08121f 100%);border:1px solid rgba(79,195,247,.13);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+    .program-tab-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+    .program-tab{appearance:none;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.035);color:#dbe7f2;border-radius:12px;padding:18px 16px;text-align:left;cursor:pointer;transition:.22s;min-height:112px;position:relative;overflow:hidden}
+    .program-tab::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--cyan));transform:scaleX(0);transform-origin:left;transition:.22s}
+    .program-tab:hover{border-color:rgba(79,195,247,.35);background:rgba(79,195,247,.055);transform:translateY(-2px)}
+    .program-tab.active{border-color:rgba(217,157,36,.52);background:linear-gradient(145deg,rgba(217,157,36,.10),rgba(79,195,247,.06));box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+    .program-tab.active::after{transform:scaleX(1)}
+    .program-tab .tab-num{display:block;font-size:.62rem;letter-spacing:.16em;color:var(--gold2);font-weight:800;margin-bottom:.45rem}
+    .program-tab strong{display:block;font-family:var(--font-head);font-size:.93rem;line-height:1.2;color:#fff;margin-bottom:.3rem}
+    .program-tab span{display:block;font-size:.66rem;color:var(--gray);line-height:1.4}
+    .program-panel{display:none;grid-template-columns:.82fr 1.18fr;min-height:515px;background:#fff;border-radius:14px;overflow:hidden;color:#0b1928}
+    .program-panel.active{display:grid;animation:tabIn .3s ease}
+    @keyframes tabIn{from{opacity:.2;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .program-visual{position:relative;min-height:515px;overflow:hidden;background:#071321}
+    .program-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,11,20,.05),rgba(3,11,20,.62))}
+    .program-visual img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+    .program-panel.active:hover .program-visual img{transform:scale(1.025)}
+    .visual-caption{position:absolute;left:24px;right:24px;bottom:22px;z-index:2;color:#fff}
+    .visual-caption small{display:block;color:#bcd5e8;font-size:.61rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;margin-bottom:.35rem}.visual-caption strong{font-family:var(--font-head);font-size:1.05rem;line-height:1.25;display:block}.visual-caption span{display:block;color:#d0dbe6;font-size:.68rem;margin-top:.25rem}
+    .program-detail{padding:31px 34px 29px;display:flex;flex-direction:column}
+    .detail-number{font-size:.64rem;letter-spacing:.16em;color:var(--blue);font-weight:800;margin-bottom:.45rem}.program-detail h3{font-family:var(--font-head);font-size:clamp(1.35rem,2.2vw,1.85rem);line-height:1.12;letter-spacing:-.025em;margin-bottom:.55rem}.program-detail .program-tagline{font-size:.83rem;color:#4d647b;line-height:1.6;margin-bottom:1.25rem;max-width:650px}
+    .detail-columns{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:1.1rem}.detail-block h4{font-family:var(--font-head);font-size:.7rem;text-transform:uppercase;letter-spacing:.11em;color:#17314c;margin-bottom:.65rem}.detail-list{list-style:none;display:grid;gap:.42rem}.detail-list li{font-size:.73rem;color:#5e7083;line-height:1.45;padding-left:17px;position:relative}.detail-list li::before{content:"";position:absolute;left:0;top:.48em;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan))}.framework-row{display:flex;flex-wrap:wrap;gap:6px;margin:.2rem 0 1.05rem}.framework-row span{font-size:.62rem;font-weight:700;color:#35506a;border:1px solid #dce5ee;background:#f6f9fc;padding:5px 8px;border-radius:999px}.methodology-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:.2rem 0 1.15rem}.method-card{border:1px solid #e2e8ef;background:#f8fafc;border-radius:8px;padding:10px}.method-card strong{display:block;color:#18344f;font-family:var(--font-head);font-size:.69rem;line-height:1.25;margin-bottom:.18rem}.method-card span{display:block;color:#6a7a8c;font-size:.6rem;line-height:1.35}.detail-note{font-size:.67rem;color:#708095;line-height:1.5;padding:10px 12px;border-left:3px solid var(--gold);background:#fbf8f0;border-radius:0 7px 7px 0;margin-bottom:1.05rem}.program-link{display:inline-flex;align-items:center;gap:.4rem;margin-top:auto;align-self:flex-start;color:var(--blue);font-size:.76rem;font-weight:800;text-decoration:none}.program-link:hover{color:var(--blue2)}
+    @media(max-width:1050px){.program-tab-nav{grid-template-columns:repeat(2,1fr)}.program-panel{grid-template-columns:1fr}.program-visual{min-height:280px;max-height:340px}.program-detail{padding:27px}}
+    @media(max-width:760px){.program-tab-nav{grid-template-columns:1fr 1fr;gap:8px}.program-tab{min-height:96px;padding:14px 13px}.program-tab strong{font-size:.82rem}.program-tab span{font-size:.61rem}.program-panel{min-height:0}.program-visual{min-height:240px}.detail-columns{grid-template-columns:1fr;gap:15px}.methodology-grid{grid-template-columns:1fr}.program-detail{padding:24px 21px 22px}}
+    @media(max-width:480px){.program-tabs-shell{padding:10px}.program-tab-nav{grid-template-columns:1fr}.program-tab{min-height:auto}.program-visual{min-height:210px}.visual-caption{left:18px;right:18px;bottom:17px}}
+
+    /* =========================================================
+       UNIFIED COMPLIANCE
+       ========================================================= */
+    .unified{background:linear-gradient(145deg,#030b14,#081522);border-top:1px solid var(--gold-border);border-bottom:1px solid var(--gold-border)}
+    .unified-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:54px;align-items:center}
+    .unified-copy h2{font-family:var(--font-head);font-size:clamp(1.9rem,3vw,2.55rem);line-height:1.1;margin:.7rem 0 .8rem}
+    .unified-copy h2 span{color:var(--gold2)}
+    .unified-copy p{color:var(--gray);font-size:.9rem;line-height:1.75;max-width:520px}
+    .unified-points{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:26px 0}
+    .u-point{padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:9px;background:rgba(255,255,255,.025)}
+    .u-point strong{display:block;font-size:.8rem;color:#fff;margin-bottom:.2rem}
+    .u-point span{font-size:.7rem;color:var(--gray)}
+    .architecture{padding:26px;border:1px solid rgba(217,157,36,.28);border-radius:15px;background:rgba(255,255,255,.025);box-shadow:var(--shadow-soft)}
+    .arch-title{text-align:center;color:var(--gold2);font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:center}
+    .flow-box{min-height:76px;border:1px solid rgba(79,195,247,.17);border-radius:9px;background:rgba(255,255,255,.035);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px}
+    .flow-box svg{color:var(--cyan);margin-bottom:6px}
+    .flow-box strong{font-size:.69rem;color:#fff}
+    .flow-arrow{color:var(--gold2);font-size:1.1rem;text-align:center}
+    .framework-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;justify-content:center}
+    .framework-tags span{font-size:.63rem;color:#d8e1eb;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);padding:5px 8px;border-radius:5px}
+
+    /* =========================================================
+       DASHBOARD + CAPABILITY
+       ========================================================= */
+    .executive-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
+    .panel{background:var(--navy2);border:1px solid var(--border);border-radius:var(--radius);padding:25px;box-shadow:var(--shadow-soft)}
+    .panel-kicker{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-weight:800}
+    .panel h3{font-family:var(--font-head);font-size:1.35rem;margin:.4rem 0 .35rem}
+    .panel-desc{font-size:.78rem;color:var(--gray);margin-bottom:20px}
+    .illustrative{font-size:.62rem;color:var(--gray2);border:1px solid var(--border);padding:3px 7px;border-radius:4px;display:inline-block;margin-bottom:12px}
+
+    .dashboard{border:1px solid rgba(79,195,247,.18);border-radius:11px;background:#071321;padding:15px}
+    .dash-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .dash-brand{font-size:.72rem;font-weight:700;color:#fff}
+    .dash-status{font-size:.6rem;color:#67d391;background:rgba(72,187,120,.09);border:1px solid rgba(72,187,120,.2);padding:4px 7px;border-radius:4px}
+    .dash-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .metric{padding:11px;border:1px solid rgba(255,255,255,.06);border-radius:8px;background:rgba(255,255,255,.025)}
+    .metric small{display:block;font-size:.55rem;color:var(--gray2);text-transform:uppercase;letter-spacing:.07em}
+    .metric strong{display:block;font-size:1.18rem;margin:4px 0;color:#fff}
+    .metric .good{color:#67d391}.metric .warn{color:var(--gold2)}
+    .dash-lower{display:grid;grid-template-columns:1.2fr .8fr;gap:8px;margin-top:8px}
+    .mini-chart,.risk-list{padding:12px;border:1px solid rgba(255,255,255,.06);border-radius:8px;background:rgba(255,255,255,.025);min-height:118px}
+    .mini-chart small,.risk-list small{color:var(--gray2);font-size:.55rem;text-transform:uppercase;letter-spacing:.08em}
+    .bars{height:76px;display:flex;align-items:flex-end;gap:7px;padding-top:13px}
+    .bars i{display:block;flex:1;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--cyan),rgba(79,195,247,.22));min-height:18px}
+    .risk-row{display:flex;justify-content:space-between;gap:10px;font-size:.62rem;color:#cbd7e2;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+    .risk-row:last-child{border:0}.risk-high{color:#ff8d8d}.risk-med{color:var(--gold2)}
+
+    .capability-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+    .cap-step{padding:17px 13px;border:1px solid rgba(79,195,247,.13);border-radius:9px;background:rgba(255,255,255,.025);position:relative}
+    .cap-step:not(:last-child)::after{content:"→";position:absolute;right:-11px;top:50%;transform:translateY(-50%);color:var(--cyan);font-size:1rem;z-index:2}
+    .cap-step b{display:block;font-size:.72rem;color:var(--cyan);margin-bottom:.35rem}.cap-step strong{font-size:.83rem;display:block;margin-bottom:.25rem}.cap-step span{font-size:.64rem;color:var(--gray);line-height:1.45}
+    .cap-ribbon{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.07)}
+    .cap-ribbon span{padding:8px;text-align:center;font-size:.6rem;font-weight:700;color:#fff;background:#10233b}.cap-ribbon span:nth-child(2){background:#17416c}.cap-ribbon span:nth-child(3){background:#145c70}.cap-ribbon span:nth-child(4){background:#356a2c}
+    .capabilities{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:16px}.capabilities span{font-size:.6rem;color:var(--gray);padding:7px;border:1px solid rgba(255,255,255,.06);border-radius:6px;text-align:center}
+
+    /* =========================================================
+       ENGAGEMENT
+       ========================================================= */
+    .engagement-wrap{background:#f7f9fc;color:#102033}
+    .engagement-wrap .eyebrow{color:#2468c7}.engagement-wrap .eyebrow::before{background:var(--blue)}
+    .engagement-wrap .section-heading h2{color:#0c1a2a}.engagement-wrap .section-heading p{color:#627084}
+    .journey{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;margin-bottom:38px}
+    .journey::before{content:"";position:absolute;left:9%;right:9%;top:22px;height:2px;background:linear-gradient(90deg,#1a56db,#4fc3f7,#d99d24,#48bb78);opacity:.55}
+    .journey-step{position:relative;text-align:center;padding:0 8px}.journey-dot{width:44px;height:44px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid var(--blue);color:var(--blue);font-size:.67rem;font-weight:800;position:relative;z-index:2}.journey-step:nth-child(3) .journey-dot{border-color:var(--cyan);color:#1487b0}.journey-step:nth-child(4) .journey-dot{border-color:var(--gold);color:#a96f0d}.journey-step:nth-child(5) .journey-dot{border-color:#48a54d;color:#39843d}.journey-step strong{display:block;font-family:var(--font-head);font-size:.88rem}.journey-step span{font-size:.67rem;color:#66758a;line-height:1.4}
+    .engagement-options{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.engage-card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:21px;box-shadow:0 8px 25px rgba(23,39,60,.06)}.engage-card h3{font-family:var(--font-head);font-size:1rem;margin:.5rem 0 .25rem}.engage-card p{font-size:.75rem;color:#64748b;line-height:1.6}.engage-icon{width:38px;height:38px;border-radius:9px;background:#eef5ff;color:var(--blue);display:grid;place-items:center}
+
+    /* =========================================================
+       CTA
+       ========================================================= */
+    .final-cta{position:relative;padding:72px 0;background:url('assets/tsec-hero-city.webp') center/cover no-repeat;overflow:hidden}
+    .final-cta::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,11,20,.95),rgba(3,11,20,.78))}
+    .cta-inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:30px}.cta-copy{max-width:730px}.cta-copy .eyebrow{color:#d7e5f3}.cta-copy h2{font-family:var(--font-head);font-size:clamp(1.9rem,3.2vw,2.7rem);line-height:1.1;margin:.6rem 0 .65rem}.cta-copy p{color:#b9c8d7;font-size:.88rem;line-height:1.7}.cta-actions{display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0}
+
+    /* =========================================================
+       FOOTER — RESOURCES STYLE
+       ========================================================= */
+    footer{background:#060d1a;border-top:1px solid var(--border);padding:52px 4% 20px;color:#fff}
+    .footer-grid{width:min(1180px,100%);margin:0 auto;display:grid;grid-template-columns:1.35fr 1fr 1.15fr 1.05fr;gap:36px;padding-bottom:35px}
+    .footer-brand h3{font-family:var(--font-head);font-size:1.25rem;letter-spacing:.03em;margin-bottom:.45rem}.footer-brand p{font-size:.75rem;color:var(--gray2);line-height:1.6;max-width:250px}.footer-col h4{font-family:var(--font-head);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.8rem;color:#dce7f2}.footer-col ul{list-style:none;display:grid;gap:.48rem}.footer-col a{font-size:.74rem;color:var(--gray2);text-decoration:none;transition:.2s}.footer-col a:hover{color:var(--cyan)}.footer-col p{font-size:.75rem;color:var(--gray2);line-height:1.6}.footer-bottom{width:min(1180px,100%);margin:0 auto;padding-top:18px;border-top:1px solid rgba(79,195,247,.09);display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.footer-bottom p,.footer-bottom a{font-size:.7rem;color:var(--gray2);text-decoration:none}.footer-bottom a:hover{color:var(--cyan)}
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+    @media(max-width:1050px){
+      .program-grid{grid-template-columns:repeat(2,1fr)}
+      .system-grid{grid-template-columns:repeat(2,1fr)}.system-card:nth-child(2){border-right:0}.system-card:nth-child(1),.system-card:nth-child(2){border-bottom:1px solid var(--border)}
+      .unified-layout,.executive-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:760px){
+      nav.site-nav{height:68px}.nav-links{display:none}.nav-logo img{height:52px}.nav-cta{font-size:.76rem;padding:.5rem .8rem}
+      .hero{min-height:690px;padding-top:105px}.hero h1{font-size:clamp(2.35rem,10vw,3.4rem)}.hero-lead{font-size:.95rem}
+      .section{padding:64px 0}.container,.hero-inner{width:min(calc(100% - 32px),var(--content))}
+      .program-grid,.system-grid,.engagement-options{grid-template-columns:1fr}.system-card{border-right:0!important;border-bottom:1px solid var(--border)}.system-card:last-child{border-bottom:0}
+      .flow{grid-template-columns:1fr 1fr}.flow-arrow{display:none}.unified-points{grid-template-columns:1fr}
+      .dash-metrics{grid-template-columns:1fr 1fr}.dash-lower{grid-template-columns:1fr}.capability-flow{grid-template-columns:1fr}.cap-step:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-17px;transform:translateX(-50%)}.cap-ribbon{grid-template-columns:1fr 1fr}.capabilities{grid-template-columns:1fr 1fr}
+      .journey{grid-template-columns:1fr;gap:15px}.journey::before{left:21px;right:auto;top:22px;bottom:22px;width:2px;height:auto;background:linear-gradient(180deg,#1a56db,#4fc3f7,#d99d24,#48bb78)}.journey-step{text-align:left;display:grid;grid-template-columns:44px 1fr;column-gap:13px;align-items:center}.journey-dot{grid-row:span 2;margin:0}.journey-step strong{align-self:end}.journey-step span{align-self:start}
+      .cta-inner{align-items:flex-start;flex-direction:column}.footer-grid{grid-template-columns:1fr 1fr}.footer-bottom{align-items:flex-start;flex-direction:column}
+    }
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr}.hero-actions,.cta-actions{width:100%}.btn{width:100%}.hero-trust{display:grid;grid-template-columns:1fr 1fr}.program-image{height:155px}.architecture{padding:17px}.flow-box{min-height:68px}}
+  </style>
+</head>
+
+<body>
+
+  <!-- =======================================================
+       TSEC NAVIGATION — RESOURCES STYLE
+       ======================================================= -->
+  <nav class="site-nav">
+    <a class="nav-logo" href="index.html" aria-label="TSEC Home">
+      <img src="assets/tsec-logo.svg" alt="TSEC Risk & Cyber Advisory">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="enterprise.html" class="active">Enterprise</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Contact TSEC →</a>
+  </nav>
+
+  <main>
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">ENTERPRISE CYBERSECURITY · RISK · COMPLIANCE</span>
+          <h1>Transform Cyber Risk <span>Into Enterprise Advantage.</span></h1>
+          <p class="hero-lead">Executive cybersecurity, governance, risk and compliance programs designed to help organizations manage complexity, strengthen resilience and build a scalable security operating model.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="contact.html">Request Enterprise Assessment →</a>
+            <a class="btn btn-outline" href="#programs">Explore Enterprise Programs ↓</a>
+          </div>
+          <div class="hero-trust">
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>Risk-led</span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>Evidence-ready</span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Executive visibility</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         ONE SYSTEM
+         ===================================================== -->
+    <section class="section" id="operating-model">
+      <div class="container">
+        <div class="section-heading center">
+          <span class="eyebrow">THE EXECUTIVE OPERATING MODEL</span>
+          <h2>Enterprise Security Should Operate as One System.</h2>
+          <p>Cybersecurity, risk, compliance and governance are interconnected. TSEC unifies these disciplines into a single operating model for visibility, control and confident decision-making.</p>
+          <div class="accent-line" style="margin-left:auto;margin-right:auto"></div>
+        </div>
+
+        <div class="system-grid">
+          <article class="system-card">
+            <div class="icon-box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <h3>Cybersecurity</h3><p>Security exposure, architecture, resilience, operations and security program oversight.</p>
+          </article>
+          <article class="system-card">
+            <div class="icon-box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 16 9 5 9-5"/></svg></div>
+            <h3>Risk</h3><p>Enterprise, technology, third-party and emerging risks connected to business objectives.</p>
+          </article>
+          <article class="system-card">
+            <div class="icon-box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></div>
+            <h3>Compliance</h3><p>Regulatory obligations, controls, evidence, audit readiness and continuous improvement.</p>
+          </article>
+          <article class="system-card">
+            <div class="icon-box"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><path d="M16 3.2a4 4 0 0 1 0 7.6M22 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+            <h3>Governance</h3><p>Executive accountability, board oversight, decision rights, reporting and strategic alignment.</p>
+          </article>
+        </div>
+        <p class="system-statement"><strong>TSEC connects these disciplines into an integrated enterprise operating model.</strong></p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         ENTERPRISE PROGRAMS — PREMIUM TABS / vCISO IS #4
+         ===================================================== -->
+    <section class="section alt" id="programs">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">OUR FOUR ENTERPRISE PROGRAMS</span>
+          <h2>Strategic Programs Built for Enterprise Complexity.</h2>
+          <p>Explore each program to see its core focus, key deliverables and the frameworks or methodologies that can be aligned to the organization's operating model and risk profile.</p>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="program-tabs-shell">
+          <div class="program-tab-nav" role="tablist" aria-label="TSEC Enterprise Programs">
+            <button class="program-tab active" id="tab-board" role="tab" aria-selected="true" aria-controls="panel-board" data-program="board">
+              <span class="tab-num">01</span><strong>Board Cybersecurity Governance</strong><span>Executive oversight &amp; decision support</span>
+            </button>
+            <button class="program-tab" id="tab-risk" role="tab" aria-selected="false" aria-controls="panel-risk" data-program="risk">
+              <span class="tab-num">02</span><strong>Enterprise Cyber Risk Management</strong><span>Enterprise cyber &amp; technology risk</span>
+            </button>
+            <button class="program-tab" id="tab-compliance" role="tab" aria-selected="false" aria-controls="panel-compliance" data-program="compliance">
+              <span class="tab-num">03</span><strong>Enterprise Compliance Transformation</strong><span>Unified controls, evidence &amp; readiness</span>
+            </button>
+            <button class="program-tab" id="tab-vciso" role="tab" aria-selected="false" aria-controls="panel-vciso" data-program="vciso">
+              <span class="tab-num">04</span><strong>Fractional vCISO™</strong><span>Executive cybersecurity leadership</span>
+            </button>
+          </div>
+
+          <!-- 01 — BOARD GOVERNANCE -->
+          <article class="program-panel active" id="panel-board" role="tabpanel" aria-labelledby="tab-board">
+            <div class="program-visual">
+              <img src="assets/core-risk-governance.webp" alt="Executive board cybersecurity governance and risk discussion" loading="lazy">
+              <div class="visual-caption"><small>01 · Board Governance</small><strong>Cybersecurity at the Executive Table.</strong><span>Governance, oversight, accountability and decision support.</span></div>
+            </div>
+            <div class="program-detail">
+              <div class="detail-number">01 — BOARD CYBERSECURITY GOVERNANCE PROGRAM™</div>
+              <h3>Executive oversight for cybersecurity risk, governance and strategic decision-making.</h3>
+              <p class="program-tagline">A governance program designed to give boards and executive leadership clearer visibility into cyber risk, accountability, priorities and strategic decisions.</p>
+              <div class="detail-columns">
+                <div class="detail-block"><h4>Focus</h4><ul class="detail-list"><li>Board &amp; executive governance</li><li>Cyber risk oversight</li><li>Executive reporting</li><li>Accountability &amp; decision support</li></ul></div>
+                <div class="detail-block"><h4>Key Deliverables</h4><ul class="detail-list"><li>Cyber Governance Framework</li><li>Board Risk Dashboard</li><li>Executive Reporting Package</li><li>Governance Roadmap</li></ul></div>
+              </div>
+              <div class="detail-block"><h4>Applicable Frameworks &amp; Methodologies</h4><div class="framework-row"><span>COBIT 2019</span><span>NIST CSF 2.0</span><span>ISO/IEC 27001</span><span>Regulatory Requirements</span></div></div>
+              <a class="program-link" href="contact.html">Discuss this program →</a>
+            </div>
+          </article>
+
+          <!-- 02 — CYBER RISK -->
+          <article class="program-panel" id="panel-risk" role="tabpanel" aria-labelledby="tab-risk" hidden>
+            <div class="program-visual">
+              <img src="assets/core-grc-intelligence.webp" alt="Enterprise cyber risk management and GRC analysis" loading="lazy">
+              <div class="visual-caption"><small>02 · Cyber Risk Management</small><strong>Choose the Risk Management Approach.</strong><span>Tailored to the organization's risk profile and operating model.</span></div>
+            </div>
+            <div class="program-detail">
+              <div class="detail-number">02 — ENTERPRISE CYBER RISK MANAGEMENT PROGRAM™</div>
+              <h3>A structured operating model for identifying, assessing and managing enterprise cyber and technology risk.</h3>
+              <p class="program-tagline">TSEC can tailor the program around an established approach—or combine complementary layers—based on the organization's regulatory environment, risk profile, operating model and governance framework.</p>
+              <div class="detail-columns">
+                <div class="detail-block"><h4>Focus</h4><ul class="detail-list"><li>Enterprise cyber risk</li><li>Technology risk</li><li>Third-party risk</li><li>Risk treatment &amp; monitoring</li></ul></div>
+                <div class="detail-block"><h4>Key Deliverables</h4><ul class="detail-list"><li>Enterprise Risk Framework</li><li>Cyber Risk Register</li><li>Risk Assessment Methodology</li><li>Risk Treatment Roadmap</li></ul></div>
+              </div>
+              <div class="detail-block"><h4>Choose the Risk Management Approach</h4>
+                <div class="methodology-grid">
+                  <div class="method-card"><strong>ISO/IEC 27005:2022</strong><span>Information Security Risk Management — focused on assessment, treatment, communication, monitoring and review of information security risk.</span></div>
+                  <div class="method-card"><strong>NIST Risk Management Framework (RMF)</strong><span>Security &amp; Privacy Risk Management — structured around categorization, controls, assessment, authorization and continuous monitoring.</span></div>
+                  <div class="method-card"><strong>ISO 31000:2018</strong><span>Enterprise Risk Management — enterprise-wide risk principles where cyber risk is managed as part of the broader organizational risk context.</span></div>
+                </div>
+              </div>
+              <div class="detail-note"><strong>The selected methodology can be adapted</strong> to the organization's regulatory environment, risk profile, operating model and existing governance framework.</div>
+              <a class="program-link" href="contact.html">Discuss this program →</a>
+            </div>
+          </article>
+
+          <!-- 03 — COMPLIANCE -->
+          <article class="program-panel" id="panel-compliance" role="tabpanel" aria-labelledby="tab-compliance" hidden>
+            <div class="program-visual">
+              <img src="assets/core-audit-readiness.webp" alt="Enterprise compliance transformation and audit readiness" loading="lazy">
+              <div class="visual-caption"><small>03 · Compliance Transformation</small><strong>One Control Architecture. Multiple Frameworks.</strong><span>Controls, evidence and regulatory readiness connected.</span></div>
+            </div>
+            <div class="program-detail">
+              <div class="detail-number">03 — ENTERPRISE COMPLIANCE TRANSFORMATION™</div>
+              <h3>A unified approach to managing controls, evidence and regulatory requirements across multiple frameworks.</h3>
+              <p class="program-tagline">Transform fragmented compliance activities into a scalable operating model with reusable controls, mapped requirements, evidence readiness and continuous visibility.</p>
+              <div class="detail-columns">
+                <div class="detail-block"><h4>Focus</h4><ul class="detail-list"><li>Multi-framework compliance</li><li>Unified control architecture</li><li>Evidence readiness</li><li>Continuous compliance</li></ul></div>
+                <div class="detail-block"><h4>Key Deliverables</h4><ul class="detail-list"><li>Unified Control Framework</li><li>Control Mapping</li><li>Compliance Gap Assessment</li><li>Evidence &amp; Audit Readiness Roadmap</li></ul></div>
+              </div>
+              <div class="detail-block"><h4>Framework Examples</h4><div class="framework-row"><span>SOC 2</span><span>ISO 27001</span><span>NIST</span><span>NYDFS</span><span>PCI DSS</span><span>HIPAA</span><span>HITRUST</span></div></div>
+              <div class="detail-note"><strong>TSEC Unified Compliance™</strong> provides the conceptual integration layer: one control architecture, multiple frameworks, reusable evidence and executive visibility.</div>
+              <a class="program-link" href="contact.html">Discuss this program →</a>
+            </div>
+          </article>
+
+          <!-- 04 — vCISO -->
+          <article class="program-panel" id="panel-vciso" role="tabpanel" aria-labelledby="tab-vciso" hidden>
+            <div class="program-visual">
+              <img src="assets/core-vciso-operations.webp" alt="Executive cybersecurity leadership and virtual CISO advisory" loading="lazy">
+              <div class="visual-caption"><small>04 · Fractional vCISO™</small><strong>Executive Cybersecurity Leadership.</strong><span>Strategic direction without the cost of a full-time CISO.</span></div>
+            </div>
+            <div class="program-detail">
+              <div class="detail-number">04 — FRACTIONAL vCISO™</div>
+              <h3>Executive cybersecurity leadership without the cost of a full-time CISO.</h3>
+              <p class="program-tagline">Ongoing cybersecurity leadership for organizations that need strategy, governance, executive reporting, risk prioritization and program oversight.</p>
+              <div class="detail-columns">
+                <div class="detail-block"><h4>Focus</h4><ul class="detail-list"><li>Cybersecurity strategy</li><li>Security program leadership</li><li>Executive &amp; board advisory</li><li>Compliance &amp; audit readiness</li><li>Security roadmap &amp; priorities</li></ul></div>
+                <div class="detail-block"><h4>Key Deliverables</h4><ul class="detail-list"><li>Cybersecurity Strategy</li><li>Security Program Roadmap</li><li>Executive Cyber Risk Dashboard</li><li>Board Reporting Package</li></ul></div>
+              </div>
+              <div class="detail-block"><h4>Framework Alignment</h4><div class="framework-row"><span>NIST CSF 2.0</span><span>ISO/IEC 27001</span><span>COBIT 2019</span><span>SOC 2</span><span>NYDFS</span><span>PCI DSS</span><span>HIPAA</span></div></div>
+              <a class="program-link" href="contact.html">Discuss this program →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         UNIFIED COMPLIANCE
+         ===================================================== -->
+    <section class="section unified" id="unified-compliance">
+      <div class="container unified-layout">
+        <div class="unified-copy">
+          <span class="eyebrow">TSEC UNIFIED COMPLIANCE™</span>
+          <h2>One Control Architecture. <span>Multiple Frameworks.</span></h2>
+          <p>A unified approach to managing multiple frameworks through a single control architecture, reducing duplicate work, improving efficiency and strengthening compliance posture.</p>
+          <div class="unified-points">
+            <div class="u-point"><strong>Requirements</strong><span>Map obligations into a common architecture.</span></div>
+            <div class="u-point"><strong>Controls</strong><span>Design reusable controls with clear ownership.</span></div>
+            <div class="u-point"><strong>Evidence</strong><span>Organize evidence for repeatable readiness.</span></div>
+            <div class="u-point"><strong>Risk &amp; Reporting</strong><span>Connect compliance to enterprise risk decisions.</span></div>
+          </div>
+          <a class="btn btn-outline" href="contact.html">Explore Unified Compliance →</a>
+        </div>
+
+        <div class="architecture" aria-label="TSEC Unified Control Architecture">
+          <div class="arch-title">TSEC Unified Control Architecture</div>
+          <div class="flow">
+            <div class="flow-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg><strong>Requirements</strong></div>
+            <div class="flow-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M12 5v14"/><circle cx="12" cy="12" r="9"/></svg><strong>Controls</strong></div>
+            <div class="flow-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h9l3 3v15H6z"/><path d="M15 3v4h4M9 12h6M9 16h5"/></svg><strong>Evidence</strong></div>
+            <div class="flow-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 18V9M10 18V5M16 18v-7M22 18V3"/></svg><strong>Risk &amp; Reporting</strong></div>
+          </div>
+          <div class="framework-tags">
+            <span>SOC 2</span><span>ISO 27001</span><span>NIST CSF</span><span>NYDFS</span><span>PCI DSS</span><span>HIPAA</span><span>HITRUST</span><span>COBIT</span><span>ISO 42001</span><span>ISO 22301</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         PRINCIPAL DASHBOARD + CAPABILITY MATRIX
+         ===================================================== -->
+    <section class="section" id="executive-visibility">
+      <div class="container">
+        <div class="section-heading center">
+          <span class="eyebrow">EXECUTIVE VISIBILITY</span>
+          <h2>See Risk, Security &amp; Compliance as One Enterprise Picture.</h2>
+          <p>Two TSEC concepts support executive decision-making: the Principal Dashboard™ for visibility and the Enterprise Capability Matrix™ for transformation planning.</p>
+        </div>
+
+        <div class="executive-grid">
+          <article class="panel">
+            <span class="panel-kicker">TSEC PRINCIPAL DASHBOARD™</span>
+            <h3>Executive Risk &amp; Cybersecurity Command Center</h3>
+            <p class="panel-desc">A consolidated executive view across risk posture, control coverage, compliance readiness and priority exposure.</p>
+            <span class="illustrative">ILLUSTRATIVE EXECUTIVE DASHBOARD</span>
+            <div class="dashboard">
+              <div class="dash-top"><span class="dash-brand">TSEC Enterprise Risk &amp; Cybersecurity Command Center</span><span class="dash-status">Illustrative</span></div>
+              <div class="dash-metrics">
+                <div class="metric"><small>Risk Posture</small><strong class="good">82%</strong><small>improving</small></div>
+                <div class="metric"><small>Control Coverage</small><strong>76%</strong><small>on track</small></div>
+                <div class="metric"><small>Priority Risks</small><strong class="warn">12</strong><small>3 critical</small></div>
+                <div class="metric"><small>Maturity</small><strong>3.8/5</strong><small>increasing</small></div>
+              </div>
+              <div class="dash-lower">
+                <div class="mini-chart"><small>Compliance Readiness Trend</small><div class="bars"><i style="height:35%"></i><i style="height:45%"></i><i style="height:51%"></i><i style="height:60%"></i><i style="height:72%"></i><i style="height:82%"></i><i style="height:88%"></i></div></div>
+                <div class="risk-list"><small>Top Risk Areas</small><div class="risk-row"><span>Third-party risk</span><b class="risk-high">High</b></div><div class="risk-row"><span>Data exposure</span><b class="risk-high">High</b></div><div class="risk-row"><span>Regulatory change</span><b class="risk-med">Medium</b></div></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <span class="panel-kicker">TSEC ENTERPRISE CAPABILITY MATRIX™</span>
+            <h3>Measure Capability. Define the Target State.</h3>
+            <p class="panel-desc">A structured way to establish current-state capability, prioritize material gaps and create an executable transformation roadmap.</p>
+            <div class="capability-flow">
+              <div class="cap-step"><b>01 · ASSESS</b><strong>Current State</strong><span>Establish the capability baseline and evidence.</span></div>
+              <div class="cap-step"><b>02 · PRIORITIZE</b><strong>Material Gaps</strong><span>Identify business-critical capabilities and exposure.</span></div>
+              <div class="cap-step"><b>03 · TRANSFORM</b><strong>Target State</strong><span>Define the target model and executable roadmap.</span></div>
+            </div>
+            <div class="cap-ribbon"><span>Assess</span><span>Prioritize</span><span>Transform</span><span>Sustain</span></div>
+            <div class="capabilities">
+              <span>Cybersecurity</span><span>GRC</span><span>Security Architecture</span><span>Third-Party Risk</span><span>Data &amp; Privacy</span><span>AI Governance</span><span>Business Resilience</span><span>Executive Governance</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         ENGAGEMENT MODEL
+         ===================================================== -->
+    <section class="section engagement-wrap" id="engagement">
+      <div class="container">
+        <div class="section-heading center">
+          <span class="eyebrow">THE TSEC ENGAGEMENT MODEL</span>
+          <h2>From Assessment to Transformation.</h2>
+          <p>A structured, phased approach designed to create measurable outcomes and a security operating model that can scale with the organization.</p>
+        </div>
+
+        <div class="journey">
+          <div class="journey-step"><div class="journey-dot">01</div><strong>QUALIFY</strong><span>Understand needs &amp; objectives.</span></div>
+          <div class="journey-step"><div class="journey-dot">02</div><strong>ASSESS</strong><span>Evaluate current state &amp; gaps.</span></div>
+          <div class="journey-step"><div class="journey-dot">03</div><strong>DESIGN</strong><span>Define target state &amp; roadmap.</span></div>
+          <div class="journey-step"><div class="journey-dot">04</div><strong>TRANSFORM</strong><span>Implement and scale.</span></div>
+          <div class="journey-step"><div class="journey-dot">05</div><strong>GOVERN &amp; SUSTAIN</strong><span>Measure, optimize &amp; evolve.</span></div>
+        </div>
+
+        <div class="engagement-options">
+          <article class="engage-card"><div class="engage-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19h16M5 16l4-4 3 3 6-7"/><circle cx="19" cy="8" r="2"/></svg></div><h3>Strategic Assessment</h3><p>Independent assessment, current-state findings and a prioritized transformation roadmap.</p></article>
+          <article class="engage-card"><div class="engage-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 8h8M8 12h5M8 16h8"/></svg></div><h3>Enterprise Transformation</h3><p>Multi-workstream implementation across governance, risk, security and compliance capabilities.</p></article>
+          <article class="engage-card"><div class="engage-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="7" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M19 8v5M22 10.5h-6"/></svg></div><h3>Strategic vCISO / Advisory</h3><p>Ongoing executive cybersecurity leadership, reporting, risk prioritization and program oversight.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         FINAL CTA
+         ===================================================== -->
+    <section class="final-cta" id="enterprise-cta">
+      <div class="container cta-inner">
+        <div class="cta-copy">
+          <span class="eyebrow">READY TO BUILD A MORE RESILIENT ENTERPRISE?</span>
+          <h2>Build a Security Operating Model That Scales.</h2>
+          <p>Start with an enterprise assessment to understand your current state, define your target state and identify the priorities that matter most.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="contact.html">Request Enterprise Assessment →</a>
+          <a class="btn btn-outline" href="contact.html">Contact TSEC</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =======================================================
+       FOOTER — RESOURCES STYLE
+       ======================================================= -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>TSEC Risk &amp; Cyber Advisory</h3>
+        <p>Integrated cybersecurity, risk, governance and compliance advisory for organizations navigating complex security and regulatory environments.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#solutions">Services</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="enterprise.html">Enterprise</a></li>
+          <li><a href="index.html#why">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="enterprise.html#programs">Enterprise Programs</a></li>
+          <li><a href="enterprise.html#unified-compliance">Unified Compliance</a></li>
+          <li><a href="enterprise.html#executive-visibility">Cyber Risk &amp; Governance</a></li>
+          <li><a href="enterprise.html#engagement">Strategic Advisory</a></li>
+          <li><a href="contact.html">Cybersecurity Advisory</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Connected</h4>
+        <p style="margin-bottom:.5rem">Follow TSEC for insights and updates on cybersecurity, risk and compliance.</p>
+        <p>Info@tsecgrc.com</p>
+        <p>tsecgrc.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 TSEC Risk &amp; Cyber Advisory LLC. All rights reserved.</p>
+      <div style="display:flex;gap:1.5rem"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </footer>
+
+
+  <script>
+    /* =========================================================
+       TSEC ENTERPRISE PROGRAM TABS
+       ========================================================= */
+    (function () {
+      const tabs = Array.from(document.querySelectorAll('.program-tab'));
+      const panels = Array.from(document.querySelectorAll('.program-panel'));
+
+      function activateProgram(name, moveFocus = false) {
+        tabs.forEach(tab => {
+          const active = tab.dataset.program === name;
+          tab.classList.toggle('active', active);
+          tab.setAttribute('aria-selected', String(active));
+          tab.tabIndex = active ? 0 : -1;
+        });
+
+        panels.forEach(panel => {
+          const active = panel.id === `panel-${name}`;
+          panel.classList.toggle('active', active);
+          panel.hidden = !active;
+        });
+
+        if (moveFocus) {
+          const activeTab = tabs.find(tab => tab.dataset.program === name);
+          if (activeTab) activeTab.focus();
+        }
+      }
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => activateProgram(tab.dataset.program));
+        tab.addEventListener('keydown', event => {
+          if (!['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'].includes(event.key)) return;
+          event.preventDefault();
+          let next = index;
+          if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % tabs.length;
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + tabs.length) % tabs.length;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = tabs.length - 1;
+          activateProgram(tabs[next].dataset.program, true);
+        });
+      });
+
+      activateProgram('board');
+    })();
+  </script>
+
+</body>
+</html>
      ========================================================= */
 
   :root {
