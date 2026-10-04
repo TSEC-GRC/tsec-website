@@ -182,8 +182,6 @@
 <footer class="footer"><div class="container footer-inner"><a class="footer-brand" href="index.html"><img src="assets/enterprise/tsec-logo.svg" alt="TSEC"></a><div>Security & Compliance That Win Business.</div><div class="footer-links"><a href="index.html">Home</a><a href="resources.html">Professional Packs™</a><a href="enterprise.html">Enterprise</a><a href="about.html">About</a><a href="resources.html">Resources</a></div><div>© 2026 TSEC Risk & Cyber Advisory LLC</div></div></footer>
 <script src="js/enterprise.js"></script>
 
-</script>
-
 <script>
   /*
    * =====================================================
@@ -191,8 +189,9 @@
    * =====================================================
    *
    * Handles ?program=... links coming from index.html.
-   * Uses the existing data-program attributes on the
-   * Enterprise Program cards.
+   * Maps Home Core Solutions IDs to the existing
+   * Enterprise Program tabs.
+   * =====================================================
    */
 
   document.addEventListener(
@@ -211,55 +210,74 @@
         return;
       }
 
+      /*
+       * Map the program IDs used by index.html
+       * to the existing data-program values
+       * used by enterprise.html.
+       */
 
-      const programCard =
-        document.querySelector(
-          '.tsec-enterprise-program-card[data-program="' +
-          CSS.escape(requestedProgram) +
-          '"]'
-        );
+      const programMap = {
+        "board-cybersecurity-governance": "board",
+        "enterprise-cyber-risk-management": "risk",
+        "enterprise-compliance-transformation": "compliance",
+        "fractional-vciso": "vciso"
+      };
 
-      if (!programCard) {
+      const targetProgram =
+        programMap[requestedProgram];
+
+      if (!targetProgram) {
 
         console.warn(
-          "TSEC Enterprise Program not found:",
+          "TSEC Enterprise Program mapping not found:",
           requestedProgram
         );
 
         return;
-
       }
 
+      const programTab =
+        document.querySelector(
+          '.program-tab[data-program="' +
+          targetProgram +
+          '"]'
+        );
+
+      if (!programTab) {
+
+        console.warn(
+          "TSEC Enterprise Program tab not found:",
+          targetProgram
+        );
+
+        return;
+      }
 
       /*
-       * Wait briefly for the page layout to settle
-       * before scrolling to the selected program.
+       * Scroll to the Enterprise Programs section.
        */
 
       setTimeout(
         function () {
 
-          programCard.scrollIntoView({
+          programTab.scrollIntoView({
             behavior: "smooth",
             block: "center"
           });
 
-
           /*
-           * Temporary visual emphasis so the visitor
-           * can immediately identify the selected program.
+           * Temporarily highlight the selected tab.
            */
 
-          programCard.classList.add(
-            "tsec-enterprise-program-selected"
+          programTab.classList.add(
+            "tsec-program-selected"
           );
-
 
           setTimeout(
             function () {
 
-              programCard.classList.remove(
-                "tsec-enterprise-program-selected"
+              programTab.classList.remove(
+                "tsec-program-selected"
               );
 
             },
@@ -274,7 +292,6 @@
   );
 </script>
 
-
 <style>
   /*
    * =====================================================
@@ -282,12 +299,11 @@
    * =====================================================
    */
 
-  .tsec-enterprise-program-card {
+  .program-tab {
     scroll-margin-top: 110px;
   }
 
-
-  .tsec-enterprise-program-card.tsec-enterprise-program-selected {
+  .program-tab.tsec-program-selected {
     outline:
       1px solid
       rgba(212, 175, 55, 0.85);
@@ -305,7 +321,6 @@
       box-shadow 0.25s ease;
   }
 </style>
-
 
 </body>
 </html>
