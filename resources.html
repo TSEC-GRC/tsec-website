@@ -28,11 +28,45 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-cta:hover{background:var(--blue2);transform:translateY(-1px)}
 
 /* ── PAGE HERO ── */
-.page-hero{padding:130px 4% 60px;background:linear-gradient(180deg,rgba(10,22,40,0.98) 0%,var(--navy) 100%);border-bottom:1px solid var(--border);text-align:center;position:relative;overflow:hidden}
-.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(26,86,219,0.12) 0%,transparent 70%);pointer-events:none}
-.page-hero-inner{position:relative;z-index:2;max-width:750px;margin:0 auto}
-.page-hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(79,195,247,0.1);border:1px solid rgba(79,195,247,0.2);border-radius:30px;padding:0.3rem 1rem;font-size:0.78rem;color:var(--cyan);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.2rem}
-.page-hero h1{font-family:var(--font-head);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:0.8rem;letter-spacing:0.02em}
+.page-hero {
+  padding: 130px 4% 70px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 17, 31, 0.58) 0%,
+      rgba(7, 17, 31, 0.72) 100%
+    ),
+    url("assets/enterprise/enterprise-city.webp")
+    center center / cover no-repeat;
+
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+  
+  .page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7,17,31,0.12),
+      transparent 50%,
+      rgba(7,17,31,0.18)
+    );
+
+  pointer-events: none;
+}
+  
+  .page-hero-inner{position:relative;z-index:2;max-width:750px;margin:0 auto}
+
+  .page-hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(212,175,55,0.10);border:1px solid rgba(212,175,55,0.35);border-radius:30px;padding:0.3rem 1rem;font-size:0.78rem;color:#d4af37;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.2rem}
+
+  .page-hero h1{font-family:var(--font-head);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:0.8rem;letter-spacing:0.02em}
 .page-hero h1 span{color:var(--cyan)}
 .page-hero p{color:var(--gray);font-size:1rem;max-width:580px;margin:0 auto 2rem;line-height:1.7}
 
