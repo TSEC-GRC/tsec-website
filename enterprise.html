@@ -189,8 +189,9 @@
    * =====================================================
    *
    * Handles ?program=... links coming from index.html.
-   * Maps Home Core Solutions IDs to the existing
-   * Enterprise Program tabs.
+   *
+   * Maps the Core Solutions program IDs to the
+   * existing Enterprise Program tabs and panels.
    * =====================================================
    */
 
@@ -210,10 +211,10 @@
         return;
       }
 
+
       /*
        * Map the program IDs used by index.html
-       * to the existing data-program values
-       * used by enterprise.html.
+       * to the existing Enterprise Program IDs.
        */
 
       const programMap = {
@@ -223,8 +224,10 @@
         "fractional-vciso": "vciso"
       };
 
+
       const targetProgram =
         programMap[requestedProgram];
+
 
       if (!targetProgram) {
 
@@ -236,12 +239,30 @@
         return;
       }
 
+
+      /*
+       * Find the correct tab.
+       */
+
       const programTab =
         document.querySelector(
           '.program-tab[data-program="' +
           targetProgram +
           '"]'
         );
+
+
+      /*
+       * Find the correct content panel.
+       */
+
+      const programPanel =
+        document.querySelector(
+          '.program-panel-data[data-program="' +
+          targetProgram +
+          '"]'
+        );
+
 
       if (!programTab) {
 
@@ -253,76 +274,146 @@
         return;
       }
 
-      /*
-       * Scroll to the Enterprise Programs section.
-       */
 
-     setTimeout(
-  function () {
+      if (!programPanel) {
 
-    /*
-     * Scroll the Enterprise Programs section
-     * into the visible area of the page.
-     */
-
-    const programsSection =
-      document.getElementById("programs");
-
-    if (programsSection) {
-
-      const headerOffset = 100;
-
-      const sectionTop =
-        programsSection.getBoundingClientRect().top +
-        window.pageYOffset -
-        headerOffset;
-
-      window.scrollTo({
-        top: sectionTop,
-        behavior: "smooth"
-      });
-    }
-
-    /*
-     * If the tabs are horizontally scrollable,
-     * bring the selected tab into view as well.
-     */
-
-    setTimeout(
-      function () {
-
-        programTab.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center"
-        });
-
-      },
-      250
-    );
-
-    /*
-     * Temporarily highlight the selected tab.
-     */
-
-    programTab.classList.add(
-      "tsec-program-selected"
-    );
-
-    setTimeout(
-      function () {
-
-        programTab.classList.remove(
-          "tsec-program-selected"
+        console.warn(
+          "TSEC Enterprise Program panel not found:",
+          targetProgram
         );
 
-      },
-      2200
-    );
+        return;
+      }
 
-  },
-  150
-);
+
+      /*
+       * =================================================
+       * ACTIVATE THE CORRECT PROGRAM
+       * =================================================
+       *
+       * This reproduces the visual state normally
+       * created when the visitor clicks a program tab.
+       */
+
+
+      /*
+       * Remove active state from all tabs.
+       */
+
+      document
+        .querySelectorAll(".program-tab")
+        .forEach(
+          function (tab) {
+
+            tab.classList.remove("active");
+
+          }
+        );
+
+
+      /*
+       * Hide all program panels.
+       */
+
+      document
+        .querySelectorAll(".program-panel-data")
+        .forEach(
+          function (panel) {
+
+            panel.hidden = true;
+
+          }
+        );
+
+
+      /*
+       * Activate the requested tab.
+       */
+
+      programTab.classList.add("active");
+
+
+      /*
+       * Show the requested panel.
+       */
+
+      programPanel.hidden = false;
+
+
+      /*
+       * =================================================
+       * SCROLL TO THE PROGRAM
+       * =================================================
+       */
+
+      setTimeout(
+        function () {
+
+          const programsSection =
+            document.getElementById("programs");
+
+
+          if (programsSection) {
+
+            const headerOffset = 100;
+
+            const sectionTop =
+              programsSection.getBoundingClientRect().top +
+              window.pageYOffset -
+              headerOffset;
+
+
+            window.scrollTo({
+              top: sectionTop,
+              behavior: "smooth"
+            });
+
+          }
+
+
+          /*
+           * If the tabs are horizontally scrollable,
+           * bring the selected tab into view.
+           */
+
+          setTimeout(
+            function () {
+
+              programTab.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "center"
+              });
+
+            },
+            250
+          );
+
+
+          /*
+           * Temporary visual highlight.
+           */
+
+          programTab.classList.add(
+            "tsec-program-selected"
+          );
+
+
+          setTimeout(
+            function () {
+
+              programTab.classList.remove(
+                "tsec-program-selected"
+              );
+
+            },
+            2200
+          );
+
+
+        },
+        150
+      );
 
     }
   );
