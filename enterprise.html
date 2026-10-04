@@ -257,36 +257,72 @@
        * Scroll to the Enterprise Programs section.
        */
 
-      setTimeout(
-        function () {
+     setTimeout(
+  function () {
 
-          programTab.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
+    /*
+     * Scroll the Enterprise Programs section
+     * into the visible area of the page.
+     */
 
-          /*
-           * Temporarily highlight the selected tab.
-           */
+    const programsSection =
+      document.getElementById("programs");
 
-          programTab.classList.add(
-            "tsec-program-selected"
-          );
+    if (programsSection) {
 
-          setTimeout(
-            function () {
+      const headerOffset = 100;
 
-              programTab.classList.remove(
-                "tsec-program-selected"
-              );
+      const sectionTop =
+        programsSection.getBoundingClientRect().top +
+        window.pageYOffset -
+        headerOffset;
 
-            },
-            2200
-          );
+      window.scrollTo({
+        top: sectionTop,
+        behavior: "smooth"
+      });
+    }
 
-        },
-        150
-      );
+    /*
+     * If the tabs are horizontally scrollable,
+     * bring the selected tab into view as well.
+     */
+
+    setTimeout(
+      function () {
+
+        programTab.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center"
+        });
+
+      },
+      250
+    );
+
+    /*
+     * Temporarily highlight the selected tab.
+     */
+
+    programTab.classList.add(
+      "tsec-program-selected"
+    );
+
+    setTimeout(
+      function () {
+
+        programTab.classList.remove(
+          "tsec-program-selected"
+        );
+
+      },
+      2200
+    );
+
+  },
+  150
+);
 
     }
   );
