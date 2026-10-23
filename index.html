@@ -1931,6 +1931,34 @@ footer{padding:2rem 4%;border-top:1px solid var(--border);background:rgba(6,13,2
 .footer-links a{color:var(--gray2);text-decoration:none;font-size:0.78rem;transition:color .2s}
 .footer-links a:hover{color:var(--cyan)}
 
+
+/* ── LEGAL POLICY LINKS ── */
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  width: 100%;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-legal-links a {
+  color: var(--gray2);
+  text-decoration: none;
+  font-size: 0.78rem;
+  transition: color .2s;
+}
+
+.footer-legal-links a:hover {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+  
 /* RESPONSIVE */
 
 @media(max-width:1000px){.solutions-grid{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr}.hero-right{display:none}.why-grid{grid-template-columns:1fr}}
