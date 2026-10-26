@@ -449,5 +449,115 @@
   }
 </style>
 
+<!-- ENTERPRISE FORM SUBMISSION -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("enterpriseQuoteForm");
+  const selectedCount = document.getElementById("selectedCount");
+  const formMessage = document.getElementById("formMessage");
+
+  if (!form) return;
+
+  const submitButton = form.querySelector('button[type="submit"]');
+  const serviceCheckboxes = form.querySelectorAll(
+    'input[name="services"]'
+  );
+
+  // Update the selected services counter.
+  function updateSelectedCount() {
+    const count = form.querySelectorAll(
+      'input[name="services"]:checked'
+    ).length;
+
+    if (selectedCount) {
+      selectedCount.textContent =
+        `${count} ${count === 1 ? "service" : "services"} selected`;
+    }
+  }
+
+  serviceCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", updateSelectedCount);
+  });
+
+  updateSelectedCount();
+
+  // Submit the Enterprise inquiry.
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const services = Array.from(serviceCheckboxes)
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.value);
+
+    if (services.length === 0) {
+      formMessage.textContent =
+        "Please select at least one service.";
+      formMessage.style.color = "#d97706";
+      return;
+    }
+
+    const payload = {
+      company: form.elements.company.value.trim(),
+      industry: form.elements.industry.value,
+      firstName: form.elements.firstName.value.trim(),
+      lastName: form.elements.lastName.value.trim(),
+      email: form.elements.email.value.trim(),
+      role: form.elements.role.value.trim(),
+      requirements: form.elements.requirements.value.trim(),
+      services
+    };
+
+    const originalButtonText = submitButton.textContent;
+
+    submitButton.disabled = true;
+    submitButton.textContent = "SUBMITTING...";
+    formMessage.textContent = "";
+
+    try {
+      const response = await fetch(
+        "/.netlify/functions/enterprise-lead",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.error || "Unable to submit your inquiry."
+        );
+      }
+
+      formMessage.textContent =
+        "Thank you! Your Enterprise inquiry has been received.";
+      formMessage.style.color = "#16a34a";
+
+      form.reset();
+      updateSelectedCount();
+
+    } catch (error) {
+      console.error("Enterprise form submission error:", error);
+
+      formMessage.textContent =
+        "We couldn't submit your inquiry. Please try again later.";
+      formMessage.style.color = "#dc2626";
+
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
+  });
+});
+</script>
+
+
+
+
+  
 </body>
 </html>
