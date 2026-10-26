@@ -29,20 +29,7 @@
   }));
   document.querySelectorAll('[data-scroll-quote]').forEach(btn=>btn.addEventListener('click',()=>quote&&quote.scrollIntoView({behavior:'smooth'})));
 
-  if(form){form.addEventListener('submit',function(e){
-    e.preventDefault();
-    const selected=[...document.querySelectorAll('input[name="services"]:checked')].map(x=>x.value);
-    if(!selected.length){
-      alert('Please select at least one Enterprise service.');
-      return;
-    }
-    // Front-end demo behavior. Replace this handler with the approved backend/email endpoint when ready.
-    message.textContent='Thank you. Your Enterprise service request has been captured. A TSEC representative will review the scope and follow up regarding next steps.';
-    message.classList.add('show');
-    form.reset(); updateCount();
-    window.setTimeout(()=>message.classList.remove('show'),9000);
-  });}
-
+ 
   document.querySelector('.nav-toggle')?.addEventListener('click',()=>{
     const menu=document.querySelector('.mobile-menu');
     if(menu) menu.classList.toggle('open');
