@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import {
     validateCompletedCapture,
     getBuyerEmail
-} from "../lib/paypal-fulfillment.js";
+} from "../netlify/lib/paypal-fulfillment.js";
 
 const PRODUCT = {
     currency: "USD",
