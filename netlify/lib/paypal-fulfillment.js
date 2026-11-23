@@ -397,6 +397,130 @@ async function registerPurchase(db, {
     };
 }
 
+
+/**
+ * Normalize a customer delivery email.
+ */
+function normalizeDeliveryEmail(email) {
+    if (
+        typeof email !== "string" ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+    ) {
+        return null;
+    }
+
+    return email.trim().toLowerCase();
+}
+
+/**
+ * Associate a PayPal order with its requested delivery email.
+ * An existing order association cannot be overwritten with
+ * a different product or email.
+ */
+export async function savePendingPayPalOrder({
+    orderId,
+    productId,
+    customerEmail,
+    database = null
+}) {
+    if (
+        typeof orderId !== "string" ||
+        !/^[A-Z0-9-]{10,40}$/i.test(orderId)
+    ) {
+        throw new Error("Invalid PayPal order ID.");
+    }
+
+    if (typeof productId !== "string" || !productId.trim()) {
+        throw new Error("Invalid PayPal product ID.");
+    }
+
+    const normalizedEmail = normalizeDeliveryEmail(customerEmail);
+
+    if (!normalizedEmail) {
+        throw new Error("Invalid delivery email.");
+    }
+
+    const db = database ?? getDatabase();
+
+    const rows = await db.sql`
+        INSERT INTO paypal_pending_orders (
+            order_id,
+            product_id,
+            delivery_email
+        )
+        VALUES (
+            ${orderId},
+            ${productId.trim()},
+            ${normalizedEmail}
+        )
+        ON CONFLICT (order_id)
+        DO UPDATE SET
+            updated_at = NOW()
+        WHERE
+            paypal_pending_orders.product_id = EXCLUDED.product_id
+            AND paypal_pending_orders.delivery_email = EXCLUDED.delivery_email
+        RETURNING order_id
+    `;
+
+    if (!rows || rows.length !== 1) {
+        throw new Error(
+            "PayPal order is already associated with different checkout details."
+        );
+    }
+
+    return { orderId, productId: productId.trim(), customerEmail: normalizedEmail };
+}
+
+/**
+ * Retrieve the delivery email previously associated with
+ * a PayPal order. Product mismatch is treated as an error.
+ */
+export async function getPendingPayPalOrderEmail({
+    orderId,
+    productId,
+    database = null
+}) {
+    if (
+        typeof orderId !== "string" ||
+        !/^[A-Z0-9-]{10,40}$/i.test(orderId)
+    ) {
+        throw new Error("Invalid PayPal order ID.");
+    }
+
+    if (typeof productId !== "string" || !productId.trim()) {
+        throw new Error("Invalid PayPal product ID.");
+    }
+
+    const db = database ?? getDatabase();
+
+    const rows = await db.sql`
+        SELECT product_id, delivery_email
+        FROM paypal_pending_orders
+        WHERE order_id = ${orderId}
+        LIMIT 1
+    `;
+
+    if (!rows || rows.length === 0) {
+        return null;
+    }
+
+    const saved = rows[0];
+
+    if (saved.product_id !== productId.trim()) {
+        throw new Error(
+            "PayPal order product does not match its saved checkout association."
+        );
+    }
+
+    const email = normalizeDeliveryEmail(saved.delivery_email);
+
+    if (!email) {
+        throw new Error("Saved PayPal delivery email is invalid.");
+    }
+
+    return email;
+}
+
 /**
  * Public shared fulfillment entry point.
  */

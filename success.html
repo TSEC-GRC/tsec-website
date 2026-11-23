@@ -358,7 +358,7 @@
             class="success-icon"
             id="success-icon"
         >
-            ✓
+            âœ“
         </div>
 
 
@@ -458,7 +458,7 @@
     <div class="footer-container">
 
         <p>
-            © 2026 TSEC Risk & Cyber Advisory LLC.
+            Â© 2026 TSEC Risk & Cyber Advisory LLC.
             All rights reserved.
         </p>
 
@@ -473,335 +473,158 @@
 ================================================= -->
 
 <script>
-
 (function () {
+    const MAX_ATTEMPTS = 20;
+    const RETRY_DELAY = 3000;
+    const PAYPAL_AUTH_PREFIX = "tsec_paypal_download_";
 
+    let attempts = 0;
 
-    // =================================================
-    // CONFIGURATION
-    // =================================================
+    const statusMessage = document.getElementById("status-message");
+    const productName = document.getElementById("product-name");
+    const downloadButton = document.getElementById("download-button");
+    const errorBox = document.getElementById("success-error");
+    const transactionReference = document.getElementById("transaction-reference");
 
-    const MAX_ATTEMPTS =
-        20;
+    const params = new URLSearchParams(window.location.search);
+    const transactionId = params.get("transaction_id");
+    const provider = (params.get("provider") || "paddle").toLowerCase();
 
-
-    const RETRY_DELAY =
-        3000;
-
-
-    let attempts =
-        0;
-
-
-    // =================================================
-    // ELEMENTS
-    // =================================================
-
-    const statusMessage =
-        document.getElementById(
-            "status-message"
-        );
-
-
-    const productName =
-        document.getElementById(
-            "product-name"
-        );
-
-
-    const downloadButton =
-        document.getElementById(
-            "download-button"
-        );
-
-
-    const errorBox =
-        document.getElementById(
-            "success-error"
-        );
-
-
-    const transactionReference =
-        document.getElementById(
-            "transaction-reference"
-        );
-
-
-    // =================================================
-    // GET TRANSACTION ID
-    // =================================================
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    const transactionId =
-        params.get(
-            "transaction_id"
-        );
-
-
-    // =================================================
-    // VALIDATE TRANSACTION ID
-    // =================================================
-
-    if (
-        !transactionId
-    ) {
-
+    if (!transactionId) {
         showError(
             "We could not identify your transaction. Please contact TSEC support if you completed a purchase."
         );
-
-
         return;
-
     }
 
-
-    transactionReference.textContent =
-        `Transaction: ${transactionId}`;
-
-
-    // =================================================
-    // STATUS UPDATE
-    // =================================================
-
-    function setStatus(
-        message
-    ) {
-
-        statusMessage.textContent =
-            message;
-
+    if (!["paypal", "paddle"].includes(provider)) {
+        showError("The payment provider could not be verified.");
+        return;
     }
 
+    transactionReference.textContent = `Transaction: ${transactionId}`;
 
-    // =================================================
-    // SHOW ERROR
-    // =================================================
-
-    function showError(
-        message
-    ) {
-
-        errorBox.textContent =
-            message;
-
-        errorBox.style.display =
-            "block";
-
-        downloadButton.classList.add(
-            "disabled"
-        );
-
+    function setStatus(message) {
+        statusMessage.textContent = message;
     }
 
+    function showError(message) {
+        errorBox.textContent = message;
+        errorBox.style.display = "block";
+        downloadButton.classList.add("disabled");
+        downloadButton.setAttribute("aria-disabled", "true");
+    }
 
-    // =================================================
-    // READY
-    // =================================================
-
-    function showDownload(
-        data
-    ) {
-
+    function showDownload(data) {
         setStatus(
             "Your order has been verified and your secure download is ready."
         );
 
-
-        if (
-            data.product
-        ) {
-
-            productName.textContent =
-                data.product;
-
-            productName.style.display =
-                "block";
-
+        if (data.product) {
+            productName.textContent = data.product;
+            productName.style.display = "block";
         }
 
+        downloadButton.href = data.download_url;
+        downloadButton.textContent = "Download Your Professional Pack →";
+        downloadButton.classList.remove("disabled");
+        downloadButton.removeAttribute("aria-disabled");
 
-        downloadButton.href =
-            data.download_url;
-
-
-        downloadButton.textContent =
-            "Download Your Professional Pack →";
-
-
-        downloadButton.classList.remove(
-            "disabled"
-        );
-
-
-        if (
-            data.downloads_remaining
-            !== undefined
-        ) {
-
+        if (data.downloads_remaining !== undefined) {
             downloadButton.title =
                 `${data.downloads_remaining} download(s) remaining`;
-
         }
-
     }
 
+    async function requestDownloadAuthorization() {
+        if (provider === "paddle") {
+            return fetch(
+                `/.netlify/functions/get-download-link?transaction_id=${encodeURIComponent(transactionId)}`,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+        }
 
-    // =================================================
-    // CHECK ORDER
-    // =================================================
+        const authorization = sessionStorage.getItem(
+            PAYPAL_AUTH_PREFIX + transactionId
+        );
+
+        if (!authorization) {
+            throw new Error(
+                "The secure PayPal download authorization is missing from this browser session. If you completed payment, contact TSEC support with your transaction reference."
+            );
+        }
+
+        return fetch("/.netlify/functions/get-download-link", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            cache: "no-store",
+            body: JSON.stringify({
+                transaction_id: transactionId,
+                downloadAuthorization: authorization
+            })
+        });
+    }
 
     async function checkOrder() {
-
         attempts++;
 
-
         try {
-
             setStatus(
                 attempts === 1
                     ? "Verifying your order..."
-                    : "Still processing your payment. Please wait..."
+                    : "Your payment is being processed. Please wait..."
             );
 
+            const response = await requestDownloadAuthorization();
+            const data = await response.json().catch(() => ({}));
 
-            const response =
-                await fetch(
-                    `/.netlify/functions/get-download-link?transaction_id=${encodeURIComponent(
-                        transactionId
-                    )}`,
-                    {
-                        method:
-                            "GET",
-
-                        cache:
-                            "no-store"
-                    }
-                );
-
-
-            const data =
-                await response.json();
-
-
-            // =============================================
-            // READY
-            // =============================================
-
-            if (
-                response.ok
-                &&
-                data.ready === true
-            ) {
-
-                showDownload(
-                    data
-                );
-
-
+            if (response.ok && data.ready === true) {
+                showDownload(data);
                 return;
-
             }
 
-
-            // =============================================
-            // PROCESSING
-            // =============================================
-
             if (
-                response.status === 202
-                ||
-                data.status ===
-                    "processing"
+                response.status === 202 ||
+                data.status === "processing"
             ) {
-
-                if (
-                    attempts <
-                    MAX_ATTEMPTS
-                ) {
-
-                    setTimeout(
-                        checkOrder,
-                        RETRY_DELAY
-                    );
-
-
+                if (attempts < MAX_ATTEMPTS) {
+                    setTimeout(checkOrder, RETRY_DELAY);
                     return;
-
                 }
-
 
                 showError(
                     "Your payment was received, but your download is still being prepared. Please refresh this page in a few moments."
                 );
-
-
                 return;
-
             }
 
-
-            // =============================================
-            // OTHER ERROR
-            // =============================================
-
             showError(
-                data.error
-                ||
+                data.error ||
                 "We were unable to prepare your secure download."
             );
-
-
         } catch (error) {
+            console.error("Order verification error:", error);
 
-            console.error(
-                "Order verification error:",
-                error
-            );
-
-
-            if (
-                attempts <
-                MAX_ATTEMPTS
-            ) {
-
-                setTimeout(
-                    checkOrder,
-                    RETRY_DELAY
-                );
-
-
+            if (attempts < MAX_ATTEMPTS) {
+                setStatus("Temporarily unable to verify the order. Retrying...");
+                setTimeout(checkOrder, RETRY_DELAY);
                 return;
-
             }
 
-
             showError(
-                "We were unable to verify your order right now. Please refresh this page or contact TSEC support."
+                error.message ||
+                "We were unable to verify your order. Please contact TSEC support."
             );
-
         }
-
     }
 
-
-    // =================================================
-    // START
-    // =================================================
-
     checkOrder();
-
-
 })();
-
-</script>
-
-
-</body>
+</script></body>
 
 </html>

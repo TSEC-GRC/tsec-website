@@ -99,6 +99,18 @@ export default async (request) => {
             );
         }
 
+        const deliveryEmail =
+            typeof body?.deliveryEmail === "string"
+                ? body.deliveryEmail.trim().toLowerCase()
+                : "";
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(deliveryEmail)) {
+            return jsonResponse(
+                { error: "A valid delivery email is required" },
+                400
+            );
+        }
+
         // =====================================================
         // PRIVATE PRODUCT CATALOG
         // =====================================================
@@ -229,6 +241,19 @@ export default async (request) => {
                 502
             );
         }
+
+        // =====================================================
+        // SAVE DELIVERY EMAIL AGAINST THE PAYPAL ORDER
+        // =====================================================
+
+        const { savePendingPayPalOrder } =
+            await import("../lib/paypal-fulfillment.js");
+
+        await savePendingPayPalOrder({
+            orderId: orderData.id,
+            productId: product.productId,
+            customerEmail: deliveryEmail
+        });
 
         // =====================================================
         // SUCCESS

@@ -238,29 +238,27 @@
 
         <div class="payment-box">
 
+    <h2>Payment</h2>
 
-            <h2>
-                Payment
-            </h2>
+    <p>
+        Secure one-time payment processing powered by PayPal.
+        Venmo is available when supported by PayPal.
+    </p>
 
+    <div id="paypal-button-container" class="paypal-button-container"></div>
 
-            <p>
-                Secure payment processing powered by PayPal.
-            </p>
+    <div id="venmo-button-container"
+         class="venmo-button-container"
+         style="display:none;"></div>
 
+    <p id="payment-status"
+       class="payment-status"
+       role="status"
+       aria-live="polite"></p>
 
-            <button
-                type="button"
-                class="checkout-button"
-            >
-                Continue to Secure Payment
-            </button>
+</div>
 
-
-        </div>
-
-
-    </section>
+</section>
 
 
 </main>
@@ -279,7 +277,7 @@
 
 
         <p>
-            © 2026 TSEC Risk & Cyber Advisory LLC. All rights reserved.
+            Â© 2026 TSEC Risk & Cyber Advisory LLC. All rights reserved.
         </p>
 
 
@@ -291,11 +289,7 @@
 
 
 
-<!-- ================================
-     PADDLE CHECKOUT
-================================ -->
-
-<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<!-- PayPal SDK is loaded dynamically after public configuration is retrieved. -->
 
 
 <!-- ================================

@@ -128,6 +128,7 @@ export function createPayPalCaptureHandler({
     env = process.env,
     lookupProduct = getProductById,
     getBuyerEmail,
+    getPendingPayPalOrderEmail = async () => null,
     processCompletedCapture,
     authorizeDownload = createDownloadAuthorization
 }) {
@@ -329,7 +330,13 @@ export function createPayPalCaptureHandler({
                 );
             }
 
-            const customerEmail = getBuyerEmail(order);
+            const savedDeliveryEmail = await getPendingPayPalOrderEmail({
+                orderId,
+                productId: product.productId
+            });
+
+            const customerEmail =
+                savedDeliveryEmail || getBuyerEmail(order);
 
             const fulfillment = await processCompletedCapture({
                 capture,
@@ -405,12 +412,12 @@ let defaultHandler;
 export default async function handler(request) {
     try {
         if (!defaultHandler) {
-            const fulfillment = await import("./paypal-fulfillment.js");
-
-            defaultHandler = createPayPalCaptureHandler({
-                getBuyerEmail: fulfillment.getBuyerEmail,
-                processCompletedCapture: fulfillment.processCompletedCapture
-            });
+            const fulfillment = await import("../lib/paypal-fulfillment.js");
+      defaultHandler = createPayPalCaptureHandler({
+        getBuyerEmail: fulfillment.getBuyerEmail,
+        getPendingPayPalOrderEmail: fulfillment.getPendingPayPalOrderEmail,
+        processCompletedCapture: fulfillment.processCompletedCapture
+      });
         }
 
         return await defaultHandler(request);

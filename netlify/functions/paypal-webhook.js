@@ -1,7 +1,7 @@
 import { getProductById } from "../lib/tsec-products.js";
 
 /**
- * TSEC — PayPal Webhook
+ * TSEC ΓÇö PayPal Webhook
  *
  * Dependencies are injected for isolated testing.
  * Production fulfillment is loaded lazily by the default handler.
@@ -22,12 +22,14 @@ export function createPayPalWebhookHandler({
     env = process.env,
     lookupProduct = getProductById,
     getBuyerEmail,
+    getPendingPayPalOrderEmail,
     processCompletedCapture
 }) {
     if (
         typeof fetchImpl !== "function" ||
         typeof lookupProduct !== "function" ||
         typeof getBuyerEmail !== "function" ||
+        typeof getPendingPayPalOrderEmail !== "function" ||
         typeof processCompletedCapture !== "function"
     ) {
         throw new TypeError("Invalid PayPal webhook dependencies.");
@@ -365,7 +367,11 @@ export function createPayPalWebhookHandler({
                 );
             }
 
-            const customerEmail = getBuyerEmail(order);
+            const savedDeliveryEmail = await getPendingPayPalOrderEmail({
+                orderId,
+                productId: product.productId
+            });
+            const customerEmail = savedDeliveryEmail || getBuyerEmail(order);
 
             const fulfillment = await processCompletedCapture({
                 capture: order.purchase_units[0].payments.captures.find(
@@ -430,13 +436,7 @@ let defaultHandlerPromise;
 export default async function handler(request) {
     if (!defaultHandlerPromise) {
         defaultHandlerPromise = import("../lib/paypal-fulfillment.js").then(
-            ({
-                getBuyerEmail,
-                processCompletedCapture
-            }) => createPayPalWebhookHandler({
-                getBuyerEmail,
-                processCompletedCapture
-            })
+            ({ getBuyerEmail, getPendingPayPalOrderEmail, processCompletedCapture }) => createPayPalWebhookHandler({ getBuyerEmail, getPendingPayPalOrderEmail, processCompletedCapture })
         );
     }
 
