@@ -1,761 +1,408 @@
-// =========================================================
-// TSEC CHECKOUT ENGINE
-// Version: 2.0
-// Purpose:
-// - Load selected product from products.json
-// - Load customer data from sessionStorage
-// - Initialize Paddle Live
-// - Open secure Paddle checkout
-// - Redirect to success.html after checkout completion
-// =========================================================
+/* =========================================================
+   TSEC PAYPAL CHECKOUT ENGINE
+   PayPal + eligible Venmo only.
+   Prices and payment authorization remain server-controlled.
+========================================================= */
 
-
-console.log(
-    "✅ TSEC Checkout Engine 2.0 Loaded"
-);
-
-
-// =========================================================
-// PADDLE CONFIGURATION
-// =========================================================
-
-const PADDLE_CLIENT_TOKEN =
-    "live_d0b4d4140a4caaeb982bf9796c3";
-
-
-// =========================================================
-// GLOBAL CHECKOUT STATE
-// =========================================================
+console.log("TSEC PayPal Checkout Engine loaded.");
 
 let CHECKOUT_CUSTOMER = null;
-
 let CURRENT_CHECKOUT_PRODUCT = null;
 
+const PAYPAL_SUPPORTED_PRODUCTS = new Set([
+    "soc2-professional-pack",
+    "iso27001-professional-pack",
+    "nydfs-professional-pack",
+    "nist-csf-professional-pack",
+    "pci-dss-professional-pack",
+    "hipaa-security-professional-pack",
+    "hitrust-professional-pack",
+    "iso42001-professional-pack",
+    "iso22301-professional-pack"
+]);
 
-// =========================================================
-// LOAD CUSTOMER DATA
-// =========================================================
+const PAYPAL_AUTH_PREFIX = "tsec_paypal_download_";
+
+function setPaymentStatus(message, isError = false) {
+    const element = document.getElementById("payment-status");
+
+    if (!element) return;
+
+    element.textContent = message;
+    element.style.display = message ? "block" : "none";
+    element.setAttribute("aria-live", "polite");
+
+    element.style.color = isError ? "#b91c1c" : "#475569";
+}
 
 function loadCheckoutCustomer() {
-
     try {
+        const stored = sessionStorage.getItem("tsec_checkout_customer");
 
-        const storedCustomer =
-            sessionStorage.getItem(
-                "tsec_checkout_customer"
+        if (!stored) {
+            setPaymentStatus(
+                "Your checkout session has expired. Return to the product page and try again.",
+                true
             );
-
-
-        if (!storedCustomer) {
-
-            console.warn(
-                "⚠️ No checkout customer data found."
-            );
-
             return false;
-
         }
 
-
-        CHECKOUT_CUSTOMER =
-            JSON.parse(
-                storedCustomer
-            );
-
+        CHECKOUT_CUSTOMER = JSON.parse(stored);
 
         if (
-            !CHECKOUT_CUSTOMER.email
+            !CHECKOUT_CUSTOMER ||
+            typeof CHECKOUT_CUSTOMER.email !== "string" ||
+            !CHECKOUT_CUSTOMER.email.trim()
         ) {
-
-            console.warn(
-                "⚠️ Checkout customer email is missing."
+            setPaymentStatus(
+                "Your checkout email is unavailable. Return to the product page and try again.",
+                true
             );
-
             return false;
-
         }
 
-
-        console.log(
-            "✅ Checkout customer loaded:",
-            CHECKOUT_CUSTOMER.email
-        );
-
-
         return true;
-
     } catch (error) {
-
-        console.error(
-            "❌ Unable to load checkout customer:",
-            error
-        );
-
-
+        console.error("Unable to load checkout customer:", error);
+        setPaymentStatus("Unable to load your checkout session.", true);
         return false;
-
     }
-
 }
-
-
-// =========================================================
-// LOAD CHECKOUT PRODUCT
-// =========================================================
 
 async function loadCheckoutProduct() {
-
     try {
-
-        console.log(
-            "⏳ Loading checkout product..."
-        );
-
-
-        // =================================================
-        // GET PRODUCT ID FROM URL
-        // =================================================
-
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
-
-
-        const productId =
-            params.get("id");
-
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get("id");
 
         if (!productId) {
-
-            throw new Error(
-                "No product ID specified in checkout URL."
-            );
-
+            throw new Error("No product ID specified.");
         }
 
-
-        console.log(
-            "🔎 Checkout Product ID:",
-            productId
-        );
-
-
-        // =================================================
-        // LOAD PRODUCTS DATABASE
-        // =================================================
-
-        const response =
-            await fetch(
-                "data/products.json",
-                {
-                    cache: "no-store"
-                }
-            );
-
+        const response = await fetch("data/products.json", {
+            cache: "no-store"
+        });
 
         if (!response.ok) {
-
-            throw new Error(
-                `Unable to load products.json: HTTP ${response.status}`
-            );
-
+            throw new Error(`Product catalog unavailable: HTTP ${response.status}`);
         }
 
-
-        const data =
-            await response.json();
-
-
-        const products =
-            Array.isArray(data)
-                ? data
-                : data.products;
-
+        const catalog = await response.json();
+        const products = Array.isArray(catalog) ? catalog : catalog.products;
 
         if (!Array.isArray(products)) {
-
-            throw new Error(
-                "products.json does not contain a valid product array."
-            );
-
+            throw new Error("Invalid product catalog.");
         }
 
-
-        // =================================================
-        // FIND PRODUCT
-        // =================================================
-
-        const product =
-            products.find(
-                p =>
-                    String(p.id) ===
-                    String(productId)
-            );
-
+        const product = products.find(
+            item => String(item.id) === String(productId)
+        );
 
         if (!product) {
+            throw new Error("Product not found.");
+        }
 
+        if (!PAYPAL_SUPPORTED_PRODUCTS.has(product.id)) {
             throw new Error(
-                `Product not found: ${productId}`
+                "This product is not currently available for online payment. Please contact TSEC."
             );
-
         }
 
+        CURRENT_CHECKOUT_PRODUCT = product;
 
-        CURRENT_CHECKOUT_PRODUCT =
-            product;
-
-
-        console.log(
-            "✅ Checkout product loaded:",
-            product
-        );
-
-
-        // =================================================
-        // PRODUCT IMAGE
-        // =================================================
-
-        const image =
-            document.getElementById(
-                "checkout-product-image"
-            );
-
-
+        const image = document.getElementById("checkout-product-image");
         if (image) {
-
-            image.src =
-                product.image || "";
-
-            image.alt =
-                product.title ||
-                "TSEC Professional Pack";
-
+            image.src = product.image || "";
+            image.alt = product.title || "TSEC Professional Pack";
         }
 
+        const title = document.getElementById("checkout-product-title");
+        if (title) title.textContent = product.title || "";
 
-        // =================================================
-        // PRODUCT TITLE
-        // =================================================
+        const positioning = document.getElementById("checkout-product-positioning");
+        if (positioning) positioning.textContent = product.positioning || "";
 
-        const title =
-            document.getElementById(
-                "checkout-product-title"
-            );
-
-
-        if (title) {
-
-            title.textContent =
-                product.title || "";
-
-        }
-
-
-        // =================================================
-        // PRODUCT POSITIONING
-        // =================================================
-
-        const positioning =
-            document.getElementById(
-                "checkout-product-positioning"
-            );
-
-
-        if (positioning) {
-
-            positioning.textContent =
-                product.positioning || "";
-
-        }
-
-
-        // =================================================
-        // PRODUCT PRICE
-        // =================================================
-
-        const price =
-            document.getElementById(
-                "checkout-product-price"
-            );
-
+        const price = document.getElementById("checkout-product-price");
 
         if (price) {
+            const currency = product.currency || "USD";
+            const numericPrice = Number(product.price);
 
-            const currency =
-                product.currency || "USD";
-
-
-            const numericPrice =
-                Number(product.price);
-
-
-            if (
-                !Number.isNaN(
-                    numericPrice
-                )
-            ) {
-
-                price.textContent =
-                    new Intl.NumberFormat(
-                        "en-US",
-                        {
-                            style: "currency",
-                            currency: currency
-                        }
-                    ).format(
-                        numericPrice
-                    );
-
-            } else {
-
-                price.textContent =
-                    product.price || "—";
-
-            }
-
+            price.textContent = Number.isFinite(numericPrice)
+                ? new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency
+                }).format(numericPrice)
+                : "—";
         }
-
-
-        console.log(
-            `✅ Checkout ready: ${product.title}`
-        );
-
 
         return true;
-
     } catch (error) {
+        console.error("Checkout product error:", error);
 
-        console.error(
-            "❌ Checkout loading error:",
-            error
-        );
+        const title = document.getElementById("checkout-product-title");
+        if (title) title.textContent = "Product Unavailable";
 
+        const positioning = document.getElementById("checkout-product-positioning");
+        if (positioning) positioning.textContent = error.message;
 
-        const title =
-            document.getElementById(
-                "checkout-product-title"
-            );
+        const price = document.getElementById("checkout-product-price");
+        if (price) price.textContent = "—";
 
-
-        if (title) {
-
-            title.textContent =
-                "Product Unavailable";
-
-        }
-
-
-        const positioning =
-            document.getElementById(
-                "checkout-product-positioning"
-            );
-
-
-        if (positioning) {
-
-            positioning.textContent =
-                "Unable to load product information.";
-
-        }
-
-
-        const price =
-            document.getElementById(
-                "checkout-product-price"
-            );
-
-
-        if (price) {
-
-            price.textContent =
-                "—";
-
-        }
-
-
+        setPaymentStatus(error.message, true);
         return false;
-
     }
-
 }
 
-
-// =========================================================
-// INITIALIZE PADDLE
-// =========================================================
-
-function initPaddle() {
-
-    if (
-        typeof Paddle ===
-        "undefined"
-    ) {
-
-        console.error(
-            "❌ Paddle.js is not loaded."
-        );
-
-        return false;
-
-    }
-
-
-    try {
-
-        
-        // ================================================
-        // INITIALIZE PADDLE
-        // ================================================
-
-        Paddle.Initialize({
-
-            token:
-                PADDLE_CLIENT_TOKEN,
-
-
-            eventCallback:
-                function (event) {
-
-                    console.log(
-                        "Paddle event:",
-                        event
-                    );
-
-
-                    // ====================================
-                    // CHECKOUT COMPLETED
-                    // ====================================
-
-                    if (
-                        event.name ===
-                        "checkout.completed"
-                    ) {
-
-                        const transactionId =
-                            event?.data
-                                ?.transaction_id;
-
-
-                        if (!transactionId) {
-
-                            console.error(
-                                "❌ Paddle checkout completed but transaction_id is missing."
-                            );
-
-                            return;
-
-                        }
-
-
-                        console.log(
-                            "✅ Paddle checkout completed:",
-                            transactionId
-                        );
-
-
-                        // =================================
-                        // REDIRECT TO SUCCESS PAGE
-                        // =================================
-
-                        const successUrl =
-                            `success.html?transaction_id=${encodeURIComponent(
-                                transactionId
-                            )}`;
-
-
-                        window.location.href =
-                            successUrl;
-
-                    }
-
-                }
-
-        });
-
-
-        console.log(
-        "✅ Paddle Live initialized."
-       );
-
-
-        return true;
-
-    } catch (error) {
-
-        console.error(
-            "❌ Paddle initialization error:",
-            error
-        );
-
-
-        return false;
-
-    }
-
-}
-
-
-// =========================================================
-// OPEN PADDLE CHECKOUT
-// =========================================================
-
-function openPaddleCheckout() {
-
-    // =====================================================
-    // VALIDATE PADDLE
-    // =====================================================
-
-    if (
-        typeof Paddle ===
-        "undefined"
-    ) {
-
-        alert(
-            "Secure payment service is unavailable. Please try again."
-        );
-
-        return;
-
-    }
-
-
-    // =====================================================
-    // VALIDATE CUSTOMER
-    // =====================================================
-
-    if (
-        !CHECKOUT_CUSTOMER
-        ||
-        !CHECKOUT_CUSTOMER.email
-    ) {
-
-        alert(
-            "Your checkout session has expired. Please return to the product page and try again."
-        );
-
-        return;
-
-    }
-
-
-    // =====================================================
-    // VALIDATE PRODUCT
-    // =====================================================
-
-    if (
-        !CURRENT_CHECKOUT_PRODUCT
-    ) {
-
-        alert(
-            "Product information is unavailable. Please try again."
-        );
-
-        return;
-
-    }
-
-
-    // =====================================================
-    // GET PADDLE PRICE ID
-    // =====================================================
-
-    const paddlePriceId =
-        CURRENT_CHECKOUT_PRODUCT.paddle_price_id
-        ||
-        "pri_01m3mextwkdpbymxpm5b7669sq";
-
-
-    console.log(
-        "💳 Opening Paddle Checkout:",
-        paddlePriceId
+async function loadPayPalSdk() {
+    const configResponse = await fetch(
+        "/.netlify/functions/paypal-public-config",
+        { method: "GET", cache: "no-store" }
     );
 
+    const config = await configResponse.json().catch(() => ({}));
 
-    // =====================================================
-    // OPEN PADDLE CHECKOUT
-    // =====================================================
+    if (
+        !configResponse.ok ||
+        typeof config.clientId !== "string" ||
+        !config.clientId.trim() ||
+        !["sandbox", "live"].includes(config.environment)
+    ) {
+        throw new Error(
+            config.error || "PayPal configuration is unavailable."
+        );
+    }
 
-    try {
+    const query = new URLSearchParams({
+        "client-id": config.clientId,
+        currency: "USD",
+        intent: "capture",
+        components: "buttons",
+        "enable-funding": "venmo",
+        "disable-funding": "card,credit,paylater"
+    });
 
-        Paddle.Checkout.open({
+    await new Promise((resolve, reject) => {
+        const script = document.createElement("script");
 
-            items: [
+        script.src = `https://www.paypal.com/sdk/js?${query.toString()}`;
+        script.async = true;
+        script.dataset.pageType = "checkout";
 
-                {
+        script.onload = resolve;
+        script.onerror = () => reject(
+            new Error("Unable to load the PayPal payment SDK.")
+        );
 
-                    priceId:
-                        paddlePriceId,
+        document.head.appendChild(script);
+    });
 
-                    quantity:
-                        1
+    if (
+        !window.paypal ||
+        typeof window.paypal.Buttons !== "function"
+    ) {
+        throw new Error("PayPal SDK did not initialize correctly.");
+    }
 
-                }
+    console.log("PayPal SDK loaded. Environment:", config.environment);
+}
 
-            ],
+async function createPayPalOrder() {
+    if (!CURRENT_CHECKOUT_PRODUCT) {
+        throw new Error("Product information is unavailable.");
+    }
 
-
-            // =============================================
-            // CUSTOMER
-            // =============================================
-
-            customer: {
-
-                email:
-                    CHECKOUT_CUSTOMER.email
-
+    const response = await fetch(
+        "/.netlify/functions/paypal-create-order",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
             },
-
-
-            // =============================================
-            // CUSTOM DATA
-            // =============================================
-
-            customData: {
-
-                customer_email:
-                    CHECKOUT_CUSTOMER.email,
-
-                product_id:
-                    CURRENT_CHECKOUT_PRODUCT.id
-
-            }
-
-        });
-
-    } catch (error) {
-
-        console.error(
-            "❌ Paddle Checkout error:",
-            error
-        );
-
-
-        alert(
-            "Unable to open secure payment checkout. Please try again."
-        );
-
-    }
-
-}
-
-
-// =========================================================
-// INITIALIZE CHECKOUT BUTTON
-// =========================================================
-
-function initCheckoutButton() {
-
-    const button =
-        document.querySelector(
-            ".checkout-button"
-        );
-
-
-    if (!button) {
-
-        console.warn(
-            "⚠️ Checkout button not found."
-        );
-
-        return;
-
-    }
-
-
-    button.addEventListener(
-        "click",
-        function () {
-
-            openPaddleCheckout();
-
+            body: JSON.stringify({
+                productId: CURRENT_CHECKOUT_PRODUCT.id,
+                deliveryEmail: CHECKOUT_CUSTOMER.email.trim().toLowerCase()
+            })
         }
     );
 
-
-    console.log(
-        "✅ Checkout button initialized."
-    );
-
-}
-
-
-// =========================================================
-// UPDATE PAYMENT TEXT
-// =========================================================
-
-function updatePaymentText() {
-
-    const paymentText =
-        document.querySelector(
-            ".payment-box p"
-        );
-
+    const data = await response.json().catch(() => ({}));
 
     if (
-        paymentText
+        !response.ok ||
+        typeof data.id !== "string" ||
+        data.productId !== CURRENT_CHECKOUT_PRODUCT.id ||
+        data.currency !== "USD"
     ) {
-
-        paymentText.textContent =
-            "Secure payment processing powered by Paddle.";
-
+        throw new Error(
+            data.error || "Unable to create the PayPal order."
+        );
     }
 
+    return data.id;
 }
 
+async function capturePayPalOrder(orderId) {
+    const response = await fetch(
+        "/.netlify/functions/paypal-capture-order",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ orderId })
+        }
+    );
 
-// =========================================================
-// START CHECKOUT
-// =========================================================
+    const data = await response.json().catch(() => ({}));
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async function () {
-
-        console.log(
-            "🚀 Starting TSEC Checkout..."
+    if (
+        (!response.ok && response.status !== 202) ||
+        typeof data.transactionId !== "string" ||
+        typeof data.downloadAuthorization !== "string"
+    ) {
+        throw new Error(
+            data.error || "Payment capture could not be verified."
         );
-
-
-        // ================================================
-        // LOAD CUSTOMER
-        // ================================================
-
-        loadCheckoutCustomer();
-
-
-        // ================================================
-        // LOAD PRODUCT
-        // ================================================
-
-        await loadCheckoutProduct();
-
-
-        // ================================================
-        // UPDATE PAYMENT TEXT
-        // ================================================
-
-        updatePaymentText();
-
-
-        // ================================================
-        // INITIALIZE PADDLE
-        // ================================================
-
-        initPaddle();
-
-
-        // ================================================
-        // INITIALIZE BUTTON
-        // ================================================
-
-        initCheckoutButton();
-
-
-        console.log(
-            "✅ TSEC Checkout initialization complete."
-        );
-
     }
-);
+
+    if (
+        !/^[a-z0-9]{10,64}$/i.test(data.transactionId)
+    ) {
+        throw new Error("Invalid payment transaction reference.");
+    }
+
+    const storageKey = PAYPAL_AUTH_PREFIX + data.transactionId;
+
+    sessionStorage.setItem(
+        storageKey,
+        data.downloadAuthorization
+    );
+
+    const successUrl = new URL("success.html", window.location.href);
+
+    successUrl.searchParams.set("provider", "paypal");
+    successUrl.searchParams.set("transaction_id", data.transactionId);
+
+    window.location.assign(successUrl.toString());
+}
+
+function getPayPalButtonCallbacks() {
+    return {
+        createOrder: async function () {
+            setPaymentStatus("Preparing your secure payment...");
+
+            try {
+                return await createPayPalOrder();
+            } catch (error) {
+                console.error("PayPal order creation failed:", error);
+                setPaymentStatus(error.message, true);
+                throw error;
+            }
+        },
+
+        onApprove: async function (data) {
+            setPaymentStatus("Payment approved. Verifying your transaction...");
+
+            try {
+                if (!data || !data.orderID) {
+                    throw new Error("PayPal did not return an order reference.");
+                }
+
+                await capturePayPalOrder(data.orderID);
+            } catch (error) {
+                console.error("PayPal capture failed:", error);
+                setPaymentStatus(
+                    error.message + " If you were charged, contact TSEC support before attempting another payment.",
+                    true
+                );
+            }
+        },
+
+        onCancel: function () {
+            setPaymentStatus(
+                "Payment was cancelled. You have not completed this checkout."
+            );
+        },
+
+        onError: function (error) {
+            console.error("PayPal checkout error:", error);
+
+            setPaymentStatus(
+                "PayPal could not complete the checkout. Please try again or contact TSEC support.",
+                true
+            );
+        }
+    };
+}
+
+async function renderPayPalButtons() {
+    const paypalContainer = document.getElementById("paypal-button-container");
+    const venmoContainer = document.getElementById("venmo-button-container");
+
+    if (!paypalContainer || !venmoContainer) {
+        throw new Error("Payment button containers are missing.");
+    }
+
+    const callbacks = getPayPalButtonCallbacks();
+
+    const paypalButtons = window.paypal.Buttons({
+        ...callbacks,
+        fundingSource: window.paypal.FUNDING.PAYPAL,
+        style: {
+            layout: "vertical",
+            shape: "rect",
+            label: "paypal",
+            height: 48
+        }
+    });
+
+    if (paypalButtons.isEligible()) {
+        await paypalButtons.render("#paypal-button-container");
+    } else {
+        throw new Error("PayPal checkout is not available for this session.");
+    }
+
+    const venmoButtons = window.paypal.Buttons({
+        ...callbacks,
+        fundingSource: window.paypal.FUNDING.VENMO,
+        style: {
+            layout: "vertical",
+            shape: "rect",
+            label: "pay",
+            height: 48
+        }
+    });
+
+    if (venmoButtons.isEligible()) {
+        await venmoButtons.render("#venmo-button-container");
+        venmoContainer.style.display = "block";
+    } else {
+        venmoContainer.style.display = "none";
+    }
+
+    setPaymentStatus(
+        "Secure one-time payment. Venmo appears when supported by PayPal for your device and account."
+    );
+}
+
+document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        const customerReady = loadCheckoutCustomer();
+        const productReady = await loadCheckoutProduct();
+
+        if (!customerReady || !productReady) return;
+
+        setPaymentStatus("Loading secure payment options...");
+
+        await loadPayPalSdk();
+        await renderPayPalButtons();
+
+        console.log("TSEC PayPal checkout initialized.");
+    } catch (error) {
+        console.error("PayPal checkout initialization failed:", error);
+        setPaymentStatus(
+            error.message || "Secure payment service is unavailable.",
+            true
+        );
+    }
+});

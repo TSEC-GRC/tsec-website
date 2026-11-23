@@ -1,12 +1,12 @@
-﻿// ============================================================
-// TSEC â€” Paddle Webhook
+// ============================================================
+// TSEC — Paddle Webhook
 // Production-Ready Live Version
-// P1.9 â€” Signature Verification + Transaction Validation
+// P1.9 — Signature Verification + Transaction Validation
 // ============================================================
 
 import crypto from "crypto";
 import { getDatabase } from "@netlify/database";
-import { getProductByPriceId } from "./tsec-products.js";
+import { getProductByPriceId } from "../lib/tsec-products.js";
 
 const db = getDatabase();
 
@@ -69,7 +69,7 @@ export default async function handler(request) {
     if (!paddleSignature) {
 
         console.error(
-            "âŒ Missing Paddle-Signature header"
+            "❌ Missing Paddle-Signature header"
         );
 
         return jsonResponse(
@@ -85,7 +85,7 @@ export default async function handler(request) {
     if (!secretKey) {
 
         console.error(
-            "âŒ PADDLE_WEBHOOK_SECRET is not configured"
+            "❌ PADDLE_WEBHOOK_SECRET is not configured"
         );
 
         return jsonResponse(
@@ -164,7 +164,7 @@ export default async function handler(request) {
     if (!timestamp) {
 
         console.error(
-            "âŒ Paddle signature timestamp missing"
+            "❌ Paddle signature timestamp missing"
         );
 
         return jsonResponse(
@@ -182,7 +182,7 @@ export default async function handler(request) {
     ) {
 
         console.error(
-            "âŒ Paddle h1 signature missing"
+            "❌ Paddle h1 signature missing"
         );
 
         return jsonResponse(
@@ -214,7 +214,7 @@ export default async function handler(request) {
     ) {
 
         console.error(
-            "âŒ Invalid Paddle timestamp"
+            "❌ Invalid Paddle timestamp"
         );
 
         return jsonResponse(
@@ -250,7 +250,7 @@ export default async function handler(request) {
     ) {
 
         console.error(
-            "âŒ Paddle webhook timestamp outside allowed window",
+            "❌ Paddle webhook timestamp outside allowed window",
             {
                 timestampAge
             }
@@ -352,7 +352,7 @@ export default async function handler(request) {
     if (!signatureVerified) {
 
         console.error(
-            "âŒ Paddle webhook signature verification failed"
+            "❌ Paddle webhook signature verification failed"
         );
 
         return jsonResponse(
@@ -366,7 +366,7 @@ export default async function handler(request) {
 
 
     console.log(
-        "âœ… Paddle webhook signature verified"
+        "✅ Paddle webhook signature verified"
     );
 
 
@@ -387,7 +387,7 @@ export default async function handler(request) {
     } catch (error) {
 
         console.error(
-            "âŒ Invalid JSON payload"
+            "❌ Invalid JSON payload"
         );
 
         return jsonResponse(
@@ -426,7 +426,7 @@ export default async function handler(request) {
     ) {
 
         console.log(
-            "â„¹ï¸ Ignoring unsupported event type:",
+            "ℹ️ Ignoring unsupported event type:",
             eventType
         );
 
@@ -445,7 +445,7 @@ export default async function handler(request) {
     if (!eventId) {
 
         console.error(
-            "âŒ Missing Paddle event_id"
+            "❌ Missing Paddle event_id"
         );
 
         return jsonResponse(
@@ -461,7 +461,7 @@ export default async function handler(request) {
     if (!transactionId) {
 
         console.error(
-            "âŒ Missing transaction ID"
+            "❌ Missing transaction ID"
         );
 
         return jsonResponse(
@@ -489,7 +489,7 @@ export default async function handler(request) {
     ) {
 
         console.error(
-            "âŒ Transaction status is not completed:",
+            "❌ Transaction status is not completed:",
             transactionStatus
         );
 
@@ -530,7 +530,7 @@ const matchingItem =
 if (!matchingItem) {
 
     console.error(
-        "âŒ Transaction does not contain a recognized TSEC Price ID",
+        "❌ Transaction does not contain a recognized TSEC Price ID",
         {
             transactionId
         }
@@ -555,7 +555,7 @@ const tsecProduct =
 if (!tsecProduct) {
 
     console.error(
-        "âŒ TSEC product catalog lookup failed",
+        "❌ TSEC product catalog lookup failed",
         {
             transactionId,
             priceId:
@@ -616,7 +616,7 @@ const customerId =
     transaction?.customer_id ||
     null;
 console.log(
-    "ðŸ”Ž Paddle customer email diagnostic",
+    "🔎 Paddle customer email diagnostic",
     {
         transactionId,
         customerId,
@@ -637,7 +637,7 @@ console.log(
 if (!customerId) {
 
     console.error(
-        "âŒ Missing Paddle customer_id",
+        "❌ Missing Paddle customer_id",
         {
             transactionId
         }
@@ -663,7 +663,7 @@ const paddleApiKey =
 if (!paddleApiKey) {
 
     console.error(
-        "âŒ PADDLE_API_KEY is not configured"
+        "❌ PADDLE_API_KEY is not configured"
     );
 
     return jsonResponse(
@@ -702,7 +702,7 @@ try {
 
 
         console.error(
-            "âŒ Paddle transaction lookup failed",
+            "❌ Paddle transaction lookup failed",
             {
                 transactionId,
                 customerId,
@@ -738,7 +738,7 @@ try {
 } catch (error) {
 
     console.error(
-        "âŒ Paddle API request failed",
+        "❌ Paddle API request failed",
         {
             transactionId,
             customerId,
@@ -761,7 +761,7 @@ try {
 if (!customerEmail) {
 
     console.error(
-        "âŒ Paddle customer email not found",
+        "❌ Paddle customer email not found",
         {
             transactionId,
             customerId
@@ -779,7 +779,7 @@ if (!customerEmail) {
 
 
 console.log(
-    "âœ… Paddle customer information retrieved",
+    "✅ Paddle customer information retrieved",
     {
         transactionId,
         customerId,
@@ -835,7 +835,7 @@ const totalAmount =
     );
 
     console.log(
-        "TSEC PADDLE WEBHOOK â€” VERIFIED"
+        "TSEC PADDLE WEBHOOK — VERIFIED"
     );
 
     console.log(
@@ -900,7 +900,7 @@ const totalAmount =
 
 
 // --------------------------------------------------------
-// 18. SAVE PURCHASE â€” IDEMPOTENT
+// 18. SAVE PURCHASE — IDEMPOTENT
 //
 // Paddle can deliver the same event more than once.
 // event_id is UNIQUE in the database.
@@ -958,7 +958,7 @@ if (insertedPurchase.length > 0) {
         insertedPurchase[0].id;
 
     console.log(
-        "âœ… Purchase recorded in Netlify Database",
+        "✅ Purchase recorded in Netlify Database",
         {
             purchaseId,
             eventId,
@@ -988,7 +988,7 @@ if (insertedPurchase.length > 0) {
         existingPurchase[0].id;
 
     console.log(
-        "â„¹ï¸ Duplicate Paddle event detected",
+        "ℹ️ Duplicate Paddle event detected",
         {
             purchaseId,
             eventId,
@@ -999,7 +999,7 @@ if (insertedPurchase.length > 0) {
 
 
 // --------------------------------------------------------
-// 20. CREATE DOWNLOAD ENTITLEMENT â€” IDEMPOTENT
+// 20. CREATE DOWNLOAD ENTITLEMENT — IDEMPOTENT
 //
 // Each purchase may have only one entitlement.
 // purchase_id is UNIQUE in download_entitlements.
@@ -1025,7 +1025,7 @@ if (existingEntitlement.length > 0) {
         existingEntitlement[0].id;
 
     console.log(
-        "â„¹ï¸ Download entitlement already exists",
+        "ℹ️ Download entitlement already exists",
         {
             entitlementId,
             purchaseId,
@@ -1096,7 +1096,7 @@ if (existingEntitlement.length > 0) {
     }
 
     console.log(
-        "âœ… Download entitlement ready",
+        "✅ Download entitlement ready",
         {
             entitlementId,
             purchaseId,
@@ -1125,7 +1125,7 @@ await db.sql`
 `;
 
 console.log(
-    "âœ… Purchase fulfillment status updated",
+    "✅ Purchase fulfillment status updated",
     {
         purchaseId,
         fulfillmentStatus: "ready"

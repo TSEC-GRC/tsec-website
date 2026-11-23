@@ -1422,7 +1422,7 @@ footer{
 
 .order-summary::after {
 
-    content: "Digital delivery • One-Time Purchase";
+    content: "Digital delivery â€¢ One-Time Purchase";
 
     display: block;
 
@@ -1477,7 +1477,7 @@ footer{
 
 .payment-box::before {
 
-    content: "🔒  Secure Stripe Checkout";
+    content: "Secure PayPal Checkout";
 
     display: block;
 
@@ -1590,7 +1590,7 @@ footer{
 
 .payment-box .checkout-button::after {
 
-    content: "Secure payment • Instant digital delivery";
+    content: "Secure payment â€¢ Instant digital delivery";
 
     display: block;
 
@@ -2408,4 +2408,25 @@ footer{
 
 }
   
+}
+
+/* =========================================
+   PAYPAL + VENMO BUTTONS
+   ========================================= */
+
+.payment-box .paypal-button-container,
+.payment-box .venmo-button-container {
+    width: 100%;
+    margin-bottom: 12px;
+    order: 2;
+}
+
+.payment-box .payment-status {
+    order: 3;
+    display: none;
+    max-width: 560px;
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
 }

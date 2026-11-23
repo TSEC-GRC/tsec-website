@@ -1475,30 +1475,27 @@ function initLeadModal() {
 
 
                 // --------------------------------------------
-                // CORPORATE EMAIL VALIDATION
+                // EMAIL VALIDATION BY PRODUCT TIER
                 // --------------------------------------------
 
                 if (
-                    !isCorporateEmail(
-                        email
-                    )
+                    CURRENT_PRODUCT.tier !== "pro"
+                    &&
+                    !isCorporateEmail(email)
                 ) {
 
                     alert(
                         "Please use your corporate email address. Personal email providers are not accepted."
                     );
 
-
                     return;
 
                 }
 
-
                 console.log(
-                    "✅ Corporate email accepted:",
+                    "Email accepted:",
                     email
                 );
-
 
                 // --------------------------------------------
                 // BUILD LEAD DATA
